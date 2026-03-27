@@ -1,36 +1,58 @@
-import type { Metadata } from "next";
-import { Outfit, Geist } from "next/font/google";
-import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import fonts from "@/config/fonts.config";
+import ThemeProvider from "@/providers/ThemeProvider";
+import generateMetaTags from "@/Seo/generateMetaTags";
+import generateViewport from "@/Seo/generateViewport";
+import "@/styles/globals.css";
 import { cn } from "@/lib/utils";
+import { Metadata, Viewport } from "next";
+import { Toaster } from "sonner";
+import TopLoadingBar from "@/components/common/loader/TopLoadingBar";
+import { AuthProvider } from "@/providers/AuthProvider";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { getMe } from "@/services/User/getMe";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import envVars from "@/config/env.config";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const MainLayout = async ({ children }: { children: React.ReactNode }) => {
+  const user = await getMe();
 
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit",
-});
-
-export const metadata: Metadata = {
-  title: "Rangdhanu IT | Leading IT Solutions Provider",
-  description: "Rangdhanu IT specializes in web development, app development, digital marketing, graphics design, and SEO services.",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
   return (
-    <html lang="en" className={cn("dark", outfit.variable, "font-sans", geist.variable)}>
-      <body className="font-sans bg-background text-foreground selection:bg-primary/30 min-h-screen flex flex-col">
-        <Navbar />
-        <main className="grow pt-20">
-          {children}
-        </main>
-        <Footer />
+    <html lang="en" suppressHydrationWarning>
+      <GoogleAnalytics gaId={envVars.analytics.googleAnalytics} />
+      <body
+        className={cn(
+          fonts.outfit.variable,
+          fonts.geist.variable,
+          "antialiased font-sans",
+        )}
+      >
+        <TopLoadingBar />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AuthProvider initialUser={user}>
+            <TooltipProvider>{children}</TooltipProvider>
+            <Toaster position="top-right" richColors theme="dark" />
+          </AuthProvider>
+        </ThemeProvider>
       </body>
+      <GoogleTagManager gtmId={envVars.analytics.googleTagManagerId} />
     </html>
   );
-}
+};
+
+export default MainLayout;
+
+// SEO Metatags
+export const metadata: Metadata = generateMetaTags({
+  title: "Rangdhanu IT | Leading IT Solutions Provider",
+  description:
+    "Rangdhanu IT specializes in web development, app development, digital marketing, graphics design, and SEO services.",
+  keywords:
+    "IT solutions, web development, app development, digital marketing, graphics design, SEO services",
+});
+
+export const viewport: Viewport = generateViewport();
