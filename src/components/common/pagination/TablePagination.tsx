@@ -1,0 +1,125 @@
+'use client';
+
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { cn } from "@/lib/utils";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+
+export interface IMeta {
+  page: number;
+  limit: number;
+  total: number;
+  totalPage: number;
+}
+
+interface TablePaginationProps {
+  meta: IMeta;
+  className?: string;
+}
+
+const TablePagination = ({ meta, className }: TablePaginationProps) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const { page, totalPage } = meta;
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage < 1 || newPage > totalPage || newPage === page) return;
+
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", newPage.toString());
+    router.push(`${pathname}?${params.toString()}`);
+  };
+
+  if (totalPage <= 1) return null;
+
+  // Logic to generate page numbers
+  const getPageNumbers = () => {
+    const pages = [];
+    const showMax = 5;
+    
+    if (totalPage <= showMax) {
+      for (let i = 1; i <= totalPage; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      if (page > 3) pages.push('ellipsis');
+      
+      const start = Math.max(2, page - 1);
+      const end = Math.min(totalPage - 1, page + 1);
+      
+      for (let i = start; i <= end; i++) {
+        if (!pages.includes(i)) pages.push(i);
+      }
+      
+      if (page < totalPage - 2) pages.push('ellipsis');
+      if (!pages.includes(totalPage)) pages.push(totalPage);
+    }
+    return pages;
+  };
+
+  return (
+    <div className={cn("flex items-center justify-between py-6 px-2", className)}>
+      <div className="text-sm text-muted-foreground font-medium">
+        Showing page <span className="text-foreground">{page}</span> of{" "}
+        <span className="text-foreground">{totalPage}</span>
+      </div>
+
+      <Pagination className="justify-end w-auto mx-0">
+        <PaginationContent className="gap-2">
+          <PaginationItem>
+            <button
+              onClick={() => handlePageChange(page - 1)}
+              disabled={page === 1}
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-background/50 backdrop-blur-sm transition-all hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <ChevronLeft size={18} />
+            </button>
+          </PaginationItem>
+
+          {getPageNumbers().map((p, idx) => (
+            <PaginationItem key={idx}>
+              {p === 'ellipsis' ? (
+                <div className="flex h-10 w-10 items-center justify-center text-muted-foreground">
+                  <MoreHorizontal size={18} />
+                </div>
+              ) : (
+                <button
+                  onClick={() => handlePageChange(p as number)}
+                  className={cn(
+                    "flex h-10 w-10 items-center justify-center rounded-xl border transition-all text-sm font-bold",
+                    page === p
+                      ? "bg-primary text-primary-foreground border-primary shadow-[0_0_15px_-3px_rgba(var(--primary),0.4)]"
+                      : "bg-background/50 backdrop-blur-sm border-white/10 hover:bg-white/5"
+                  )}
+                >
+                  {p}
+                </button>
+              )}
+            </PaginationItem>
+          ))}
+
+          <PaginationItem>
+            <button
+              onClick={() => handlePageChange(page + 1)}
+              disabled={page === totalPage}
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-background/50 backdrop-blur-sm transition-all hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+    </div>
+  );
+};
+
+export default TablePagination;

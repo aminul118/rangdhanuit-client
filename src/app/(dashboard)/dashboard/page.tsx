@@ -1,21 +1,38 @@
+import dynamic from "next/dynamic";
+import getVerifiedUser from "@/services/User/verified-user";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: 'User Dashboard | Rangdhanu IT',
+  title: "User Dashboard | Rangdhanu IT",
 };
 
-const UserDashboardPage = () => {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-6">
-      <div className="bg-card p-12 rounded-3xl border-2 border-dashed shadow-sm max-w-md w-full">
-        <h1 className="text-4xl font-bold mb-4 text-foreground">User Dashboard</h1>
-        <p className="text-xl text-muted-foreground">Coming Soon</p>
-        <div className="mt-8 h-2 w-full bg-muted rounded-full overflow-hidden">
-          <div className="h-full bg-linear-to-r from-primary to-violet-600 w-1/3 animate-pulse" />
-        </div>
-      </div>
-    </div>
-  );
+// Loading component
+const DashboardLoading = () => (
+  <div className="flex items-center justify-center min-h-[400px]">
+    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+  </div>
+);
+
+// Dynamic import for user dashboard
+const UserDashboard = dynamic(
+  () => import("@/components/modules/dashboard/UserDashboardWrapper"),
+  {
+    loading: DashboardLoading,
+    ssr: true,
+  },
+);
+
+const DashboardPage = async () => {
+  const user = await getVerifiedUser();
+  const role = user?.role?.toUpperCase();
+
+  // Strict check: Admins should go to /admin
+  if (role === "ADMIN" || role === "SUPER_ADMIN") {
+    redirect("/admin");
+  }
+
+  return <UserDashboard />;
 };
 
-export default UserDashboardPage;
+export default DashboardPage;

@@ -59,7 +59,8 @@ const getVerifiedUser = async (
     const { userId, email, role, iat, exp } = payload;
     if (!userId || !email) return null;
 
-    return { userId, email, role, iat, exp } as DecodedToken;
+    const user = { userId, email, role, iat, exp } as DecodedToken;
+    return user;
   } catch (err) {
     console.error("getVerifiedUser error:", (err as Error).message ?? err);
     return null;

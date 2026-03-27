@@ -15,9 +15,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Edit, Eye, Loader2, MoreHorizontal, Trash, ChevronUp, ChevronDown, ChevronsUpDown } from "lucide-react";
+import {
+  Edit,
+  Eye,
+  MoreHorizontal,
+  Trash,
+  ChevronUp,
+  ChevronDown,
+  ChevronsUpDown,
+} from "lucide-react";
 import { ReactNode } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useTableTransition } from "@/context/TableTransitionContext";
 import { cn } from "@/lib/utils";
 
 /* =======================
@@ -55,11 +64,13 @@ function TableManageMent<T>({
   onEdit,
   onDelete,
   emptyMessage = "No records found.",
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isRefreshing = false,
 }: TableManageMentProps<T>) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { startTransitionWithText } = useTableTransition();
 
   const currentSort = searchParams.get("sort") || "";
   const isAsc = !currentSort.startsWith("-");
@@ -67,7 +78,7 @@ function TableManageMent<T>({
 
   const handleSort = (sortKey: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    
+
     if (activeSortKey === sortKey) {
       if (isAsc) {
         params.set("sort", `-${sortKey}`);
@@ -77,8 +88,10 @@ function TableManageMent<T>({
     } else {
       params.set("sort", sortKey);
     }
-    
-    router.push(`${pathname}?${params.toString()}`);
+
+    startTransitionWithText("Sorting...", () => {
+      router.push(`${pathname}?${params.toString()}`);
+    });
   };
 
   const hasActions = Boolean(onView || onEdit || onDelete);
@@ -87,38 +100,34 @@ function TableManageMent<T>({
 
   return (
     <section>
-      <div className="relative rounded-lg border">
-        {/* ===== Refresh Overlay ===== */}
-        {isRefreshing && (
-          <div className="bg-background/50 absolute inset-0 z-10 flex items-center justify-center backdrop-blur-sm">
-            <div className="flex flex-col items-center gap-2">
-              <Loader2 className="text-primary h-6 w-6 animate-spin" />
-              <p className="text-muted-foreground text-sm">Refreshing...</p>
-            </div>
-          </div>
-        )}
-
+      <div className="relative rounded-sm border">
         <Table>
           {/* ===== Header ===== */}
           <TableHeader>
-            <TableRow className="bg-muted/50">
+            <TableRow className="bg-muted/30 hover:bg-muted/30 border-b">
               {columns.map((column, index) => (
-                <TableHead 
-                  key={index} 
+                <TableHead
+                  key={index}
                   className={cn(
+                    "h-9 px-4 py-2 text-[11px] uppercase tracking-wider font-semibold text-muted-foreground/80 whitespace-nowrap",
                     column.className,
-                    column.sortKey && "cursor-pointer hover:bg-muted/80 transition-colors select-none group"
+                    column.sortKey &&
+                      "cursor-pointer hover:bg-muted/50 transition-colors select-none group",
                   )}
                   onClick={() => column.sortKey && handleSort(column.sortKey)}
                 >
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-2">
                     {column.header}
                     {column.sortKey && (
-                      <span className="text-muted-foreground/50 group-hover:text-muted-foreground transition-colors">
+                      <span className="text-muted-foreground/30 group-hover:text-muted-foreground/60 transition-colors">
                         {activeSortKey === column.sortKey ? (
-                          isAsc ? <ChevronUp size={14} className="text-primary" /> : <ChevronDown size={14} className="text-primary" />
+                          isAsc ? (
+                            <ChevronUp size={12} className="text-primary" />
+                          ) : (
+                            <ChevronDown size={12} className="text-primary" />
+                          )
                         ) : (
-                          <ChevronsUpDown size={14} />
+                          <ChevronsUpDown size={12} />
                         )}
                       </span>
                     )}
@@ -127,7 +136,9 @@ function TableManageMent<T>({
               ))}
 
               {hasActions && (
-                <TableHead className="w-[70px] text-center">Actions</TableHead>
+                <TableHead className="w-[70px] h-9 px-4 py-2 text-[11px] uppercase tracking-wider font-semibold text-center">
+                  Actions
+                </TableHead>
               )}
             </TableRow>
           </TableHeader>
@@ -147,19 +158,28 @@ function TableManageMent<T>({
               safeData.map((item, rowIndex) => (
                 <TableRow key={getRowKey(item)}>
                   {columns.map((col, colIndex) => (
-                    <TableCell key={colIndex} className={col.className}>
+                    <TableCell
+                      key={colIndex}
+                      className={cn("px-4 py-2.5 text-sm", col.className)}
+                    >
                       {typeof col.accessor === "function"
                         ? col.accessor(item, rowIndex)
-                        : ((item as any)[col.accessor as string] ?? "")}
+                        : (((item as Record<string, unknown>)[
+                            col.accessor as string
+                          ] as ReactNode) ?? "")}
                     </TableCell>
                   ))}
 
                   {hasActions && (
-                    <TableCell className="text-center">
+                    <TableCell className="text-center px-4 py-2.5">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon">
-                            <MoreHorizontal className="h-4 w-4" />
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-7 w-7"
+                          >
+                            <MoreHorizontal className="h-3.5 w-3.5" />
                           </Button>
                         </DropdownMenuTrigger>
 

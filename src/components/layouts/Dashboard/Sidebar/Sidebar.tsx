@@ -7,11 +7,16 @@ import { ChevronLeft, ChevronRight, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import sidebarMenus from "./SidebarMenus";
+import { getSidebarMenus } from "./SidebarMenus";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const { user } = useAuth();
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const role = user?.role || "USER";
+  const menus = getSidebarMenus(role);
 
   return (
     <motion.div
@@ -38,7 +43,9 @@ export default function Sidebar() {
             >
               Rangdhanu{" "}
               <span className="text-foreground/80 font-medium text-sm block -mt-1 uppercase tracking-widest">
-                Admin
+                {role === "ADMIN" || role === "SUPER_ADMIN"
+                  ? "Admin"
+                  : "Dashboard"}
               </span>
             </Link>
           </motion.div>
@@ -61,7 +68,7 @@ export default function Sidebar() {
       </div>
 
       <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-2 custom-scrollbar min-h-0">
-        {sidebarMenus.map((item) => {
+        {menus.map((item) => {
           const isActive = pathname === item.href;
           return (
             <Link key={item.href} href={item.href}>

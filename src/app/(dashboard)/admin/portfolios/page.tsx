@@ -1,32 +1,42 @@
-import { Button } from "@/components/ui/button";
 import { getPortfolios } from "@/services/Portfolio/portfolios";
-import { Plus } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 import ProjectTable from "@/components/modules/dashboard/admin/PortfolioAdmin/ProjectTable";
+import TableWrapper from "@/components/common/wrapper/TableWrapper";
+import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title: "Manage Portfolios | Admin",
 };
 
-const PortfoliosAdminPage = async () => {
-  const res = await getPortfolios();
-  const portfolios = res?.data || [];
+const PortfoliosAdminPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string>>;
+}) => {
+  const params = await searchParams;
+  const res = await getPortfolios(params);
+  const portfolios = res?.data?.result || [];
+  const meta = res?.data?.meta;
 
   return (
-    <div className="container mx-auto py-12 px-6">
-      <div className="flex justify-between items-center mb-12">
-        <h1 className="text-4xl font-bold text-foreground">
-          Portfolio Projects
-        </h1>
-        <Button asChild className="bg-primary hover:bg-primary/90">
+    <div className="min-h-[calc(100vh-80px)] p-6">
+      <TableWrapper
+        title="Portfolios"
+        description="Showcase your best work. Manage projects, categories, and featured status."
+        meta={meta}
+        action={
           <Link href="/admin/portfolios/add">
-            <Plus className="mr-2" /> Add Project
+            <Button className="bg-primary hover:opacity-90 transition-all rounded-2xl h-11 px-6 font-bold shadow-[0_0_20px_-5px_rgba(var(--primary),0.5)]">
+              <Plus className="mr-2" size={20} />
+              New Project
+            </Button>
           </Link>
-        </Button>
-      </div>
-
-      <ProjectTable portfolios={portfolios} />
+        }
+      >
+        <ProjectTable portfolios={portfolios} />
+      </TableWrapper>
     </div>
   );
 };

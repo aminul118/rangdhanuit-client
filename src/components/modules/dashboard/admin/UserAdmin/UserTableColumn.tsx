@@ -1,9 +1,8 @@
-'use client';
+"use client";
 
 import { Column } from "@/components/common/table/TableManageMent";
 import { IUser } from "@/types";
 import UserActions from "./UserActions";
-import { UserPlus, Sparkles, Loader2, Shield } from "lucide-react";
 
 const UserTableColumn: Column<IUser>[] = [
   {
@@ -13,10 +12,12 @@ const UserTableColumn: Column<IUser>[] = [
   {
     header: "Name",
     accessor: (u) => u.name,
+    sortKey: "name",
   },
   {
     header: "Email",
     accessor: (u) => u.email,
+    sortKey: "email",
   },
   {
     header: "Role",
@@ -33,6 +34,7 @@ const UserTableColumn: Column<IUser>[] = [
         {u.role}
       </span>
     ),
+    sortKey: "role",
   },
   {
     header: "Status",
@@ -50,10 +52,12 @@ const UserTableColumn: Column<IUser>[] = [
         {u.status}
       </span>
     ),
+    sortKey: "status",
   },
   {
     header: "Verified",
     accessor: (u) => (u.isVerified ? "✅" : "❌"),
+    sortKey: "isVerified",
   },
   {
     header: "Actions",

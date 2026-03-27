@@ -49,17 +49,19 @@ const getRouteOwner = (
   return null;
 };
 
-const getDefaultDashboardRoute = (role: UserRole): string => {
-  if (role === 'ADMIN' || role === 'SUPER_ADMIN') return '/admin';
-  if (role === 'USER') return '/dashboard';
+const getDefaultDashboardRoute = (role: string): string => {
+  const upperRole = role.toUpperCase();
+  if (upperRole === 'ADMIN' || upperRole === 'SUPER_ADMIN') return '/admin';
+  if (upperRole === 'USER') return '/dashboard';
   return '/';
 };
 
-const isValidRedirectForRole = (path: string, role: UserRole): boolean => {
+const isValidRedirectForRole = (path: string, role: string): boolean => {
   const owner = getRouteOwner(path);
   if (owner === null || owner === 'COMMON') return true;
-  if (role === 'SUPER_ADMIN') return true;
-  return owner === role;
+  const upperRole = role.toUpperCase();
+  if (upperRole === 'SUPER_ADMIN') return true;
+  return owner === upperRole;
 };
 
 export {

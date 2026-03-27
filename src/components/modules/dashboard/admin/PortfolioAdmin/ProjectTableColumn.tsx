@@ -28,6 +28,7 @@ const ProjectTableColumn: Column<IPortfolio>[] = [
   {
     header: 'Title',
     accessor: (p) => p.title,
+    sortKey: 'title',
   },
   {
     header: 'Featured',

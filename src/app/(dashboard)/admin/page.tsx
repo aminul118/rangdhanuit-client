@@ -1,12 +1,35 @@
+import dynamic from "next/dynamic";
+import getVerifiedUser from "@/services/User/verified-user";
 import { getStatistics } from "@/services/User/allUsers";
-import AdminDashboardHome from "@/components/modules/dashboard/admin/AdminDashboard/AdminDashboardHome";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Admin Dashboard | Rangdhanu IT",
+  title: 'Admin Dashboard | Rangdhanu IT',
 };
 
+// Loading component
+const DashboardLoading = () => (
+  <div className="flex items-center justify-center min-h-[400px]">
+    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+  </div>
+);
+
+// Dynamic import for admin dashboard
+const AdminDashboard = dynamic(() => import("@/components/modules/dashboard/AdminDashboardWrapper"), {
+  loading: DashboardLoading,
+  ssr: true,
+});
+
 const AdminPage = async () => {
+  const user = await getVerifiedUser();
+  const role = user?.role?.toUpperCase();
+
+  // Strict check: Only Admins/Super Admins allowed
+  if (role !== 'ADMIN' && role !== 'SUPER_ADMIN') {
+    redirect('/dashboard');
+  }
+
   const res = await getStatistics();
   const stats = res?.data || {
     totalUsers: 0,
@@ -16,17 +39,7 @@ const AdminPage = async () => {
     adminUsers: 0,
   };
 
-  return (
-    <div className="relative min-h-[calc(100vh-80px)] overflow-hidden">
-      {/* Decorative Background Elements */}
-      <div className="absolute top-0 left-0 -ml-40 -mt-40 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[100px] -z-10 animate-pulse" />
-      <div className="absolute bottom-0 right-0 -mr-40 -mb-40 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[100px] -z-10 animate-pulse" />
-
-      <div className="container mx-auto py-12 px-8 relative">
-        <AdminDashboardHome stats={stats} />
-      </div>
-    </div>
-  );
+  return <AdminDashboard stats={stats} />;
 };
 
 export default AdminPage;
