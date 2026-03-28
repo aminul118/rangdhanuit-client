@@ -40,12 +40,14 @@ export function ForgotPasswordForm() {
         autoComplete="email"
         icon={<Mail className="h-4 w-4" />}
         error={form.formState.errors.email?.message}
+        size="xl"
         {...form.register("email")}
       />
 
       <SubmitButton
         label="Reset Secure Key"
         isLoading={isPending}
+        size="xl"
         iconRight={<ArrowRight className="h-5 w-5" />}
       />
     </form>

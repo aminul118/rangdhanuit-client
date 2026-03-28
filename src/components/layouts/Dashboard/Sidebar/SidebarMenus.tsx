@@ -1,27 +1,19 @@
-import {
-  LayoutDashboard,
-  Users,
-  Briefcase,
-  MessageSquare,
-  FileText,
-} from "lucide-react";
+import { LucideIcon } from "lucide-react";
+import { adminMenu } from "./adminMenu";
+import { userMenu } from "./userMenu";
 
-export const getSidebarMenus = (role: string) => {
+export interface SidebarItem {
+  href: string;
+  label: string;
+  icon: LucideIcon;
+  badgeKey?: string;
+}
+
+export const getSidebarMenus = (role: string): SidebarItem[] => {
   if (role === "ADMIN" || role === "SUPER_ADMIN") {
-    return [
-      { href: "/admin", label: "Overview", icon: LayoutDashboard },
-      { href: "/admin/users", label: "Manage Users", icon: Users },
-      { href: "/admin/portfolios", label: "Portfolios", icon: Briefcase },
-      { href: "/admin/messages", label: "Messages", icon: MessageSquare },
-      { href: "/admin/blog", label: "Blog", icon: FileText },
-    ];
+    return adminMenu;
   }
-
-  // Default User Menus
-  return [
-    { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
-    { href: "/my-profile", label: "My Profile", icon: Users },
-  ];
+  return userMenu;
 };
 
 export default getSidebarMenus;

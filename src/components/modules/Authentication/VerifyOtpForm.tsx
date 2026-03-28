@@ -120,6 +120,7 @@ export function VerifyOtpForm() {
         isLoading={isPending || isResending}
         onClick={handleVerify}
         disabled={otp.length !== 6}
+        size="xl"
         iconRight={<ArrowRight className="h-5 w-5" />}
       />
 

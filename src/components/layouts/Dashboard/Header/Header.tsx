@@ -2,7 +2,6 @@
 
 import { useAuth } from '@/providers/AuthProvider';
 import { 
-  Bell, 
   Search, 
   ChevronDown,
   Settings,
@@ -21,6 +20,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { NotificationDropdown } from './NotificationDropdown';
 
 export default function AdminHeader() {
   const { user, logout } = useAuth();
@@ -43,16 +43,7 @@ export default function AdminHeader() {
       </div>
 
       <div className="flex items-center gap-4">
-        <motion.div
-           initial={{ opacity: 0, scale: 0.9 }}
-           animate={{ opacity: 1, scale: 1 }}
-           transition={{ delay: 0.1 }}
-        >
-          <Button variant="ghost" size="icon" className="relative rounded-xl hover:bg-white/5 group">
-            <Bell size={20} className="text-muted-foreground group-hover:text-indigo-500 transition-colors" />
-            <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-indigo-500 rounded-full border-2 border-background animate-pulse" />
-          </Button>
-        </motion.div>
+        <NotificationDropdown />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

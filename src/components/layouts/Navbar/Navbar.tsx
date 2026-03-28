@@ -10,6 +10,7 @@ import { ModeToggle } from "../ModeToggle";
 import { useAuth } from "@/providers/AuthProvider";
 import NavUser from "./NavUser";
 import PortalButton from "./PortalButton";
+import { NotificationDropdown } from "../Dashboard/Header/NotificationDropdown";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -79,6 +80,7 @@ export default function Navbar() {
             );
           })}
           <div className="h-4 w-px bg-border/50 mx-2" />
+          {user && <NotificationDropdown />}
           <ModeToggle />
           {user ? (
             <NavUser
@@ -98,6 +100,7 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <div className="flex items-center gap-2 md:hidden">
+          {user && <NotificationDropdown />}
           <ModeToggle />
           {user && (
             <NavUser

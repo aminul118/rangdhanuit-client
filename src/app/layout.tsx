@@ -11,6 +11,7 @@ import { AuthProvider } from "@/providers/AuthProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { getMe } from "@/services/User/getMe";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import { SocketProvider } from "@/providers/SocketProvider";
 import envVars from "@/config/env.config";
 
 const MainLayout = async ({ children }: { children: React.ReactNode }) => {
@@ -34,8 +35,10 @@ const MainLayout = async ({ children }: { children: React.ReactNode }) => {
           disableTransitionOnChange
         >
           <AuthProvider initialUser={user}>
-            <TooltipProvider>{children}</TooltipProvider>
-            <Toaster position="top-right" richColors theme="dark" />
+            <SocketProvider>
+              <TooltipProvider>{children}</TooltipProvider>
+              <Toaster position="top-right" richColors theme="dark" />
+            </SocketProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>

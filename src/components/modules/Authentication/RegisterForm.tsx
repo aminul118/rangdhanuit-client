@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import {
-  Loader2,
   Mail,
   Lock,
   User as UserIcon,
@@ -53,13 +52,14 @@ export function RegisterForm() {
   };
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
       <FormField
         id="name"
         label="Full Name"
         placeholder="Aminul Islam"
         icon={<UserIcon className="h-4 w-4" />}
         error={form.formState.errors.name?.message}
+        size="xl"
         {...form.register("name")}
       />
 
@@ -69,6 +69,7 @@ export function RegisterForm() {
         placeholder="+88017..."
         icon={<Phone className="h-4 w-4" />}
         error={form.formState.errors.contactNo?.message}
+        size="xl"
         {...form.register("contactNo")}
       />
 
@@ -79,6 +80,7 @@ export function RegisterForm() {
         placeholder="aminul@rangdhanu.it"
         icon={<Mail className="h-4 w-4" />}
         error={form.formState.errors.email?.message}
+        size="xl"
         {...form.register("email")}
       />
 
@@ -102,6 +104,7 @@ export function RegisterForm() {
           </button>
         }
         error={form.formState.errors.password?.message}
+        size="xl"
         {...form.register("password")}
       />
 
@@ -125,12 +128,14 @@ export function RegisterForm() {
           </button>
         }
         error={form.formState.errors.confirmPassword?.message}
+        size="xl"
         {...form.register("confirmPassword")}
       />
 
       <SubmitButton
         label="Create Account"
         isLoading={isPending}
+        size="xl"
         iconRight={<ArrowRight className="h-5 w-5" />}
         className="mt-2"
       />

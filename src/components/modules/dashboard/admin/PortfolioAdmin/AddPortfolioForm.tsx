@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Input } from "@/components/ui/input";
-import { SubmitButton } from "@/components/common/form";
+import { FormField, SubmitButton } from "@/components/common/form";
 import { toast } from "sonner";
 import { createPortfolio } from "@/services/Portfolio/portfolios";
 import PlateRichEditor from "@/components/rich-text/core/rich-editor";
@@ -30,7 +29,6 @@ const AddPortfolioForm = () => {
     if (imageFile) {
       formData.append("image", imageFile);
     }
-    // technologies are already in the form as an input named 'technologies'
     
     try {
       const res = await createPortfolio(formData);
@@ -57,20 +55,17 @@ const AddPortfolioForm = () => {
         {/* Main Content Column */}
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-card/50 backdrop-blur-xl border border-white/10 p-8 rounded-[2.5rem] shadow-2xl space-y-6">
-            <div className="space-y-2">
-              <label className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-400/80 ml-1">
-                Project Title
-              </label>
-              <Input
-                name="title"
-                placeholder="E-commerce Website"
-                required
-                className="h-14 text-xl rounded-2xl bg-white/5 border-white/10 focus:border-indigo-500/50 focus:ring-indigo-500/20 transition-all font-medium"
-              />
-            </div>
+            <FormField
+              id="title"
+              name="title"
+              label="Project Title"
+              placeholder="E-commerce Website"
+              required
+              size="xl"
+            />
 
-            <div className="space-y-2">
-              <label className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-400/80 ml-1">
+            <div className="space-y-2.5">
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500/80 ml-1.5">
                 Description
               </label>
               <div className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden focus-within:border-indigo-500/50 transition-all">
@@ -88,41 +83,37 @@ const AddPortfolioForm = () => {
         <div className="space-y-6">
           <div className="bg-card/50 backdrop-blur-xl border border-white/10 p-8 rounded-[2.5rem] shadow-2xl space-y-6">
             <div className="space-y-4">
-              <label className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-400/80 ml-1">
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500/80 ml-1.5">
                 Thumbnail Image
               </label>
               <SingleImageUploader onChange={(file) => setImageFile(file)} />
             </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-400/80 ml-1">
-                Live Project Link
-              </label>
-              <Input
-                name="link"
-                placeholder="https://github.com/..."
-                className="rounded-xl bg-white/5 border-white/10 focus:border-indigo-500/50 transition-all"
-              />
-            </div>
+            <FormField
+              id="link"
+              name="link"
+              label="Live Project Link"
+              placeholder="https://github.com/..."
+              size="xl"
+            />
 
             <div className="space-y-2">
-              <label className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-400/80 ml-1">
-                Technologies
-              </label>
-              <Input
+              <FormField
+                id="technologies"
                 name="technologies"
+                label="Technologies"
                 placeholder="Next.js, Tailwind, MongoDB"
                 required
-                className="rounded-xl bg-white/5 border-white/10 focus:border-indigo-500/50 transition-all"
+                size="xl"
               />
-              <p className="text-[10px] text-muted-foreground ml-1 uppercase tracking-wider opacity-60">Separate with commas</p>
+              <p className="text-[10px] text-muted-foreground ml-2.5 uppercase tracking-wider opacity-60">Separate with commas</p>
             </div>
 
             <div className="pt-4 border-t border-white/5">
               <div className="flex items-center justify-between bg-white/5 border border-white/10 p-4 rounded-xl">
                 <Label
                   htmlFor="isFeatured"
-                  className="text-sm font-bold uppercase tracking-wider cursor-pointer text-foreground/80"
+                  className="text-xs font-bold uppercase tracking-wider cursor-pointer text-foreground/80"
                 >
                   Featured Project
                 </Label>
@@ -139,7 +130,8 @@ const AddPortfolioForm = () => {
               label="Publish Project"
               loadingLabel="Publishing..."
               isLoading={loading}
-              className="w-full h-14 text-lg font-bold rounded-2xl bg-indigo-600 hover:bg-indigo-500 shadow-[0_0_30px_-5px_rgba(79,70,229,0.5)] transition-all mt-4"
+              size="xl"
+              className="mt-4"
             />
           </div>
 

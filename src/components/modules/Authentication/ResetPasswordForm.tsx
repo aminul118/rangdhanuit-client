@@ -44,7 +44,7 @@ export function ResetPasswordForm() {
   };
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
       <FormField
         id="newPassword"
         label="New Password"
@@ -65,6 +65,7 @@ export function ResetPasswordForm() {
           </button>
         }
         error={form.formState.errors.newPassword?.message}
+        size="xl"
         {...form.register("newPassword")}
       />
 
@@ -88,12 +89,14 @@ export function ResetPasswordForm() {
           </button>
         }
         error={form.formState.errors.confirmPassword?.message}
+        size="xl"
         {...form.register("confirmPassword")}
       />
 
       <SubmitButton
         label="Reset Secure Key"
         isLoading={isPending}
+        size="xl"
         iconRight={<ArrowRight className="h-5 w-5" />}
       />
     </form>

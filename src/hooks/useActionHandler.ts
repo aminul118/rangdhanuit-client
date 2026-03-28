@@ -19,6 +19,7 @@ interface ExecuteOptions<T> {
   action: () => Promise<ApiResponse<T>>;
   success?: SuccessConfig<T>;
   errorMessage?: string;
+  onError?: (res: ApiResponse<T>) => boolean | void;
 }
 
 const useActionHandler = () => {
@@ -29,6 +30,7 @@ const useActionHandler = () => {
     action,
     success,
     errorMessage = 'Something went wrong',
+    onError,
   }: ExecuteOptions<T>): Promise<boolean> => {
     if (isPending) return false; // prevent double click
 
@@ -60,6 +62,13 @@ const useActionHandler = () => {
         }
 
         return true;
+      }
+
+      // Handle custom error logic
+      const isHandled = onError?.(res);
+      if (isHandled) {
+        toast.dismiss(toastId);
+        return false;
       }
 
       toast.error(res?.message || errorMessage, { id: toastId });

@@ -2,9 +2,9 @@ export interface IUser {
   _id?: string;
   name: string;
   email: string;
-  role: 'ADMIN' | 'USER' | 'SUPER_ADMIN';
+  role: "ADMIN" | "USER" | "SUPER_ADMIN";
   isVerified: boolean;
-  status: 'ACTIVE' | 'BLOCKED';
+  status: "ACTIVE" | "BLOCKED";
   isDeleted: boolean;
   createdAt?: string;
   updatedAt?: string;

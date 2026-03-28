@@ -11,8 +11,9 @@ import { useAuth } from "@/providers/AuthProvider";
 import { loginSchema } from "@/zod/auth.validation";
 import useActionHandler from "@/hooks/useActionHandler";
 import { loginAction } from "@/services/Auth/login";
-import { ILogin } from "@/types";
+import { ApiResponse, ILogin } from "@/types";
 import { FormField, SubmitButton } from "@/components/common/form";
+import { toast } from "sonner";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
@@ -40,11 +41,19 @@ export function LoginForm() {
           router.push("/dashboard");
         },
       },
+      onError: (errorResponse: ApiResponse<ILogin | null>) => {
+        if (errorResponse?.message === "USER_NOT_VERIFIED") {
+          toast.warning("Your account is not verified. An OTP has been sent to your email.");
+          router.push(`/verify-otp?email=${encodeURIComponent(data.email)}`);
+          return true; // Mark as handled to prevent default error toast if desired
+        }
+        return false;
+      }
     });
   };
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
       <FormField
         id="email"
         label="Email Address"
@@ -53,17 +62,18 @@ export function LoginForm() {
         autoComplete="email"
         icon={<Mail className="h-4 w-4" />}
         error={form.formState.errors.email?.message}
+        size="xl"
         {...form.register("email")}
       />
 
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 ml-1">
+          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500/80 ml-1.5">
             Secure Password
           </span>
           <Link
             href="/forgot-password"
-            className="text-xs text-indigo-400 hover:text-indigo-300 font-bold transition-colors"
+            className="text-[10px] text-indigo-400 hover:text-indigo-300 font-black uppercase tracking-widest transition-colors"
           >
             Forgot?
           </Link>
@@ -90,6 +100,7 @@ export function LoginForm() {
           }
           error={form.formState.errors.password?.message}
           wrapperClassName="!space-y-0"
+          size="xl"
           {...form.register("password")}
         />
       </div>
@@ -97,6 +108,7 @@ export function LoginForm() {
       <SubmitButton
         label="Get Started"
         isLoading={isPending}
+        size="xl"
         iconRight={<ArrowRight className="h-5 w-5" />}
       />
     </form>
