@@ -125,7 +125,7 @@ export const ChatWindow = ({
   };
 
   return (
-    <div className="flex flex-col h-[600px] bg-card border border-white/5 rounded-2xl overflow-hidden shadow-xl shadow-indigo-500/5">
+    <div className="flex flex-col h-full bg-card border border-white/5 rounded-2xl overflow-hidden shadow-xl shadow-indigo-500/5">
       {/* Header */}
       <div className="p-4 border-b border-white/5 bg-muted/30 flex items-center justify-between">
         <div className="flex items-center gap-3">

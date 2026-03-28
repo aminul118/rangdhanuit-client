@@ -139,7 +139,8 @@ export default function AdminMessagesPage() {
 
   return (
     <div className="flex h-[calc(100vh-120px)] gap-6 p-6">
-      <div className="w-[350px] shrink-0">
+      {/* Left List */}
+      <div className="flex-1">
         <ConversationList
           conversations={conversations}
           selectedId={selectedConvId || undefined}
@@ -148,10 +149,11 @@ export default function AdminMessagesPage() {
         />
       </div>
 
+      {/* Right Chat Window */}
       <div className="flex-1">
         {selectedConvId ? (
           loadingMessages ? (
-            <div className="flex h-full items-center justify-center bg-card border rounded-2xl border-white/10">
+            <div className="flex h-full items-center justify-center bg-card border rounded-2xl border-white/10 shadow-xl shadow-indigo-500/5">
               <Loader2 className="animate-spin text-indigo-500" size={32} />
             </div>
           ) : (
@@ -162,7 +164,7 @@ export default function AdminMessagesPage() {
             />
           )
         ) : (
-          <div className="flex flex-col h-full items-center justify-center bg-card border rounded-2xl border-white/10 text-muted-foreground p-12 text-center">
+          <div className="flex flex-col h-full items-center justify-center bg-card border rounded-2xl border-white/10 text-muted-foreground p-12 text-center shadow-xl shadow-indigo-500/5">
             <div className="w-16 h-16 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-500 mb-4">
               <MessageSquare size={32} />
             </div>

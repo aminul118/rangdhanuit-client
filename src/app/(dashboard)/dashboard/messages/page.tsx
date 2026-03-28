@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { ChatWindow } from "@/components/modules/dashboard/Messaging/ChatWindow";
-import { Loader2, MessageSquare, ShieldCheck } from "lucide-react";
+import { Loader2, MessageSquare } from "lucide-react";
 import {
   getAdminUser,
   getMyConversations,
@@ -106,13 +106,15 @@ export default function UserMessagesPage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-6">
+    <div className="max-w-4xl mx-auto p-6">
       {admin ? (
-        <ChatWindow
-          recipientId={admin._id}
-          recipientName="Rangdhanu Support"
-          initialMessages={messages}
-        />
+        <div className="h-[calc(100vh-120px)]">
+          <ChatWindow
+            recipientId={admin._id}
+            recipientName="Rangdhanu Support"
+            initialMessages={messages}
+          />
+        </div>
       ) : (
         <div className="flex flex-col items-center justify-center bg-card border rounded-2xl border-white/10 text-muted-foreground p-20 text-center shadow-xl shadow-indigo-500/5">
           <div className="w-20 h-20 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-500 mb-6">
