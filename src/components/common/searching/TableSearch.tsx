@@ -56,14 +56,12 @@ const TableSearch = ({
   };
 
   return (
-    <div className={cn("relative group max-w-sm w-full", className)}>
-      <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-muted-foreground group-focus-within:text-primary transition-colors">
-        <Search size={18} strokeWidth={2.5} />
-      </div>
+    <div className={cn("relative group max-w-md w-full", className)}>
+      <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-indigo-500 transition-colors" />
       <Input
         type="text"
         placeholder={placeholder}
-        className="pl-10 pr-10 h-11 bg-background/50 backdrop-blur-sm border-white/10 rounded-2xl focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all duration-300"
+        className="w-full bg-white/5 border border-white/5 hover:border-white/10 focus:border-indigo-500/50 rounded-2xl pl-12 pr-10 py-2.5 text-sm outline-none transition-all duration-300 backdrop-blur-sm h-11"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />

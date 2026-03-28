@@ -1,8 +1,13 @@
 import { Metadata } from "next";
-import Hero from "@/components/modules/public/home/Hero/Hero";
-import Services from "@/components/modules/public/home/Services/Services";
-import Partners from "@/components/modules/public/home/Features/Partners";
-import CTA from "@/components/modules/public/home/CTA/CTA";
+import Hero from "@/components/modules/public/home/Hero";
+import Services from "@/components/modules/public/home/Services";
+import Partners from "@/components/modules/public/home/Partners";
+import CTA from "@/components/modules/public/home/CTA";
+import Stats from "@/components/modules/public/home/Stats";
+import PortfolioGrid from "@/components/modules/public/home/PortfolioGrid";
+import Process from "@/components/modules/public/home/Process";
+import Testimonials from "@/components/modules/public/home/Testimonials";
+import FAQ from "@/components/modules/public/home/FAQ";
 import generateMetaTags from "@/Seo/generateMetaTags";
 
 export const metadata: Metadata = generateMetaTags({
@@ -19,6 +24,11 @@ export default function Home() {
       <Hero />
       <Partners />
       <Services />
+      <Stats />
+      <PortfolioGrid />
+      <Process />
+      <Testimonials />
+      <FAQ />
       <CTA />
     </div>
   );

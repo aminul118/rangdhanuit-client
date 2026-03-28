@@ -17,6 +17,7 @@ export default function Sidebar() {
   const { unreadCount } = useSocket();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const role = user?.role || "USER";
+
   const menus = getSidebarMenus(role);
 
   return (
@@ -68,7 +69,7 @@ export default function Sidebar() {
         </Button>
       </div>
 
-      <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-2 custom-scrollbar min-h-0">
+      <nav className="flex-1 overflow-y-auto py-2 px-4 space-y-2 custom-scrollbar min-h-0">
         {menus.map((item) => {
           const isActive = pathname === item.href;
           const showBadge = item.badgeKey === "messages" && unreadCount > 0;
