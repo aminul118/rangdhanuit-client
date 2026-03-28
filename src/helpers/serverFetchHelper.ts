@@ -17,9 +17,11 @@ const serverFetchHelper = async <T>(
   const makeRequest = async () => {
     const accessToken = await getCookie('accessToken');
 
+    const isFormData = rest.body instanceof FormData;
+
     return fetch(url, {
       headers: {
-        'Content-Type': 'application/json',
+        ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
         ...(accessToken ? { 
           Cookie: `accessToken=${accessToken}`,
           Authorization: accessToken 

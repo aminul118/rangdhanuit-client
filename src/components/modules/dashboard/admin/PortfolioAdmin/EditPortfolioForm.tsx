@@ -1,22 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { SubmitButton } from "@/components/common/form";
 import { toast } from "sonner";
-import { createPortfolio } from "@/services/Portfolio/portfolios";
+import { getPortfolioById, updatePortfolio } from "@/services/Portfolio/portfolios";
+import { IPortfolio } from "@/types";
 import PlateRichEditor from "@/components/rich-text/core/rich-editor";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { Loader2 } from "lucide-react";
 import SingleImageUploader from "@/components/ui/single-image-uploader";
 
-const AddPortfolioForm = () => {
+const EditPortfolioForm = ({ id }: { id: string }) => {
   const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(true);
+  const [project, setProject] = useState<IPortfolio | null>(null);
   const [description, setDescription] = useState("");
   const [isFeatured, setIsFeatured] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        const res = await getPortfolioById(id);
+        if (res.success) {
+          setProject(res.data);
+          setDescription(res.data.description || "");
+          setIsFeatured(res.data.isFeatured || false);
+        }
+      } catch {
+        toast.error("Failed to fetch project details");
+      } finally {
+        setFetching(false);
+      }
+    };
+    fetchProject();
+  }, [id]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,23 +52,38 @@ const AddPortfolioForm = () => {
     if (imageFile) {
       formData.append("image", imageFile);
     }
-    // technologies are already in the form as an input named 'technologies'
-    
+
     try {
-      const res = await createPortfolio(formData);
+      const res = await updatePortfolio(id, formData);
       if (res.success) {
-        toast.success("Portfolio added successfully!");
+        toast.success("Portfolio updated successfully!");
         router.push("/admin/portfolios");
         router.refresh();
       }
     } catch (error: unknown) {
       const message =
-        error instanceof Error ? error.message : "Failed to add portfolio";
+        error instanceof Error ? error.message : "Failed to update portfolio";
       toast.error(message);
     } finally {
       setLoading(false);
     }
   };
+
+  if (fetching) {
+    return (
+      <div className="flex h-[400px] items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-indigo-500" />
+      </div>
+    );
+  }
+
+  if (!project) {
+    return (
+      <div className="text-center py-12">
+        <h2 className="text-2xl font-bold text-muted-foreground">Project not found</h2>
+      </div>
+    );
+  }
 
   return (
     <form
@@ -63,6 +100,7 @@ const AddPortfolioForm = () => {
               </label>
               <Input
                 name="title"
+                defaultValue={project.title}
                 placeholder="E-commerce Website"
                 required
                 className="h-14 text-xl rounded-2xl bg-white/5 border-white/10 focus:border-indigo-500/50 focus:ring-indigo-500/20 transition-all font-medium"
@@ -91,7 +129,10 @@ const AddPortfolioForm = () => {
               <label className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-400/80 ml-1">
                 Thumbnail Image
               </label>
-              <SingleImageUploader onChange={(file) => setImageFile(file)} />
+              <SingleImageUploader 
+                defaultValue={project.image}
+                onChange={(file) => setImageFile(file)} 
+              />
             </div>
 
             <div className="space-y-2">
@@ -100,6 +141,7 @@ const AddPortfolioForm = () => {
               </label>
               <Input
                 name="link"
+                defaultValue={project.link}
                 placeholder="https://github.com/..."
                 className="rounded-xl bg-white/5 border-white/10 focus:border-indigo-500/50 transition-all"
               />
@@ -111,6 +153,7 @@ const AddPortfolioForm = () => {
               </label>
               <Input
                 name="technologies"
+                defaultValue={project.technologies?.join(", ")}
                 placeholder="Next.js, Tailwind, MongoDB"
                 required
                 className="rounded-xl bg-white/5 border-white/10 focus:border-indigo-500/50 transition-all"
@@ -136,8 +179,8 @@ const AddPortfolioForm = () => {
             </div>
 
             <SubmitButton
-              label="Publish Project"
-              loadingLabel="Publishing..."
+              label="Update Project"
+              loadingLabel="Updating..."
               isLoading={loading}
               className="w-full h-14 text-lg font-bold rounded-2xl bg-indigo-600 hover:bg-indigo-500 shadow-[0_0_30px_-5px_rgba(79,70,229,0.5)] transition-all mt-4"
             />
@@ -148,7 +191,7 @@ const AddPortfolioForm = () => {
               <span className="text-indigo-400 font-bold">!</span>
             </div>
             <p className="text-xs text-indigo-300/80 leading-relaxed">
-              Your project will be visible in the portfolio section immediately after publishing.
+              Updating the project will immediately change how it appears in the public portfolio.
             </p>
           </div>
         </div>
@@ -157,4 +200,4 @@ const AddPortfolioForm = () => {
   );
 };
 
-export default AddPortfolioForm;
+export default EditPortfolioForm;

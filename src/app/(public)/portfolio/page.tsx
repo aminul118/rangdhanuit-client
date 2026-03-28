@@ -3,6 +3,7 @@ import { ExternalLink, ShoppingBag, Globe, Smartphone, Palette } from "lucide-re
 import Link from "next/link";
 import generateMetaTags from "@/Seo/generateMetaTags";
 import { cn } from "@/lib/utils";
+import HtmlContent from "@/components/rich-text/core/html-content";
 
 export const metadata: Metadata = generateMetaTags({
   title: "Our Portfolio | Rangdhanu IT",
@@ -72,9 +73,10 @@ export default function PortfolioPage() {
               <div className="p-10 flex flex-col grow">
                 <div className="text-sm font-semibold text-primary mb-2">{project.client}</div>
                 <h3 className="text-2xl font-bold mb-4">{project.title}</h3>
-                <p className="text-muted-foreground leading-relaxed mb-8 grow">
-                  {project.description}
-                </p>
+                <HtmlContent
+                  content={project.description}
+                  className="text-muted-foreground leading-relaxed mb-8 grow"
+                />
                 <div className="flex items-center justify-between">
                   <Link href="#" className="flex items-center gap-2 text-foreground font-bold hover:text-primary transition-colors">
                     View Project <ExternalLink className="w-4 h-4" />

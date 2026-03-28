@@ -1,6 +1,7 @@
 export interface IPortfolio {
   _id: string;
   title: string;
+  slug: string;
   description: string;
   image: string;
   link?: string;
@@ -16,4 +17,5 @@ export interface ICreatePortfolio {
   image: string;
   link?: string;
   technologies: string[];
+  isFeatured?: boolean;
 }
