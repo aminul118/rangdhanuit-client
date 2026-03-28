@@ -1,9 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { 
   Users, 
-  UserPlus, 
   UserCheck, 
   UserX, 
   Shield, 
@@ -17,7 +17,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 interface StatCardProps {
   title: string;
   value: number;
-  icon: any;
+  icon: React.ElementType;
   description: string;
   trend?: string;
   color: string;
@@ -121,6 +121,21 @@ export default function AdminDashboardHome({ stats }: AdminDashboardHomeProps) {
             Real-time telemetry from your digital ecosystem. Monitor growth, trust, and security.
           </p>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2 }}
+        >
+          <Link 
+            href="/profile" 
+            className="group flex items-center gap-3 px-6 py-4 bg-primary text-primary-foreground rounded-2xl font-bold shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all duration-300"
+          >
+            <Shield size={20} className="group-hover:rotate-12 transition-transform" />
+            Manage My Profile
+            <ArrowUpRight size={18} className="opacity-50 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+          </Link>
+        </motion.div>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

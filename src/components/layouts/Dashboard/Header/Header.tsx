@@ -20,6 +20,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 export default function AdminHeader() {
   const { user, logout } = useAuth();
@@ -81,14 +82,18 @@ export default function AdminHeader() {
           <DropdownMenuContent align="end" className="w-64 p-2 rounded-2xl bg-background/95 backdrop-blur-xl border-white/10 shadow-2xl">
             <DropdownMenuLabel className="px-3 py-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">Account Central</DropdownMenuLabel>
             <DropdownMenuSeparator className="bg-white/5" />
-            <DropdownMenuItem className="rounded-xl px-3 py-2.5 gap-3 focus:bg-indigo-500/10 focus:text-indigo-500 cursor-pointer transition-colors">
-              <UserIcon size={18} />
-              <span className="font-medium text-sm">View Profile</span>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="rounded-xl px-3 py-2.5 gap-3 focus:bg-indigo-500/10 focus:text-indigo-500 cursor-pointer transition-colors">
-              <Settings size={18} />
-              <span className="font-medium text-sm">Account Settings</span>
-            </DropdownMenuItem>
+            <Link href="/profile">
+              <DropdownMenuItem className="rounded-xl px-3 py-2.5 gap-3 focus:bg-indigo-500/10 focus:text-indigo-500 cursor-pointer transition-colors">
+                <UserIcon size={18} />
+                <span className="font-medium text-sm">View Profile</span>
+              </DropdownMenuItem>
+            </Link>
+            <Link href="/profile?tab=theme">
+              <DropdownMenuItem className="rounded-xl px-3 py-2.5 gap-3 focus:bg-indigo-500/10 focus:text-indigo-500 cursor-pointer transition-colors">
+                <Settings size={18} />
+                <span className="font-medium text-sm">Account Settings</span>
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuSeparator className="bg-white/5" />
             <DropdownMenuItem onClick={logout} className="rounded-xl px-3 py-2.5 gap-3 text-red-500 focus:text-red-500 focus:bg-red-500/10 cursor-pointer transition-colors">
               <LogOut size={18} />

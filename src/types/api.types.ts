@@ -9,6 +9,9 @@ export interface IUser {
   createdAt?: string;
   updatedAt?: string;
   picture?: string;
+  designation?: string;
+  bio?: string;
+  contactNo?: string;
 }
 
 export interface ILogin {
@@ -35,4 +38,17 @@ export interface ApiResponse<T> {
 export interface IGlobalError {
   error: Error & { digest?: string };
   reset: () => void;
+}
+
+export interface IChangePassword {
+  currentPassword?: string;
+  newPassword?: string;
+}
+
+export interface IUpdateProfile {
+  name?: string;
+  contactNo?: string;
+  designation?: string;
+  bio?: string;
+  picture?: string;
 }

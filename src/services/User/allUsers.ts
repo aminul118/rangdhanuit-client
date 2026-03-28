@@ -1,3 +1,5 @@
+"use server";
+
 import serverFetch from "@/lib/server-fetch";
 
 export const getAllUsers = async (query?: Record<string, string>) => {
