@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2, Mail, ArrowRight } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/common/form";
 import {
   InputOTP,
   InputOTPGroup,
@@ -115,20 +115,13 @@ export function VerifyOtpForm() {
         </InputOTP>
       </div>
 
-      <Button
-        className="w-full h-12 bg-linear-to-r from-indigo-500 via-purple-600 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white font-bold shadow-[0_8px_16px_-4px_rgba(79,70,229,0.3)] transition-all duration-300 group rounded-xl active:scale-[0.98]"
-        disabled={isPending || otp.length !== 6 || isResending}
+      <SubmitButton
+        label="Verify & Continue"
+        isLoading={isPending || isResending}
         onClick={handleVerify}
-      >
-        {isPending ? (
-          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-        ) : (
-          <div className="flex items-center justify-center gap-2">
-            Verify & Continue
-            <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-          </div>
-        )}
-      </Button>
+        disabled={otp.length !== 6}
+        iconRight={<ArrowRight className="h-5 w-5" />}
+      />
 
       <div className="text-sm text-center text-zinc-500 font-medium w-full pt-4">
         Didn&apos;t receive the code?{" "}

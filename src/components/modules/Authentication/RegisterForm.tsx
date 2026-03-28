@@ -16,11 +16,10 @@ import {
   EyeOff,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { registerSchema } from "@/zod/auth.validation";
 import useActionHandler from "@/hooks/useActionHandler";
 import { registerAction } from "@/services/Auth/register";
-import { FormField } from "@/components/common/form";
+import { FormField, SubmitButton } from "@/components/common/form";
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
@@ -129,20 +128,12 @@ export function RegisterForm() {
         {...form.register("confirmPassword")}
       />
 
-      <Button
-        className="w-full h-12 bg-linear-to-r from-indigo-500 via-purple-600 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white font-bold shadow-[0_8px_16px_-4px_rgba(79,70,229,0.3)] transition-all duration-300 group rounded-xl active:scale-[0.98] mt-2"
-        disabled={isPending}
-        type="submit"
-      >
-        {isPending ? (
-          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-        ) : (
-          <div className="flex items-center justify-center gap-2">
-            Create Account
-            <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-          </div>
-        )}
-      </Button>
+      <SubmitButton
+        label="Create Account"
+        isLoading={isPending}
+        iconRight={<ArrowRight className="h-5 w-5" />}
+        className="mt-2"
+      />
     </form>
   );
 }

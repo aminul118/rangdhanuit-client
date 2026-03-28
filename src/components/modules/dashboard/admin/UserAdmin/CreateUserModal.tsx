@@ -28,10 +28,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { SubmitButton } from "@/components/common/form";
 import { createUser } from "@/services/User/allUsers";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { UserPlus, Sparkles, Loader2, Shield } from "lucide-react";
+import { UserPlus, Sparkles, Shield } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -119,7 +120,7 @@ export default function CreateUserModal() {
                       <Input
                         placeholder="John Wick"
                         {...field}
-                        className="rounded-xl bg-white/5 border-white/10 focus:border-indigo-500/50"
+                        className="rounded-2xl bg-white/5 border-white/10 focus:border-indigo-500/50"
                       />
                     </FormControl>
                     <FormMessage className="text-[10px]" />
@@ -138,7 +139,7 @@ export default function CreateUserModal() {
                       <Input
                         placeholder="wick@high-table.com"
                         {...field}
-                        className="rounded-xl bg-white/5 border-white/10 focus:border-indigo-500/50"
+                        className="rounded-2xl bg-white/5 border-white/10 focus:border-indigo-500/50"
                       />
                     </FormControl>
                     <FormMessage className="text-[10px]" />
@@ -158,7 +159,7 @@ export default function CreateUserModal() {
                         type="password"
                         placeholder="••••••••"
                         {...field}
-                        className="rounded-xl bg-white/5 border-white/10 focus:border-indigo-500/50"
+                        className="rounded-2xl bg-white/5 border-white/10 focus:border-indigo-500/50"
                       />
                     </FormControl>
                     <FormMessage className="text-[10px]" />
@@ -178,7 +179,7 @@ export default function CreateUserModal() {
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="rounded-xl bg-white/5 border-white/10 focus:border-indigo-500/50">
+                        <SelectTrigger className="rounded-2xl bg-white/5 border-white/10 focus:border-indigo-500/50">
                           <SelectValue placeholder="Select a role" />
                         </SelectTrigger>
                       </FormControl>
@@ -209,23 +210,13 @@ export default function CreateUserModal() {
               />
             </div>
 
-            <Button
-              type="submit"
-              className="w-full rounded-2xl bg-linear-to-r from-indigo-500 to-purple-600 h-12 font-bold shadow-lg shadow-indigo-500/20 gap-2 hover:scale-[1.02] active:scale-95 transition-all"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="animate-spin" size={20} />
-                  Initiating...
-                </>
-              ) : (
-                <>
-                  Confirm Creation
-                  <Shield size={20} />
-                </>
-              )}
-            </Button>
+            <SubmitButton
+              label="Confirm Creation"
+              loadingLabel="Initiating..."
+              isLoading={isLoading}
+              size="lg"
+              iconRight={<Shield size={20} />}
+            />
           </form>
         </Form>
       </DialogContent>

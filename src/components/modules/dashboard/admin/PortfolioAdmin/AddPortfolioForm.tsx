@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { SubmitButton } from "@/components/common/form";
 import { toast } from "sonner";
 import { createPortfolio } from "@/services/Portfolio/portfolios";
 import { ICreatePortfolio } from "@/types";
@@ -46,51 +46,54 @@ const AddPortfolioForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 max-w-2xl mx-auto bg-card p-8 rounded-2xl border shadow-xl"
+      className="space-y-6 max-w-2xl mx-auto bg-card p-8 rounded-[2rem] border shadow-xl backdrop-blur-xl bg-white/5 border-white/10"
     >
       <div className="space-y-4">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Project Title</label>
-          <Input name="title" placeholder="E-commerce Website" required />
+          <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Project Title</label>
+          <Input name="title" placeholder="E-commerce Website" required className="rounded-2xl bg-white/5 border-white/10 focus:border-indigo-500/50" />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Description</label>
+          <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Description</label>
           <Textarea
             name="description"
             placeholder="A brief description of the project..."
             required
+            className="rounded-2xl bg-white/5 border-white/10 focus:border-indigo-500/50 min-h-[120px]"
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Image URL</label>
+          <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Image URL</label>
           <Input
             name="image"
             placeholder="https://example.com/image.jpg"
             required
+            className="rounded-2xl bg-white/5 border-white/10 focus:border-indigo-500/50"
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">Project Link</label>
-          <Input name="link" placeholder="https://github.com/..." />
+          <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">Project Link</label>
+          <Input name="link" placeholder="https://github.com/..." className="rounded-2xl bg-white/5 border-white/10 focus:border-indigo-500/50" />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium">
+          <label className="text-xs font-bold uppercase tracking-widest text-muted-foreground ml-1">
             Technologies (comma separated)
           </label>
           <Input
             name="technologies"
             placeholder="Next.js, Tailwind, MongoDB"
             required
+            className="rounded-2xl bg-white/5 border-white/10 focus:border-indigo-500/50"
           />
         </div>
       </div>
-      <Button
-        type="submit"
-        className="w-full bg-linear-to-r from-primary to-violet-600"
-        disabled={loading}
-      >
-        {loading ? "Adding..." : "Add Portfolio Project"}
-      </Button>
+      
+      <SubmitButton
+        label="Add Portfolio Project"
+        loadingLabel="Adding..."
+        isLoading={loading}
+        size="lg"
+      />
     </form>
   );
 };

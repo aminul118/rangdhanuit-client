@@ -47,7 +47,7 @@ export default function FormField({
 
       <div className="relative group/input">
         {icon && (
-          <span className="absolute left-3.5 top-3.5 h-4 w-4 text-zinc-600 transition-colors group-focus-within/input:text-indigo-500 pointer-events-none flex items-center">
+          <span className="absolute left-3.5 top-3 h-4 w-4 text-zinc-600 transition-colors group-focus-within/input:text-indigo-500 pointer-events-none flex items-center">
             {icon}
           </span>
         )}
@@ -55,7 +55,7 @@ export default function FormField({
         <Input
           id={id}
           className={cn(
-            "h-12 bg-zinc-900/50 border-zinc-800/50 hover:border-zinc-700/50 focus:border-indigo-500/50 transition-all rounded-xl placeholder:text-zinc-700",
+            "h-10 bg-zinc-900/50 border-zinc-800/50 hover:border-zinc-700/50 focus:border-indigo-500/50 transition-all rounded-2xl placeholder:text-zinc-700",
             icon && "pl-11",
             rightSlot && "pr-11",
             className
@@ -65,7 +65,7 @@ export default function FormField({
         />
 
         {rightSlot && (
-          <span className="absolute right-3.5 top-3.5 flex items-center">
+          <span className="absolute right-3.5 top-3 flex items-center">
             {rightSlot}
           </span>
         )}
