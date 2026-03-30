@@ -17,8 +17,10 @@ const navLinks = [
   { name: "About", href: "/about" },
   { name: "Services", href: "/#services" },
   { name: "Portfolio", href: "/portfolio" },
+  { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
 ];
+
 
 export default function Navbar() {
   const pathname = usePathname();

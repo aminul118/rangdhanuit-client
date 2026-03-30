@@ -30,7 +30,7 @@ export const adminMenu: SidebarItem[] = [
     badgeKey: "messages",
   },
   {
-    href: "/admin/blog",
+    href: "/admin/blogs",
     label: "Blog",
     icon: FileText,
   },

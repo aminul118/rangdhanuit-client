@@ -1,14 +1,18 @@
-'use client';
+"use client";
 
-import { ReactNode } from 'react';
-import { cn } from '@/lib/utils';
-import TableSearch from '../searching/TableSearch';
-import TablePagination, { IMeta } from '../pagination/TablePagination';
-import TableActions from '../table/TableActions';
-import TableLimit from '../pagination/TableLimit';
-import CenterSpinner from '../loader/CenterSpinner';
-import { TableTransitionProvider, useTableTransition } from '@/context/TableTransitionContext';
-import { motion, AnimatePresence } from 'framer-motion';
+import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
+import TableSearch from "../searching/TableSearch";
+import TablePagination, { IMeta } from "../pagination/TablePagination";
+import TableActions from "../table/TableActions";
+import TableLimit from "../pagination/TableLimit";
+import CenterSpinner from "../loader/CenterSpinner";
+import {
+  TableTransitionProvider,
+  useTableTransition,
+} from "@/context/TableTransitionContext";
+import { motion, AnimatePresence } from "framer-motion";
+import { animations } from "@/constants/animations";
 
 interface TableWrapperProps {
   title: string;
@@ -32,7 +36,7 @@ const TableWrapperContent = ({
   const { isPending, loadingText } = useTableTransition();
 
   return (
-    <section className={cn('relative space-y-6', className)}>
+    <section className={cn("relative space-y-6", className)}>
       {/* Header Section: Title & Action */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-2">
         <div className="space-y-1.5">
@@ -45,9 +49,7 @@ const TableWrapperContent = ({
             </p>
           )}
         </div>
-        <div className="flex items-center shrink-0">
-          {action}
-        </div>
+        <div className="flex items-center shrink-0">{action}</div>
       </div>
 
       {/* Filters/Search Section */}
@@ -64,10 +66,23 @@ const TableWrapperContent = ({
 
       {/* Table Content Section */}
       <div className="relative overflow-hidden rounded-sm border border-border/50 bg-card/30 backdrop-blur-sm shadow-sm transition-all duration-500">
-        <div 
+        {/* Loading Progress Bar */}
+        <AnimatePresence mode="wait">
+          {isPending && (
+            <motion.div
+              variants={animations.topProgressBar}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 z-60"
+            />
+          )}
+        </AnimatePresence>
+
+        <div
           className={cn(
-            'transition-all duration-700 ease-in-out', 
-            isPending ? 'opacity-40 blur-[4px] scale-[0.99]' : 'opacity-100 blur-0 scale-100'
+            "transition-all duration-500 ease-in-out",
+            isPending ? "opacity-20 grayscale-[0.5] pointer-events-none" : "opacity-100 grayscale-0"
           )}
         >
           {children}
@@ -77,10 +92,11 @@ const TableWrapperContent = ({
         <AnimatePresence>
           {isPending && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="absolute inset-0 z-50 flex items-center justify-center bg-transparent pointer-events-none"
+              variants={animations.fadeIn}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="absolute top-9 inset-x-0 bottom-0 z-50 flex items-center justify-center pointer-events-none"
             >
               <CenterSpinner text={loadingText} />
             </motion.div>

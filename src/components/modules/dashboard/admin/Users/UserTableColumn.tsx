@@ -8,6 +8,7 @@ const UserTableColumn: Column<IUser>[] = [
   {
     header: "SI",
     accessor: (_, i) => i + 1,
+    sortKey: "createdAt",
   },
   {
     header: "Name",

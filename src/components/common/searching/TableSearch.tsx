@@ -7,6 +7,7 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useCallback } from 'react';
 import { useTableTransition } from '@/context/TableTransitionContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import { animations } from '@/constants/animations';
 
 interface TableSearchProps {
   placeholder?: string;
@@ -68,9 +69,11 @@ const TableSearch = ({
       <AnimatePresence>
         {query && (
           <motion.button
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
+            variants={animations.popIn}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={animations.popInTransition}
             onClick={handleClear}
             className="absolute inset-y-0 right-3 flex items-center text-muted-foreground hover:text-foreground transition-colors"
           >

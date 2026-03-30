@@ -28,11 +28,13 @@ export const metadata: Metadata = generateMetaTags({
   keywords: "verify otp, email verification, account security",
 });
 
-type Props = {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
+import { TSearchParamsPromise } from "@/types";
 
-export default async function VerifyOTPPage({ searchParams }: Props) {
+export default async function VerifyOTPPage({ 
+  searchParams 
+}: { 
+  searchParams: TSearchParamsPromise 
+}) {
   const resolvedSearchParams = await searchParams;
   const email = typeof resolvedSearchParams.email === 'string' ? resolvedSearchParams.email : '';
 

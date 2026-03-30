@@ -28,11 +28,13 @@ export const metadata: Metadata = generateMetaTags({
   keywords: "reset password, new password, account security",
 });
 
-type Props = {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
+import { TSearchParamsPromise } from "@/types";
 
-export default async function ResetPasswordPage({ searchParams }: Props) {
+export default async function ResetPasswordPage({ 
+  searchParams 
+}: { 
+  searchParams: TSearchParamsPromise 
+}) {
   const resolvedSearchParams = await searchParams;
   const email = typeof resolvedSearchParams.email === 'string' ? resolvedSearchParams.email : '';
 

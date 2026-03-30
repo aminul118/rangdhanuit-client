@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: 'Admin Dashboard | Rangdhanu IT',
+  title: "Admin Dashboard | Rangdhanu IT",
 };
 
 // Loading component
@@ -16,18 +16,21 @@ const DashboardLoading = () => (
 );
 
 // Dynamic import for admin dashboard
-const AdminDashboard = dynamic(() => import("@/components/modules/dashboard/AdminDashboardWrapper"), {
-  loading: DashboardLoading,
-  ssr: true,
-});
+const AdminDashboard = dynamic(
+  () => import("@/components/common/wrapper/AdminDashboardWrapper"),
+  {
+    loading: DashboardLoading,
+    ssr: true,
+  },
+);
 
 const AdminPage = async () => {
   const user = await getVerifiedUser();
   const role = user?.role?.toUpperCase();
 
   // Strict check: Only Admins/Super Admins allowed
-  if (role !== 'ADMIN' && role !== 'SUPER_ADMIN') {
-    redirect('/dashboard');
+  if (role !== "ADMIN" && role !== "SUPER_ADMIN") {
+    redirect("/dashboard");
   }
 
   const res = await getStatistics();

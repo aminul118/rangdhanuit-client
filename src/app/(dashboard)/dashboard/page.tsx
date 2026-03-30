@@ -16,7 +16,7 @@ const DashboardLoading = () => (
 
 // Dynamic import for user dashboard
 const UserDashboard = dynamic(
-  () => import("@/components/modules/dashboard/UserDashboardWrapper"),
+  () => import("@/components/common/wrapper/UserDashboardWrapper"),
   {
     loading: DashboardLoading,
     ssr: true,

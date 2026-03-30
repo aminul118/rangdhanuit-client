@@ -1,4 +1,4 @@
-import AddPortfolioForm from "@/components/modules/dashboard/admin/PortfolioAdmin/AddPortfolioForm";
+import AddPortfolioForm from "@/components/modules/dashboard/admin/Portfolio/AddPortfolioForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,10 +10,14 @@ const AddPortfolioPage = () => {
     <div className="container mx-auto py-12 px-6">
       <div className="mb-12 text-center space-y-4">
         <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight">
-          Add New <span className="bg-linear-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">Project</span>
+          Add New{" "}
+          <span className="bg-linear-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
+            Project
+          </span>
         </h1>
         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-          Showcase your latest work with a beautiful presentation. Fill in the details below to publish a new project.
+          Showcase your latest work with a beautiful presentation. Fill in the
+          details below to publish a new project.
         </p>
       </div>
       <AddPortfolioForm />

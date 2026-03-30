@@ -9,6 +9,7 @@ const ProjectTableColumn: Column<IPortfolio>[] = [
   {
     header: 'SI',
     accessor: (_, i) => i + 1,
+    sortKey: 'createdAt',
   },
   {
     header: 'Thumbnail',
@@ -24,6 +25,7 @@ const ProjectTableColumn: Column<IPortfolio>[] = [
       ) : (
         <div className="h-8 w-12 bg-muted rounded-md" />
       ),
+    sortKey: 'image',
   },
   {
     header: 'Title',
@@ -38,10 +40,12 @@ const ProjectTableColumn: Column<IPortfolio>[] = [
       ) : (
         <span className="text-gray-500">No</span>
       ),
+    sortKey: 'isFeatured',
   },
   {
     header: 'Date & Time',
     accessor: (p) => new Date(p.createdAt).toLocaleDateString(),
+    sortKey: 'createdAt',
   },
   {
     header: 'Actions',

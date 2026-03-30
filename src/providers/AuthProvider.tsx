@@ -7,8 +7,8 @@ import React, {
   useState,
   ReactNode,
 } from "react";
-import envVars from "@/config/env.config";
 import { logoutAction } from "@/services/Auth/logout";
+import { getMe } from "@/services/User/getMe";
 
 import { IUser, ILogin } from "@/types";
 
@@ -37,12 +37,9 @@ export const AuthProvider = ({
   const fetchUser = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${envVars.apiUrl}/users/me`, {
-        credentials: "include",
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setUser(data.data);
+      const data = await getMe();
+      if (data) {
+        setUser(data);
       } else {
         setUser(null);
       }

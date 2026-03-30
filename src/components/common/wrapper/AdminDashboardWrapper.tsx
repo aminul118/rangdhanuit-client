@@ -1,6 +1,6 @@
 "use client";
 
-import AdminDashboardHome from "./admin/AdminDashboard/AdminDashboardHome";
+import AdminDashboardHome from "../../modules/dashboard/admin/Dashboard/AdminDashboardHome";
 
 interface AdminDashboardWrapperProps {
   stats: {

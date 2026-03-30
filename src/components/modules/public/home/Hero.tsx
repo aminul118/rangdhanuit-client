@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Sparkle = ({
   size,
@@ -46,16 +46,30 @@ const Sparkle = ({
 );
 
 export default function Hero() {
-  const [sparkles] = useState(() =>
-    Array.from({ length: 20 }).map((_, i) => ({
-      id: i,
-      size: Math.random() * 4 + 2,
-      top: `${Math.random() * 100}%`,
-      left: `${Math.random() * 100}%`,
-      delay: Math.random() * 5,
-      duration: 2 + Math.random() * 2,
-    })),
-  );
+  const [sparkles, setSparkles] = useState<
+    {
+      id: number;
+      size: number;
+      top: string;
+      left: string;
+      delay: number;
+      duration: number;
+    }[]
+  >([]);
+
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      const generatedSparkles = Array.from({ length: 20 }).map((_, i) => ({
+        id: i,
+        size: Math.random() * 4 + 2,
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        delay: Math.random() * 5,
+        duration: 2 + Math.random() * 2,
+      }));
+      setSparkles(generatedSparkles);
+    });
+  }, []);
 
   return (
     <section className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden bg-background">
