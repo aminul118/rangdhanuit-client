@@ -90,6 +90,22 @@ export default function Services({ services }: ServicesProps) {
             );
           })}
         </div>
+        
+        <motion.div
+           initial={{ opacity: 0, y: 20 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           transition={{ delay: 0.5 }}
+           className="mt-20 flex flex-col items-center gap-6"
+        >
+          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-500/60">Explore Our Full Spectrum of Expertise</p>
+          <Link href="/services">
+            <button className="relative px-14 py-5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs uppercase tracking-widest shadow-2xl shadow-indigo-600/40 transition-all active:scale-95 leading-none group overflow-hidden">
+               <span className="relative z-10">View All Services</span>
+               <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer" />
+            </button>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

@@ -20,7 +20,7 @@ export const metadata: Metadata = generateMetaTags({
 });
 
 export default async function Home() {
-  const res = await getServices();
+  const res = await getServices({ limit: "6" });
   const services = res?.data || [];
 
   return (
