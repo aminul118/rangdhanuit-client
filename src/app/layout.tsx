@@ -1,5 +1,5 @@
 import fonts from "@/config/fonts.config";
-import ThemeProvider from "@/providers/ThemeProvider";
+import { ThemeProvider } from "next-themes";
 import generateMetaTags from "@/Seo/generateMetaTags";
 import generateViewport from "@/Seo/generateViewport";
 import "@/styles/globals.css";

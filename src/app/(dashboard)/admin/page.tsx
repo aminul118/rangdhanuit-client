@@ -3,6 +3,7 @@ import getVerifiedUser from "@/services/User/verified-user";
 import { getStatistics } from "@/services/User/allUsers";
 import { getBlogs } from "@/services/Blog/blogs";
 import { getPortfolios } from "@/services/Portfolio/portfolios";
+import { getServices } from "@/services/Service/services";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
@@ -36,10 +37,11 @@ const AdminPage = async () => {
   }
 
   // Fetch all stats in parallel
-  const [userRes, blogRes, portfolioRes] = await Promise.all([
+  const [userRes, blogRes, portfolioRes, serviceRes] = await Promise.all([
     getStatistics(),
     getBlogs({ limit: "1" }),
     getPortfolios({ limit: "1" }),
+    getServices({ limit: "1" }),
   ]);
 
   const stats = {
@@ -50,6 +52,7 @@ const AdminPage = async () => {
     adminUsers: userRes?.data?.adminUsers || 0,
     totalBlogs: blogRes?.meta?.total || 0,
     totalPortfolios: portfolioRes?.meta?.total || 0,
+    totalServices: serviceRes?.meta?.total || 0,
   };
 
   return <AdminDashboard stats={stats} />;

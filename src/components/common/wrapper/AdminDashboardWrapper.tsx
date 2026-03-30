@@ -11,6 +11,7 @@ interface AdminDashboardWrapperProps {
     adminUsers: number;
     totalBlogs: number;
     totalPortfolios: number;
+    totalServices: number;
   };
 }
 

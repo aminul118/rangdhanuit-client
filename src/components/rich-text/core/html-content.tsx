@@ -1,9 +1,11 @@
-'use client';
+"use client";
 
-import { BaseEditorKit } from '@/components/rich-text/kits/editor-base-kit';
-import { EditorStatic } from '@/components/rich-text/ui/editor-static';
-import { createSlateEditor } from 'platejs';
-import { useMemo } from 'react';
+import { BlogEditorKit } from "@/components/rich-text/kits/blog-editor-kit";
+import { Editor } from "@/components/rich-text/ui/editor";
+import { Plate, usePlateEditor } from "platejs/react";
+import { useMemo } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 interface IHtml {
   content: string;
@@ -12,9 +14,9 @@ interface IHtml {
 
 const HtmlContent = ({ content, className }: IHtml) => {
   const { isPlate, value } = useMemo(() => {
-    if (!content || typeof content !== 'string')
+    if (!content || typeof content !== "string")
       return { isPlate: false, value: null };
-    if (!content.trim().startsWith('[')) return { isPlate: false, value: null };
+    if (!content.trim().startsWith("[")) return { isPlate: false, value: null };
 
     try {
       const parsed = JSON.parse(content);
@@ -24,16 +26,20 @@ const HtmlContent = ({ content, className }: IHtml) => {
     }
   }, [content]);
 
-  const staticEditor = useMemo(() => {
-    if (!isPlate) return null;
-    return createSlateEditor({ plugins: BaseEditorKit });
-  }, [isPlate]);
+  const editor = usePlateEditor({
+    plugins: BlogEditorKit,
+    value: value || undefined,
+  });
 
-  if (isPlate && staticEditor) {
+  if (isPlate) {
     return (
-      <div className={className}>
-        <EditorStatic value={value} editor={staticEditor} variant="none" />
-      </div>
+      <DndProvider backend={HTML5Backend}>
+        <div className={className}>
+          <Plate editor={editor} readOnly>
+            <Editor variant="none" className="focus:outline-none" />
+          </Plate>
+        </div>
+      </DndProvider>
     );
   }
 

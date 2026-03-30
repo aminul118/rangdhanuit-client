@@ -4,6 +4,7 @@ import {
   Briefcase,
   MessageSquare,
   FileText,
+  Sparkles,
 } from "lucide-react";
 import { SidebarItem } from "./SidebarMenus";
 
@@ -30,6 +31,11 @@ export const adminMenu: SidebarItem[] = [
     href: "/admin/blogs",
     label: "Blog",
     icon: FileText,
+  },
+  {
+    href: "/admin/services",
+    label: "Services",
+    icon: Sparkles,
   },
   {
     href: "/admin/users",

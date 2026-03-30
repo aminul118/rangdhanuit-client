@@ -68,6 +68,7 @@ interface AdminDashboardHomeProps {
     adminUsers: number;
     totalBlogs: number;
     totalPortfolios: number;
+    totalServices: number;
   };
 }
 
@@ -104,6 +105,13 @@ export default function AdminDashboardHome({ stats }: AdminDashboardHomeProps) {
       description: 'Project count',
       trend: '+3%',
       color: 'from-purple-500 to-indigo-600',
+    },
+    {
+      title: 'Core Capabilities',
+      value: stats.totalServices,
+      icon: Zap,
+      description: 'Services offered',
+      color: 'from-amber-400 to-yellow-600',
     },
     {
       title: 'System Architects',
@@ -156,7 +164,7 @@ export default function AdminDashboardHome({ stats }: AdminDashboardHomeProps) {
         </motion.div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {statCards.map((stat, index) => (
           <StatCard key={stat.title} {...stat} delay={index * 0.1} />
         ))}
@@ -217,7 +225,7 @@ export default function AdminDashboardHome({ stats }: AdminDashboardHomeProps) {
            transition={{ delay: 0.7 }}
         >
           <Card className="h-full border-white/5 bg-linear-to-br from-indigo-600/10 to-purple-600/10 backdrop-blur-2xl rounded-[3rem] p-8 flex flex-col items-center justify-center text-center relative overflow-hidden group">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)] from-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-from)_0%,transparent_70%)] from-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
             
             <div className="relative mb-6">
               <div className="absolute inset-0 bg-indigo-500/20 rounded-full blur-2xl animate-pulse" />

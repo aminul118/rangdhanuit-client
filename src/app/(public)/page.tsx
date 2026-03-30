@@ -9,6 +9,7 @@ import Process from "@/components/modules/public/home/Process";
 import Testimonials from "@/components/modules/public/home/Testimonials";
 import FAQ from "@/components/modules/public/home/FAQ";
 import generateMetaTags from "@/Seo/generateMetaTags";
+import { getServices } from "@/services/Service/services";
 
 export const metadata: Metadata = generateMetaTags({
   title: "Rangdhanu IT | Premium IT Solutions for Your Business",
@@ -18,12 +19,15 @@ export const metadata: Metadata = generateMetaTags({
     "IT solutions, web development, app development, digital marketing, graphics design, SEO services",
 });
 
-export default function Home() {
+export default async function Home() {
+  const res = await getServices();
+  const services = res?.data || [];
+
   return (
     <div className="flex flex-col">
       <Hero />
       <Partners />
-      <Services />
+      <Services services={services} />
       <Stats />
       <PortfolioGrid />
       <Process />
