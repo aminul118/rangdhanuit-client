@@ -14,24 +14,26 @@ export const adminMenu: SidebarItem[] = [
     icon: LayoutDashboard,
   },
   {
-    href: "/admin/users",
-    label: "Manage Users",
-    icon: Users,
-  },
-  {
-    href: "/admin/portfolios",
-    label: "Portfolios",
-    icon: Briefcase,
-  },
-  {
     href: "/admin/messages",
     label: "Messages",
     icon: MessageSquare,
     badgeKey: "messages",
   },
+
+  {
+    href: "/admin/portfolios",
+    label: "Portfolios",
+    icon: Briefcase,
+  },
+
   {
     href: "/admin/blogs",
     label: "Blog",
     icon: FileText,
+  },
+  {
+    href: "/admin/users",
+    label: "Manage Users",
+    icon: Users,
   },
 ];

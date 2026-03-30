@@ -4,6 +4,7 @@ import { Column } from '@/components/common/table/TableManageMent';
 import { IPortfolio } from '@/types';
 import Image from 'next/image';
 import ProjectActions from './ProjectActions';
+import TableTimestamp from '@/components/common/table/TableTimestamp';
 
 const ProjectTableColumn: Column<IPortfolio>[] = [
   {
@@ -44,7 +45,7 @@ const ProjectTableColumn: Column<IPortfolio>[] = [
   },
   {
     header: 'Date & Time',
-    accessor: (p) => new Date(p.createdAt).toLocaleDateString(),
+    accessor: (p) => <TableTimestamp date={p.createdAt} />,
     sortKey: 'createdAt',
   },
   {
