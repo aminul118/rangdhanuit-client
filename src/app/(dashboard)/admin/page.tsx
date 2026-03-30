@@ -1,6 +1,8 @@
 import dynamic from "next/dynamic";
 import getVerifiedUser from "@/services/User/verified-user";
 import { getStatistics } from "@/services/User/allUsers";
+import { getBlogs } from "@/services/Blog/blogs";
+import { getPortfolios } from "@/services/Portfolio/portfolios";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
@@ -33,13 +35,21 @@ const AdminPage = async () => {
     redirect("/dashboard");
   }
 
-  const res = await getStatistics();
-  const stats = res?.data || {
-    totalUsers: 0,
-    activeUsers: 0,
-    blockedUsers: 0,
-    verifiedUsers: 0,
-    adminUsers: 0,
+  // Fetch all stats in parallel
+  const [userRes, blogRes, portfolioRes] = await Promise.all([
+    getStatistics(),
+    getBlogs({ limit: "1" }),
+    getPortfolios({ limit: "1" }),
+  ]);
+
+  const stats = {
+    totalUsers: userRes?.data?.totalUsers || 0,
+    activeUsers: userRes?.data?.activeUsers || 0,
+    blockedUsers: userRes?.data?.blockedUsers || 0,
+    verifiedUsers: userRes?.data?.verifiedUsers || 0,
+    adminUsers: userRes?.data?.adminUsers || 0,
+    totalBlogs: blogRes?.meta?.total || 0,
+    totalPortfolios: portfolioRes?.meta?.total || 0,
   };
 
   return <AdminDashboard stats={stats} />;

@@ -9,6 +9,8 @@ interface AdminDashboardWrapperProps {
     blockedUsers: number;
     verifiedUsers: number;
     adminUsers: number;
+    totalBlogs: number;
+    totalPortfolios: number;
   };
 }
 

@@ -4,15 +4,20 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { 
   Users, 
-  UserCheck, 
   UserX, 
   Shield, 
   ArrowUpRight,
   TrendingUp,
   Activity,
-  Sparkles
+  Sparkles,
+  BookOpen,
+  Rocket,
+  Zap,
+  PieChart,
+  Target
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Progress } from "@/components/ui/progress";
 
 interface StatCardProps {
   title: string;
@@ -61,13 +66,15 @@ interface AdminDashboardHomeProps {
     blockedUsers: number;
     verifiedUsers: number;
     adminUsers: number;
+    totalBlogs: number;
+    totalPortfolios: number;
   };
 }
 
 export default function AdminDashboardHome({ stats }: AdminDashboardHomeProps) {
   const statCards = [
     {
-      title: 'Total Inhabitants',
+      title: 'Current Inhabitants',
       value: stats.totalUsers,
       icon: Users,
       description: 'Global population',
@@ -83,18 +90,27 @@ export default function AdminDashboardHome({ stats }: AdminDashboardHomeProps) {
       color: 'from-emerald-500 to-teal-600',
     },
     {
-      title: 'Trusted Citizens',
-      value: stats.verifiedUsers,
-      icon: UserCheck,
-      description: 'Verified identities',
+      title: 'Knowledge Base',
+      value: stats.totalBlogs,
+      icon: BookOpen,
+      description: 'Published articles',
+      trend: '+8%',
       color: 'from-amber-500 to-orange-600',
+    },
+    {
+      title: 'Galactic Portfolio',
+      value: stats.totalPortfolios,
+      icon: Rocket,
+      description: 'Project count',
+      trend: '+3%',
+      color: 'from-purple-500 to-indigo-600',
     },
     {
       title: 'System Architects',
       value: stats.adminUsers,
       icon: Shield,
       description: 'Privileged access',
-      color: 'from-purple-500 to-indigo-600',
+      color: 'from-blue-500 to-cyan-600',
     },
     {
       title: 'Restricted Souls',
@@ -104,6 +120,8 @@ export default function AdminDashboardHome({ stats }: AdminDashboardHomeProps) {
       color: 'from-rose-500 to-pink-600',
     },
   ];
+
+  const activePercentage = stats.totalUsers > 0 ? (stats.activeUsers / stats.totalUsers) * 100 : 0;
 
   return (
     <div className="space-y-12">
@@ -138,26 +156,94 @@ export default function AdminDashboardHome({ stats }: AdminDashboardHomeProps) {
         </motion.div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {statCards.map((stat, index) => (
           <StatCard key={stat.title} {...stat} delay={index * 0.1} />
         ))}
       </div>
 
-      {/* Placeholder for future Charts */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.6, duration: 0.5 }}
-        className="rounded-[3rem] border border-white/5 bg-background/20 backdrop-blur-2xl p-12 text-center relative overflow-hidden group"
-      >
-        <div className="absolute inset-0 bg-linear-to-br from-indigo-500/5 to-purple-500/5 -z-10" />
-        <Activity className="mx-auto mb-6 text-indigo-400 group-hover:scale-110 transition-transform duration-500 shadow-xl" size={48} />
-        <h3 className="text-2xl font-bold mb-2">Advanced Analytics Coming Soon</h3>
-        <p className="text-muted-foreground max-w-md mx-auto">
-          We are currently calibrating the neural pathways to bring you deeper insights into user behavior and system performance.
-        </p>
-      </motion.div>
+      <div className="grid gap-8 lg:grid-cols-2">
+        {/* User Distribution Card */}
+        <motion.div
+           initial={{ opacity: 0, x: -20 }}
+           animate={{ opacity: 1, x: 0 }}
+           transition={{ delay: 0.6 }}
+        >
+          <Card className="h-full border-white/5 bg-background/20 backdrop-blur-2xl rounded-[3rem] p-8 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 blur-[80px] -z-10 group-hover:bg-indigo-500/10 transition-all duration-700" />
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center gap-3">
+                <div className="p-3 rounded-2xl bg-indigo-500/10 text-indigo-400">
+                  <PieChart size={24} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">User Distribution</h3>
+                  <p className="text-xs text-muted-foreground uppercase tracking-widest font-bold">Health Monitor</p>
+                </div>
+              </div>
+              <Zap className="text-amber-400 animate-pulse" size={20} />
+            </div>
+
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="flex items-center gap-2 text-emerald-400 font-bold">
+                    <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                    Active Explorers
+                  </span>
+                  <span className="font-black">{activePercentage.toFixed(1)}%</span>
+                </div>
+                <Progress value={activePercentage} className="h-3 rounded-full bg-emerald-500/10" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 pt-4">
+                <div className="p-4 rounded-3xl bg-white/5 border border-white/5 hover:border-indigo-500/20 transition-all">
+                  <p className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground mb-1 text-center">Verified</p>
+                  <p className="text-2xl font-black text-center">{stats.verifiedUsers}</p>
+                </div>
+                 <div className="p-4 rounded-3xl bg-white/5 border border-white/5 hover:border-rose-500/20 transition-all text-center">
+                  <p className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground mb-1">Restricted</p>
+                  <p className="text-2xl font-black">{stats.blockedUsers}</p>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </motion.div>
+
+        {/* System Pulse Health Widget */}
+        <motion.div
+           initial={{ opacity: 0, x: 20 }}
+           animate={{ opacity: 1, x: 0 }}
+           transition={{ delay: 0.7 }}
+        >
+          <Card className="h-full border-white/5 bg-linear-to-br from-indigo-600/10 to-purple-600/10 backdrop-blur-2xl rounded-[3rem] p-8 flex flex-col items-center justify-center text-center relative overflow-hidden group">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)] from-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+            
+            <div className="relative mb-6">
+              <div className="absolute inset-0 bg-indigo-500/20 rounded-full blur-2xl animate-pulse" />
+              <div className="relative bg-background/50 p-6 rounded-full border border-indigo-500/20">
+                <Activity size={48} className="text-indigo-400 animate-[bounce_2s_infinite]" />
+              </div>
+            </div>
+            
+            <h3 className="text-2xl font-black mb-3">Ecosystem Health</h3>
+            <p className="text-muted-foreground text-sm max-w-[280px] mb-8 font-medium">
+              Your digital landscape is breathing normally. All neural pathways are firing at optimal speeds.
+            </p>
+            
+            <div className="flex gap-4">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-widest">
+                <Target size={12} />
+                Operational
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-500 text-[10px] font-black uppercase tracking-widest">
+                <Sparkles size={12} />
+                Optimized
+              </div>
+            </div>
+          </Card>
+        </motion.div>
+      </div>
     </div>
   );
 }
