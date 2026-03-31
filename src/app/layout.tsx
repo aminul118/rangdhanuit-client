@@ -37,7 +37,7 @@ const MainLayout = async ({ children }: { children: React.ReactNode }) => {
           <AuthProvider initialUser={user}>
             <SocketProvider>
               <TooltipProvider>{children}</TooltipProvider>
-              <Toaster position="top-right" richColors />
+              <Toaster position="bottom-right" richColors />
             </SocketProvider>
           </AuthProvider>
         </ThemeProvider>
