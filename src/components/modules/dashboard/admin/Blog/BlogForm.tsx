@@ -66,8 +66,8 @@ export default function BlogFormModern({
             defaultValue={initialData?.title}
             placeholder="Article Title..."
           />
-          <div className="h-px w-full bg-white/5 relative">
-            <div className="absolute left-0 top-0 h-full w-24 bg-linear-to-r from-indigo-500 to-transparent" />
+          <div className="h-px w-full bg-border/50 relative">
+            <div className="absolute left-0 top-0 h-full w-24 bg-linear-to-r from-primary to-transparent" />
           </div>
         </div>
 
@@ -76,7 +76,7 @@ export default function BlogFormModern({
           <div className="space-y-3">
             <Label
               htmlFor="category"
-              className="text-xs uppercase tracking-widest text-zinc-500 font-bold"
+              className="text-xs uppercase tracking-widest text-muted-foreground font-bold"
             >
               Article Category
             </Label>
@@ -87,7 +87,7 @@ export default function BlogFormModern({
               <SelectTrigger className="font-bold">
                 <SelectValue placeholder="Select Category" />
               </SelectTrigger>
-              <SelectContent className="bg-zinc-900 border-white/10">
+              <SelectContent className="bg-background border-border/50">
                 <SelectItem value="tech">Technology</SelectItem>
                 <SelectItem value="design">Design</SelectItem>
                 <SelectItem value="software">Software</SelectItem>
@@ -115,7 +115,7 @@ export default function BlogFormModern({
         transition={{ duration: 0.5, delay: 0.1 }}
         className="group relative"
       >
-        <div className="absolute -left-12 top-0 bottom-0 w-px bg-white/5 group-hover:bg-indigo-500/20 transition-colors" />
+        <div className="absolute -left-12 top-0 bottom-0 w-px bg-border/50 group-hover:bg-primary/20 transition-colors" />
         <PlateRichEditor value={content} onChange={setContent} height={600} />
       </motion.div>
     </CreationSuiteWrapper>

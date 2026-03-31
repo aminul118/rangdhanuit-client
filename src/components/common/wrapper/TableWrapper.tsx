@@ -12,7 +12,7 @@ import {
   useTableTransition,
 } from "@/context/TableTransitionContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { animations } from "@/constants/animations";
+import { TOP_PROGRESS_BAR, FADE_IN } from "@/constants/animations";
 
 interface TableWrapperProps {
   title: string;
@@ -58,19 +58,19 @@ const TableWrapperContent = ({
           <TableSearch className="max-w-md w-full" />
           <div className="flex items-center gap-4">
             <TableLimit />
-            <div className="w-px h-6 bg-white/10 hidden md:block" />
+            <div className="w-px h-6 bg-border/50 hidden md:block" />
             <TableActions />
           </div>
         </div>
       )}
 
       {/* Table Content Section */}
-      <div className="relative overflow-hidden rounded-sm border border-border/50 bg-card/30 backdrop-blur-sm shadow-sm transition-all duration-500">
+      <div className="relative overflow-hidden rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm shadow-sm transition-all duration-500">
         {/* Loading Progress Bar */}
         <AnimatePresence mode="wait">
           {isPending && (
             <motion.div
-              variants={animations.topProgressBar}
+              variants={TOP_PROGRESS_BAR}
               initial="initial"
               animate="animate"
               exit="exit"
@@ -92,7 +92,7 @@ const TableWrapperContent = ({
         <AnimatePresence>
           {isPending && (
             <motion.div
-              variants={animations.fadeIn}
+              variants={FADE_IN}
               initial="initial"
               animate="animate"
               exit="exit"

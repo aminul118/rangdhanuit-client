@@ -7,7 +7,7 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useCallback } from 'react';
 import { useTableTransition } from '@/context/TableTransitionContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { animations } from '@/constants/animations';
+import { POP_IN, POP_IN_TRANSITION } from '@/constants/animations';
 
 interface TableSearchProps {
   placeholder?: string;
@@ -62,22 +62,22 @@ const TableSearch = ({
       <Input
         type="text"
         placeholder={placeholder}
-        className="w-full bg-white/5 border border-white/5 hover:border-white/10 focus:border-indigo-500/50 rounded-2xl pl-12 pr-10 py-2.5 text-sm outline-none transition-all duration-300 backdrop-blur-sm h-11"
+        className="w-full bg-muted/10 border border-border/50 hover:border-border focus:border-indigo-500/50 rounded-2xl pl-12 pr-10 py-2.5 text-sm outline-none transition-all duration-300 backdrop-blur-sm h-11"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
       <AnimatePresence>
         {query && (
           <motion.button
-            variants={animations.popIn}
+            variants={POP_IN}
             initial="initial"
             animate="animate"
             exit="exit"
-            transition={animations.popInTransition}
+            transition={POP_IN_TRANSITION}
             onClick={handleClear}
             className="absolute inset-y-0 right-3 flex items-center text-muted-foreground hover:text-foreground transition-colors"
           >
-            <div className="p-1 rounded-full hover:bg-white/10">
+            <div className="p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/10">
               <X size={16} strokeWidth={3} />
             </div>
           </motion.button>

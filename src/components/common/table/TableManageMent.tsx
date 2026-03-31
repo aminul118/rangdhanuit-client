@@ -100,11 +100,11 @@ function TableManageMent<T>({
 
   return (
     <section>
-      <div className="relative rounded-sm border">
+      <div className="relative rounded-xl border border-border/50 overflow-hidden shadow-sm">
         <Table>
           {/* ===== Header ===== */}
           <TableHeader>
-            <TableRow className="bg-muted/30 hover:bg-muted/30 border-b">
+            <TableRow className="bg-muted/30 hover:bg-muted/30 border-b border-border/50">
               {columns.map((column, index) => (
                 <TableHead
                   key={index}

@@ -4,6 +4,13 @@ import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { Container } from "@/components/common/Container";
+import {
+  FADE_IN_UP,
+  SCALE_IN,
+  FLOAT_ANIMATION,
+  GENTLE_FLOAT,
+} from "@/constants/animations";
 
 const Sparkle = ({
   size,
@@ -38,8 +45,8 @@ const Sparkle = ({
       width: size,
       height: size,
       borderRadius: "50%",
-      backgroundColor: "white",
-      boxShadow: "0 0 10px 2px rgba(255, 255, 255, 0.8)",
+      backgroundColor: "currentColor",
+      boxShadow: "0 0 10px 2px currentColor",
       zIndex: 5,
     }}
   />
@@ -84,16 +91,18 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <Container className="relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
+             variants={SCALE_IN}
+             initial="initial"
+             animate="animate"
+             transition={{ duration: 0.8 }}
           >
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              variants={FADE_IN_UP}
+              initial="initial"
+              animate="animate"
               transition={{ delay: 0.2 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-semibold mb-8 backdrop-blur-sm"
             >
@@ -102,10 +111,11 @@ export default function Hero() {
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              variants={FADE_IN_UP}
+              initial="initial"
+              animate="animate"
               transition={{ delay: 0.3 }}
-              className="text-6xl md:text-8xl font-black tracking-tight mb-8 leading-[1.1]"
+              className="text-6xl md:text-8xl font-black tracking-tight mb-8 leading-[1.1] text-foreground"
             >
               Building the Future <br />
               <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x underline decoration-indigo-500/20 underline-offset-8">
@@ -114,8 +124,9 @@ export default function Hero() {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              variants={FADE_IN_UP}
+              initial="initial"
+              animate="animate"
               transition={{ delay: 0.4 }}
               className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed font-medium"
             >
@@ -125,8 +136,9 @@ export default function Hero() {
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              variants={FADE_IN_UP}
+              initial="initial"
+              animate="animate"
               transition={{ delay: 0.5 }}
               className="flex flex-wrap justify-center gap-6"
             >
@@ -140,38 +152,26 @@ export default function Hero() {
               </Link>
               <Link
                 href="/portfolio"
-                className="bg-white/5 border border-white/10 px-10 py-5 rounded-2xl font-bold text-lg hover:bg-white/10 transition-all backdrop-blur-md flex items-center gap-2"
+                className="glass px-10 py-5 rounded-2xl font-bold text-lg hover:bg-accent transition-all backdrop-blur-md flex items-center gap-2 text-foreground"
               >
                 View Portfolio
               </Link>
             </motion.div>
           </motion.div>
         </div>
-      </div>
+      </Container>
 
       {/* Animated Floating Elements */}
       <motion.div
-        animate={{
-          y: [0, -20, 0],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        variants={FLOAT_ANIMATION}
+        initial="initial"
+        animate="animate"
         className="absolute top-1/4 left-10 w-64 h-64 bg-indigo-500/20 rounded-full blur-[100px] -z-10"
       />
       <motion.div
-        animate={{
-          y: [0, 30, 0],
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{
-          duration: 7,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        variants={GENTLE_FLOAT}
+        initial="initial"
+        animate="animate"
         className="absolute bottom-1/4 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-[120px] -z-10"
       />
 

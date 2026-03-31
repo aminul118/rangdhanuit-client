@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import Image from "next/image";
+import { Container } from "@/components/common/Container";
+import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
 const testimonials = [
   {
@@ -44,28 +46,30 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-24 relative overflow-hidden bg-white/2">
-      <div className="container mx-auto px-6 mb-16">
+    <section className="py-24 relative overflow-hidden bg-muted/10 text-foreground transition-colors duration-500">
+      <Container className="mb-16">
         <div className="text-center max-w-3xl mx-auto">
           <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            variants={FADE_IN_UP}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={VIEWPORT_CONFIG}
             className="text-3xl md:text-5xl font-black mb-6"
           >
             Voices of Trust
           </motion.h2>
           <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            variants={FADE_IN_UP}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={VIEWPORT_CONFIG}
             transition={{ delay: 0.1 }}
-            className="text-lg text-muted-foreground"
+            className="text-lg text-muted-foreground font-medium"
           >
             Don&apos;t just take our word for it. Here&apos;s what our clients have to say about their experience working with Rangdhanu IT.
           </motion.p>
         </div>
-      </div>
+      </Container>
 
       {/* Infinite Scroll Wrapper */}
       <div className="flex relative overflow-hidden py-10">
@@ -73,7 +77,7 @@ export default function Testimonials() {
           {[...testimonials, ...testimonials, ...testimonials].map((testimonial, index) => (
             <div
               key={`${testimonial.name}-${index}`}
-              className="w-[400px] shrink-0 p-10 rounded-[2.5rem] bg-white/5 border border-white/10 hover:border-indigo-500/50 transition-all backdrop-blur-sm relative group whitespace-normal"
+              className="w-[400px] shrink-0 p-10 rounded-[2.5rem] glass border-border/50 hover:border-primary/50 transition-all backdrop-blur-sm relative group whitespace-normal"
             >
               <Quote className="absolute top-8 right-8 w-12 h-12 text-indigo-500/10 group-hover:text-indigo-500/20 transition-colors" />
               <div className="flex gap-1 mb-6">
@@ -93,8 +97,8 @@ export default function Testimonials() {
                   className="rounded-full shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-indigo-500/20" 
                 />
                 <div>
-                  <h4 className="font-bold text-lg">{testimonial.name}</h4>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                   <h4 className="font-bold text-lg text-foreground">{testimonial.name}</h4>
+                  <p className="text-sm text-muted-foreground font-bold">{testimonial.role}</p>
                 </div>
               </div>
             </div>

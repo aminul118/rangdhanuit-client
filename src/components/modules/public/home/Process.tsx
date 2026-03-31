@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { Search, PenTool, Code, Rocket } from "lucide-react";
+import { Container } from "@/components/common/Container";
+import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
 const steps = [
   {
@@ -32,13 +34,28 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="py-24 relative bg-black/20">
-      <div className="container mx-auto px-6">
+    <section className="py-24 relative bg-muted/10 text-foreground transition-colors duration-500">
+      <Container>
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-5xl font-black mb-6">Our Working Process</h2>
-          <p className="text-lg text-muted-foreground">
+          <motion.h2 
+            variants={FADE_IN_UP}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={VIEWPORT_CONFIG}
+            className="text-3xl md:text-5xl font-black mb-6"
+          >
+            Our Working Process
+          </motion.h2>
+          <motion.p 
+            variants={FADE_IN_UP}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={VIEWPORT_CONFIG}
+            transition={{ delay: 0.1 }}
+            className="text-lg text-muted-foreground font-medium"
+          >
             We follow a streamlined, collaborative process to ensure that your project is delivered on time, within budget, and to the highest standards.
-          </p>
+          </motion.p>
         </div>
 
         <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -48,23 +65,24 @@ export default function Process() {
           {steps.map((step, index) => (
             <motion.div
               key={step.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              variants={FADE_IN_UP}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={VIEWPORT_CONFIG}
               transition={{ delay: index * 0.1 }}
-              className="relative text-center"
+              className="relative text-center group"
             >
-              <div className={`w-20 h-20 rounded-full ${step.color} mx-auto flex items-center justify-center mb-6 shadow-2xl group transition-transform hover:scale-110`}>
+              <div className={`w-20 h-20 rounded-full ${step.color} mx-auto flex items-center justify-center mb-6 shadow-2xl transition-transform group-hover:scale-110`}>
                 <step.icon className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4">{step.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed font-bold">
                 {step.description}
               </p>
             </motion.div>
           ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

@@ -3,11 +3,7 @@
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
@@ -79,7 +75,7 @@ const TablePagination = ({ meta, className }: TablePaginationProps) => {
             <button
               onClick={() => handlePageChange(page - 1)}
               disabled={page === 1}
-              className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-background/50 backdrop-blur-sm transition-all hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/50 bg-background/50 backdrop-blur-sm transition-all hover:bg-accent disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <ChevronLeft size={18} />
             </button>
@@ -97,8 +93,8 @@ const TablePagination = ({ meta, className }: TablePaginationProps) => {
                   className={cn(
                     "flex h-10 w-10 items-center justify-center rounded-xl border transition-all text-sm font-bold",
                     page === p
-                      ? "bg-primary text-primary-foreground border-primary shadow-[0_0_15px_-3px_rgba(var(--primary),0.4)]"
-                      : "bg-background/50 backdrop-blur-sm border-white/10 hover:bg-white/5"
+                      ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                      : "bg-background/50 backdrop-blur-sm border-border/50 hover:bg-accent"
                   )}
                 >
                   {p}
@@ -111,7 +107,7 @@ const TablePagination = ({ meta, className }: TablePaginationProps) => {
             <button
               onClick={() => handlePageChange(page + 1)}
               disabled={page === totalPage}
-              className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-background/50 backdrop-blur-sm transition-all hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/50 bg-background/50 backdrop-blur-sm transition-all hover:bg-accent disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <ChevronRight size={18} />
             </button>

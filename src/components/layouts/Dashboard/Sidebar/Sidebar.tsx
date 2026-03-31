@@ -25,11 +25,11 @@ export default function Sidebar() {
       initial={false}
       animate={{ width: isCollapsed ? 80 : 280 }}
       className={cn(
-        "relative flex flex-col h-screen border-r border-white/10 bg-background/80 backdrop-blur-xl transition-colors duration-300 z-40",
+        "relative flex flex-col h-screen border-r border-border/50 bg-background/80 backdrop-blur-xl transition-colors duration-300 z-40",
         "before:absolute before:inset-0 before:bg-linear-to-b before:from-indigo-500/5 before:to-purple-500/5 before:-z-10",
       )}
     >
-      <div className="flex items-center justify-between p-4 h-20 border-b border-white/5 shrink-0">
+      <div className="flex items-center justify-between p-4 h-20 border-b border-border/50 shrink-0">
         {!isCollapsed && (
           <motion.div
             initial={{ opacity: 0, x: -10 }}
@@ -57,7 +57,7 @@ export default function Sidebar() {
           size="icon"
           onClick={() => setIsCollapsed(!isCollapsed)}
           className={cn(
-            "rounded-xl hover:bg-white/5 transition-all duration-300",
+            "rounded-xl hover:bg-accent transition-all duration-300",
             isCollapsed ? "mx-auto" : "ml-auto",
           )}
         >
@@ -81,7 +81,7 @@ export default function Sidebar() {
                   "relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group cursor-pointer overflow-hidden",
                   isActive
                     ? "bg-linear-to-r from-indigo-500/10 to-purple-500/10 text-indigo-500 shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]"
-                    : "text-muted-foreground hover:bg-white/5 hover:text-foreground",
+                    : "text-muted-foreground hover:bg-accent hover:text-foreground",
                 )}
               >
                 {isActive && (

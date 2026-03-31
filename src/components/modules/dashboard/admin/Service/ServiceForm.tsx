@@ -86,15 +86,15 @@ const ServiceForm = ({
             placeholder="Name your excellence..."
             className="text-3xl md:text-5xl font-black border-none bg-transparent p-0 h-auto"
           />
-          <div className="h-px w-full bg-white/5 relative">
-            <div className="absolute left-0 top-0 h-full w-24 bg-linear-to-r from-indigo-500 to-transparent" />
+          <div className="h-px w-full bg-border/50 relative">
+            <div className="absolute left-0 top-0 h-full w-24 bg-linear-to-r from-primary to-transparent" />
           </div>
         </div>
 
         {/* Metadata Section: Icon & Teaser */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-3">
-            <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5 flex items-center gap-2">
+            <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/80 ml-1.5 flex items-center gap-2">
               <Info size={12} className="opacity-40" />
               Visual Icon
             </Label>
@@ -118,7 +118,7 @@ const ServiceForm = ({
                   <SelectValue placeholder="Identify your service" />
                 </div>
               </SelectTrigger>
-              <SelectContent className="bg-zinc-950 border-white/10 rounded-2xl">
+              <SelectContent className="bg-background border-border/50 rounded-2xl">
                 {IconOptions.map((opt) => (
                   <SelectItem
                     key={opt.value}
@@ -138,7 +138,7 @@ const ServiceForm = ({
           </div>
 
           <div className="space-y-3">
-            <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">
+            <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/80 ml-1.5">
               Concise Teaser
             </Label>
             <FormField
@@ -160,7 +160,7 @@ const ServiceForm = ({
         transition={{ duration: 0.5, delay: 0.1 }}
         className="group relative"
       >
-        <div className="absolute -left-12 top-0 bottom-0 w-px bg-white/5 group-hover:bg-indigo-500/20 transition-colors" />
+        <div className="absolute -left-12 top-0 bottom-0 w-px bg-border/50 group-hover:bg-primary/20 transition-colors" />
         <PlateRichEditor value={content} onChange={setContent} height={800} />
       </motion.div>
     </CreationSuiteWrapper>

@@ -104,11 +104,11 @@
 }
 
 .glass {
-  @apply bg-background/60 backdrop-blur-md border border-white/10;
+  @apply bg-background/60 backdrop-blur-md border border-border/50;
 }
 
 .glass-premium {
-  @apply bg-zinc-950/40 backdrop-blur-2xl border border-white/5 shadow-[0_8px_32px_0_rgba(0,0,0,0.8)];
+  @apply bg-card/40 backdrop-blur-2xl border border-border/50 shadow-2xl;
 }
 
 .glow-indigo {
@@ -116,7 +116,7 @@
 }
 
 .glow-rainbow {
-  @apply shadow-[0_0_30px_-10px_rgba(139,92,246,0.3),0_0_30px_-10px_rgba(59,130,246,0.3)] border-indigo-500/20;
+  @apply shadow-[0_0_30px_-10px_rgba(139,92,246,0.3),0_0_30px_-10px_rgba(59,130,246,0.3)] border-primary/20;
 }
 
 .gradient-text {
@@ -124,7 +124,7 @@
 }
 
 .hero-gradient {
-  background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.15) 0%, rgba(10, 10, 10, 0) 50%);
+  background: radial-gradient(circle at 50% 50%, var(--color-primary) / 0.15 0%, transparent 50%);
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -136,11 +136,19 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.2);
 }
 

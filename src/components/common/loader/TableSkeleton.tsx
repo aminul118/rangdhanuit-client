@@ -70,7 +70,7 @@ export function TableSkeleton({
       )}
 
       {/* Table Content Skeleton */}
-      <div className="relative overflow-hidden rounded-sm border border-border/50 bg-card/30 backdrop-blur-sm shadow-sm p-1">
+      <div className="relative overflow-hidden rounded-xl border border-border/50 bg-card/30 backdrop-blur-sm shadow-sm p-1">
         <Table>
           <TableHeader>
             <TableRow className="bg-muted/30 hover:bg-muted/30 border-b">

@@ -40,7 +40,7 @@ export default function Navbar() {
     <nav
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
-        scrolled ? "glass py-4" : "bg-transparent py-6 border-transparent",
+        scrolled ? "glass py-4 shadow-sm" : "bg-transparent py-6 border-transparent",
       )}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
@@ -117,7 +117,7 @@ export default function Navbar() {
             />
           )}
           <button
-            className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/5 transition-colors"
+            className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-accent transition-colors"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -147,7 +147,7 @@ export default function Navbar() {
                       "text-lg font-medium px-4 py-3 rounded-xl transition-all",
                       isActive
                         ? "bg-primary/10 text-primary font-bold"
-                        : "text-foreground/70 hover:bg-white/5 hover:text-primary font-medium",
+                        : "text-foreground/70 hover:bg-accent hover:text-primary font-medium",
                     )}
                     onClick={() => setIsOpen(false)}
                   >
