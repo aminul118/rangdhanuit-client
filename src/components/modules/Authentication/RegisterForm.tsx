@@ -56,7 +56,7 @@ export function RegisterForm() {
       <FormField
         id="name"
         label="Full Name"
-        placeholder="Aminul Islam"
+        placeholder="John Doe"
         icon={<UserIcon className="h-4 w-4" />}
         error={form.formState.errors.name?.message}
         size="xl"
@@ -77,7 +77,7 @@ export function RegisterForm() {
         id="email"
         label="Email Address"
         type="email"
-        placeholder="aminul@rangdhanu.it"
+        placeholder="john@email.com"
         icon={<Mail className="h-4 w-4" />}
         error={form.formState.errors.email?.message}
         size="xl"

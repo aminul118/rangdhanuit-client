@@ -131,21 +131,21 @@ export function ContactContent() {
                 </div>
               </div>
               <div className="flex flex-col gap-3">
-                <Label
-                  htmlFor="subject"
-                  className="text-xs font-black text-zinc-500 uppercase tracking-widest px-1"
-                >
-                  Subject
-                </Label>
-                <Input id="subject" placeholder="Project Inquiry" />
-              </div>
-              <div className="flex flex-col gap-3">
-                <Label
-                  htmlFor="message"
-                  className="text-xs font-black text-zinc-500 uppercase tracking-widest px-1"
-                >
-                  Message
-                </Label>
+                  <Label
+                    htmlFor="subject"
+                    className="text-xs font-black text-muted-foreground uppercase tracking-widest px-1"
+                  >
+                    Subject
+                  </Label>
+                  <Input id="subject" placeholder="Project Inquiry" />
+                </div>
+                <div className="flex flex-col gap-3">
+                  <Label
+                    htmlFor="message"
+                    className="text-xs font-black text-muted-foreground uppercase tracking-widest px-1"
+                  >
+                    Message
+                  </Label>
                 <Textarea
                   id="message"
                   rows={4}

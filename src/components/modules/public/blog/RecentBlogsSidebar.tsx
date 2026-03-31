@@ -36,7 +36,7 @@ export default async function RecentBlogsSidebar() {
               href={`/blog/${blog.slug}`}
               className="group flex gap-4 items-start"
             >
-              <div className="relative h-20 w-24 shrink-0 rounded-xl overflow-hidden border border-white/10">
+              <div className="relative h-20 w-24 shrink-0 rounded-xl overflow-hidden border border-border/50">
                 <Image
                   src={blog.featuredImage}
                   alt={blog.title}

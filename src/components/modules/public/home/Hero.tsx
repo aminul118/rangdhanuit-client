@@ -115,7 +115,7 @@ export default function Hero() {
               initial="initial"
               animate="animate"
               transition={{ delay: 0.3 }}
-              className="text-6xl md:text-8xl font-black tracking-tight mb-8 leading-[1.1] text-foreground"
+              className="text-4xl md:text-7xl font-black tracking-tight mb-8 leading-[1.1] text-foreground"
             >
               Building the Future <br />
               <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x underline decoration-indigo-500/20 underline-offset-8">

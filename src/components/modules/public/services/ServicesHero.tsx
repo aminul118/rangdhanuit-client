@@ -29,10 +29,10 @@ export function ServicesHero() {
           whileInView="whileInView"
           viewport={VIEWPORT_CONFIG}
           transition={{ delay: 0.1 }}
-          className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tight leading-[1.1] md:leading-[0.95] text-foreground flex flex-col items-center"
+          className="text-4xl md:text-7xl font-black tracking-tight leading-[1.1] md:leading-[1] text-foreground flex flex-col items-center"
         >
           <span>Comprehensive</span>
-          <span className="bg-clip-text text-transparent bg-linear-to-r from-indigo-400 via-purple-500 to-rose-400">
+          <span className="bg-clip-text text-transparent bg-linear-to-r from-indigo-500 via-purple-500 to-rose-400 underline decoration-indigo-500/20 underline-offset-8">
             Technical Mastery
           </span>
         </motion.h1>

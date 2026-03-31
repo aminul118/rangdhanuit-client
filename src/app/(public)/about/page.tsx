@@ -4,6 +4,9 @@ import { AboutHero } from "@/components/modules/public/about/AboutHero";
 import { AboutMission } from "@/components/modules/public/about/AboutMission";
 import { AboutStats } from "@/components/modules/public/about/AboutStats";
 import { AboutValues } from "@/components/modules/public/about/AboutValues";
+import { AboutStory } from "@/components/modules/public/about/AboutStory";
+import { AboutWhyUs } from "@/components/modules/public/about/AboutWhyUs";
+import { AboutProcess } from "@/components/modules/public/about/AboutProcess";
 
 export const metadata: Metadata = generateMetaTags({
   title: "About Us | Rangdhanu IT",
@@ -14,11 +17,14 @@ export const metadata: Metadata = generateMetaTags({
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col gap-24 pb-24">
+    <div className="flex flex-col pb-24 font-bold tracking-tight">
       <AboutHero />
+      <AboutStory />
       <AboutMission />
       <AboutStats />
+      <AboutWhyUs />
       <AboutValues />
+      <AboutProcess />
     </div>
   );
 }

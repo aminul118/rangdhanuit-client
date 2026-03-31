@@ -16,7 +16,7 @@ const ServicesPage = async () => {
   const services = (res?.data as IService[]) || [];
 
   return (
-    <div className="min-h-screen bg-zinc-950 pt-16 md:pt-32 pb-32">
+    <div className="min-h-screen bg-background pt-16 md:pt-32 pb-32 transition-colors duration-500">
       <ServicesHero />
       <ServicesList services={services} />
       <ServicesCTA />

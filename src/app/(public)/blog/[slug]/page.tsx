@@ -73,7 +73,7 @@ export default async function BlogDetailsPage({
   const blog = data.data;
 
   return (
-    <main className="min-h-screen pt-32 pb-20 overflow-hidden">
+    <main className="min-h-screen pt-32 pb-20 overflow-hidden bg-background transition-colors duration-500">
       {/* Background decoration */}
       <div className="absolute inset-x-0 top-0 -z-10 h-full w-full bg-linear-to-b from-indigo-500/5 via-background to-background" />
 
@@ -109,7 +109,7 @@ export default async function BlogDetailsPage({
                     </div>
                   </div>
 
-                  <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight">
+                  <h1 className="text-4xl md:text-6xl lg:text-7xl font-black leading-tight text-foreground">
                     {blog.title}
                   </h1>
                 </div>
@@ -127,17 +127,17 @@ export default async function BlogDetailsPage({
 
               <div className="space-y-8">
                 <div
-                  className="prose prose-invert prose-lg max-w-none prose-indigo prose-headings:font-black prose-headings:tracking-tight prose-a:text-indigo-400 prose-img:rounded-3xl prose-blockquote:border-indigo-500 prose-blockquote:bg-indigo-500/5 prose-blockquote:p-6 prose-blockquote:rounded-2xl"
+                  className="prose dark:prose-invert prose-lg max-w-none prose-indigo prose-headings:font-black prose-headings:tracking-tight prose-headings:text-foreground prose-a:text-indigo-400 prose-img:rounded-3xl prose-img:shadow-2xl prose-blockquote:border-indigo-500 prose-blockquote:bg-indigo-500/5 prose-blockquote:p-6 prose-blockquote:rounded-2xl"
                   dangerouslySetInnerHTML={{ __html: blog.content }}
                 />
 
-                <div className="pt-12 border-t border-white/10">
+                <div className="pt-12 border-t border-border/50">
                   <h3 className="text-xl font-bold mb-6">Tags</h3>
                   <div className="flex flex-wrap gap-3">
                     {blog.tags.map((tag: string) => (
                       <span
                         key={tag}
-                        className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-sm font-medium hover:bg-white/10 transition-all"
+                        className="px-4 py-2 bg-muted/10 border border-border/50 rounded-xl text-sm font-medium hover:bg-muted/20 transition-all"
                       >
                         #{tag}
                       </span>

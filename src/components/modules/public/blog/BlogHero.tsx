@@ -26,7 +26,7 @@ export function BlogHero() {
         whileInView="whileInView"
         viewport={VIEWPORT_CONFIG}
         transition={{ delay: 0.1 }}
-        className="text-4xl sm:text-5xl md:text-7xl font-black mb-8 leading-[1.1] text-white"
+        className="text-4xl md:text-7xl font-black mb-8 leading-[1.1] text-foreground"
       >
         Latest from our <br />
         <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent underline decoration-indigo-500/20 underline-offset-8">

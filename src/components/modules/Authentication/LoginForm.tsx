@@ -58,7 +58,7 @@ export function LoginForm() {
         id="email"
         label="Email Address"
         type="email"
-        placeholder="aminul@rangdhanu.it"
+        placeholder="john@email.com"
         autoComplete="email"
         icon={<Mail className="h-4 w-4" />}
         error={form.formState.errors.email?.message}

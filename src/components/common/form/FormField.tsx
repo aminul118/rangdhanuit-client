@@ -43,7 +43,7 @@ export default function FormField({
     <div className={cn("space-y-2.5", wrapperClassName)}>
       <Label
         htmlFor={id}
-        className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500/80 ml-1.5"
+        className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/80 ml-1.5"
       >
         {label}
       </Label>
@@ -51,8 +51,8 @@ export default function FormField({
       <div className="relative group/input">
         {icon && (
           <span className={cn(
-            "absolute left-4 text-zinc-600 transition-colors group-focus-within/input:text-indigo-500 pointer-events-none flex items-center",
-            size === "xl" ? "top-5 h-5 w-5" : "top-3 h-4 w-4"
+            "absolute left-4 text-muted-foreground/60 transition-colors group-focus-within/input:text-indigo-500 pointer-events-none flex items-center",
+            size === "xl" ? "top-5 h-5 w-5" : "top-3.5 h-4 w-4"
           )}>
             {icon}
           </span>
