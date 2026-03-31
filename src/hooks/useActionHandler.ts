@@ -85,7 +85,25 @@ const useActionHandler = () => {
     }
   };
 
-  return { executePost, isPending };
+  const executeDelete = async <T>({
+    action,
+    success,
+    errorMessage = 'Deletion failed',
+    onError,
+  }: ExecuteOptions<T>): Promise<boolean> => {
+    return executePost({
+      action,
+      success: {
+        loadingText: 'Deleting...',
+        isRefresh: true,
+        ...success,
+      },
+      errorMessage,
+      onError,
+    });
+  };
+
+  return { executePost, executeDelete, isPending };
 };
 
 export default useActionHandler;

@@ -2,9 +2,9 @@
 
 import { updateService } from "@/services/Service/services";
 import ServiceForm from "./ServiceForm";
-import CreationHeader from "@/components/common/wrapper/CreationHeader";
 import useActionHandler from "@/hooks/useActionHandler";
 import { IService } from "@/types/Service/service.types";
+import { EditFormWrapper } from "@/components/common/wrapper/EditFormWrapper";
 
 interface EditServiceFormProps {
   id: string;
@@ -26,20 +26,22 @@ const EditServiceForm = ({ id, initialData }: EditServiceFormProps) => {
   };
 
   return (
-    <div className="max-w-8xl mx-auto pb-32 px-4 md:px-0">
-      <CreationHeader 
-        title={`Refine ${initialData.title}`}
-        subtitle="Ensure your service descriptions are accurate and compelling. High-quality details increase client trust."
-        backLink="/admin/services"
-      />
-      
-      <ServiceForm 
-        onSubmit={handleUpdate} 
-        loading={isPending} 
-        submitLabel="Update Service" 
-        initialData={initialData}
-      />
-    </div>
+    <EditFormWrapper<IService>
+      id={id}
+      initialData={initialData}
+      title={`Refine ${initialData.title}`}
+      subtitle="Ensure your service descriptions are accurate and compelling. High-quality details increase client trust."
+      backLink="/admin/services"
+    >
+      {(service: IService) => (
+        <ServiceForm 
+          onSubmit={handleUpdate} 
+          loading={isPending} 
+          submitLabel="Update Service" 
+          initialData={service}
+        />
+      )}
+    </EditFormWrapper>
   );
 };
 

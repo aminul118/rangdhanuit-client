@@ -61,8 +61,7 @@ export default function FormField({
         <Input
           id={id}
           className={cn(
-            "bg-zinc-900/40 border-zinc-800/50 hover:border-zinc-700/50 focus:border-indigo-500/40 focus:ring-4 focus:ring-indigo-500/10 transition-all rounded-2xl placeholder:text-zinc-700/50 font-medium",
-            size === "xl" ? "h-14 text-lg pl-12" : "h-11 pl-11",
+            size === "xl" ? "h-14 text-lg pl-12" : "pl-11",
             !icon && (size === "xl" ? "pl-5" : "pl-4"),
             rightSlot && "pr-12",
             className

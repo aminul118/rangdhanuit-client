@@ -1,7 +1,7 @@
 import { getAllUsers } from "@/services/User/allUsers";
 import UserTable from "@/components/modules/dashboard/admin/Users/UserTable";
-import TableWrapper from "@/components/common/wrapper/TableWrapper";
 import CreateUserModal from "@/components/modules/dashboard/admin/Users/CreateUserModal";
+import { ManagementListWrapper } from "@/components/common/wrapper/ManagementListWrapper";
 
 export async function UsersList({
   searchParams,
@@ -13,13 +13,15 @@ export async function UsersList({
   const meta = res?.meta;
 
   return (
-    <TableWrapper
+    <ManagementListWrapper
       title="User Management"
       description="Manage your system users, roles, and account status from this central glass dashboard."
       meta={meta}
-      action={<CreateUserModal />}
     >
+      <div className="flex justify-end mb-6">
+        <CreateUserModal />
+      </div>
       <UserTable users={users} />
-    </TableWrapper>
+    </ManagementListWrapper>
   );
 }

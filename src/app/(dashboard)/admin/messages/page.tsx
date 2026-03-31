@@ -1,7 +1,7 @@
-import { Suspense } from "react";
 import { AdminMessagesContent } from "@/components/modules/dashboard/Messaging/AdminMessagesContent";
 import { MessagingSkeleton } from "@/components/modules/dashboard/Messaging/MessagingSkeleton";
 import { Metadata } from "next";
+import { AdminPageWrapper } from "@/components/common/wrapper/AdminPageWrapper";
 
 export const metadata: Metadata = {
   title: "Admin Messages | Rangdhanu IT",
@@ -10,8 +10,11 @@ export const metadata: Metadata = {
 
 export default function AdminMessagesPage() {
   return (
-    <Suspense fallback={<MessagingSkeleton />}>
+    <AdminPageWrapper
+      customSkeleton={<MessagingSkeleton />}
+      padding="p-0" // Messaging has internal padding
+    >
       <AdminMessagesContent />
-    </Suspense>
+    </AdminPageWrapper>
   );
 }

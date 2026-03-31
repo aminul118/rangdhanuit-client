@@ -1,11 +1,9 @@
-"use client";
-
 import { Column } from "@/components/common/table/TableManageMent";
 import { IBlog } from "@/types";
 import Image from "next/image";
 import BlogActions from "./BlogActions";
-import { Badge } from "@/components/ui/badge";
 import TableTimestamp from "@/components/common/table/TableTimestamp";
+import { TableBadge } from "@/components/common/table/TableBadge";
 
 const BlogTableColumn: Column<IBlog>[] = [
   {
@@ -46,12 +44,9 @@ const BlogTableColumn: Column<IBlog>[] = [
   {
     header: "Category",
     accessor: (b) => (
-      <Badge
-        variant="outline"
-        className="bg-primary/5 text-primary border-primary/20 hover:bg-primary/10 transition-colors"
-      >
+      <TableBadge>
         {b.category}
-      </Badge>
+      </TableBadge>
     ),
     sortKey: "category",
     className: "w-32",
@@ -59,16 +54,9 @@ const BlogTableColumn: Column<IBlog>[] = [
   {
     header: "Status",
     accessor: (b) => (
-      <Badge
-        variant={b.status === "PUBLISHED" ? "default" : "secondary"}
-        className={
-          b.status === "PUBLISHED"
-            ? "bg-green-500/10 text-green-600 border-green-500/20 hover:bg-green-500/20 shadow-none"
-            : "bg-amber-500/10 text-amber-600 border-amber-500/20 hover:bg-amber-500/20 shadow-none"
-        }
-      >
+      <TableBadge status={b.status}>
         {b.status}
-      </Badge>
+      </TableBadge>
     ),
     sortKey: "status",
     className: "w-24",

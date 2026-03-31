@@ -11,27 +11,27 @@ const AddBlogForm = () => {
 
   const handleCreate = async (formData: FormData) => {
     await executePost({
-       action: () => createBlog(formData),
-       success: {
-         message: "Blog published successfully!",
-         redirectPath: "/admin/blogs",
-         isRefresh: true
-       }
+      action: () => createBlog(formData),
+      success: {
+        message: "Blog published successfully!",
+        redirectPath: "/admin/blogs",
+        isRefresh: true,
+      },
     });
   };
 
   return (
-    <div className="max-w-8xl mx-auto pb-32 px-4 md:px-0">
-      <CreationHeader 
+    <div className="container mx-auto pb-32 px-4 md:px-0">
+      <CreationHeader
         title="Write New Article"
         subtitle="Share your thoughts and expertise with the world. Your content will be automatically optimized for reading."
         backLink="/admin/blogs"
       />
-      
-      <BlogForm 
-        onSubmit={handleCreate} 
-        loading={isPending} 
-        submitLabel="Publish Article" 
+
+      <BlogForm
+        onSubmit={handleCreate}
+        loading={isPending}
+        submitLabel="Publish Article"
       />
     </div>
   );

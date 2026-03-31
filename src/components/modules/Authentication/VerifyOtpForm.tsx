@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2, Mail, ArrowRight } from "lucide-react";
-
 import { SubmitButton } from "@/components/common/form";
 import {
   InputOTP,
@@ -84,33 +83,15 @@ export function VerifyOtpForm() {
           className="gap-3"
         >
           <InputOTPGroup className="gap-2">
-            <InputOTPSlot
-              index={0}
-              className="h-12 w-10 sm:h-14 sm:w-12 text-xl font-black bg-zinc-950/50 border-zinc-800 focus:ring-indigo-500 rounded-lg"
-            />
-            <InputOTPSlot
-              index={1}
-              className="h-12 w-10 sm:h-14 sm:w-12 text-xl font-black bg-zinc-950/50 border-zinc-800 focus:ring-indigo-500 rounded-lg"
-            />
-            <InputOTPSlot
-              index={2}
-              className="h-12 w-10 sm:h-14 sm:w-12 text-xl font-black bg-zinc-950/50 border-zinc-800 focus:ring-indigo-500 rounded-lg"
-            />
+            <InputOTPSlot index={0} />
+            <InputOTPSlot index={1} />
+            <InputOTPSlot index={2} />
           </InputOTPGroup>
           <InputOTPSeparator className="text-zinc-700" />
           <InputOTPGroup className="gap-2">
-            <InputOTPSlot
-              index={3}
-              className="h-12 w-10 sm:h-14 sm:w-12 text-xl font-black bg-zinc-950/50 border-zinc-800 focus:ring-indigo-500 rounded-lg"
-            />
-            <InputOTPSlot
-              index={4}
-              className="h-12 w-10 sm:h-14 sm:w-12 text-xl font-black bg-zinc-950/50 border-zinc-800 focus:ring-indigo-500 rounded-lg"
-            />
-            <InputOTPSlot
-              index={5}
-              className="h-12 w-10 sm:h-14 sm:w-12 text-xl font-black bg-zinc-950/50 border-zinc-800 focus:ring-indigo-500 rounded-lg text-white"
-            />
+            <InputOTPSlot index={3} />
+            <InputOTPSlot index={4} />
+            <InputOTPSlot index={5} />
           </InputOTPGroup>
         </InputOTP>
       </div>

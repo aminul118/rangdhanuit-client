@@ -66,43 +66,37 @@ export function LoginForm() {
         {...form.register("email")}
       />
 
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500/80 ml-1.5">
-            Secure Password
-          </span>
-          <Link
-            href="/forgot-password"
-            className="text-[10px] text-indigo-400 hover:text-indigo-300 font-black uppercase tracking-widest transition-colors"
+      <FormField
+        id="password"
+        label="Secure Password"
+        type={showPassword ? "text" : "password"}
+        placeholder="••••••••••••"
+        autoComplete="current-password"
+        icon={<Lock className="h-4 w-4" />}
+        rightSlot={
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="text-zinc-600 hover:text-indigo-500 transition-colors flex items-center justify-center h-full pr-1"
           >
-            Forgot?
-          </Link>
-        </div>
-        <FormField
-          id="password"
-          label=""
-          type={showPassword ? "text" : "password"}
-          placeholder="••••••••••••"
-          autoComplete="current-password"
-          icon={<Lock className="h-4 w-4" />}
-          rightSlot={
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="text-zinc-600 hover:text-indigo-500 transition-colors"
-            >
-              {showPassword ? (
-                <EyeOff className="h-4 w-4" />
-              ) : (
-                <Eye className="h-4 w-4" />
-              )}
-            </button>
-          }
-          error={form.formState.errors.password?.message}
-          wrapperClassName="!space-y-0"
-          size="xl"
-          {...form.register("password")}
-        />
+            {showPassword ? (
+              <EyeOff className="h-4 w-4" />
+            ) : (
+              <Eye className="h-4 w-4" />
+            )}
+          </button>
+        }
+        error={form.formState.errors.password?.message}
+        size="xl"
+        {...form.register("password")}
+      />
+      <div className="flex justify-end -mt-4">
+        <Link
+          href="/forgot-password"
+          className="text-[10px] text-indigo-400 hover:text-indigo-300 font-black uppercase tracking-widest transition-colors mr-2"
+        >
+          Forgot Password?
+        </Link>
       </div>
 
       <SubmitButton

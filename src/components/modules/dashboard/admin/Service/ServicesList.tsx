@@ -1,9 +1,7 @@
 import { getServices } from "@/services/Service/services";
 import ServiceTable from "./ServiceTable";
-import TableWrapper from "@/components/common/wrapper/TableWrapper";
-import Link from "next/link";
+import { ManagementListWrapper } from "@/components/common/wrapper/ManagementListWrapper";
 import { Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export async function ServicesList({
   searchParams,
@@ -15,20 +13,17 @@ export async function ServicesList({
   const meta = res?.meta;
 
   return (
-    <TableWrapper
+    <ManagementListWrapper
       title="Services Management"
       description="Define and refine your core offerings. Every service added here will be showcased to your potential clients with premium details."
       meta={meta}
-      action={
-        <Link href="/admin/services/add">
-          <Button className="bg-primary hover:opacity-90 transition-all rounded-2xl h-12 px-8 font-bold shadow-[0_0_30px_-5px_rgba(var(--primary),0.6)] group">
-            <Sparkles className="mr-2 group-hover:rotate-12 transition-transform" size={20} />
-            Create New Service
-          </Button>
-        </Link>
-      }
+      addBtn={{
+        label: "Create New Service",
+        link: "/admin/services/add",
+        icon: <Sparkles className="mr-2 group-hover:rotate-12 transition-transform" size={20} />,
+      }}
     >
       <ServiceTable services={services} />
-    </TableWrapper>
+    </ManagementListWrapper>
   );
 }

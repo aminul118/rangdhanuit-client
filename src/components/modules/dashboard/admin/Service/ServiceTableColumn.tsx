@@ -8,20 +8,10 @@ import {
   Palette,
   TrendingUp,
   ShieldCheck,
-  MoreVertical,
-  Edit,
-  Trash2,
-  ExternalLink,
 } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { Column } from "@/components/common/table/TableManageMent";
+import { TableActionDropdown } from "@/components/common/table/TableActionDropdown";
+import { TableBadge } from "@/components/common/table/TableBadge";
 
 const IconMap: Record<string, React.ElementType> = {
   Laptop,
@@ -89,48 +79,13 @@ export const ServiceTableColumns = (
     accessor: (service: IService) => {
       return (
         <div className="text-right">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className="h-8 w-8 p-0 hover:bg-indigo-500/10 hover:text-indigo-500 rounded-full"
-              >
-                <span className="sr-only">Open menu</span>
-                <MoreVertical className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              className="w-48 p-2 rounded-2xl border-white/10 bg-background/80 backdrop-blur-xl"
-            >
-              <DropdownMenuItem asChild>
-                <Link
-                  href={`/services/${service.slug}`}
-                  target="_blank"
-                  className="flex items-center gap-2 cursor-pointer py-2 px-3 rounded-xl hover:bg-emerald-500/10 hover:text-emerald-500 transition-colors"
-                >
-                  <ExternalLink className="h-4 w-4" />
-                  <span>View Public</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link
-                  href={`/admin/services/edit/${service._id}`}
-                  className="flex items-center gap-2 cursor-pointer py-2 px-3 rounded-xl hover:bg-indigo-500/10 hover:text-indigo-500 transition-colors"
-                >
-                  <Edit className="h-4 w-4" />
-                  <span>Edit Details</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => handleDelete(service._id)}
-                className="flex items-center gap-2 cursor-pointer py-2 px-3 rounded-xl text-rose-500 hover:bg-rose-500/10 hover:text-rose-600 transition-colors"
-              >
-                <Trash2 className="h-4 w-4" />
-                <span>Delete Service</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <TableActionDropdown
+            viewLink={`/services/${service.slug}`}
+            editLink={`/admin/services/edit/${service._id}`}
+            deleteAction={async () => handleDelete(service._id)}
+            deleteConfirmMessage="Are you sure you want to delete this service? This action cannot be undone."
+            deleteSuccessMessage="Service successfully removed from the portal."
+          />
         </div>
       );
     },

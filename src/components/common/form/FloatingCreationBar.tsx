@@ -1,9 +1,9 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { Save, Send, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
+import { Save, Sparkles } from "lucide-react";
+import FormSubmitButton from "@/components/common/form/FormSubmitButton";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 interface FloatingCreationBarProps {
   loading: boolean;
@@ -29,39 +29,31 @@ const FloatingCreationBar = ({
             <Sparkles size={18} className="text-indigo-400 animate-pulse" />
           </div>
           <div className="hidden sm:block">
-            <p className="text-[10px] font-black uppercase tracking-widest text-indigo-400/60">Creative Mode</p>
+            <p className="text-[10px] font-black uppercase tracking-widest text-indigo-400/60">
+              Creative Mode
+            </p>
             <p className="text-xs font-bold text-white/90">Draft autosaved</p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
           {onSaveDraft && (
-             <Button
-                type="button"
-                variant="ghost"
-                onClick={onSaveDraft}
-                className="h-12 px-6 rounded-2xl hover:bg-white/5 text-zinc-400 hover:text-white font-bold text-xs uppercase tracking-widest transition-all"
-              >
-                <Save size={16} className="mr-2" />
-                Save Draft
-              </Button>
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={onSaveDraft}
+              className="h-12 px-6 rounded-2xl hover:bg-white/5 text-zinc-400 hover:text-white font-bold text-xs uppercase tracking-widest transition-all"
+            >
+              <Save size={16} className="mr-2" />
+              Save Draft
+            </Button>
           )}
-          
-          <Button
-            type="submit"
-            disabled={loading}
-            className={cn(
-              "h-14 px-8 rounded-[1.5rem] bg-indigo-600 hover:bg-indigo-500 text-white font-black text-sm uppercase tracking-wider shadow-lg shadow-indigo-600/20 transition-all active:scale-95 flex items-center gap-2",
-              loading && "opacity-80 pointer-events-none"
-            )}
-          >
-            {loading ? (
-              <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-            ) : (
-              <Send size={18} />
-            )}
-            {submitLabel}
-          </Button>
+
+          <FormSubmitButton
+            loading={loading}
+            submitLabel={submitLabel}
+            className="h-14 px-8 rounded-[1.5rem] bg-indigo-600 hover:bg-indigo-500 text-sm uppercase tracking-wider"
+          />
         </div>
       </div>
     </motion.div>

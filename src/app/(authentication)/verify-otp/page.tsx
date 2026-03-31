@@ -1,142 +1,67 @@
-import { Metadata } from 'next';
-import { VerifyOtpForm } from '@/components/modules/Authentication/VerifyOtpForm';
-import { redirect } from 'next/navigation';
-import { EmailDisplay } from '@/components/modules/Authentication/EmailDisplay';
-import generateMetaTags from '@/Seo/generateMetaTags';
-import { ShieldCheck, ArrowLeft } from 'lucide-react';
-import { Suspense } from 'react';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import Link from "next/link";
-import {
-  FadeInLeft,
-  FadeInScale,
-  FadeInScale as FadeInLogo,
-  AnimatedGradientBg,
-  HoverScaleLogo,
-} from "@/components/modules/Authentication/AuthAnimations";
+import { Metadata } from "next";
+import { VerifyOtpForm } from "@/components/modules/Authentication/VerifyOtpForm";
+import { redirect } from "next/navigation";
+import { EmailDisplay } from "@/components/modules/Authentication/EmailDisplay";
+import generateMetaTags from "@/Seo/generateMetaTags";
+import { ShieldCheck } from "lucide-react";
+import { Suspense } from "react";
+import { AuthLayoutWrapper } from "@/components/common/wrapper/AuthLayoutWrapper";
+import { TSearchParamsPromise } from "@/types";
 
 export const metadata: Metadata = generateMetaTags({
   title: "Verify OTP | Rangdhanu IT",
-  description: "Verify your email address to complete your registration with Rangdhanu IT.",
+  description:
+    "Verify your email address to complete your registration with Rangdhanu IT.",
   keywords: "verify otp, email verification, account security",
 });
 
-import { TSearchParamsPromise } from "@/types";
-
-export default async function VerifyOTPPage({ 
-  searchParams 
-}: { 
-  searchParams: TSearchParamsPromise 
+export default async function VerifyOTPPage({
+  searchParams,
+}: {
+  searchParams: TSearchParamsPromise;
 }) {
   const resolvedSearchParams = await searchParams;
-  const email = typeof resolvedSearchParams.email === 'string' ? resolvedSearchParams.email : '';
+  const email =
+    typeof resolvedSearchParams.email === "string"
+      ? resolvedSearchParams.email
+      : "";
 
   if (!email) {
-    redirect('/register');
+    redirect("/register");
   }
 
   return (
-    <div className="relative grid lg:max-w-none lg:grid-cols-2 h-screen overflow-hidden selection:bg-indigo-500/30">
-      {/* Background Decor */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/10 rounded-full blur-[120px] animate-pulse delay-700" />
-      </div>
-
-      {/* ===== LEFT PANEL (fixed) ===== */}
-      <div className="sticky top-0 h-screen hidden flex-col bg-zinc-950 p-10 text-white lg:flex border-r border-zinc-800/50">
-        <div className="absolute inset-0 bg-linear-to-b from-zinc-900 via-zinc-950 to-black overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_2px_2px,rgba(255,255,255,0.05)_1px,transparent_0)] bg-size-[32px_32px]" />
-          <AnimatedGradientBg />
-        </div>
-
-        <div className="relative z-20 flex items-center text-lg font-medium">
-          <Link href="/" className="flex items-center gap-3 group">
-            <HoverScaleLogo className="w-12 h-12 bg-linear-to-br from-indigo-500 via-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.4)] transition-all duration-300 ring-2 ring-white/10">
-              <span className="text-white font-black text-2xl tracking-tighter">R</span>
-            </HoverScaleLogo>
-            <div className="flex flex-col">
-              <span className="font-bold text-2xl tracking-tight text-white leading-none">
-                Rangdhanu
-              </span>
-              <span className="text-indigo-400 text-xs font-black tracking-widest uppercase mt-0.5">
-                Innovations
-              </span>
+    <AuthLayoutWrapper
+      title="Verify Email"
+      description={
+        (
+          <>
+            We&apos;ve sent a security code to <EmailDisplay />. Enter it to
+            verify your identity.
+          </>
+        ) as any
+      }
+      footerText="Remembered your password?"
+      footerLink="/login"
+      footerLinkLabel="Back to Secure Login"
+      quoteTitle="Verify your"
+      quoteHighlight="Digital Identity"
+      quoteText="Security is our priority. Enter the dynamic OTP sent to your email to verify and lock your new account."
+      quoteFooter="Multi-Factor Shield Active"
+      headerIcon={<ShieldCheck className="h-8 w-8 text-indigo-400" />}
+      headerClassName="text-center pb-2"
+    >
+      <div className="flex flex-col items-center space-y-8 pt-8 px-8">
+        <Suspense
+          fallback={
+            <div className="flex justify-center p-4">
+              <span className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></span>
             </div>
-          </Link>
-        </div>
-
-        <div className="relative z-20 mt-auto max-w-md">
-          <FadeInLeft className="space-y-6">
-            <div className="space-y-2">
-              <div className="h-1 w-12 bg-indigo-500 rounded-full" />
-              <h2 className="text-4xl font-bold tracking-tight">
-                Verify your <br />
-                <span className="bg-linear-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent underline underline-offset-8 decoration-indigo-500/30">
-                  Digital Identity
-                </span>
-              </h2>
-            </div>
-            <blockquote className="space-y-4">
-              <p className="text-lg font-light text-zinc-400 leading-relaxed">
-                Security is our priority. Enter the dynamic OTP sent to your email to verify and lock your new account.
-              </p>
-              <footer className="flex items-center gap-2 text-indigo-400 font-medium tracking-wide">
-                <ShieldCheck className="w-5 h-5" />
-                Multi-Factor Shield Active
-              </footer>
-            </blockquote>
-          </FadeInLeft>
-        </div>
+          }
+        >
+          <VerifyOtpForm />
+        </Suspense>
       </div>
-
-      {/* ===== RIGHT PANEL (scrollable) ===== */}
-      <div className="relative overflow-y-auto h-screen flex flex-col">
-        <div className="mx-auto flex w-full flex-col justify-center my-auto space-y-6 sm:w-[420px] px-6 py-12">
-
-
-          <FadeInScale delay={0.1}>
-            <Card className="border-border/30 bg-zinc-950/40 backdrop-blur-2xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] border-t-white/10 overflow-hidden relative group">
-              <div className="absolute top-0 left-0 w-full h-[2px] bg-linear-to-r from-transparent via-indigo-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-1000" />
-              
-              <CardHeader className="text-center pb-2">
-                <FadeInLogo delay={0.2} className="mx-auto w-16 h-16 bg-linear-to-br from-indigo-500/20 to-purple-500/20 rounded-2xl flex items-center justify-center mb-6 ring-1 ring-white/10 shadow-inner">
-                  <ShieldCheck className="h-8 w-8 text-indigo-400" />
-                </FadeInLogo>
-                <CardTitle className="text-3xl font-black tracking-tight text-zinc-100 italic uppercase">
-                  Verify Email
-                </CardTitle>
-                <CardDescription className="text-zinc-500 font-medium px-4">
-                  We&apos;ve sent a security code to <EmailDisplay />. Enter it to verify your identity.
-                </CardDescription>
-              </CardHeader>
-              
-              <CardContent className="flex flex-col items-center space-y-8 pt-8 px-8">
-                <Suspense fallback={<div className="flex justify-center p-4"><span className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></span></div>}>
-                  <VerifyOtpForm />
-                </Suspense>
-              </CardContent>
-              
-              <CardFooter className="flex flex-col space-y-6 pb-8 border-t border-zinc-900/50 pt-6 mt-4 bg-zinc-900/20">
-                <Link
-                  href="/login"
-                  className="flex items-center text-sm text-zinc-500 hover:text-indigo-400 font-bold transition-all group lg:justify-center justify-start ml-[80px] lg:ml-0"
-                >
-                  <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-                  Back to Secure Login
-                </Link>
-              </CardFooter>
-            </Card>
-          </FadeInScale>
-        </div>
-      </div>
-    </div>
+    </AuthLayoutWrapper>
   );
 }
