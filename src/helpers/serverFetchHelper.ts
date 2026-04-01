@@ -19,23 +19,25 @@ const serverFetchHelper = async <T>(
 
   const makeRequest = async () => {
     const accessToken = await getCookie("accessToken");
+    const refreshToken = await getCookie("refreshToken");
 
     const isFormData = rest.body instanceof FormData;
     const isString = typeof rest.body === "string";
     const body =
       !isFormData && !isString && rest.body ? JSON.stringify(rest.body) : rest.body;
 
+    const cookieHeader = [
+      accessToken ? `accessToken=${accessToken}` : null,
+      refreshToken ? `refreshToken=${refreshToken}` : null,
+    ].filter(Boolean).join("; ");
+
     return fetch(url, {
       ...rest,
       body: body as BodyInit | null,
       headers: {
         ...(isFormData ? {} : { "Content-Type": "application/json" }),
-        ...(accessToken
-          ? {
-              Cookie: `accessToken=${accessToken}`,
-              Authorization: accessToken,
-            }
-          : {}),
+        ...(cookieHeader ? { Cookie: cookieHeader } : {}),
+        ...(accessToken ? { Authorization: accessToken } : {}),
         ...headers,
       },
     });
