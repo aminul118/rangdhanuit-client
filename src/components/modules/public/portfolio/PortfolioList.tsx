@@ -3,64 +3,35 @@
 import { motion } from "framer-motion";
 import {
   ExternalLink,
-  ShoppingBag,
   Globe,
-  Smartphone,
-  Palette,
 } from "lucide-react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import HtmlContent from "@/components/rich-text/core/html-content";
 import { Container } from "@/components/common/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
+import { IPortfolio } from "@/types/Portfolio/portfolio.types";
+import Image from "next/image";
 
-const projects = [
-  {
-    title: "E-Commerce Platform",
-    category: "Web Development",
-    client: "Global Retailers",
-    description:
-      "A full-scale e-commerce solution with advanced filtering and real-time inventory management.",
-    icon: ShoppingBag,
-    color: "bg-blue-500/10 text-blue-500",
-  },
-  {
-    title: "Fitness Tracker App",
-    category: "App Development",
-    client: "ActiveLife Inc.",
-    description:
-      "Cross-platform mobile application for tracking workouts and nutritional intake.",
-    icon: Smartphone,
-    color: "bg-purple-500/10 text-purple-500",
-  },
-  {
-    title: "Real Estate Portal",
-    category: "Web Development",
-    client: "Urban Spaces",
-    description:
-      "Property listing website with interactive maps and virtual tour integrations.",
-    icon: Globe,
-    color: "bg-orange-500/10 text-orange-500",
-  },
-  {
-    title: "Branding & Identity",
-    category: "Graphics Design",
-    client: "Creative Hub",
-    description:
-      "Complete visual identity design including logo, typography, and marketing assets.",
-    icon: Palette,
-    color: "bg-pink-500/10 text-pink-500",
-  },
-];
+interface PortfolioListProps {
+  projects: IPortfolio[];
+}
 
-export function PortfolioList() {
+export function PortfolioList({ projects }: PortfolioListProps) {
+  if (!projects?.length) {
+    return (
+      <section className="bg-background py-12 text-center text-muted-foreground font-bold">
+        <Container>No projects found.</Container>
+      </section>
+    );
+  }
+
   return (
     <section className="bg-background text-foreground">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {projects.map((project, index) => (
             <motion.div
-              key={project.title}
+              key={project._id}
               variants={FADE_IN_UP}
               initial="initial"
               whileInView="whileInView"
@@ -68,35 +39,65 @@ export function PortfolioList() {
               transition={{ delay: index * 0.1 }}
               className="glass border-border/50 group overflow-hidden rounded-[40px] flex flex-col backdrop-blur-sm shadow-xl hover:border-primary/50 transition-all"
             >
-              <div className="h-64 bg-muted/10 relative flex items-center justify-center overflow-hidden">
-                <project.icon className="w-24 h-24 text-muted-foreground/10 group-hover:scale-110 transition-transform duration-500" />
-                <div className="absolute top-8 left-8">
-                  <span
-                    className={cn(
-                      "px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider",
-                      project.color
-                    )}
-                  >
-                    {project.category}
-                  </span>
-                </div>
+              <div className="h-72 bg-muted/10 relative overflow-hidden">
+                {project.image ? (
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <Globe className="w-24 h-24 text-muted-foreground/10" />
+                  </div>
+                )}
+                {project.isFeatured && (
+                  <div className="absolute top-8 left-8">
+                    <span className="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/20 text-primary backdrop-blur-md border border-primary/20">
+                      Featured
+                    </span>
+                  </div>
+                )}
               </div>
               <div className="p-10 flex flex-col grow">
-                <div className="text-sm font-semibold text-primary mb-2 font-bold">
-                  {project.client}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.technologies?.slice(0, 3).map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-muted text-muted-foreground border border-border/50"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  {project.technologies?.length > 3 && (
+                    <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-muted text-muted-foreground border border-border/50">
+                      +{project.technologies.length - 3}
+                    </span>
+                  )}
                 </div>
                 <h3 className="text-2xl font-black mb-4">{project.title}</h3>
-                <HtmlContent
-                  content={project.description}
-                  className="text-muted-foreground leading-relaxed mb-8 grow font-bold"
-                />
+                <div className="text-muted-foreground leading-relaxed mb-8 grow font-bold line-clamp-3">
+                  <HtmlContent content={project.description} />
+                </div>
                 <div className="flex items-center justify-between">
                   <Link
-                    href="#"
-                    className="flex items-center gap-2 text-foreground font-black hover:text-primary transition-colors"
+                    href={`/portfolio/${project.slug}`}
+                    className="flex items-center gap-2 text-foreground font-black hover:text-primary transition-colors group/link"
                   >
-                    View Project <ExternalLink className="w-4 h-4" />
+                    View Details
+                    <ExternalLink className="w-4 h-4 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
                   </Link>
+                  {project.link && (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      <Globe className="w-5 h-5" />
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.div>

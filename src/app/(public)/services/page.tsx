@@ -5,11 +5,15 @@ import { ServicesHero } from "@/components/modules/public/services/ServicesHero"
 import { ServicesList } from "@/components/modules/public/services/ServicesList";
 import { ServicesCTA } from "@/components/modules/public/services/ServicesCTA";
 
-export const metadata: Metadata = {
-  title: "Our Services | Rangdhanu IT",
+import generateMetaTags from "@/Seo/generateMetaTags";
+
+export const metadata: Metadata = generateMetaTags({
+  title: "Tailored IT Services & Solutions | Rangdhanu IT",
   description:
-    "Unlocking digital potential through specialized web development, app design, SEO, and cybersecurity solutions.",
-};
+    "Expert services in custom web development, mobile applications, UI/UX design, SEO, and cybersecurity. Partner with Rangdhanu IT for digital excellence.",
+  keywords: "IT services, web development, app design, SEO, cybersecurity, digital transformation",
+  websitePath: "services",
+});
 
 const ServicesPage = async () => {
   const res = await getServices();

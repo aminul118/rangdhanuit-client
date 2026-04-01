@@ -37,7 +37,7 @@ export default function PrivacyPolicyContent() {
   return (
     <div className="flex flex-col pb-24 font-sans border-t border-border/50">
       {/* Hero Section */}
-      <section className="pt-24 pb-16 text-center bg-linear-to-b from-indigo-50/50 to-transparent dark:from-indigo-950/20">
+      <section className="pt-40 pb-16 text-center bg-linear-to-b from-indigo-50/50 to-transparent dark:from-indigo-950/20">
         <Container>
           <motion.div
             variants={FADE_IN_UP}

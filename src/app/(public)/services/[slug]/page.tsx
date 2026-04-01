@@ -26,13 +26,11 @@ const IconMap: Record<string, React.ElementType> = {
   ShieldCheck,
 };
 
-type TParamsPromise<T = Record<string, string>> = Promise<T>;
+import { ISlugPageProps } from "@/types";
 
 export async function generateMetadata({
   params,
-}: {
-  params: TParamsPromise<{ slug: string }>;
-}): Promise<Metadata> {
+}: ISlugPageProps): Promise<Metadata> {
   const { slug } = await params;
   try {
     const res = await getServiceBySlug(slug);
@@ -54,11 +52,10 @@ export async function generateMetadata({
   }
 }
 
-export default async function ServiceDetailsPage({
-  params,
-}: {
-  params: TParamsPromise<{ slug: string }>;
-}) {
+import metaConfig from "@/config/meta.config";
+import { generateJsonLd } from "@/Seo/generateJsonLd";
+
+export default async function ServiceDetailsPage({ params }: ISlugPageProps) {
   const { slug } = await params;
   const res = await getServiceBySlug(slug);
 
@@ -69,8 +66,51 @@ export default async function ServiceDetailsPage({
   const service: IService = res.data;
   const Icon = IconMap[service.icon] || Laptop;
 
+  const serviceJsonLd = generateJsonLd("Service", {
+    name: service.title,
+    description: service.description,
+    provider: {
+      "@type": "Organization",
+      name: metaConfig.siteName,
+      url: metaConfig.baseUrl,
+    },
+    image: service.image,
+    url: `${metaConfig.baseUrl}/services/${service.slug}`,
+  });
+
+  const breadcrumbJsonLd = generateJsonLd("BreadcrumbList", {
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: metaConfig.baseUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: `${metaConfig.baseUrl}/services`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: service.title,
+        item: `${metaConfig.baseUrl}/services/${service.slug}`,
+      },
+    ],
+  });
+
   return (
     <main className="min-h-screen pb-32 bg-background transition-colors duration-500">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={serviceJsonLd}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbJsonLd}
+      />
       {/* Hero Section */}
       <section className="relative h-[70vh] w-full overflow-hidden flex items-center justify-center pt-24">
         <Image
@@ -165,8 +205,8 @@ export default async function ServiceDetailsPage({
                 Ready to Elevate Your Project?
               </h3>
               <p className="text-white/70 text-sm font-bold mb-8 relative z-10 leading-relaxed uppercase tracking-widest">
-                Let&lsquo;s discuss how {service.title} can transform your vision into
-                a digital reality.
+                Let&lsquo;s discuss how {service.title} can transform your
+                vision into a digital reality.
               </p>
               <Link href="/contact" className="block w-full">
                 <button className="w-full h-14 bg-white text-indigo-600 rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-black/20">

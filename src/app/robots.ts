@@ -1,15 +1,17 @@
-import metaConfig from '@/config/meta.config';
-import { MetadataRoute } from 'next';
+import metaConfig from "@/config/meta.config";
+import { MetadataRoute } from "next";
 
-export default function robots(): MetadataRoute.Robots {
+const robots = (): MetadataRoute.Robots => {
   return {
     rules: [
       {
-        userAgent: '*',
-        allow: '/',
+        userAgent: "*",
+        allow: "/",
         disallow: metaConfig.preventCrawler || [],
       },
     ],
     sitemap: `${metaConfig.baseUrl}/sitemap.xml`,
   };
-}
+};
+
+export default robots;

@@ -40,7 +40,9 @@ export default function Navbar() {
     <nav
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
-        scrolled ? "glass py-4 shadow-sm" : "bg-transparent py-6 border-transparent",
+        scrolled
+          ? "glass py-4 shadow-sm border-border/50"
+          : "bg-transparent py-6 border-transparent",
       )}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">

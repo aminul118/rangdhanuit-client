@@ -14,6 +14,10 @@ export const getPortfolioById = async (id: string) => {
   return await serverFetch.get(`/portfolios/${id}`);
 };
 
+export const getPortfolioBySlug = async (slug: string) => {
+  return await serverFetch.get(`/portfolios/slug/${slug}`);
+};
+
 export const updatePortfolio = async (id: string, payload: FormData) => {
   return await serverFetch.put(`/portfolios/${id}`, {
     body: payload,

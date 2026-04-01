@@ -1,5 +1,8 @@
-import { ReactNode } from "react";
+import React from "react";
+export interface IChildrenProps {
+  children: React.ReactNode;
+}
 
-export interface Children {
-  children: ReactNode;
+export interface IClassAndChildren extends IChildrenProps {
+  className?: string;
 }

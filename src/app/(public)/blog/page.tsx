@@ -5,20 +5,15 @@ import { Container } from "@/components/common/Container";
 import { BlogHero } from "@/components/modules/public/blog/BlogHero";
 import { BlogList } from "@/components/modules/public/blog/BlogList";
 
-export const metadata: Metadata = {
+import generateMetaTags from "@/Seo/generateMetaTags";
+
+export const metadata: Metadata = generateMetaTags({
   title: "Insights & Innovation Blog | Rangdhanu IT",
   description:
-    "Stay updated with the latest digital trends, development insights, and innovation stories from the creative minds at Rangdhanu IT.",
-  keywords:
-    "Web Development, Mobile Apps, UI/UX Design, Digital Marketing, Tech Insights, Rangdhanu IT Blog",
-  openGraph: {
-    title: "Insights & Innovation Blog | Rangdhanu IT",
-    description:
-      "Digital insights and innovation stories from our creative team.",
-    type: "website",
-    url: "https://rangdhanu-it.com/blog",
-  },
-};
+    "Explore the latest in web development, app design, and digital strategies. Stay ahead with deep dives and tutorials from the Rangdhanu IT team.",
+  keywords: "tech blog, development insights, coding tutorials, digital marketing trends",
+  websitePath: "blog",
+});
 
 export default async function BlogPage({
   searchParams,

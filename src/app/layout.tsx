@@ -13,8 +13,9 @@ import { getMe } from "@/services/User/getMe";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { SocketProvider } from "@/providers/SocketProvider";
 import envVars from "@/config/env.config";
+import { IChildrenProps } from "@/types";
 
-const MainLayout = async ({ children }: { children: React.ReactNode }) => {
+const MainLayout = async ({ children }: IChildrenProps) => {
   const user = await getMe();
 
   return (

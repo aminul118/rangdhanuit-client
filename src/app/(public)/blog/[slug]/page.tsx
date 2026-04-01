@@ -6,13 +6,11 @@ import { getBlogBySlug } from "@/services/Blog/blogs";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { TParamsPromise, IBlog } from "@/types";
+import { ISlugPageProps, IBlog } from "@/types";
 
 export async function generateMetadata({
   params,
-}: {
-  params: TParamsPromise<{ slug: string }>;
-}): Promise<Metadata> {
+}: ISlugPageProps): Promise<Metadata> {
   const { slug } = await params;
   try {
     const data = (await getBlogBySlug(slug)) as {
@@ -55,11 +53,12 @@ export async function generateMetadata({
   }
 }
 
+import metaConfig from "@/config/meta.config";
+import { generateJsonLd } from "@/Seo/generateJsonLd";
+
 export default async function BlogDetailsPage({
   params,
-}: {
-  params: TParamsPromise<{ slug: string }>;
-}) {
+}: ISlugPageProps) {
   const { slug } = await params;
   const data = (await getBlogBySlug(slug)) as {
     success: boolean;
@@ -72,8 +71,63 @@ export default async function BlogDetailsPage({
 
   const blog = data.data;
 
+  const articleJsonLd = generateJsonLd("BlogPosting", {
+    headline: blog.title,
+    image: blog.featuredImage,
+    datePublished: blog.createdAt,
+    dateModified: blog.updatedAt || blog.createdAt,
+    author: {
+      "@type": "Person",
+      name: blog.author.name,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: metaConfig.siteName,
+      logo: {
+        "@type": "ImageObject",
+        url: `${metaConfig.baseUrl}${metaConfig.bookmarks}`,
+      },
+    },
+    description: blog.content.replace(/<[^>]*>/g, "").slice(0, 160),
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${metaConfig.baseUrl}/blog/${blog.slug}`,
+    },
+  });
+
+  const breadcrumbJsonLd = generateJsonLd("BreadcrumbList", {
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: metaConfig.baseUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: `${metaConfig.baseUrl}/blog`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: blog.title,
+        item: `${metaConfig.baseUrl}/blog/${blog.slug}`,
+      },
+    ],
+  });
+
   return (
     <main className="min-h-screen pt-32 pb-20 overflow-hidden bg-background transition-colors duration-500">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={articleJsonLd}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={breadcrumbJsonLd}
+      />
       {/* Background decoration */}
       <div className="absolute inset-x-0 top-0 -z-10 h-full w-full bg-linear-to-b from-indigo-500/5 via-background to-background" />
 

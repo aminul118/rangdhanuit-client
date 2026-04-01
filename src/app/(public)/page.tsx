@@ -19,7 +19,7 @@ export const metadata: Metadata = generateMetaTags({
     "IT solutions, web development, app development, digital marketing, graphics design, SEO services",
 });
 
-export default async function Home() {
+const Home = async () => {
   const res = await getServices({ limit: "6" });
   const services = res?.data || [];
 
@@ -36,4 +36,6 @@ export default async function Home() {
       <CTA />
     </div>
   );
-}
+};
+
+export default Home;

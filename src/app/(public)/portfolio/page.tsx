@@ -11,12 +11,18 @@ export const metadata: Metadata = generateMetaTags({
   keywords: "portfolio, recent projects, case studies, success stories",
 });
 
-export default function PortfolioPage() {
+import { getPortfolios } from "@/services/Portfolio/portfolios";
+
+const PortfolioPage = async () => {
+  const { data: portfolios } = await getPortfolios();
+
   return (
     <div className="flex flex-col gap-24 pb-24">
       <PortfolioHero />
-      <PortfolioList />
+      <PortfolioList projects={portfolios} />
       <PortfolioTestimonial />
     </div>
   );
-}
+};
+
+export default PortfolioPage;
