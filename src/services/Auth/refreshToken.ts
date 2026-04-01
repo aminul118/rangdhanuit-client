@@ -1,6 +1,7 @@
 "use server";
 
 import serverFetch from "@/lib/server-fetch";
+import { AppError } from "@/helpers/AppError";
 
 type RefreshResponse = {
   accessToken: string;
@@ -25,6 +26,10 @@ const tryRefreshToken = async () => {
       refreshToken: res.data.refreshToken,
     } as RefreshResponse;
   } catch (error) {
+    if (error instanceof AppError && error.statusCode === 401) {
+      // Expected if guest or session expired
+      return null;
+    }
     console.error("tryRefreshToken error:", error);
     return null;
   }

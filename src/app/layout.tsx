@@ -27,6 +27,7 @@ const MainLayout = async ({ children }: IChildrenProps) => {
           fonts.geist.variable,
           "antialiased font-sans",
         )}
+        suppressHydrationWarning
       >
         <TopLoadingBar />
         <ThemeProvider
@@ -50,7 +51,7 @@ const MainLayout = async ({ children }: IChildrenProps) => {
 
 export default MainLayout;
 
-// SEO Metatags
+// SEO
 export const metadata: Metadata = generateMetaTags({
   title: "Rangdhanu IT | Leading IT Solutions Provider",
   description:

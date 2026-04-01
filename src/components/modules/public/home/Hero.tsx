@@ -1,150 +1,107 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
-import Link from "next/link";
-import { useState, useEffect } from "react";
-import { Container } from "@/components/common/Container";
 import {
-  FADE_IN_UP,
-  SCALE_IN,
-  FLOAT_ANIMATION,
-  GENTLE_FLOAT,
-} from "@/constants/animations";
+  ArrowRight,
+  Zap,
+  ShieldCheck,
+  Globe,
+  LucideIcon,
+  Sparkles,
+} from "lucide-react";
+import Link from "next/link";
+import { Container } from "@/components/common/Container";
+import { FADE_IN_UP, STAGGER_CHILDREN } from "@/constants/animations";
+import { BubbleBackground } from "./BubbleBackground";
 
-const Sparkle = ({
-  size,
-  top,
-  left,
+const FeatureBadge = ({
+  icon: Icon,
+  text,
   delay,
-  duration,
 }: {
-  size: number;
-  top: string;
-  left: string;
+  icon: LucideIcon;
+  text: string;
   delay: number;
-  duration: number;
 }) => (
   <motion.div
-    initial={{ opacity: 0, scale: 0 }}
-    animate={{
-      opacity: [0, 1, 0],
-      scale: [0, 1.2, 0],
-      rotate: [0, 180],
-    }}
-    transition={{
-      duration: duration,
-      repeat: Infinity,
-      delay: delay,
-      ease: "easeInOut",
-    }}
-    style={{
-      position: "absolute",
-      top,
-      left,
-      width: size,
-      height: size,
-      borderRadius: "50%",
-      backgroundColor: "currentColor",
-      boxShadow: "0 0 10px 2px currentColor",
-      zIndex: 5,
-    }}
-  />
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay, duration: 0.5 }}
+    className="glass-premium flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-foreground/80 hover:text-primary transition-all cursor-default border-primary/10 hover:border-primary/30"
+  >
+    <Icon className="w-4 h-4 text-primary" />
+    <span>{text}</span>
+  </motion.div>
 );
 
+
 export default function Hero() {
-  const [sparkles, setSparkles] = useState<
-    {
-      id: number;
-      size: number;
-      top: string;
-      left: string;
-      delay: number;
-      duration: number;
-    }[]
-  >([]);
-
-  useEffect(() => {
-    requestAnimationFrame(() => {
-      const generatedSparkles = Array.from({ length: 20 }).map((_, i) => ({
-        id: i,
-        size: Math.random() * 4 + 2,
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-        delay: Math.random() * 5,
-        duration: 2 + Math.random() * 2,
-      }));
-      setSparkles(generatedSparkles);
-    });
-  }, []);
-
   return (
-    <section className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden bg-background">
-      {/* Dynamic Background Gradients */}
-      <div className="absolute inset-x-0 top-0 -z-10 h-full w-full bg-linear-to-b from-indigo-500/10 via-background to-background" />
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-indigo-500/10 via-transparent to-transparent" />
-
-      {/* Live Sparkles Effect */}
-      <div className="absolute inset-0 pointer-events-none">
-        {sparkles.map((s) => (
-          <Sparkle key={s.id} {...s} />
-        ))}
-      </div>
+    <section className="relative min-h-[95vh] flex items-center pt-32 pb-20 overflow-hidden bg-background">
+      <BubbleBackground />
 
       <Container className="relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-5xl mx-auto flex flex-col items-center text-center">
           <motion.div
-             variants={SCALE_IN}
-             initial="initial"
-             animate="animate"
-             transition={{ duration: 0.8 }}
+            variants={STAGGER_CHILDREN}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            className="relative flex flex-col items-center gap-10"
           >
+            {/* Innovation Badge */}
             <motion.div
               variants={FADE_IN_UP}
-              initial="initial"
-              animate="animate"
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-semibold mb-8 backdrop-blur-sm"
+              className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-bold tracking-widest uppercase mb-2 backdrop-blur-md shadow-[0_0_20px_-5px_hsl(var(--primary)/20%)]"
             >
-              <Sparkles className="w-4 h-4" />
-              <span>Leading the Digital Revolution</span>
+              <Sparkles className="w-4 h-4 animate-spin-slow" />
+              <span>Leading Digital Success</span>
             </motion.div>
 
+            {/* Main Heading */}
             <motion.h1
               variants={FADE_IN_UP}
-              initial="initial"
-              animate="animate"
-              transition={{ delay: 0.3 }}
-              className="text-4xl md:text-7xl font-black tracking-tight mb-8 leading-[1.1] text-foreground"
+              className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[0.95] text-foreground"
             >
-              Building the Future <br />
-              <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient-x underline decoration-indigo-500/20 underline-offset-8">
-                One Pixel at a Time
+              Building <br />
+              <span className="gradient-text drop-shadow-[0_4px_15px_hsl(var(--primary)/30%)] italic underline decoration-primary/20 underline-offset-8">
+                Excellent
               </span>
+              <br /> In Every Pixel
             </motion.h1>
 
+            {/* Description */}
             <motion.p
               variants={FADE_IN_UP}
-              initial="initial"
-              animate="animate"
-              transition={{ delay: 0.4 }}
-              className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed font-medium"
+              className="text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed font-medium mb-4"
             >
               Rangdhanu IT is a premium software agency dedicated to crafting
-              high-performance digital solutions that drive business growth and
-              innovation.
+              high-performance digital solutions that drive innovation and
+              transform businesses through cutting-edge technology.
             </motion.p>
 
+            {/* Feature Badges */}
             <motion.div
               variants={FADE_IN_UP}
-              initial="initial"
-              animate="animate"
-              transition={{ delay: 0.5 }}
+              className="flex flex-wrap justify-center items-center gap-5 mb-4"
+            >
+              <FeatureBadge icon={Zap} text="Fast Performance" delay={0.6} />
+              <FeatureBadge
+                icon={ShieldCheck}
+                text="Secure Solutions"
+                delay={0.7}
+              />
+              <FeatureBadge icon={Globe} text="Global Reach" delay={0.8} />
+            </motion.div>
+
+            {/* Premium CTAs */}
+            <motion.div
+              variants={FADE_IN_UP}
               className="flex flex-wrap justify-center gap-6"
             >
               <Link
                 href="/contact"
-                className="group relative bg-indigo-600 text-white px-10 py-5 rounded-2xl font-bold text-lg hover:bg-indigo-700 transition-all flex items-center gap-2 shadow-2xl shadow-indigo-600/30 overflow-hidden"
+                className="group relative bg-primary text-primary-foreground px-12 py-5 rounded-2xl font-bold text-xl hover:shadow-[0_0_40px_-10px_hsl(var(--primary))] transition-all flex items-center gap-3 overflow-hidden active:scale-95"
               >
                 <div className="absolute inset-0 bg-linear-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:animate-shimmer" />
                 Start Your Journey
@@ -152,32 +109,30 @@ export default function Hero() {
               </Link>
               <Link
                 href="/portfolio"
-                className="glass px-10 py-5 rounded-2xl font-bold text-lg hover:bg-accent transition-all backdrop-blur-md flex items-center gap-2 text-foreground"
+                className="glass-premium px-12 py-5 rounded-2xl font-bold text-xl hover:bg-accent/50 transition-all flex items-center gap-3 text-foreground active:scale-95 shadow-xl hover:shadow-2xl"
               >
-                View Portfolio
+                View Works
               </Link>
             </motion.div>
           </motion.div>
         </div>
       </Container>
 
-      {/* Animated Floating Elements */}
+      {/* Scroll indicator */}
       <motion.div
-        variants={FLOAT_ANIMATION}
-        initial="initial"
-        animate="animate"
-        className="absolute top-1/4 left-10 w-64 h-64 bg-indigo-500/20 rounded-full blur-[100px] -z-10"
-      />
-      <motion.div
-        variants={GENTLE_FLOAT}
-        initial="initial"
-        animate="animate"
-        className="absolute bottom-1/4 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-[120px] -z-10"
-      />
-
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-        <div className="w-1 h-12 rounded-full bg-linear-to-b from-indigo-500 to-transparent opacity-20" />
-      </div>
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.5 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      >
+        <div className="relative h-14 w-8 rounded-full border-2 border-primary/20 p-1">
+          <motion.div
+            animate={{ y: [0, 24, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="h-2 w-full rounded-full bg-primary"
+          />
+        </div>
+      </motion.div>
     </section>
   );
 }

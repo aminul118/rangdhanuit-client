@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Hero from "@/components/modules/public/home/Hero";
 import Services from "@/components/modules/public/home/Services";
 import Partners from "@/components/modules/public/home/Partners";
 import CTA from "@/components/modules/public/home/CTA";
@@ -10,6 +9,8 @@ import Testimonials from "@/components/modules/public/home/Testimonials";
 import FAQ from "@/components/modules/public/home/FAQ";
 import generateMetaTags from "@/Seo/generateMetaTags";
 import { getServices } from "@/services/Service/services";
+import Hero from "@/components/modules/public/home/Hero";
+
 
 export const metadata: Metadata = generateMetaTags({
   title: "Rangdhanu IT | Premium IT Solutions for Your Business",

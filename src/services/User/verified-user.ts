@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { NextRequest } from "next/server";
 
-interface DecodedToken {
+export interface DecodedToken {
   userId: string;
   email: string;
   role: string;

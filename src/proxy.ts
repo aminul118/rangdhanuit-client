@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { tryRefreshToken } from "./services/Auth/refreshToken";
-import { decodeToken, setAuthCookies } from "./services/User/proxy-utils";
+import { handleTokenRefresh, redirectTo, setAuthCookies } from "./services/User/proxy-utils";
 import {
   getDefaultDashboardRoute,
   getRouteOwner,
@@ -10,9 +10,6 @@ import {
 } from "./services/User/user-access";
 import getVerifiedUser from "./services/User/verified-user";
 
-/**
- * Next.js Middleware to handle authentication, token refresh, and role-based access control.
- */
 export default async function proxy(req: NextRequest) {
   const { pathname, origin } = req.nextUrl;
 
@@ -21,63 +18,58 @@ export default async function proxy(req: NextRequest) {
 
   // 1) First try with current access token
   let user = await getVerifiedUser(req);
-  const response = NextResponse.next();
+  let refreshHappened = false;
+  let updatedTokens: { accessToken: string; refreshToken?: string } | null = null;
 
-  // Helper for redirection
-  const redirectTo = (path: string) =>
-    NextResponse.redirect(new URL(path, origin));
+  // 2) If access is invalid but refresh exists -> refresh once
+  const refreshToken = req.cookies.get("refreshToken")?.value;
+  if (!user && !isAuthPage && refreshToken) {
+    // We pass a temporary response to extract the new cookies
+    const tempResponse = NextResponse.next();
+    const refreshed = await handleTokenRefresh(
+      req,
+      tempResponse,
+      tryRefreshToken,
+    );
 
-  // 2) If access is invalid but refresh exists -> refresh once (avoid doing this on auth pages)
-  if (!user && !isAuthPage) {
-    const refreshed = await tryRefreshToken();
-
-    if (refreshed?.accessToken) {
-      const { accessToken, refreshToken } = refreshed;
-
-      // Set the new tokens in the response cookies
-      setAuthCookies(response, accessToken, refreshToken);
-
-      // Update request headers so Server Components can see the new token in this request
-      req.cookies.set("accessToken", accessToken);
-      if (refreshToken) req.cookies.set("refreshToken", refreshToken);
-
-      // Decode token to get user info (role, etc.)
-      const decoded = decodeToken(accessToken);
-      if (decoded) {
-        user = {
-          userId: decoded.userId,
-          email: decoded.email,
-          role: decoded.role,
-          iat: decoded.iat,
-          exp: decoded.exp,
-        };
-      }
+    if (refreshed?.user) {
+      user = refreshed.user;
+      refreshHappened = true;
+      updatedTokens = refreshed;
     }
+  }
+
+  // Create the final response, ensuring modified request headers are passed downstream
+  const response = NextResponse.next({
+    request: {
+      headers: req.headers,
+    },
+  });
+
+  // If a refresh happened, sync the cookies to the final response
+  if (refreshHappened && updatedTokens) {
+    setAuthCookies(response, updatedTokens.accessToken, updatedTokens.refreshToken);
   }
 
   const role = user?.role as UserRole | undefined;
 
   // 3) Handle Root Route
-  if (pathname === "/") {
-    return response;
-  }
+  if (pathname === "/") return response;
 
   // 4) Public Auth Pages (guest allowed)
   if (!user && isAuthPage) return response;
 
-  // 5) Logged-in users should not see auth pages (login/register/etc.)
-  if (user && isAuthPage) {
-    return redirectTo("/");
-  }
+  // 5) Logged-in users should not see auth pages
+  if (user && isAuthPage) return redirectTo(origin, "/", response);
 
   // 6) Protect protected routes for guests
   if (!user && routeOwner !== null && pathname !== "/login") {
-    return redirectTo("/login");
+    return redirectTo(origin, "/login", response);
   }
 
   // 7) Role-based protection
   if (user && !isValidRedirectForRole(pathname, role!)) {
-    return redirectTo(getDefaultDashboardRoute(role!));
+    return redirectTo(origin, getDefaultDashboardRoute(role!), response);
   }
 
   return response;
