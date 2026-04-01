@@ -1,7 +1,7 @@
 import { AdminMessagesContent } from "@/components/modules/dashboard/Messaging/AdminMessagesContent";
 import { MessagingSkeleton } from "@/components/modules/dashboard/Messaging/MessagingSkeleton";
 import { Metadata } from "next";
-import { AdminPageWrapper } from "@/components/common/wrapper/AdminPageWrapper";
+import { AdminPageWrapper } from "@/components/common/layouts/AdminPageWrapper";
 
 export const metadata: Metadata = {
   title: "Admin Messages | Rangdhanu IT",

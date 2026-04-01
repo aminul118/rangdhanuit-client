@@ -1,6 +1,6 @@
 import { getServices } from "@/services/Service/services";
 import ServiceTable from "./ServiceTable";
-import { ManagementListWrapper } from "@/components/common/wrapper/ManagementListWrapper";
+import { ManagementListWrapper } from "@/components/common/layouts/ManagementListWrapper";
 import { Sparkles } from "lucide-react";
 
 export async function ServicesList({

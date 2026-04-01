@@ -5,7 +5,7 @@ import { EmailDisplay } from "@/components/modules/Authentication/EmailDisplay";
 import generateMetaTags from "@/Seo/generateMetaTags";
 import { ShieldCheck } from "lucide-react";
 import { Suspense } from "react";
-import { AuthLayoutWrapper } from "@/components/common/wrapper/AuthLayoutWrapper";
+import { AuthLayoutWrapper } from "@/components/common/layouts/AuthLayoutWrapper";
 import { TSearchParamsPromise } from "@/types";
 
 export const metadata: Metadata = generateMetaTags({

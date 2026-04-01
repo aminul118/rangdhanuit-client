@@ -16,7 +16,7 @@ import { IService } from "@/types/Service/service.types";
 import { motion } from "framer-motion";
 import { Info, Laptop, Smartphone, Compass, Palette, TrendingUp, ShieldCheck } from "lucide-react";
 
-import { CreationSuiteWrapper } from "@/components/common/wrapper/CreationSuiteWrapper";
+import { CreationSuiteWrapper } from "@/components/common/layouts/CreationSuiteWrapper";
 import { Input } from "@/components/ui/input";
 
 interface ServiceFormProps {

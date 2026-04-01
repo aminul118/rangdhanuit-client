@@ -1,6 +1,6 @@
 import { getBlogs } from "@/services/Blog/blogs";
 import BlogTable from "./BlogTable";
-import { ManagementListWrapper } from "@/components/common/wrapper/ManagementListWrapper";
+import { ManagementListWrapper } from "@/components/common/layouts/ManagementListWrapper";
 
 export async function BlogsList({
   searchParams,

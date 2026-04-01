@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { TSearchParamsPromise } from "@/types";
 import { ServicesList } from "@/components/modules/dashboard/admin/Service/ServicesList";
-import { AdminPageWrapper } from "@/components/common/wrapper/AdminPageWrapper";
+import { AdminPageWrapper } from "@/components/common/layouts/AdminPageWrapper";
 
 export const metadata: Metadata = {
   title: "Service Management | Admin Dashboard",

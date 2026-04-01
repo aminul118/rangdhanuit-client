@@ -1,6 +1,6 @@
 import { RegisterForm } from "@/components/modules/Authentication/RegisterForm";
 import generateMetaTags from "@/Seo/generateMetaTags";
-import { AuthLayoutWrapper } from "@/components/common/wrapper/AuthLayoutWrapper";
+import { AuthLayoutWrapper } from "@/components/common/layouts/AuthLayoutWrapper";
 import { Metadata } from "next";
 
 export const metadata: Metadata = generateMetaTags({

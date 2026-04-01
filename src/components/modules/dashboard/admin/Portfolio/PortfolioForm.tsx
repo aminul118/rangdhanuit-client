@@ -8,7 +8,7 @@ import SingleImageUploader from "@/components/ui/single-image-uploader";
 import { IPortfolio } from "@/types";
 import { motion } from "framer-motion";
 import { Globe, Cpu, Wand2 } from "lucide-react";
-import { CreationSuiteWrapper } from "@/components/common/wrapper/CreationSuiteWrapper";
+import { CreationSuiteWrapper } from "@/components/common/layouts/CreationSuiteWrapper";
 import { Input } from "@/components/ui/input";
 
 interface PortfolioFormProps {

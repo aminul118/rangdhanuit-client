@@ -1,41 +1,44 @@
 "use client";
 
-import { getBlogById, updateBlog } from "@/services/Blog/blogs";
+import { updateBlog } from "@/services/Blog/blogs";
 import BlogForm from "./BlogForm";
 import useActionHandler from "@/hooks/useActionHandler";
-import { EditFormWrapper } from "@/components/common/wrapper/EditFormWrapper";
 import { IBlog } from "@/types";
+import { EditFormWrapper } from "@/components/common/layouts/EditFormWrapper";
 
-const EditBlogForm = ({ id }: { id: string }) => {
+interface EditBlogFormProps {
+  id: string;
+  initialData?: IBlog;
+}
+
+const EditBlogForm = ({ id, initialData }: EditBlogFormProps) => {
   const { executePost, isPending } = useActionHandler();
 
   const handleUpdate = async (formData: FormData) => {
     await executePost({
-       action: () => updateBlog(id, formData),
-       success: {
-         message: "Blog updated successfully!",
-         redirectPath: "/admin/blogs",
-         isRefresh: true
-       }
+      action: () => updateBlog(id, formData),
+      success: {
+        message: "Blog updated successfully!",
+        redirectPath: "/admin/blogs",
+        isRefresh: true,
+      },
     });
   };
 
   return (
     <EditFormWrapper<IBlog>
       id={id}
-      fetcher={getBlogById}
-      title="Edit Existing Article"
-      subtitle="Refine your content and settings to reflect your latest insights."
+      initialData={initialData}
+      title="Edit Blog Post"
+      subtitle="Refine your article for maximum engagement. Review your content, images, and SEO metadata before republishing."
       backLink="/admin/blogs"
-      notFoundMessage="The article you looking for might have been removed or moved."
     >
       {(blog: IBlog) => (
         <BlogForm
-          key={blog._id}
-          initialData={blog}
           onSubmit={handleUpdate}
           loading={isPending}
-          submitLabel="Update Article"
+          submitLabel="Update Blog"
+          initialData={blog}
         />
       )}
     </EditFormWrapper>

@@ -3,7 +3,7 @@
 import { getPortfolioById, updatePortfolio } from "@/services/Portfolio/portfolios";
 import PortfolioForm from "./PortfolioForm";
 import useActionHandler from "@/hooks/useActionHandler";
-import { EditFormWrapper } from "@/components/common/wrapper/EditFormWrapper";
+import { EditFormWrapper } from "@/components/common/layouts/EditFormWrapper";
 import { IPortfolio } from "@/types";
 
 const EditPortfolioForm = ({ id }: { id: string }) => {

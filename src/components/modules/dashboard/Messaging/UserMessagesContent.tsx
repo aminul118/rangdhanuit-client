@@ -1,82 +1,16 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import { ChatWindow } from "@/components/modules/dashboard/Messaging/ChatWindow";
 import { Loader2, MessageSquare } from "lucide-react";
-import {
-  getAdminUser,
-  getMyConversations,
-  getConversationMessages,
-  markConversationRead,
-} from "@/services/Conversation/conversation.actions";
-import { markAllNotificationsRead } from "@/services/Notification/notification.actions";
-import { useSocket } from "@/providers/SocketProvider";
-import { IMessage, MessageConversation, IUser } from "@/types";
+import useMessaging from "@/hooks/useMessaging";
 
 export function UserMessagesContent() {
-  const { setUnreadCount } = useSocket();
-  const [admin, setAdmin] = useState<IUser | null>(null);
-  const [messages, setMessages] = useState<IMessage[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  const load = useCallback(async () => {
-    setLoading(true);
-    try {
-      // Clear notification count immediately when opening this tab
-      setUnreadCount(0);
-      markAllNotificationsRead();
-
-      // Step 1: Find existing conversation with any admin first
-      const res = await getMyConversations();
-      const conversations = res.success && res.data ? res.data : [];
-
-      let existingConv: MessageConversation | null = null;
-      let targetAdmin: IUser | null = null;
-
-      // Scan conversations for one that includes an admin
-      for (const conv of conversations) {
-        const foundAdmin = conv.participants.find(
-          (p) => p.role === "ADMIN" || p.role === "SUPER_ADMIN",
-        );
-        if (foundAdmin) {
-          existingConv = conv;
-          targetAdmin = foundAdmin;
-          break;
-        }
-      }
-
-      // Step 2: If no existing conversation, find any available admin to start a new one
-      if (!targetAdmin) {
-        const adminRes = await getAdminUser();
-        if (adminRes.success) {
-          targetAdmin = adminRes.data;
-        }
-      }
-
-      setAdmin(targetAdmin);
-
-      if (!targetAdmin) return;
-
-      // Step 3: Load messages if conversation exists
-      if (existingConv) {
-        const msgsRes = await getConversationMessages(existingConv._id);
-        if (msgsRes.success && msgsRes.data) {
-          setMessages(msgsRes.data);
-        }
-
-        // Step 4: Mark as read (silently)
-        await markConversationRead(existingConv._id);
-      }
-    } catch (err) {
-      console.error("Failed to load support chat:", err);
-    } finally {
-      setLoading(false);
-    }
-  }, [setUnreadCount]);
-
-  useEffect(() => {
-    load();
-  }, [load]);
+  const {
+    messages,
+    loading,
+    recipient: admin,
+  } = useMessaging({ isUserView: true });
 
   if (loading) {
     return (

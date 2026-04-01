@@ -20,7 +20,7 @@ const DashboardLoading = () => (
 
 // Dynamic import for admin dashboard
 const AdminDashboard = dynamic(
-  () => import("@/components/common/wrapper/AdminDashboardWrapper"),
+  () => import("@/components/common/layouts/AdminDashboardWrapper"),
   {
     loading: DashboardLoading,
     ssr: true,

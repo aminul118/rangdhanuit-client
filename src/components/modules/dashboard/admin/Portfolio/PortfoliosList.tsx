@@ -1,6 +1,6 @@
 import { getPortfolios } from "@/services/Portfolio/portfolios";
 import ProjectTable from "@/components/modules/dashboard/admin/Portfolio/ProjectTable";
-import { ManagementListWrapper } from "@/components/common/wrapper/ManagementListWrapper";
+import { ManagementListWrapper } from "@/components/common/layouts/ManagementListWrapper";
 
 export async function PortfoliosList({
   searchParams,

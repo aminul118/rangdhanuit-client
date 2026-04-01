@@ -26,28 +26,30 @@ const useActionHandler = () => {
   const router = useRouter();
   const [isPending, setIsPending] = useState(false);
 
-  const executePost = async <T>({
+  /**
+   * Universal execution engine for any API action.
+   */
+  const execute = async <T>({
     action,
     success,
-    errorMessage = 'Something went wrong',
+    errorMessage = "Operation failed",
     onError,
-  }: ExecuteOptions<T>): Promise<boolean> => {
-    if (isPending) return false; // prevent double click
+  }: ExecuteOptions<T>): Promise<ApiResponse<T> | null> => {
+    if (isPending) return null;
 
     setIsPending(true);
-    const toastId = toast.loading(success?.loadingText || 'Processing...');
+    const toastId = toast.loading(success?.loadingText || "Processing...");
 
     try {
       const res = await action();
-
-      logger.info('API RESPONSE:', res);
+      logger.info("ACTION_RESULT:", res);
 
       if (res?.success) {
-        toast.success(res.message || success?.message || 'Success', {
+        toast.success(res.message || success?.message || "Success", {
           id: toastId,
         });
 
-        success?.onSuccess?.(res.data);
+        if (success?.onSuccess) success.onSuccess(res.data);
 
         if (success?.redirectPath) {
           if (success.cleanUrl) {
@@ -61,49 +63,52 @@ const useActionHandler = () => {
           router.refresh();
         }
 
-        return true;
+        return res;
       }
 
       // Handle custom error logic
       const isHandled = onError?.(res);
       if (isHandled) {
         toast.dismiss(toastId);
-        return false;
+        return res;
       }
 
       toast.error(res?.message || errorMessage, { id: toastId });
-      return false;
+      return res;
     } catch (error: unknown) {
-      logger.error('ACTION ERROR:', error);
-
-      toast.error(error instanceof Error ? error.message : errorMessage, {
-        id: toastId,
-      });
-      return false;
+      logger.error("EXECUTION_EXCEPTION:", error);
+      const msg = error instanceof Error ? error.message : errorMessage;
+      toast.error(msg, { id: toastId });
+      return null;
     } finally {
-      setIsPending(false); // always reset
+      setIsPending(false);
     }
   };
 
-  const executeDelete = async <T>({
-    action,
-    success,
-    errorMessage = 'Deletion failed',
-    onError,
-  }: ExecuteOptions<T>): Promise<boolean> => {
-    return executePost({
-      action,
-      success: {
-        loadingText: 'Deleting...',
-        isRefresh: true,
-        ...success,
-      },
-      errorMessage,
-      onError,
-    });
+  /**
+   * Compatibility wrapper for POST actions.
+   */
+  const executePost = async <T>(options: ExecuteOptions<T>): Promise<boolean> => {
+    const result = await execute(options);
+    return !!result?.success;
   };
 
-  return { executePost, executeDelete, isPending };
+  /**
+   * Compatibility wrapper for DELETE actions with a confirmation default.
+   */
+  const executeDelete = async <T>(options: ExecuteOptions<T>): Promise<boolean> => {
+    const result = await execute({
+      ...options,
+      success: {
+        loadingText: "Deleting...",
+        isRefresh: true,
+        ...options.success,
+      }
+    });
+    return !!result?.success;
+  };
+
+  return { execute, executePost, executeDelete, isPending };
 };
 
 export default useActionHandler;

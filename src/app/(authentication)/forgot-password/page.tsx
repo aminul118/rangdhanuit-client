@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { ForgotPasswordForm } from "@/components/modules/Authentication/ForgotPasswordForm";
 import generateMetaTags from "@/Seo/generateMetaTags";
 import { KeyRound } from "lucide-react";
-import { AuthLayoutWrapper } from "@/components/common/wrapper/AuthLayoutWrapper";
+import { AuthLayoutWrapper } from "@/components/common/layouts/AuthLayoutWrapper";
 
 export const metadata: Metadata = generateMetaTags({
   title: "Forgot Password | Rangdhanu IT",

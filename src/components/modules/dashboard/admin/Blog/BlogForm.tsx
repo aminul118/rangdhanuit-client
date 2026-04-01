@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { IBlog } from "@/types/Blog/blog.types";
-import { CreationSuiteWrapper } from "@/components/common/wrapper/CreationSuiteWrapper";
+import { CreationSuiteWrapper } from "@/components/common/layouts/CreationSuiteWrapper";
 
 interface BlogFormProps {
   initialData?: IBlog;

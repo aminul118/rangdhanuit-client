@@ -1,96 +1,25 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
-import { useAuth } from "@/providers/AuthProvider";
-import { useSocket } from "@/providers/SocketProvider";
+import React from "react";
 import { ConversationList } from "@/components/modules/dashboard/Messaging/ConversationList";
 import { ChatWindow } from "@/components/modules/dashboard/Messaging/ChatWindow";
-import { markAllNotificationsRead } from "@/services/Notification/notification.actions";
-import {
-  getMyConversations,
-  getConversationMessages,
-  markConversationRead,
-} from "@/services/Conversation/conversation.actions";
-import { IMessage, MessageConversation } from "@/types";
 import { Loader2, MessageSquare } from "lucide-react";
+import useMessaging from "@/hooks/useMessaging";
 
+/**
+ * Admin view for messaging. Supports multiple conversations and real-time support chat.
+ */
 export function AdminMessagesContent() {
-  const { user } = useAuth();
-  const { socket, setUnreadCount } = useSocket();
-  const [conversations, setConversations] = useState<MessageConversation[]>([]);
-  const [selectedConvId, setSelectedConvId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [messages, setMessages] = useState<IMessage[]>([]);
-  const [loadingMessages, setLoadingMessages] = useState(false);
-
-  // Clear notification count immediately when opening this page
-  useEffect(() => {
-    // Wrap in a microtask or deferred call to avoid synchronous cascading renders
-    const timer = setTimeout(() => {
-      setUnreadCount(0);
-      markAllNotificationsRead();
-    }, 0);
-    return () => clearTimeout(timer);
-  }, [setUnreadCount]);
-
-  const fetchConversations = useCallback(async (isInitial = false) => {
-    // Ensure the entire function body runs in a microtask to avoid cascading renders
-    await Promise.resolve();
-    if (!isInitial) setLoading(true);
-    const res = await getMyConversations();
-    if (res.success && res.data) {
-      setConversations(res.data);
-    }
-    if (isInitial) setLoading(false);
-  }, []);
-
-  const fetchMessages = async (convId: string) => {
-    await Promise.resolve();
-    setLoadingMessages(true);
-    const res = await getConversationMessages(convId);
-    if (res.success && res.data) {
-      setMessages(res.data);
-
-      // Also mark as read
-      await markConversationRead(convId);
-    }
-    setLoadingMessages(false);
-  };
-
-  useEffect(() => {
-    // Defer to next microtask to avoid cascading render warning
-    Promise.resolve().then(() => fetchConversations(true));
-  }, [fetchConversations]);
-
-  useEffect(() => {
-    if (socket) {
-      const handleUpdate = () => {
-        fetchConversations();
-      };
-
-      socket.on("new_notification", handleUpdate);
-      socket.on("receive_message", handleUpdate);
-
-      return () => {
-        socket.off("new_notification", handleUpdate);
-        socket.off("receive_message", handleUpdate);
-      };
-    }
-  }, [socket, fetchConversations]);
-
-  useEffect(() => {
-    if (selectedConvId) {
-      // Defer to next microtask to avoid cascading render warning
-      Promise.resolve().then(() => fetchMessages(selectedConvId));
-    }
-  }, [selectedConvId]);
-
-  const selectedConversation = conversations.find(
-    (c) => c._id === selectedConvId,
-  );
-  const recipient = selectedConversation?.participants?.find(
-    (p) => p._id !== user?._id,
-  );
+  const {
+    conversations,
+    selectedConvId,
+    setSelectedConvId,
+    messages,
+    loading,
+    loadingMessages,
+    recipient,
+    user
+  } = useMessaging();
 
   if (loading) {
     return (
@@ -102,8 +31,8 @@ export function AdminMessagesContent() {
 
   return (
     <div className="flex h-[calc(100vh-120px)] gap-6 p-6">
-      {/* Left List */}
-      <div className="flex-1">
+      {/* Left List: Sidebar for administrators to pick a conversation */}
+      <div className="flex-1 max-w-sm">
         <ConversationList
           conversations={conversations}
           selectedId={selectedConvId || undefined}
@@ -112,8 +41,8 @@ export function AdminMessagesContent() {
         />
       </div>
 
-      {/* Right Chat Window */}
-      <div className="flex-1">
+      {/* Right Chat Window: Immersive messaging experience */}
+      <div className="flex-[2]">
         {selectedConvId ? (
           loadingMessages ? (
             <div className="flex h-full items-center justify-center bg-card border rounded-2xl border-white/10 shadow-xl shadow-indigo-500/5">
@@ -122,7 +51,7 @@ export function AdminMessagesContent() {
           ) : (
             <ChatWindow
               recipientId={recipient?._id || ""}
-              recipientName={recipient?.name || "User"}
+              recipientName={recipient?.name || "Support Guest"}
               initialMessages={messages}
             />
           )
@@ -135,7 +64,7 @@ export function AdminMessagesContent() {
               Select a conversation
             </h3>
             <p className="max-w-[400px]">
-              Choose a user from the list to start chatting or view the history.
+              Choose a user from the list to start chatting or view the history of your support interactions.
             </p>
           </div>
         )}

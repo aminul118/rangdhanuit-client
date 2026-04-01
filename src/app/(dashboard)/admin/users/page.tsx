@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { TSearchParamsPromise } from "@/types";
 import { UsersList } from "@/components/modules/dashboard/admin/Users/UsersList";
-import { AdminPageWrapper } from "@/components/common/wrapper/AdminPageWrapper";
+import { AdminPageWrapper } from "@/components/common/layouts/AdminPageWrapper";
 
 export const metadata: Metadata = {
   title: "User Management | Rangdhanu IT",

@@ -4,7 +4,7 @@ import { updateService } from "@/services/Service/services";
 import ServiceForm from "./ServiceForm";
 import useActionHandler from "@/hooks/useActionHandler";
 import { IService } from "@/types/Service/service.types";
-import { EditFormWrapper } from "@/components/common/wrapper/EditFormWrapper";
+import { EditFormWrapper } from "@/components/common/layouts/EditFormWrapper";
 
 interface EditServiceFormProps {
   id: string;
@@ -16,12 +16,12 @@ const EditServiceForm = ({ id, initialData }: EditServiceFormProps) => {
 
   const handleUpdate = async (formData: FormData) => {
     await executePost({
-       action: () => updateService(id, formData),
-       success: {
-         message: "Service refined! Changes are now reflecting on the main portal.",
-         redirectPath: "/admin/services",
-         isRefresh: true
-       }
+      action: () => updateService(id, formData),
+      success: {
+        message: "Service refined! Changes are now reflecting on the main portal.",
+        redirectPath: "/admin/services",
+        isRefresh: true,
+      },
     });
   };
 

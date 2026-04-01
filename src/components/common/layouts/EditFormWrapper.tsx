@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
-import CreationHeader from "@/components/common/wrapper/CreationHeader";
+import CreationHeader from "@/components/common/layouts/CreationHeader";
 
 interface EditFormWrapperProps<T> {
   id: string;
