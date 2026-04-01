@@ -1,12 +1,12 @@
 "use server";
 
 import serverFetch from "@/lib/server-fetch";
-import { ApiResponse, ILogin } from "@/types";
+import { ApiResponse, ILogin, ILoginData } from "@/types";
 import { setAccessToken, setRefreshToken } from "./cookie-token";
 import { catchAsyncAction } from "@/helpers/catchAsyncAction";
 
 export const loginAction = catchAsyncAction(
-  async (payload: Record<string, unknown>): Promise<ApiResponse<ILogin>> => {
+  async (payload: ILoginData): Promise<ApiResponse<ILogin>> => {
     const res = await serverFetch.post<ApiResponse<ILogin>>("/auth/login", {
       body: payload,
     });

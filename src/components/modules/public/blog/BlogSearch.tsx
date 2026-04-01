@@ -1,33 +1,24 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useTransition, useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import useSearchParamsValues from "@/hooks/useSearchParamsValues";
 
 export default function BlogSearch() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const { values, setParams } = useSearchParamsValues("search");
   const [isPending, startTransition] = useTransition();
-  const [searchValue, setSearchValue] = useState(searchParams.get("search") || "");
+  const [searchValue, setSearchValue] = useState(values.search || "");
 
   useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (searchValue) {
-      params.set("search", searchValue);
-    } else {
-      params.delete("search");
-    }
-
     const timer = setTimeout(() => {
       startTransition(() => {
-        router.push(`${pathname}?${params.toString()}`);
+        setParams({ search: searchValue });
       });
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [searchValue, pathname, router, searchParams]);
+  }, [searchValue, setParams]);
 
   return (
     <motion.div

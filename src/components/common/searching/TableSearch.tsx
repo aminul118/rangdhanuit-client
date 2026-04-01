@@ -3,11 +3,11 @@
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { Search, X } from 'lucide-react';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useCallback } from 'react';
 import { useTableTransition } from '@/context/TableTransitionContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { POP_IN, POP_IN_TRANSITION } from '@/constants/animations';
+import useSearchParamsValues from '@/hooks/useSearchParamsValues';
 
 interface TableSearchProps {
   placeholder?: string;
@@ -18,28 +18,18 @@ const TableSearch = ({
   placeholder = 'Search...',
   className,
 }: TableSearchProps) => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const searchQuery = searchParams.get('searchTerm') || '';
+  const { values, setParams } = useSearchParamsValues('searchTerm');
+  const searchQuery = values.searchTerm || '';
   const [query, setQuery] = useState(searchQuery);
 
   const { startTransitionWithText } = useTableTransition();
 
   // Debounced search update
   const updateSearch = useCallback((value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (value) {
-      params.set('searchTerm', value);
-      params.set('page', '1'); // Reset to first page on search
-    } else {
-      params.delete('searchTerm');
-    }
-    
     startTransitionWithText('Searching...', () => {
-      router.push(`${pathname}?${params.toString()}`);
+      setParams({ searchTerm: value, page: 1 });
     });
-  }, [pathname, router, searchParams, startTransitionWithText]);
+  }, [setParams, startTransitionWithText]);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {

@@ -5,27 +5,17 @@ import { useSocket } from "@/providers/SocketProvider";
 import { useAuth } from "@/providers/AuthProvider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { 
-  Avatar, 
-  AvatarImage, 
-  AvatarFallback 
-} from "@/components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Send, User as UserIcon, Wifi, WifiOff } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { sendMessageAction } from "@/services/Conversation/conversation.actions";
-
-interface Message {
-  _id: string;
-  sender: string | { _id: string; name: string; picture?: string };
-  content: string;
-  createdAt: string;
-}
+import { IMessage, IUser } from "@/types";
 
 interface ChatWindowProps {
   recipientId: string;
   recipientName: string;
-  initialMessages?: Message[];
+  initialMessages?: IMessage[];
 }
 
 export const ChatWindow = ({
@@ -35,7 +25,7 @@ export const ChatWindow = ({
 }: ChatWindowProps) => {
   const { socket, connected } = useSocket();
   const { user } = useAuth();
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [messages, setMessages] = useState<IMessage[]>(initialMessages);
   const [input, setInput] = useState("");
   const [sending, setSending] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -56,10 +46,10 @@ export const ChatWindow = ({
   useEffect(() => {
     if (!socket) return;
 
-    const handleReceive = (message: Message) => {
+    const handleReceive = (message: IMessage) => {
       const senderId =
         typeof message.sender === "object"
-          ? message.sender._id
+          ? (message.sender as IUser)._id
           : message.sender;
       if (senderId === recipientId || senderId === user?._id) {
         setMessages((prev) => [...prev, message]);
@@ -72,11 +62,11 @@ export const ChatWindow = ({
     };
   }, [socket, recipientId, user?._id]);
 
-  const getSenderId = (sender: Message["sender"]) =>
-    typeof sender === "object" ? sender._id : sender;
+  const getSenderId = (sender: IMessage["sender"]) =>
+    typeof sender === "object" ? (sender as IUser)._id : sender;
 
-  const getSenderPicture = (sender: Message["sender"]) =>
-    typeof sender === "object" ? sender.picture : undefined;
+  const getSenderPicture = (sender: IMessage["sender"]) =>
+    typeof sender === "object" ? (sender as IUser).picture : undefined;
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,11 +77,15 @@ export const ChatWindow = ({
     setSending(true);
 
     // Optimistically add to UI
-    const tempMsg: Message = {
+    const tempMsg: IMessage = {
       _id: `temp_${Date.now()}`,
+      conversationId: "temp",
       sender: user?._id || "",
       content,
+      isRead: false,
+      isDeleted: false,
       createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     };
     setMessages((prev) => [...prev, tempMsg]);
 
@@ -101,17 +95,20 @@ export const ChatWindow = ({
         socket.emit("send_message", { recipientId, content });
 
         // Also listen for message_sent confirmation and optionally replace temp message
-        socket.once("message_sent", (saved: Message) => {
+        socket.once("message_sent", (saved: IMessage) => {
           setMessages((prev) =>
             prev.map((m) => (m._id === tempMsg._id ? saved : m)),
           );
         });
       } else {
         // Offline-ready REST fallback via server action
-        const saved = await sendMessageAction(recipientId, content);
-        if (saved) {
+        const res = await sendMessageAction(recipientId, content);
+        if (res.success && res.data) {
+          const saved = res.data;
           setMessages((prev) =>
-            prev.map((m) => (m._id === tempMsg._id ? { ...saved, sender: user?._id || "" } : m)),
+            prev.map((m) =>
+              m._id === tempMsg._id ? { ...saved, sender: user?._id || "" } : m,
+            ),
           );
         }
       }
@@ -179,7 +176,9 @@ export const ChatWindow = ({
               key={msg._id || index}
               className={cn(
                 "flex gap-3 max-w-[85%] animate-in fade-in slide-in-from-bottom-2",
-                isMe ? "ml-auto flex-row-reverse items-end" : "mr-auto flex-row items-end",
+                isMe
+                  ? "ml-auto flex-row-reverse items-end"
+                  : "mr-auto flex-row items-end",
               )}
             >
               <Avatar className="w-8 h-8 border border-white/5 shadow-sm shrink-0">
@@ -244,4 +243,3 @@ export const ChatWindow = ({
     </div>
   );
 };
-

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -10,14 +9,14 @@ import { resetPasswordSchema } from "@/zod/auth.validation";
 import useActionHandler from "@/hooks/useActionHandler";
 import { FormField, SubmitButton } from "@/components/common/form";
 import { resetPasswordAction } from "@/services/Auth/reset-password";
+import useSearchParamsValues from "@/hooks/useSearchParamsValues";
 
 type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
 
 export function ResetPasswordForm() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token") || "";
-  const email = searchParams.get("email") || "";
+  const { values, router } = useSearchParamsValues("token", "email");
+  const token = values.token || "";
+  const email = values.email || "";
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -33,7 +32,12 @@ export function ResetPasswordForm() {
 
   const onSubmit = async (data: ResetPasswordFormValues) => {
     await executePost({
-      action: () => resetPasswordAction({ ...data, token, email }),
+      action: () =>
+        resetPasswordAction({
+          email,
+          token,
+          newPassword: data.newPassword,
+        }),
       success: {
         message: "Password reset successful! You can now login.",
         onSuccess: () => {

@@ -7,7 +7,7 @@ import { ProfileInfoForm } from "@/components/modules/dashboard/profile/ProfileI
 import { SecuritySettingsForm } from "@/components/modules/dashboard/profile/SecuritySettingsForm";
 import { ThemeSettings } from "@/components/modules/dashboard/profile/ThemeSettings";
 import { RoleProfileLayout } from "@/components/modules/dashboard/profile/RoleProfileLayout";
-import { useRouter, useSearchParams } from "next/navigation";
+import useSearchParamsValues from "@/hooks/useSearchParamsValues";
 
 const tabs = [
   {
@@ -40,9 +40,8 @@ const tabs = [
 ];
 
 export function ProfileContent() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const queryTab = searchParams.get("tab");
+  const { values, setParams } = useSearchParamsValues("tab");
+  const queryTab = values.tab;
 
   // Derive the active tab directly from the URL query parameter
   const activeTab =
@@ -51,9 +50,7 @@ export function ProfileContent() {
   // Function to handle tab changes by updating the URL query parameter
   const setActiveTab = (tabId: string) => {
     if (tabId === activeTab) return;
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("tab", tabId);
-    router.push(`?${params.toString()}`, { scroll: false });
+    setParams({ tab: tabId }, { scroll: false });
   };
 
   return (

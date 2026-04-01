@@ -8,9 +8,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useTableTransition } from "@/context/TableTransitionContext";
 import { cn } from "@/lib/utils";
+import useSearchParamsValues from "@/hooks/useSearchParamsValues";
 
 interface TableLimitProps {
   label?: string;
@@ -22,20 +22,14 @@ const TableLimit = ({
   className,
   options = [10, 20, 30, 50],
 }: Omit<TableLimitProps, "label">) => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
+  const { values, setParams } = useSearchParamsValues("limit");
   const { startTransitionWithText, isPending } = useTableTransition();
 
-  const limit = searchParams.get("limit") ?? "10";
+  const limit = values.limit ?? "10";
 
   const handleLimitChange = (newLimit: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("limit", newLimit);
-    params.set("page", "1");
-
     startTransitionWithText("Updating page size...", () => {
-      router.push(`${pathname}?${params.toString()}`);
+      setParams({ limit: newLimit, page: 1 });
     });
   };
 

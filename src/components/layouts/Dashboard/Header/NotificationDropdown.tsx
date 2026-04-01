@@ -32,32 +32,22 @@ import {
   clearAllNotificationsAction,
   deleteNotificationAction,
 } from "@/services/Notification/notification.actions";
-
-interface Notification {
-  _id: string;
-  type: string;
-  content: string;
-  isRead: boolean;
-  createdAt: string;
-  sender: {
-    _id: string;
-    name: string;
-    picture?: string;
-  };
-}
+import { INotification } from "@/types";
 
 export const NotificationDropdown = () => {
   const { unreadCount, setUnreadCount } = useSocket();
-  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [notifications, setNotifications] = useState<INotification[]>([]);
   const [loading, setLoading] = useState(false);
 
   const loadNotifications = async () => {
     try {
       setLoading(true);
-      const data = await fetchNotifications();
-      setNotifications(data);
-      const unread = data.filter((n) => !n.isRead).length;
-      setUnreadCount(unread);
+      const res = await fetchNotifications();
+      if (res.success && Array.isArray(res.data)) {
+        setNotifications(res.data);
+        const unread = res.data.filter((n) => !n.isRead).length;
+        setUnreadCount(unread);
+      }
     } catch (err) {
       console.error("Failed to fetch notifications:", err);
     } finally {

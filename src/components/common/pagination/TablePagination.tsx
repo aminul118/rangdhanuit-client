@@ -6,8 +6,8 @@ import {
   PaginationItem,
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import useSearchParamsValues from "@/hooks/useSearchParamsValues";
 
 export interface IMeta {
   page: number;
@@ -22,18 +22,14 @@ interface TablePaginationProps {
 }
 
 const TablePagination = ({ meta, className }: TablePaginationProps) => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const { setParams } = useSearchParamsValues();
 
   const { page, totalPage } = meta;
 
   const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > totalPage || newPage === page) return;
 
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", newPage.toString());
-    router.push(`${pathname}?${params.toString()}`);
+    setParams({ page: newPage });
   };
 
   if (totalPage <= 1) return null;

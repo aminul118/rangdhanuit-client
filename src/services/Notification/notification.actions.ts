@@ -1,61 +1,35 @@
 "use server";
 
 import serverFetch from "@/lib/server-fetch";
+import { catchAsyncAction } from "@/helpers/catchAsyncAction";
+import { ApiResponse, INotification } from "@/types";
 
-interface Notification {
-  _id: string;
-  type: string;
-  content: string;
-  isRead: boolean;
-  createdAt: string;
-  sender: {
-    _id: string;
-    name: string;
-    picture?: string;
-  };
-}
+export const fetchNotifications = catchAsyncAction(
+  async (): Promise<ApiResponse<INotification[]>> => {
+    return await serverFetch.get<ApiResponse<INotification[]>>("/notifications");
+  },
+);
 
-interface NotificationsResponse {
-  data: Notification[];
-}
+export const markAllNotificationsRead = catchAsyncAction(
+  async (): Promise<ApiResponse<Record<string, unknown>>> => {
+    return await serverFetch.patch("/notifications/mark-all-as-read");
+  },
+);
 
-export const fetchNotifications = async (): Promise<Notification[]> => {
-  try {
-    const data = await serverFetch.get<NotificationsResponse>("/notifications");
-    return data?.data ?? [];
-  } catch {
-    return [];
-  }
-};
+export const markNotificationRead = catchAsyncAction(
+  async (id: string): Promise<ApiResponse<INotification>> => {
+    return await serverFetch.patch(`/notifications/${id}/read`);
+  },
+);
 
-export const markAllNotificationsRead = async (): Promise<void> => {
-  try {
-    await serverFetch.patch("/notifications/mark-all-as-read");
-  } catch {
-    // non-critical
-  }
-};
+export const clearAllNotificationsAction = catchAsyncAction(
+  async (): Promise<ApiResponse<Record<string, unknown>>> => {
+    return await serverFetch.delete("/notifications");
+  },
+);
 
-export const markNotificationRead = async (id: string): Promise<void> => {
-  try {
-    await serverFetch.patch(`/notifications/${id}/read`);
-  } catch {
-    // non-critical
-  }
-};
-
-export const clearAllNotificationsAction = async (): Promise<void> => {
-  try {
-    await serverFetch.delete("/notifications");
-  } catch {
-    // non-critical
-  }
-};
-
-export const deleteNotificationAction = async (id: string): Promise<void> => {
-  try {
-    await serverFetch.delete(`/notifications/${id}`);
-  } catch {
-    // non-critical
-  }
-};
+export const deleteNotificationAction = catchAsyncAction(
+  async (id: string): Promise<ApiResponse<INotification>> => {
+    return await serverFetch.delete(`/notifications/${id}`);
+  },
+);

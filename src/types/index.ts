@@ -6,5 +6,8 @@ export * from "./api.types";
 export * from "./Portfolio/portfolio.types";
 export * from "./Blog/blog.types";
 export * from "./Service/service.types";
+export * from "./User/user.types";
+export * from "./Conversation/conversation.types";
+export * from "./Notification/notification.types";
 export * from "./common.types";
 export * from "./react.types";

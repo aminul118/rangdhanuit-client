@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { Column } from "@/components/common/table/TableManageMent";
 import { TableActionDropdown } from "@/components/common/table/TableActionDropdown";
-import { TableBadge } from "@/components/common/table/TableBadge";
+import { ApiResponse } from "@/types";
 
 const IconMap: Record<string, React.ElementType> = {
   Laptop,
@@ -23,7 +23,7 @@ const IconMap: Record<string, React.ElementType> = {
 };
 
 export const ServiceTableColumns = (
-  handleDelete: (id: string) => void,
+  handleDelete: (id: string) => Promise<ApiResponse<unknown>>,
 ): Column<IService>[] => [
   {
     header: "Service",

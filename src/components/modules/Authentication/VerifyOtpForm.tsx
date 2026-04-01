@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2, Mail, ArrowRight } from "lucide-react";
 import { SubmitButton } from "@/components/common/form";
 import {
@@ -16,11 +15,11 @@ import { ILogin } from "@/types";
 import useActionHandler from "@/hooks/useActionHandler";
 import { verifyOTPAction } from "@/services/Auth/otp/verify-otp";
 import { sendOTPAction } from "@/services/Auth/otp/send-otp";
+import useSearchParamsValues from "@/hooks/useSearchParamsValues";
 
 export function VerifyOtpForm() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const email = searchParams.get("email") || "";
+  const { values, router } = useSearchParamsValues("email");
+  const email = values.email || "";
   const { setUser } = useAuth();
   const [otp, setOtp] = useState("");
   const [timer, setTimer] = useState(60);

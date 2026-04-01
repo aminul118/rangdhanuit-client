@@ -1,11 +1,11 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import useSearchParamsValues from "@/hooks/useSearchParamsValues";
 import { Suspense } from "react";
 
 function EmailDisplayContent() {
-  const searchParams = useSearchParams();
-  const email = searchParams.get("email") || "";
+  const { values } = useSearchParamsValues("email");
+  const email = values.email || "";
   return <span className="text-indigo-400 font-bold">{email}</span>;
 }
 

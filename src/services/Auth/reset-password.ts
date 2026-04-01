@@ -1,12 +1,12 @@
 "use server";
 
 import serverFetch from "@/lib/server-fetch";
-import { ApiResponse } from "@/types";
+import { ApiResponse, IResetPasswordData } from "@/types";
 import { catchAsyncAction } from "@/helpers/catchAsyncAction";
 
 export const resetPasswordAction = catchAsyncAction(
-  async (payload: Record<string, unknown>): Promise<ApiResponse<unknown>> => {
-    return await serverFetch.post<ApiResponse<unknown>>(
+  async (payload: IResetPasswordData): Promise<ApiResponse<Record<string, unknown>>> => {
+    return await serverFetch.post<ApiResponse<Record<string, unknown>>>(
       "/auth/reset-password",
       {
         body: payload,

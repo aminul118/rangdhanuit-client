@@ -1,18 +1,4 @@
-export interface IUser {
-  _id?: string;
-  name: string;
-  email: string;
-  role: "ADMIN" | "USER" | "SUPER_ADMIN";
-  isVerified: boolean;
-  status: "ACTIVE" | "BLOCKED";
-  isDeleted: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-  picture?: string;
-  designation?: string;
-  bio?: string;
-  contactNo?: string;
-}
+import { IUser } from "./User/user.types";
 
 export interface ILogin {
   accessToken: string;
@@ -38,11 +24,6 @@ export interface ApiResponse<T> {
 export interface IGlobalError {
   error: Error & { digest?: string };
   reset: () => void;
-}
-
-export interface IChangePassword {
-  currentPassword?: string;
-  newPassword?: string;
 }
 
 export interface IUpdateProfile {

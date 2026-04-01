@@ -11,36 +11,12 @@ import {
 } from "@/services/Conversation/conversation.actions";
 import { markAllNotificationsRead } from "@/services/Notification/notification.actions";
 import { useSocket } from "@/providers/SocketProvider";
-
-interface AdminUser {
-  _id: string;
-  name: string;
-  email: string;
-  role: string;
-  picture?: string;
-}
-
-interface Message {
-  _id: string;
-  sender: string | { _id: string; name: string; picture?: string };
-  content: string;
-  createdAt: string;
-}
-
-interface LocalConversation {
-  _id: string;
-  participants: AdminUser[];
-  lastMessage?: {
-    content: string;
-    createdAt: string;
-    sender: string;
-  };
-}
+import { IMessage, MessageConversation, IUser } from "@/types";
 
 export function UserMessagesContent() {
   const { setUnreadCount } = useSocket();
-  const [admin, setAdmin] = useState<AdminUser | null>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [admin, setAdmin] = useState<IUser | null>(null);
+  const [messages, setMessages] = useState<IMessage[]>([]);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
@@ -51,11 +27,11 @@ export function UserMessagesContent() {
       markAllNotificationsRead();
 
       // Step 1: Find existing conversation with any admin first
-      const conversations =
-        (await getMyConversations()) as unknown as LocalConversation[];
+      const res = await getMyConversations();
+      const conversations = res.success && res.data ? res.data : [];
 
-      let existingConv: LocalConversation | null = null;
-      let targetAdmin: AdminUser | null = null;
+      let existingConv: MessageConversation | null = null;
+      let targetAdmin: IUser | null = null;
 
       // Scan conversations for one that includes an admin
       for (const conv of conversations) {
@@ -71,7 +47,10 @@ export function UserMessagesContent() {
 
       // Step 2: If no existing conversation, find any available admin to start a new one
       if (!targetAdmin) {
-        targetAdmin = await getAdminUser();
+        const adminRes = await getAdminUser();
+        if (adminRes.success) {
+          targetAdmin = adminRes.data;
+        }
       }
 
       setAdmin(targetAdmin);
@@ -80,8 +59,10 @@ export function UserMessagesContent() {
 
       // Step 3: Load messages if conversation exists
       if (existingConv) {
-        const msgs = await getConversationMessages(existingConv._id);
-        setMessages(msgs);
+        const msgsRes = await getConversationMessages(existingConv._id);
+        if (msgsRes.success && msgsRes.data) {
+          setMessages(msgsRes.data);
+        }
 
         // Step 4: Mark as read (silently)
         await markConversationRead(existingConv._id);

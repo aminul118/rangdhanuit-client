@@ -4,7 +4,6 @@ import { useTransition } from "react";
 import { IService } from "@/types/Service/service.types";
 import { ServiceTableColumns } from "./ServiceTableColumn";
 import { deleteService } from "@/services/Service/services";
-import { toast } from "sonner";
 import TableManageMent, { Column } from "@/components/common/table/TableManageMent";
 
 interface ServiceTableProps {
@@ -12,19 +11,10 @@ interface ServiceTableProps {
 }
 
 const ServiceTable = ({ services }: ServiceTableProps) => {
-  const [isPending, startTransition] = useTransition();
+  const [isPending] = useTransition();
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this service?")) return;
-
-    startTransition(async () => {
-      const res = await deleteService(id);
-      if (res.success) {
-        toast.success("Service deleted successfully!");
-      } else {
-        toast.error(res.message || "Failed to delete service.");
-      }
-    });
+    return await deleteService(id);
   };
 
   const columns = ServiceTableColumns(handleDelete);

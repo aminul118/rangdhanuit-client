@@ -25,9 +25,9 @@ import {
   ChevronsUpDown,
 } from "lucide-react";
 import { ReactNode } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTableTransition } from "@/context/TableTransitionContext";
 import { cn } from "@/lib/utils";
+import useSearchParamsValues from "@/hooks/useSearchParamsValues";
 
 /* =======================
    Column Type
@@ -67,30 +67,26 @@ function TableManageMent<T>({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isRefreshing = false,
 }: TableManageMentProps<T>) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const { values, setParams } = useSearchParamsValues("sort");
   const { startTransitionWithText } = useTableTransition();
 
-  const currentSort = searchParams.get("sort") || "";
+  const currentSort = values.sort || "";
   const isAsc = !currentSort.startsWith("-");
   const activeSortKey = isAsc ? currentSort : currentSort.slice(1);
 
   const handleSort = (sortKey: string) => {
-    const params = new URLSearchParams(searchParams.toString());
+    let newSort: string | null = sortKey;
 
     if (activeSortKey === sortKey) {
       if (isAsc) {
-        params.set("sort", `-${sortKey}`);
+        newSort = `-${sortKey}`;
       } else {
-        params.delete("sort");
+        newSort = null;
       }
-    } else {
-      params.set("sort", sortKey);
     }
 
     startTransitionWithText("Sorting...", () => {
-      router.push(`${pathname}?${params.toString()}`);
+      setParams({ sort: newSort });
     });
   };
 

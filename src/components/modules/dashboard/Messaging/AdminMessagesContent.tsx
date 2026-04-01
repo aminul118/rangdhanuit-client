@@ -6,34 +6,13 @@ import { useSocket } from "@/providers/SocketProvider";
 import { ConversationList } from "@/components/modules/dashboard/Messaging/ConversationList";
 import { ChatWindow } from "@/components/modules/dashboard/Messaging/ChatWindow";
 import { markAllNotificationsRead } from "@/services/Notification/notification.actions";
-import envVars from "@/config/env.config";
+import {
+  getMyConversations,
+  getConversationMessages,
+  markConversationRead,
+} from "@/services/Conversation/conversation.actions";
+import { IMessage, MessageConversation } from "@/types";
 import { Loader2, MessageSquare } from "lucide-react";
-
-interface AdminUser {
-  _id: string;
-  name: string;
-  email: string;
-  role: string;
-}
-
-interface Message {
-  _id: string;
-  sender: string | { _id: string; name: string };
-  content: string;
-  createdAt: string;
-}
-
-interface MessageConversation {
-  _id: string;
-  participants: AdminUser[];
-  lastMessage?: {
-    content: string;
-    createdAt: string;
-    sender: string;
-  };
-  unreadCount: Record<string, number>;
-  updatedAt: string;
-}
 
 export function AdminMessagesContent() {
   const { user } = useAuth();
@@ -41,63 +20,46 @@ export function AdminMessagesContent() {
   const [conversations, setConversations] = useState<MessageConversation[]>([]);
   const [selectedConvId, setSelectedConvId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
   const [loadingMessages, setLoadingMessages] = useState(false);
 
   // Clear notification count immediately when opening this page
   useEffect(() => {
-    setUnreadCount(0);
-    markAllNotificationsRead();
+    // Wrap in a microtask or deferred call to avoid synchronous cascading renders
+    const timer = setTimeout(() => {
+      setUnreadCount(0);
+      markAllNotificationsRead();
+    }, 0);
+    return () => clearTimeout(timer);
   }, [setUnreadCount]);
 
   const fetchConversations = useCallback(async (isInitial = false) => {
-    try {
-      if (isInitial) setLoading(true);
-      const res = await fetch(
-        `${envVars.apiUrl}/conversations/my-conversations`,
-        {
-          credentials: "include",
-        },
-      );
-      if (res.ok) {
-        const data = await res.json();
-        setConversations(data.data);
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      if (isInitial) setLoading(false);
+    // Ensure the entire function body runs in a microtask to avoid cascading renders
+    await Promise.resolve();
+    if (!isInitial) setLoading(true);
+    const res = await getMyConversations();
+    if (res.success && res.data) {
+      setConversations(res.data);
     }
+    if (isInitial) setLoading(false);
   }, []);
 
   const fetchMessages = async (convId: string) => {
-    try {
-      setLoadingMessages(true);
-      const res = await fetch(
-        `${envVars.apiUrl}/conversations/${convId}/messages`,
-        {
-          credentials: "include",
-        },
-      );
-      if (res.ok) {
-        const data = await res.json();
-        setMessages(data.data);
+    await Promise.resolve();
+    setLoadingMessages(true);
+    const res = await getConversationMessages(convId);
+    if (res.success && res.data) {
+      setMessages(res.data);
 
-        // Also mark as read
-        await fetch(`${envVars.apiUrl}/conversations/${convId}/read`, {
-          method: "PATCH",
-          credentials: "include",
-        });
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoadingMessages(false);
+      // Also mark as read
+      await markConversationRead(convId);
     }
+    setLoadingMessages(false);
   };
 
   useEffect(() => {
-    fetchConversations(true);
+    // Defer to next microtask to avoid cascading render warning
+    Promise.resolve().then(() => fetchConversations(true));
   }, [fetchConversations]);
 
   useEffect(() => {
@@ -118,7 +80,8 @@ export function AdminMessagesContent() {
 
   useEffect(() => {
     if (selectedConvId) {
-      fetchMessages(selectedConvId);
+      // Defer to next microtask to avoid cascading render warning
+      Promise.resolve().then(() => fetchMessages(selectedConvId));
     }
   }, [selectedConvId]);
 

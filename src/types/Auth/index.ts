@@ -18,6 +18,11 @@ export interface IVerifyOTPData {
 
 export interface IResetPasswordData {
   email: string;
-  otp: string;
+  token: string;
+  newPassword?: string;
+}
+
+export interface IChangePassword {
+  currentPassword?: string;
   newPassword?: string;
 }
