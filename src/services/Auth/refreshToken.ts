@@ -1,39 +1,31 @@
-import envVars from '@/config/env.config';
-import { type NextRequest } from 'next/server';
+"use server";
+
+import serverFetch from "@/lib/server-fetch";
 
 type RefreshResponse = {
   accessToken: string;
   refreshToken: string;
 };
 
-const tryRefreshToken = async (req: NextRequest) => {
-  const refreshToken = req.cookies.get('refreshToken')?.value;
-
-  if (!refreshToken) return null;
-
+const tryRefreshToken = async () => {
+  // serverFetch automatically handles cookies via getCookie
   try {
-    // Use native fetch to avoid Node-only dependencies in Edge runtime
-    const res = await fetch(`${envVars.apiUrl}/auth/refresh-token`, {
-      method: 'POST',
-      headers: {
-        Cookie: `refreshToken=${refreshToken}`,
-        'Content-Type': 'application/json',
-      },
-      cache: 'no-store',
+    const res = await serverFetch.post<{ 
+      success: boolean; 
+      data: RefreshResponse; 
+      message?: string 
+    }>("/auth/refresh-token", {
+      cache: "no-store",
     });
 
-    if (!res.ok) return null;
-
-    const result = await res.json();
-
-    if (!result.success || !result?.data?.accessToken) return null;
+    if (!res?.success || !res?.data?.accessToken) return null;
 
     return {
-      accessToken: result.data.accessToken,
-      refreshToken: result.data.refreshToken,
+      accessToken: res.data.accessToken,
+      refreshToken: res.data.refreshToken,
     } as RefreshResponse;
   } catch (error) {
-    console.error('tryRefreshToken Edge error:', error);
+    console.error("tryRefreshToken error:", error);
     return null;
   }
 };

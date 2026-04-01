@@ -2,25 +2,12 @@
 
 import serverFetch from "@/lib/server-fetch";
 import { ApiResponse, IUser } from "@/types";
+import { catchAsyncAction } from "@/helpers/catchAsyncAction";
 
-export const registerAction = async (
-  payload: Record<string, unknown>
-): Promise<ApiResponse<IUser | null>> => {
-  try {
-    const res = await serverFetch.post<ApiResponse<IUser>>("/auth/register", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
+export const registerAction = catchAsyncAction(
+  async (payload: Record<string, unknown>): Promise<ApiResponse<IUser>> => {
+    return await serverFetch.post<ApiResponse<IUser>>("/auth/register", {
+      body: payload,
     });
-
-    return res;
-  } catch (err: unknown) {
-    return {
-      success: false,
-      message: (err as Error).message || "Registration failed",
-      statusCode: 500,
-      data: null,
-    };
-  }
-};
+  },
+);

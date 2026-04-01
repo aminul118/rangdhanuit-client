@@ -1,22 +1,13 @@
 "use server";
 
-import envVars from "@/config/env.config";
-
-import { IChangePassword } from "@/types";
+import { IChangePassword, ApiResponse } from "@/types";
 import serverFetch from "@/lib/server-fetch";
+import { catchAsyncAction } from "@/helpers/catchAsyncAction";
 
-export async function changePasswordAction(passwordData: IChangePassword) {
-  try {
-    const res = await serverFetch.patch(`/auth/change-password`, {
-      body: JSON.stringify(passwordData),
+export const changePasswordAction = catchAsyncAction(
+  async (passwordData: IChangePassword): Promise<ApiResponse<unknown>> => {
+    return await serverFetch.patch(`/auth/change-password`, {
+      body: passwordData,
     });
-
-    return res;
-  } catch (error: unknown) {
-    const err = error as Error;
-    return {
-      success: false,
-      message: err.message || "Failed to change password",
-    };
-  }
-}
+  },
+);

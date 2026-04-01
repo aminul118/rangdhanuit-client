@@ -1,98 +1,46 @@
 "use server";
 
-import envVars from "@/config/env.config";
-import { revalidateTag } from "next/cache";
-import { cookies } from "next/headers";
+import serverFetch from "@/lib/server-fetch";
+import { catchAsyncAction } from "@/helpers/catchAsyncAction";
+import { ApiResponse } from "@/types";
 
 export const getServices = async (query?: Record<string, string>) => {
-  const params = new URLSearchParams(query);
-  const res = await fetch(`${envVars.apiUrl}/services?${params.toString()}`, {
-    next: {
-      tags: ["services"],
-    },
+  return await serverFetch.get("/services", {
+    query,
+    next: { tags: ["services"] },
   });
-  return res.json();
 };
 
 export const getServiceBySlug = async (slug: string) => {
-  const res = await fetch(`${envVars.apiUrl}/services/slug/${slug}`, {
-    next: {
-      tags: ["services", slug],
-    },
+  return await serverFetch.get(`/services/slug/${slug}`, {
+    next: { tags: ["services", slug] },
   });
-  return res.json();
 };
 
 export const getServiceById = async (id: string) => {
-  const res = await fetch(`${envVars.apiUrl}/services/${id}`, {
-    next: {
-      tags: ["services", id],
-    },
+  return await serverFetch.get(`/services/${id}`, {
+    next: { tags: ["services", id] },
   });
-  return res.json();
 };
 
-export const createService = async (formData: FormData) => {
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get("accessToken")?.value;
+export const createService = catchAsyncAction(
+  async (formData: FormData): Promise<ApiResponse<unknown>> => {
+    return await serverFetch.post("/services", {
+      body: formData,
+    });
+  },
+);
 
-  const res = await fetch(`${envVars.apiUrl}/services`, {
-    method: "POST",
-    headers: {
-      Authorization: `${accessToken}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(Object.fromEntries(formData)),
-  });
+export const updateService = catchAsyncAction(
+  async (id: string, formData: FormData): Promise<ApiResponse<unknown>> => {
+    return await serverFetch.patch(`/services/${id}`, {
+      body: formData,
+    });
+  },
+);
 
-  const data = await res.json();
-
-  if (res.ok) {
-    revalidateTag("services");
-  }
-
-  return data;
-};
-
-export const updateService = async (id: string, formData: FormData) => {
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get("accessToken")?.value;
-
-  const res = await fetch(`${envVars.apiUrl}/services/${id}`, {
-    method: "PATCH",
-    headers: {
-      Authorization: `${accessToken}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(Object.fromEntries(formData)),
-  });
-
-  const data = await res.json();
-
-  if (res.ok) {
-    revalidateTag("services");
-    revalidateTag(id);
-  }
-
-  return data;
-};
-
-export const deleteService = async (id: string) => {
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get("accessToken")?.value;
-
-  const res = await fetch(`${envVars.apiUrl}/services/${id}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `${accessToken}`,
-    },
-  });
-
-  const data = await res.json();
-
-  if (res.ok) {
-    revalidateTag("services");
-  }
-
-  return data;
-};
+export const deleteService = catchAsyncAction(
+  async (id: string): Promise<ApiResponse<unknown>> => {
+    return await serverFetch.delete(`/services/${id}`);
+  },
+);

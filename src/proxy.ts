@@ -29,7 +29,7 @@ export default async function proxy(req: NextRequest) {
 
   // 2) If access is invalid but refresh exists -> refresh once (avoid doing this on auth pages)
   if (!user && !isAuthPage) {
-    const refreshed = await tryRefreshToken(req);
+    const refreshed = await tryRefreshToken();
 
     if (refreshed?.accessToken) {
       const { accessToken, refreshToken } = refreshed;

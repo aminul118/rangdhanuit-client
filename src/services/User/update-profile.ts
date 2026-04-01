@@ -1,21 +1,13 @@
 "use server";
 
 import serverFetch from "@/lib/server-fetch";
+import { IUpdateProfile, ApiResponse } from "@/types";
+import { catchAsyncAction } from "@/helpers/catchAsyncAction";
 
-import { IUpdateProfile } from "@/types";
-
-export async function updateProfileAction(profileData: IUpdateProfile) {
-  try {
-    const res = await serverFetch.patch("users/update-profile", {
-      body: JSON.stringify(profileData),
+export const updateProfileAction = catchAsyncAction(
+  async (profileData: IUpdateProfile): Promise<ApiResponse<unknown>> => {
+    return await serverFetch.patch("/users/update-profile", {
+      body: profileData,
     });
-
-    return res;
-  } catch (error: unknown) {
-    const err = error as Error;
-    return {
-      success: false,
-      message: err.message || "Failed to update profile",
-    };
-  }
-}
+  },
+);

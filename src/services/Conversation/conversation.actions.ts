@@ -94,7 +94,7 @@ export const sendMessageAction = async (
     const data = await serverFetch.post<{
       data: { _id: string; content: string; createdAt: string };
     }>("/conversations/send-message", {
-      body: JSON.stringify({ recipientId, content }),
+      body: { recipientId, content },
     });
     return data?.data ?? null;
   } catch {

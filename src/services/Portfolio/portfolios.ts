@@ -1,29 +1,46 @@
-import serverFetch from "@/lib/server-fetch";
+"use server";
 
-export const createPortfolio = async (payload: FormData) => {
-  return await serverFetch.post('/portfolios/create-portfolio', {
-    body: payload,
-  });
-};
+import serverFetch from "@/lib/server-fetch";
+import { catchAsyncAction } from "@/helpers/catchAsyncAction";
+import { ApiResponse } from "@/types";
+
+export const createPortfolio = catchAsyncAction(
+  async (payload: FormData): Promise<ApiResponse<unknown>> => {
+    return await serverFetch.post("/portfolios/create-portfolio", {
+      body: payload,
+    });
+  },
+);
 
 export const getPortfolios = async (query?: Record<string, string>) => {
-  return await serverFetch.get('/portfolios', { query });
+  return await serverFetch.get("/portfolios", {
+    query,
+    next: { tags: ["portfolios"] },
+  });
 };
 
 export const getPortfolioById = async (id: string) => {
-  return await serverFetch.get(`/portfolios/${id}`);
-};
-
-export const getPortfolioBySlug = async (slug: string) => {
-  return await serverFetch.get(`/portfolios/slug/${slug}`);
-};
-
-export const updatePortfolio = async (id: string, payload: FormData) => {
-  return await serverFetch.put(`/portfolios/${id}`, {
-    body: payload,
+  return await serverFetch.get(`/portfolios/${id}`, {
+    next: { tags: ["portfolios", id] },
   });
 };
 
-export const deletePortfolio = async (id: string) => {
-  return await serverFetch.delete(`/portfolios/${id}`);
+export const getPortfolioBySlug = async (slug: string) => {
+  return await serverFetch.get(`/portfolios/slug/${slug}`, {
+    next: { tags: ["portfolios", slug] },
+  });
 };
+
+export const updatePortfolio = catchAsyncAction(
+  async (id: string, payload: FormData): Promise<ApiResponse<unknown>> => {
+    return await serverFetch.put(`/portfolios/${id}`, {
+      body: payload,
+    });
+  },
+);
+
+export const deletePortfolio = catchAsyncAction(
+  async (id: string): Promise<ApiResponse<unknown>> => {
+    return await serverFetch.delete(`/portfolios/${id}`);
+  },
+);
