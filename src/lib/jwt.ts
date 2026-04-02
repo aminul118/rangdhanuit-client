@@ -1,9 +1,9 @@
-'use server';
+"use server";
 
-import envVars from '@/config/env.config';
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies';
-import { cookies } from 'next/headers';
+import envVars from "@/config/env.config";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import { cookies } from "next/headers";
 
 const getCookie = async (key: string) => {
   const cookieStore = await cookies();
@@ -12,7 +12,7 @@ const getCookie = async (key: string) => {
 
 const verifyAccessToken = async (token: string): Promise<JwtPayload | null> => {
   try {
-    return jwt.verify(token, process.env.JWT_ACCESS_SECRET || 'secret') as JwtPayload;
+    return jwt.verify(token, envVars.jwt.accessTokenSecret) as JwtPayload;
   } catch {
     return null;
   }
@@ -22,7 +22,7 @@ const verifyRefreshToken = async (
   token: string,
 ): Promise<JwtPayload | null> => {
   try {
-    return jwt.verify(token, process.env.JWT_REFRESH_SECRET || 'secret') as JwtPayload;
+    return jwt.verify(token, envVars.jwt.refreshTokenSecret) as JwtPayload;
   } catch {
     return null;
   }

@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { Suspense, ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { useSearchParams } from "next/navigation";
@@ -36,7 +36,7 @@ interface AuthLayoutWrapperProps {
   headerClassName?: string;
 }
 
-export const AuthLayoutWrapper = ({
+const AuthLayoutContent = ({
   children,
   title,
   description,
@@ -165,5 +165,13 @@ export const AuthLayoutWrapper = ({
         </div>
       </div>
     </div>
+  );
+};
+
+export const AuthLayoutWrapper = (props: AuthLayoutWrapperProps) => {
+  return (
+    <Suspense fallback={null}>
+      <AuthLayoutContent {...props} />
+    </Suspense>
   );
 };

@@ -61,7 +61,10 @@ const getVerifiedUser = async (
 
     const user = { userId, email, role, iat, exp } as DecodedToken;
     return user;
-  } catch (err) {
+  } catch (err: any) {
+    if (err?.digest === "DYNAMIC_SERVER_USAGE") {
+      throw err;
+    }
     console.error("getVerifiedUser error:", (err as Error).message ?? err);
     return null;
   }

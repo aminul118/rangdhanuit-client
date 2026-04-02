@@ -1,6 +1,6 @@
 'use client';
 
-import { logger } from '@/lib/logger';
+import logger from '@/lib/logger';
 import { ApiResponse } from '@/types';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';

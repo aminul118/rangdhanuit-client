@@ -6,7 +6,7 @@ const cleanSearchParams = async (
   const result: Record<string, string> = {};
 
   for (const [key, value] of Object.entries(resolved)) {
-    if (value != null) result[key] = `${value}`;
+    if (value != null) result[key] = String(value);
   }
 
   return result;

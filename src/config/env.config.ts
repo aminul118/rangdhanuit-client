@@ -16,7 +16,9 @@ const envVars = {
   },
 
   jwt: {
+    accessTokenSecret: process.env.JWT_ACCESS_SECRET as string,
     accessTokenMaxAge: process.env.NEXT_PUBLIC_ACCESS_TOKEN_MAX_AGE,
+    refreshTokenSecret: process.env.JWT_REFRESH_SECRET as string,
     refreshTokenMaxAge: process.env.NEXT_PUBLIC_REFRESH_TOKEN_MAX_AGE,
   },
 };
