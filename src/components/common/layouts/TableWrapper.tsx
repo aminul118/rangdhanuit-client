@@ -6,7 +6,7 @@ import TableSearch from "../searching/TableSearch";
 import TablePagination, { IMeta } from "../pagination/TablePagination";
 import TableActions from "../table/TableActions";
 import TableLimit from "../pagination/TableLimit";
-import CenterSpinner from "../loader/CenterSpinner";
+import TableLoader from "../loader/TableLoader";
 import {
   TableTransitionProvider,
   useTableTransition,
@@ -82,7 +82,7 @@ const TableWrapperContent = ({
         <div
           className={cn(
             "transition-all duration-500 ease-in-out",
-            isPending ? "opacity-20 grayscale-[0.5] pointer-events-none" : "opacity-100 grayscale-0"
+            isPending ? "opacity-40 grayscale-[0.2] pointer-events-none" : "opacity-100 grayscale-0"
           )}
         >
           {children}
@@ -96,9 +96,9 @@ const TableWrapperContent = ({
               initial="initial"
               animate="animate"
               exit="exit"
-              className="absolute top-9 inset-x-0 bottom-0 z-50 flex items-center justify-center pointer-events-none"
+              className="absolute inset-0 z-50 flex items-center justify-center bg-background/40 backdrop-blur-xs pointer-events-none"
             >
-              <CenterSpinner text={loadingText} />
+              <TableLoader text={loadingText} />
             </motion.div>
           )}
         </AnimatePresence>

@@ -4,6 +4,7 @@ import { Container } from "@/components/common/Container";
 import { ContactInfo } from "./ContactInfo";
 import { ContactForm } from "./ContactForm";
 import SectionHeading from "@/components/ui/SectionHeading";
+import ScrollReveal from "@/components/common/animations/ScrollReveal";
 
 export function ContactContent() {
   return (
@@ -25,7 +26,9 @@ export function ContactContent() {
           <ContactInfo />
 
           {/* Right Column: Form */}
-          <ContactForm />
+          <ScrollReveal animation="fade-left" delay={0.4}>
+            <ContactForm />
+          </ScrollReveal>
         </div>
       </Container>
     </section>

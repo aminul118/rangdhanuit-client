@@ -1,9 +1,7 @@
-/* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Mail, Phone, MapPin } from "lucide-react";
-import { FADE_IN_UP } from "@/constants/animations";
 
 const contactDetails = [
   {
@@ -32,33 +30,57 @@ const contactDetails = [
   },
 ];
 
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
+
 export function ContactInfo() {
   return (
-    <div className="flex flex-col justify-center h-full max-w-xl">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className="flex flex-col justify-center h-full max-w-xl"
+    >
       <div className="space-y-8">
         <div className="space-y-4">
           <motion.h3
-            variants={FADE_IN_UP}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={{ once: true }}
+            variants={itemVariants}
             className="text-3xl md:text-4xl font-black text-foreground italic tracking-tighter"
           >
-            Let's create something <br />
+            Let&apos;s create something <br />
             <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent underline decoration-indigo-500/20 underline-offset-8">
               amazing together.
             </span>
           </motion.h3>
           <motion.p
-            variants={FADE_IN_UP}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
+            variants={itemVariants}
             className="text-muted-foreground text-lg font-medium leading-relaxed"
           >
-            Have a project that needs a creative touch? We'd love to hear about
-            it. Our team is ready to turn your vision into a digital reality.
+            Have a project that needs a creative touch? We&apos;d love to hear
+            about it. Our team is ready to turn your vision into a digital
+            reality.
           </motion.p>
         </div>
 
@@ -66,11 +88,7 @@ export function ContactInfo() {
           {contactDetails.map((item, index) => (
             <motion.div
               key={index}
-              variants={FADE_IN_UP}
-              initial="initial"
-              whileInView="whileInView"
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 + index * 0.1 }}
+              variants={itemVariants}
               className="group flex items-center gap-6 p-5 rounded-3xl border border-border/50 bg-card/40 backdrop-blur-xl transition-all hover:border-primary/20 hover:bg-card/60 shadow-sm"
             >
               <div
@@ -99,6 +117,6 @@ export function ContactInfo() {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
