@@ -3,10 +3,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Send } from "lucide-react";
-import { 
-  contactSchemaZodValidation, 
-  ContactFormValues 
-} from "@/zod/contact";
+import {
+  contactSchemaZodValidation,
+  ContactFormValues,
+} from "@/zod/contact.validation";
 import { contactAction } from "@/services/Contact/contact";
 import useActionHandler from "@/hooks/useActionHandler";
 import {
@@ -21,9 +21,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import SubmitButton from "@/components/common/form/SubmitButton";
 
-export function ContactForm() {
+const ContactForm = () => {
   const { executePost } = useActionHandler();
-  
+
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchemaZodValidation),
     defaultValues: {
@@ -50,7 +50,7 @@ export function ContactForm() {
       <h2 className="text-3xl font-black mb-8 italic uppercase tracking-tight text-foreground">
         Send a Message
       </h2>
-      
+
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -63,17 +63,17 @@ export function ContactForm() {
                     Full Name
                   </FormLabel>
                   <FormControl>
-                    <Input 
-                      placeholder="John Doe" 
-                      className="h-12 rounded-xl border-border/50 bg-background/50 focus:border-primary/50 transition-all font-medium" 
-                      {...field} 
+                    <Input
+                      placeholder="John Doe"
+                      className="h-12 rounded-xl border-border/50 bg-background/50 focus:border-primary/50 transition-all font-medium"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            
+
             <FormField
               control={form.control}
               name="email"
@@ -83,11 +83,11 @@ export function ContactForm() {
                     Email Address
                   </FormLabel>
                   <FormControl>
-                    <Input 
+                    <Input
                       type="email"
-                      placeholder="john@example.com" 
-                      className="h-12 rounded-xl border-border/50 bg-background/50 focus:border-primary/50 transition-all font-medium" 
-                      {...field} 
+                      placeholder="john@example.com"
+                      className="h-12 rounded-xl border-border/50 bg-background/50 focus:border-primary/50 transition-all font-medium"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -105,10 +105,10 @@ export function ContactForm() {
                   Subject
                 </FormLabel>
                 <FormControl>
-                  <Input 
-                    placeholder="Project Inquiry" 
-                    className="h-12 rounded-xl border-border/50 bg-background/50 focus:border-primary/50 transition-all font-medium" 
-                    {...field} 
+                  <Input
+                    placeholder="Project Inquiry"
+                    className="h-12 rounded-xl border-border/50 bg-background/50 focus:border-primary/50 transition-all font-medium"
+                    {...field}
                   />
                 </FormControl>
                 <FormMessage />
@@ -125,11 +125,11 @@ export function ContactForm() {
                   Message
                 </FormLabel>
                 <FormControl>
-                  <Textarea 
+                  <Textarea
                     rows={5}
-                    placeholder="Tell us about your project..." 
-                    className="rounded-2xl border-border/50 bg-background/50 focus:border-primary/50 transition-all font-medium resize-none" 
-                    {...field} 
+                    placeholder="Tell us about your project..."
+                    className="rounded-2xl border-border/50 bg-background/50 focus:border-primary/50 transition-all font-medium resize-none"
+                    {...field}
                   />
                 </FormControl>
                 <FormMessage />
@@ -148,4 +148,6 @@ export function ContactForm() {
       </Form>
     </div>
   );
-}
+};
+
+export default ContactForm;

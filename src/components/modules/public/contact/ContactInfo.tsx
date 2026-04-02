@@ -54,7 +54,7 @@ const itemVariants: Variants = {
   },
 };
 
-export function ContactInfo() {
+const ContactInfo = () => {
   return (
     <motion.div
       variants={containerVariants}
@@ -119,4 +119,6 @@ export function ContactInfo() {
       </div>
     </motion.div>
   );
-}
+};
+
+export default ContactInfo;

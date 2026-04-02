@@ -1,12 +1,12 @@
 "use client";
 
 import { Container } from "@/components/common/Container";
-import { ContactInfo } from "./ContactInfo";
-import { ContactForm } from "./ContactForm";
+import ContactInfo from "./ContactInfo";
+import ContactForm from "./ContactForm";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ScrollReveal from "@/components/common/animations/ScrollReveal";
 
-export function ContactContent() {
+const ContactContent = () => {
   return (
     <section className="relative py-24 overflow-hidden">
       {/* Background Glows */}
@@ -16,7 +16,7 @@ export function ContactContent() {
       </div>
 
       <Container>
-        <SectionHeading 
+        <SectionHeading
           heading="Ready to Start Your Project?"
           description="Whether you have a specific project in mind or just want to explore the possibilities, we're here to help you navigate the digital landscape."
         />
@@ -33,4 +33,6 @@ export function ContactContent() {
       </Container>
     </section>
   );
-}
+};
+
+export default ContactContent;
