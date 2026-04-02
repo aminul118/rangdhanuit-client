@@ -1,6 +1,6 @@
 import Sidebar from "@/components/layouts/Dashboard/Sidebar/Sidebar";
 import AdminHeader from "@/components/layouts/Dashboard/Header/Header";
-import { DashboardContainer } from "@/components/common/Container";
+import { DashboardContainer } from "@/components/ui/Container";
 
 export default function AdminLayout({
   children,

@@ -1,7 +1,7 @@
 import { getBlogs } from "@/services/Blog/blogs";
 import { Metadata } from "next";
 import { TSearchParamsPromise, IBlog } from "@/types";
-import { Container } from "@/components/common/Container";
+import { Container } from "@/components/ui/Container";
 import { BlogHero } from "@/components/modules/public/blog/BlogHero";
 import { BlogList } from "@/components/modules/public/blog/BlogList";
 
@@ -11,7 +11,8 @@ export const metadata: Metadata = generateMetaTags({
   title: "Insights & Innovation Blog | Rangdhanu IT",
   description:
     "Explore the latest in web development, app design, and digital strategies. Stay ahead with deep dives and tutorials from the Rangdhanu IT team.",
-  keywords: "tech blog, development insights, coding tutorials, digital marketing trends",
+  keywords:
+    "tech blog, development insights, coding tutorials, digital marketing trends",
   websitePath: "blog",
 });
 

@@ -10,7 +10,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import Link from "next/link";
-import { Container } from "@/components/common/Container";
+import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, STAGGER_CHILDREN } from "@/constants/animations";
 import { BubbleBackground } from "./BubbleBackground";
 
@@ -33,7 +33,6 @@ const FeatureBadge = ({
     <span>{text}</span>
   </motion.div>
 );
-
 
 export default function Hero() {
   return (

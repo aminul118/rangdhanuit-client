@@ -1,32 +1,36 @@
-'use client';
+"use client";
 
 import { motion } from "framer-motion";
 import { Search, PenTool, Code, Rocket } from "lucide-react";
-import { Container } from "@/components/common/Container";
+import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
 const steps = [
   {
     title: "Discovery",
-    description: "Real-time collaboration to define goals, audience, and strategy.",
+    description:
+      "Real-time collaboration to define goals, audience, and strategy.",
     icon: Search,
     color: "bg-indigo-500",
   },
   {
     title: "Design",
-    description: "Crafting beautiful, accessible digital products with precision and care.",
+    description:
+      "Crafting beautiful, accessible digital products with precision and care.",
     icon: PenTool,
     color: "bg-purple-500",
   },
   {
     title: "Development",
-    description: "Building scalable, high-performance solutions with modern technologies.",
+    description:
+      "Building scalable, high-performance solutions with modern technologies.",
     icon: Code,
     color: "bg-pink-500",
   },
   {
     title: "Deployment",
-    description: "Deploying your product to the world and ensuring its success.",
+    description:
+      "Deploying your product to the world and ensuring its success.",
     icon: Rocket,
     color: "bg-orange-500",
   },
@@ -37,7 +41,7 @@ export default function Process() {
     <section className="py-24 relative bg-muted/10 text-foreground transition-colors duration-500">
       <Container>
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <motion.h2 
+          <motion.h2
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -46,7 +50,7 @@ export default function Process() {
           >
             Our Working Process
           </motion.h2>
-          <motion.p 
+          <motion.p
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -54,7 +58,9 @@ export default function Process() {
             transition={{ delay: 0.1 }}
             className="text-lg text-muted-foreground font-medium"
           >
-            We follow a streamlined, collaborative process to ensure that your project is delivered on time, within budget, and to the highest standards.
+            We follow a streamlined, collaborative process to ensure that your
+            project is delivered on time, within budget, and to the highest
+            standards.
           </motion.p>
         </div>
 
@@ -72,7 +78,9 @@ export default function Process() {
               transition={{ delay: index * 0.1 }}
               className="relative text-center group"
             >
-              <div className={`w-20 h-20 rounded-full ${step.color} mx-auto flex items-center justify-center mb-6 shadow-2xl transition-transform group-hover:scale-110`}>
+              <div
+                className={`w-20 h-20 rounded-full ${step.color} mx-auto flex items-center justify-center mb-6 shadow-2xl transition-transform group-hover:scale-110`}
+              >
                 <step.icon className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-4">{step.title}</h3>

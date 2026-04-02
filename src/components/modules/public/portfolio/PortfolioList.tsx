@@ -1,13 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  ExternalLink,
-  Globe,
-} from "lucide-react";
+import { ExternalLink, Globe } from "lucide-react";
 import Link from "next/link";
 import HtmlContent from "@/components/rich-text/core/html-content";
-import { Container } from "@/components/common/Container";
+import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 import { IPortfolio } from "@/types/Portfolio/portfolio.types";
 import Image from "next/image";

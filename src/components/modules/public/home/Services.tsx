@@ -5,7 +5,7 @@ import { ChevronRight, Zap } from "lucide-react";
 import Link from "next/link";
 import { IService } from "@/types/Service/service.types";
 import { getIcon } from "@/lib/IconMapper";
-import { Container } from "@/components/common/Container";
+import { Container } from "@/components/ui/Container";
 import {
   FADE_IN_LEFT,
   FADE_IN_UP,
@@ -19,7 +19,10 @@ interface ServicesProps {
 
 export default function Services({ services }: ServicesProps) {
   return (
-    <section id="services" className="relative py-32 overflow-hidden bg-background transition-colors duration-500">
+    <section
+      id="services"
+      className="relative py-32 overflow-hidden bg-background transition-colors duration-500"
+    >
       <Container>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
           <div className="max-w-2xl">
@@ -107,18 +110,20 @@ export default function Services({ services }: ServicesProps) {
         </div>
 
         <motion.div
-           variants={FADE_IN_UP}
-           initial="initial"
-           whileInView="whileInView"
-           viewport={VIEWPORT_CONFIG}
-           transition={{ delay: 0.5 }}
-           className="mt-20 flex flex-col items-center gap-6"
+          variants={FADE_IN_UP}
+          initial="initial"
+          whileInView="whileInView"
+          viewport={VIEWPORT_CONFIG}
+          transition={{ delay: 0.5 }}
+          className="mt-20 flex flex-col items-center gap-6"
         >
-          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-muted-foreground font-bold">Explore Our Full Spectrum of Expertise</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-muted-foreground font-bold">
+            Explore Our Full Spectrum of Expertise
+          </p>
           <Link href="/services">
             <button className="relative px-14 py-5 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-black text-xs uppercase tracking-widest shadow-2xl shadow-primary/20 transition-all active:scale-95 leading-none group overflow-hidden">
-               <span className="relative z-10">View All Services</span>
-               <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer" />
+              <span className="relative z-10">View All Services</span>
+              <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer" />
             </button>
           </Link>
         </motion.div>

@@ -1,8 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Scale, Sparkles, FileText, CheckCircle, AlertTriangle } from "lucide-react";
-import { Container } from "@/components/common/Container";
+import {
+  Scale,
+  Sparkles,
+  FileText,
+  CheckCircle,
+  AlertTriangle,
+} from "lucide-react";
+import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
 export default function TermsOfServiceContent() {
@@ -10,28 +16,33 @@ export default function TermsOfServiceContent() {
     {
       title: "Acceptance of Terms",
       icon: <CheckCircle className="w-6 h-6" />,
-      content: "By accessing or using Rangdhanu IT's website and services, you agree to be bound by these Terms of Service. If you do not agree to all of these terms, you should not use our services."
+      content:
+        "By accessing or using Rangdhanu IT's website and services, you agree to be bound by these Terms of Service. If you do not agree to all of these terms, you should not use our services.",
     },
     {
       title: "Use of Our Services",
       icon: <FileText className="w-6 h-6" />,
-      content: "Our services are intended for professional and business use. You agree to use them for lawful purposes and in a way that does not infringe on the rights of others or restrict their use of the platform."
+      content:
+        "Our services are intended for professional and business use. You agree to use them for lawful purposes and in a way that does not infringe on the rights of others or restrict their use of the platform.",
     },
     {
       title: "Intellectual Property",
       icon: <Scale className="w-6 h-6" />,
-      content: "All content, logos, designs, and code on our website are the property of Rangdhanu IT and are protected by intellectual property laws. You may not reproduce or use our brand assets without explicit written permission."
+      content:
+        "All content, logos, designs, and code on our website are the property of Rangdhanu IT and are protected by intellectual property laws. You may not reproduce or use our brand assets without explicit written permission.",
     },
     {
       title: "Limitation of Liability",
       icon: <AlertTriangle className="w-6 h-6" />,
-      content: "Rangdhanu IT will not be liable for any indirect, incidental, or consequential damages arising from the use of our services. Our maximum liability shall not exceed the amount paid for the service in question."
+      content:
+        "Rangdhanu IT will not be liable for any indirect, incidental, or consequential damages arising from the use of our services. Our maximum liability shall not exceed the amount paid for the service in question.",
     },
     {
       title: "Termination of Service",
       icon: <Scale className="w-6 h-6" />,
-      content: "We reserve the right to terminate or suspend access to our services immediately, without prior notice, for any violation of these Terms of Service or for any other reason we deem appropriate."
-    }
+      content:
+        "We reserve the right to terminate or suspend access to our services immediately, without prior notice, for any violation of these Terms of Service or for any other reason we deem appropriate.",
+    },
   ];
 
   return (
@@ -50,7 +61,7 @@ export default function TermsOfServiceContent() {
             <span>Usage Guidelines</span>
           </motion.div>
 
-          <motion.h1 
+          <motion.h1
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -60,8 +71,8 @@ export default function TermsOfServiceContent() {
           >
             Terms of <span className="text-violet-600">Service</span>
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -69,7 +80,7 @@ export default function TermsOfServiceContent() {
             transition={{ delay: 0.2 }}
             className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
           >
-            Last Updated: March 31, 2026. Please read these terms carefully 
+            Last Updated: March 31, 2026. Please read these terms carefully
             before using our services or starting a project.
           </motion.p>
         </Container>
@@ -93,7 +104,9 @@ export default function TermsOfServiceContent() {
                   {section.icon}
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold mb-4 text-foreground">{section.title}</h2>
+                  <h2 className="text-2xl font-bold mb-4 text-foreground">
+                    {section.title}
+                  </h2>
                   <p className="text-muted-foreground leading-relaxed text-lg">
                     {section.content}
                   </p>
@@ -112,10 +125,11 @@ export default function TermsOfServiceContent() {
           >
             <h2 className="text-3xl font-bold mb-6">Need Clarification?</h2>
             <p className="text-zinc-400 mb-8 max-w-lg mx-auto">
-              If something isn&apos;t clear, our legal and support teams are here to help explain our terms.
+              If something isn&apos;t clear, our legal and support teams are
+              here to help explain our terms.
             </p>
-            <a 
-              href="/contact" 
+            <a
+              href="/contact"
               className="inline-flex items-center gap-2 bg-violet-600 text-white px-8 py-4 rounded-2xl font-bold hover:scale-105 transition-transform"
             >
               Get in Touch

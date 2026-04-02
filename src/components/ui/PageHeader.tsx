@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Container } from "@/components/common/Container";
+import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP } from "@/constants/animations";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";

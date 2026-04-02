@@ -1,6 +1,6 @@
 "use client";
 
-import { Container } from "@/components/common/Container";
+import { Container } from "@/components/ui/Container";
 import ContactInfo from "./ContactInfo";
 import ContactForm from "./ContactForm";
 import SectionHeading from "@/components/ui/SectionHeading";

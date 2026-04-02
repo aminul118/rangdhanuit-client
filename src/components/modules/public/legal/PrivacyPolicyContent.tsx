@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Shield, Sparkles, Lock, Eye, Bell, Globe } from "lucide-react";
-import { Container } from "@/components/common/Container";
+import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
 export default function PrivacyPolicyContent() {
@@ -10,28 +10,33 @@ export default function PrivacyPolicyContent() {
     {
       title: "Introduction",
       icon: <Globe className="w-6 h-6" />,
-      content: "At Rangdhanu IT, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you visit our website or use our services. By using our platform, you agree to the terms outlined in this policy."
+      content:
+        "At Rangdhanu IT, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you visit our website or use our services. By using our platform, you agree to the terms outlined in this policy.",
     },
     {
       title: "Information We Collect",
       icon: <Eye className="w-6 h-6" />,
-      content: "We collect information that you provide directly to us, such as your name, email address, and phone number when you contact us for services. We also automatically collect certain information about your device and how you interact with our website through cookies and similar tracking technologies."
+      content:
+        "We collect information that you provide directly to us, such as your name, email address, and phone number when you contact us for services. We also automatically collect certain information about your device and how you interact with our website through cookies and similar tracking technologies.",
     },
     {
       title: "How We Use Your Data",
       icon: <Shield className="w-6 h-6" />,
-      content: "Your data is used to provide, maintain, and improve our services, to communicate with you about projects and updates, and to ensure a personalized experience. We do not sell your personal information to third parties."
+      content:
+        "Your data is used to provide, maintain, and improve our services, to communicate with you about projects and updates, and to ensure a personalized experience. We do not sell your personal information to third parties.",
     },
     {
       title: "Data Security",
       icon: <Lock className="w-6 h-6" />,
-      content: "We implement industry-standard security measures to protect your data from unauthorized access, alteration, or disclosure. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security."
+      content:
+        "We implement industry-standard security measures to protect your data from unauthorized access, alteration, or disclosure. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.",
     },
     {
       title: "Changes to This Policy",
       icon: <Bell className="w-6 h-6" />,
-      content: "We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes."
-    }
+      content:
+        "We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page. You are advised to review this Privacy Policy periodically for any changes.",
+    },
   ];
 
   return (
@@ -50,7 +55,7 @@ export default function PrivacyPolicyContent() {
             <span>Legal Transparency</span>
           </motion.div>
 
-          <motion.h1 
+          <motion.h1
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -60,8 +65,8 @@ export default function PrivacyPolicyContent() {
           >
             Privacy <span className="text-primary">Policy</span>
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -69,8 +74,8 @@ export default function PrivacyPolicyContent() {
             transition={{ delay: 0.2 }}
             className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
           >
-            Last Updated: March 31, 2026. Your privacy is our priority. 
-            Learn how we manage and protect your data.
+            Last Updated: March 31, 2026. Your privacy is our priority. Learn
+            how we manage and protect your data.
           </motion.p>
         </Container>
       </section>
@@ -93,7 +98,9 @@ export default function PrivacyPolicyContent() {
                   {section.icon}
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold mb-4 text-foreground">{section.title}</h2>
+                  <h2 className="text-2xl font-bold mb-4 text-foreground">
+                    {section.title}
+                  </h2>
                   <p className="text-muted-foreground leading-relaxed text-lg">
                     {section.content}
                   </p>
@@ -112,10 +119,11 @@ export default function PrivacyPolicyContent() {
           >
             <h2 className="text-3xl font-bold mb-6">Have Questions?</h2>
             <p className="text-zinc-400 mb-8 max-w-lg mx-auto">
-              If you have any questions about this Privacy Policy, please contact our data protection team.
+              If you have any questions about this Privacy Policy, please
+              contact our data protection team.
             </p>
-            <a 
-              href="mailto:privacy@rangdhanuit.com" 
+            <a
+              href="mailto:privacy@rangdhanuit.com"
               className="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-2xl font-bold hover:scale-105 transition-transform"
             >
               Contact Support

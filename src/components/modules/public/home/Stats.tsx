@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Users, Briefcase, Award, Clock } from "lucide-react";
-import { Container } from "@/components/common/Container";
+import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
 const stats = [

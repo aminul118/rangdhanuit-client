@@ -1,44 +1,49 @@
-'use client';
+"use client";
 
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import Image from "next/image";
-import { Container } from "@/components/common/Container";
+import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
 const testimonials = [
   {
     name: "John Doe",
     role: "CEO, Tech Solutions",
-    content: "Rangdhanu IT transformed our business. Their innovative approach and technical expertise are unmatched. We've seen a 300% growth since partnering with them.",
+    content:
+      "Rangdhanu IT transformed our business. Their innovative approach and technical expertise are unmatched. We've seen a 300% growth since partnering with them.",
     avatar: "https://i.pravatar.cc/150?u=john",
     rating: 5,
   },
   {
     name: "Sarah Smith",
     role: "Founder, Green Energy",
-    content: "The team at Rangdhanu IT are visionaries. They understood our needs and delivered a product that exceeded our expectations in every way. Truly premium service.",
+    content:
+      "The team at Rangdhanu IT are visionaries. They understood our needs and delivered a product that exceeded our expectations in every way. Truly premium service.",
     avatar: "https://i.pravatar.cc/150?u=sarah",
     rating: 5,
   },
   {
     name: "David Lee",
     role: "Marketing Director, Global Brands",
-    content: "We've worked with many agencies, but none compare to Rangdhanu IT. Their attention to detail and commitment to quality is what sets them apart. Recommending to everyone.",
+    content:
+      "We've worked with many agencies, but none compare to Rangdhanu IT. Their attention to detail and commitment to quality is what sets them apart. Recommending to everyone.",
     avatar: "https://i.pravatar.cc/150?u=david",
     rating: 5,
   },
   {
     name: "Emily White",
     role: "CTO, Future Apps",
-    content: "Building our mobile app with Rangdhanu IT was the best decision we made. Professional, responsive, and technical masters. The app is a massive hit!",
+    content:
+      "Building our mobile app with Rangdhanu IT was the best decision we made. Professional, responsive, and technical masters. The app is a massive hit!",
     avatar: "https://i.pravatar.cc/150?u=emily",
     rating: 5,
   },
   {
     name: "Michael Chen",
     role: "Owner, Artisan Coffee",
-    content: "Our e-commerce site looks and works incredibly well. The level of detail and user experience they built for us is world-class. Thank you team!",
+    content:
+      "Our e-commerce site looks and works incredibly well. The level of detail and user experience they built for us is world-class. Thank you team!",
     avatar: "https://i.pravatar.cc/150?u=michael",
     rating: 5,
   },
@@ -49,7 +54,7 @@ export default function Testimonials() {
     <section className="py-24 relative overflow-hidden bg-muted/10 text-foreground transition-colors duration-500">
       <Container className="mb-16">
         <div className="text-center max-w-3xl mx-auto">
-          <motion.h2 
+          <motion.h2
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -58,7 +63,7 @@ export default function Testimonials() {
           >
             Voices of Trust
           </motion.h2>
-          <motion.p 
+          <motion.p
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -66,7 +71,8 @@ export default function Testimonials() {
             transition={{ delay: 0.1 }}
             className="text-lg text-muted-foreground font-medium"
           >
-            Don&apos;t just take our word for it. Here&apos;s what our clients have to say about their experience working with Rangdhanu IT.
+            Don&apos;t just take our word for it. Here&apos;s what our clients
+            have to say about their experience working with Rangdhanu IT.
           </motion.p>
         </div>
       </Container>
@@ -74,35 +80,44 @@ export default function Testimonials() {
       {/* Infinite Scroll Wrapper */}
       <div className="flex relative overflow-hidden py-10">
         <div className="flex animate-scroll-left whitespace-nowrap gap-8 pr-8">
-          {[...testimonials, ...testimonials, ...testimonials].map((testimonial, index) => (
-            <div
-              key={`${testimonial.name}-${index}`}
-              className="w-[400px] shrink-0 p-10 rounded-[2.5rem] glass border-border/50 hover:border-primary/50 transition-all backdrop-blur-sm relative group whitespace-normal"
-            >
-              <Quote className="absolute top-8 right-8 w-12 h-12 text-indigo-500/10 group-hover:text-indigo-500/20 transition-colors" />
-              <div className="flex gap-1 mb-6">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-indigo-500 text-indigo-500" />
-                ))}
-              </div>
-              <p className="text-lg italic text-muted-foreground leading-relaxed mb-8">
-                &quot;{testimonial.content}&quot;
-              </p>
-              <div className="flex items-center gap-4">
-                <Image 
-                  src={testimonial.avatar} 
-                  alt={testimonial.name} 
-                  width={56} 
-                  height={56} 
-                  className="rounded-full shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-indigo-500/20" 
-                />
-                <div>
-                   <h4 className="font-bold text-lg text-foreground">{testimonial.name}</h4>
-                  <p className="text-sm text-muted-foreground font-bold">{testimonial.role}</p>
+          {[...testimonials, ...testimonials, ...testimonials].map(
+            (testimonial, index) => (
+              <div
+                key={`${testimonial.name}-${index}`}
+                className="w-[400px] shrink-0 p-10 rounded-[2.5rem] glass border-border/50 hover:border-primary/50 transition-all backdrop-blur-sm relative group whitespace-normal"
+              >
+                <Quote className="absolute top-8 right-8 w-12 h-12 text-indigo-500/10 group-hover:text-indigo-500/20 transition-colors" />
+                <div className="flex gap-1 mb-6">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="w-5 h-5 fill-indigo-500 text-indigo-500"
+                    />
+                  ))}
+                </div>
+                <p className="text-lg italic text-muted-foreground leading-relaxed mb-8">
+                  &quot;{testimonial.content}&quot;
+                </p>
+                <div className="flex items-center gap-4">
+                  <Image
+                    src={testimonial.avatar}
+                    alt={testimonial.name}
+                    width={56}
+                    height={56}
+                    className="rounded-full shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-indigo-500/20"
+                  />
+                  <div>
+                    <h4 className="font-bold text-lg text-foreground">
+                      {testimonial.name}
+                    </h4>
+                    <p className="text-sm text-muted-foreground font-bold">
+                      {testimonial.role}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ),
+          )}
         </div>
       </div>
 

@@ -1,14 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Container } from "@/components/common/Container";
+import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
 export function PortfolioTestimonial() {
   return (
     <section className="glass py-24 bg-zinc-950/50">
       <Container className="text-center max-w-3xl">
-        <motion.div 
+        <motion.div
           variants={FADE_IN_UP}
           initial="initial"
           whileInView="whileInView"
@@ -17,7 +17,7 @@ export function PortfolioTestimonial() {
         >
           “
         </motion.div>
-        <motion.p 
+        <motion.p
           variants={FADE_IN_UP}
           initial="initial"
           whileInView="whileInView"
@@ -25,9 +25,10 @@ export function PortfolioTestimonial() {
           transition={{ delay: 0.1 }}
           className="text-2xl md:text-3xl font-medium mb-12 italic leading-snug text-white"
         >
-          Rangdhanu IT transformed our digital presence. Their attention to detail and technical expertise are unmatched.
+          Rangdhanu IT transformed our digital presence. Their attention to
+          detail and technical expertise are unmatched.
         </motion.p>
-        <motion.div 
+        <motion.div
           variants={FADE_IN_UP}
           initial="initial"
           whileInView="whileInView"
@@ -37,7 +38,7 @@ export function PortfolioTestimonial() {
         >
           John Doe
         </motion.div>
-        <motion.div 
+        <motion.div
           variants={FADE_IN_UP}
           initial="initial"
           whileInView="whileInView"

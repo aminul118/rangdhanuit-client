@@ -6,7 +6,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ISlugPageProps, IPortfolio } from "@/types";
 import HtmlContent from "@/components/rich-text/core/html-content";
-import { Container } from "@/components/common/Container";
+import { Container } from "@/components/ui/Container";
 import { generateJsonLd } from "@/Seo/generateJsonLd";
 import metaConfig from "@/config/meta.config";
 
@@ -27,7 +27,9 @@ export async function generateMetadata({
     }
 
     const project = data.data;
-    const description = project.description.replace(/<[^>]*>/g, "").slice(0, 160);
+    const description = project.description
+      .replace(/<[^>]*>/g, "")
+      .slice(0, 160);
 
     return {
       title: `${project.title} | Portfolio | Rangdhanu IT`,
@@ -52,9 +54,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function PortfolioDetailsPage({
-  params,
-}: ISlugPageProps) {
+export default async function PortfolioDetailsPage({ params }: ISlugPageProps) {
   const { slug } = await params;
   const data = (await getPortfolioBySlug(slug)) as {
     success: boolean;

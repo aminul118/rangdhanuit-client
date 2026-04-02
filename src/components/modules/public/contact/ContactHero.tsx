@@ -1,7 +1,7 @@
 "use client";
 
 import { Sparkles } from "lucide-react";
-import { PageHeader } from "@/components/common/PageHeader";
+import { PageHeader } from "@/components/ui/PageHeader";
 
 const ContactHero = () => {
   return (

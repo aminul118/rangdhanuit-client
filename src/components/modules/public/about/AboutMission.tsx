@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Target, Rocket } from "lucide-react";
-import { Container } from "@/components/common/Container";
+import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
 export function AboutMission() {
@@ -10,7 +10,7 @@ export function AboutMission() {
     <section className="bg-background text-foreground transition-colors duration-500">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <motion.div 
+          <motion.div
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -28,7 +28,7 @@ export function AboutMission() {
               designed.
             </p>
           </motion.div>
-          <motion.div 
+          <motion.div
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"

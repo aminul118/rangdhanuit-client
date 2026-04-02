@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Users, Award, Rocket } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Container } from "@/components/common/Container";
+import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
 const values = [
@@ -31,7 +31,7 @@ export function AboutValues() {
   return (
     <section className="bg-background text-foreground transition-colors duration-500">
       <Container>
-        <motion.h2 
+        <motion.h2
           variants={FADE_IN_UP}
           initial="initial"
           whileInView="whileInView"
@@ -54,7 +54,7 @@ export function AboutValues() {
               <div
                 className={cn(
                   "w-10 h-10 rounded-lg flex items-center justify-center mb-6 transition-transform group-hover:scale-110",
-                  value.color
+                  value.color,
                 )}
               >
                 <value.icon className="w-6 h-6" />

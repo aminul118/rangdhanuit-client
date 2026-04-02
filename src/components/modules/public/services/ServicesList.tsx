@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import ServiceCard from "@/components/modules/public/services/ServiceCard";
 import { IService } from "@/types/Service/service.types";
-import { Container } from "@/components/common/Container";
+import { Container } from "@/components/ui/Container";
 import { STAGGER_CHILDREN, VIEWPORT_CONFIG } from "@/constants/animations";
 
 interface ServicesListProps {
@@ -13,7 +13,7 @@ interface ServicesListProps {
 export function ServicesList({ services }: ServicesListProps) {
   return (
     <Container>
-      <motion.div 
+      <motion.div
         variants={STAGGER_CHILDREN}
         initial="initial"
         whileInView="whileInView"

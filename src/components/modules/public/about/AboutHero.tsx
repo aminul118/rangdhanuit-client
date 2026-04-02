@@ -1,7 +1,7 @@
 "use client";
 
 import { Sparkles } from "lucide-react";
-import { PageHeader } from "@/components/common/PageHeader";
+import { PageHeader } from "@/components/ui/PageHeader";
 
 export function AboutHero() {
   return (
@@ -10,7 +10,7 @@ export function AboutHero() {
       subtitle="We are a team of passionate developers, designers, and digital strategists committed to helping businesses scale through technology and innovation."
       badge={{
         icon: Sparkles,
-        text: "Our Vision & Story"
+        text: "Our Vision & Story",
       }}
     />
   );

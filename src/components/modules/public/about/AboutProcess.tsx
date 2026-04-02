@@ -2,32 +2,40 @@
 
 import { motion } from "framer-motion";
 import { Search, PenTool, Code2, Rocket, RefreshCw } from "lucide-react";
-import { Container } from "@/components/common/Container";
-import { FADE_IN_UP, STAGGER_CHILDREN, VIEWPORT_CONFIG } from "@/constants/animations";
+import { Container } from "@/components/ui/Container";
+import {
+  FADE_IN_UP,
+  STAGGER_CHILDREN,
+  VIEWPORT_CONFIG,
+} from "@/constants/animations";
 
 const steps = [
   {
     icon: Search,
     title: "Discovery",
-    description: "Deep-diving into your business goals, user needs, and market landscape to define the perfect digital strategy.",
+    description:
+      "Deep-diving into your business goals, user needs, and market landscape to define the perfect digital strategy.",
     color: "bg-indigo-500",
   },
   {
     icon: PenTool,
     title: "Strategy & Design",
-    description: "Crafting modern, intuitive user experiences and strategic architectures that convert visions into blueprints.",
+    description:
+      "Crafting modern, intuitive user experiences and strategic architectures that convert visions into blueprints.",
     color: "bg-purple-500",
   },
   {
     icon: Code2,
     title: "Development",
-    description: "Engineering high-performance software with clean code and future-proof technologies.",
+    description:
+      "Engineering high-performance software with clean code and future-proof technologies.",
     color: "bg-pink-500",
   },
   {
     icon: Rocket,
     title: "Launch & Scale",
-    description: "Deploying your product at scale and providing the strategic support to grow your user base.",
+    description:
+      "Deploying your product at scale and providing the strategic support to grow your user base.",
     color: "bg-blue-500",
   },
 ];
@@ -60,7 +68,10 @@ export function AboutProcess() {
             viewport={VIEWPORT_CONFIG}
             className="text-4xl md:text-5xl font-black tracking-tighter"
           >
-            Our Strategic <span className="text-indigo-500 underline decoration-indigo-500/20 underline-offset-8 italic">Process</span>
+            Our Strategic{" "}
+            <span className="text-indigo-500 underline decoration-indigo-500/20 underline-offset-8 italic">
+              Process
+            </span>
           </motion.h2>
         </div>
 
@@ -80,18 +91,20 @@ export function AboutProcess() {
               <div className="absolute -top-6 -right-6 text-6xl font-black text-foreground/5 group-hover:text-foreground/10 transition-colors pointer-events-none italic">
                 0{index + 1}
               </div>
-              
-              <div className={`w-16 h-16 rounded-3xl ${step.color} flex items-center justify-center mb-8 shadow-xl shadow-indigo-500/10 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
+
+              <div
+                className={`w-16 h-16 rounded-3xl ${step.color} flex items-center justify-center mb-8 shadow-xl shadow-indigo-500/10 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}
+              >
                 <step.icon size={28} className="text-white" />
               </div>
-              
+
               <h3 className="text-xl font-black mb-4 uppercase tracking-tighter text-foreground">
                 {step.title}
               </h3>
               <p className="text-sm text-muted-foreground font-bold leading-relaxed">
                 {step.description}
               </p>
-              
+
               {/* Connector for large screens */}
               {index < steps.length - 1 && (
                 <div className="hidden lg:block absolute top-1/2 -right-6 w-12 h-[2px] bg-linear-to-r from-border to-transparent z-0 pointer-events-none" />
