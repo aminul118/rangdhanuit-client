@@ -3,7 +3,7 @@
 import { Sparkles } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
 
-export function AboutHero() {
+export const AboutHero = () => {
   return (
     <PageHeader
       title="Empowering Digital Transformation"
@@ -14,4 +14,4 @@ export function AboutHero() {
       }}
     />
   );
-}
+};

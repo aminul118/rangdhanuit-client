@@ -24,14 +24,14 @@ interface TableSkeletonProps {
   className?: string;
 }
 
-export function TableSkeleton({
+export const TableSkeleton = ({
   columns,
   rowCount = 5,
   showHeader = true,
   showFilters = true,
   showPagination = true,
   className,
-}: TableSkeletonProps) {
+}: TableSkeletonProps) => {
   // Default columns if none provided
   const defaultColumns: ColumnSkeletonProps[] = [
     { width: "w-12", isCircle: true }, // Avatar/Icon
@@ -111,4 +111,4 @@ export function TableSkeleton({
       )}
     </section>
   );
-}
+};

@@ -11,7 +11,7 @@ interface BlogCardProps {
   blog: IBlogSummary;
 }
 
-export default function BlogCard({ blog }: BlogCardProps) {
+const BlogCard = ({ blog }: BlogCardProps) => {
   return (
     <motion.div
       variants={FADE_IN_UP}
@@ -67,4 +67,6 @@ export default function BlogCard({ blog }: BlogCardProps) {
       <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-indigo-500/5 blur-[80px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
     </motion.div>
   );
-}
+};
+
+export default BlogCard;

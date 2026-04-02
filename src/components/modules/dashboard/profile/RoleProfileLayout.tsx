@@ -35,7 +35,7 @@ const StatCard = ({ label, value, icon: Icon, color }: StatCardProps) => (
   </div>
 );
 
-export function RoleProfileLayout() {
+export const RoleProfileLayout = () => {
   const { user } = useAuth();
 
   if (!user) return null;
@@ -160,4 +160,4 @@ export function RoleProfileLayout() {
       </div>
     </div>
   );
-}
+};

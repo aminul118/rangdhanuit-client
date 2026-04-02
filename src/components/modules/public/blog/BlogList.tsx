@@ -10,7 +10,7 @@ interface BlogListProps {
   search?: string;
 }
 
-export function BlogList({ blogs, search }: BlogListProps) {
+export const BlogList = ({ blogs, search }: BlogListProps) => {
   if (blogs.length === 0) {
     return (
       <div className="text-center py-20">
@@ -36,4 +36,4 @@ export function BlogList({ blogs, search }: BlogListProps) {
       ))}
     </motion.div>
   );
-}
+};

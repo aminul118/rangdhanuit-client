@@ -15,7 +15,7 @@ import { ProfileAvatarUploader } from "./ProfileAvatarUploader";
 import { useUploadFile } from "@/components/rich-text/hooks/use-upload-file";
 import { Loader2 } from "lucide-react";
 
-export function ProfileInfoForm() {
+export const ProfileInfoForm = () => {
   const { user, refreshUser } = useAuth();
   const [isUpdating, setIsUpdating] = useState(false);
   const { uploadFile, isUploading } = useUploadFile();
@@ -148,4 +148,4 @@ export function ProfileInfoForm() {
       </Button>
     </form>
   );
-}
+};

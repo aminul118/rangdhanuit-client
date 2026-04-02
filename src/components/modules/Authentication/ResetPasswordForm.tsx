@@ -13,7 +13,7 @@ import useSearchParamsValues from "@/hooks/useSearchParamsValues";
 
 type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
 
-export function ResetPasswordForm() {
+export const ResetPasswordForm = () => {
   const { values, router } = useSearchParamsValues("token", "email");
   const token = values.token || "";
   const email = values.email || "";
@@ -105,4 +105,4 @@ export function ResetPasswordForm() {
       />
     </form>
   );
-}
+};

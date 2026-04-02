@@ -28,7 +28,7 @@ interface SubmitButtonProps {
   disabled?: boolean;
 }
 
-export default function SubmitButton({
+const SubmitButton = ({
   label,
   loadingLabel,
   isLoading,
@@ -39,7 +39,7 @@ export default function SubmitButton({
   type = "submit",
   onClick,
   disabled,
-}: SubmitButtonProps) {
+}: SubmitButtonProps) => {
   return (
     <Button
       type={type}
@@ -70,4 +70,6 @@ export default function SubmitButton({
       )}
     </Button>
   );
-}
+};
+
+export default SubmitButton;

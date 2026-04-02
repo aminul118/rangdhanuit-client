@@ -16,7 +16,7 @@ interface EditFormWrapperProps<T> {
   padding?: string;
 }
 
-export function EditFormWrapper<T>({
+export const EditFormWrapper = <T,>({
   id,
   fetcher,
   initialData,
@@ -26,7 +26,7 @@ export function EditFormWrapper<T>({
   notFoundMessage = "The item you looking for might have been removed or moved.",
   children,
   padding = "max-w-8xl mx-auto pb-32 px-4 md:px-0",
-}: EditFormWrapperProps<T>) {
+}: EditFormWrapperProps<T>) => {
   const [fetching, setFetching] = useState(!initialData);
   const [data, setData] = useState<T | null>(initialData || null);
 
@@ -79,4 +79,4 @@ export function EditFormWrapper<T>({
       {children(data)}
     </div>
   );
-}
+};

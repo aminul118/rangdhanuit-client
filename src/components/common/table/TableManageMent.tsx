@@ -56,7 +56,7 @@ interface TableManageMentProps<T> {
 /* =======================
    Component
  ======================= */
-function TableManageMent<T>({
+const TableManageMent = <T,>({
   data,
   columns,
   getRowKey,
@@ -66,7 +66,7 @@ function TableManageMent<T>({
   emptyMessage = "No records found.",
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   isRefreshing = false,
-}: TableManageMentProps<T>) {
+}: TableManageMentProps<T>) => {
   const { values, setParams } = useSearchParamsValues("sort");
   const { startTransitionWithText } = useTableTransition();
 
@@ -215,6 +215,6 @@ function TableManageMent<T>({
       </div>
     </section>
   );
-}
+};
 
 export default TableManageMent;

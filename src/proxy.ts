@@ -64,7 +64,8 @@ export default async function proxy(req: NextRequest) {
 
   // 6) Protect protected routes for guests
   if (!user && routeOwner !== null && pathname !== "/login") {
-    return redirectTo(origin, "/login", response);
+    const encodedRedirect = encodeURIComponent(pathname);
+    return redirectTo(origin, `/login?redirect=${encodedRedirect}`, response);
   }
 
   // 7) Role-based protection

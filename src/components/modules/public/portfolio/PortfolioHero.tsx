@@ -3,7 +3,7 @@
 import { Sparkles } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
 
-export function PortfolioHero() {
+export const PortfolioHero = () => {
   return (
     <PageHeader
       title="Our Portfolio"
@@ -14,4 +14,4 @@ export function PortfolioHero() {
       }}
     />
   );
-}
+};

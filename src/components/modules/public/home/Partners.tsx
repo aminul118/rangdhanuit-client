@@ -15,7 +15,7 @@ const partners = [
   "Netflix",
 ];
 
-export default function Partners() {
+const Partners = () => {
   return (
     <section className="py-12 border-y border-border/50 bg-muted/5 overflow-hidden text-foreground">
       <Container className="mb-8 text-center">
@@ -24,7 +24,7 @@ export default function Partners() {
           initial="initial"
           whileInView="whileInView"
           viewport={VIEWPORT_CONFIG}
-          className="text-sm font-medium text-muted-foreground uppercase tracking-widest font-bold"
+          className="text-sm font-bold text-muted-foreground uppercase tracking-widest"
         >
           Trusted by Industry Leaders
         </motion.p>
@@ -43,4 +43,6 @@ export default function Partners() {
       </div>
     </section>
   );
-}
+};
+
+export default Partners;

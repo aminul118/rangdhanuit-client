@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Moon, Sun, Laptop, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export function ThemeSettings() {
+export const ThemeSettings = () => {
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -80,4 +80,4 @@ export function ThemeSettings() {
       </div>
     </div>
   );
-}
+};

@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
 
-export function SecuritySettingsForm() {
+export const SecuritySettingsForm = () => {
   const [isUpdating, setIsUpdating] = useState(false);
 
   const {
@@ -99,4 +99,4 @@ export function SecuritySettingsForm() {
       </Button>
     </form>
   );
-}
+};

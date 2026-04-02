@@ -10,7 +10,7 @@ export const metadata: Metadata = generateMetaTags({
   keywords: "register, sign up, create account",
 });
 
-export default function RegisterPage() {
+const RegisterPage = () => {
   return (
     <AuthLayoutWrapper
       title="Register"
@@ -27,4 +27,5 @@ export default function RegisterPage() {
       <RegisterForm />
     </AuthLayoutWrapper>
   );
-}
+};
+export default RegisterPage;

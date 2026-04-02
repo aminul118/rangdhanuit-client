@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export function ProfileSkeleton() {
+export const ProfileSkeleton = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-10">
       {/* Navigation Sidebar Skeleton */}
@@ -40,4 +40,4 @@ export function ProfileSkeleton() {
       </div>
     </div>
   );
-}
+};

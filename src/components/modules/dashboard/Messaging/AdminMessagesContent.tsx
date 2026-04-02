@@ -9,7 +9,7 @@ import useMessaging from "@/hooks/useMessaging";
 /**
  * Admin view for messaging. Supports multiple conversations and real-time support chat.
  */
-export function AdminMessagesContent() {
+export const AdminMessagesContent = () => {
   const {
     conversations,
     selectedConvId,
@@ -42,7 +42,7 @@ export function AdminMessagesContent() {
       </div>
 
       {/* Right Chat Window: Immersive messaging experience */}
-      <div className="flex-[2]">
+      <div className="flex-2">
         {selectedConvId ? (
           loadingMessages ? (
             <div className="flex h-full items-center justify-center bg-card border rounded-2xl border-white/10 shadow-xl shadow-indigo-500/5">
@@ -71,4 +71,4 @@ export function AdminMessagesContent() {
       </div>
     </div>
   );
-}
+};

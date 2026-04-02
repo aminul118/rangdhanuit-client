@@ -3,13 +3,7 @@ import generateMetaTags from "@/Seo/generateMetaTags";
 import { AuthLayoutWrapper } from "@/components/common/layouts/AuthLayoutWrapper";
 import { Metadata } from "next";
 
-export const metadata: Metadata = generateMetaTags({
-  title: "Login | Rangdhanu IT",
-  description: "Access your Rangdhanu IT account to manage your projects and preferences.",
-  keywords: "login, sign in, account access",
-});
-
-export default function LoginPage() {
+const LoginPage = () => {
   return (
     <AuthLayoutWrapper
       title="Sign In"
@@ -25,4 +19,14 @@ export default function LoginPage() {
       <LoginForm />
     </AuthLayoutWrapper>
   );
-}
+};
+
+export default LoginPage;
+
+// SEO
+export const metadata: Metadata = generateMetaTags({
+  title: "Login | Rangdhanu IT",
+  description:
+    "Access your Rangdhanu IT account to manage your projects and preferences.",
+  keywords: "login, sign in, account access",
+});

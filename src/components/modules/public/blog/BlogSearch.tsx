@@ -5,7 +5,7 @@ import { useTransition, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import useSearchParamsValues from "@/hooks/useSearchParamsValues";
 
-export default function BlogSearch() {
+const BlogSearch = () => {
   const { values, setParams } = useSearchParamsValues("search");
   const [isPending, startTransition] = useTransition();
   const [searchValue, setSearchValue] = useState(values.search || "");
@@ -39,4 +39,6 @@ export default function BlogSearch() {
       />
     </motion.div>
   );
-}
+};
+
+export default BlogSearch;

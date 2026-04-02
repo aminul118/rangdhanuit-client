@@ -101,10 +101,10 @@ export const TableElement = withHOC(
   TableProvider,
   withHOC(
     ResizableProvider,
-    function TableElement({
+    ({
       children,
       ...props
-    }: PlateElementProps<TTableElement>) {
+    }: PlateElementProps<TTableElement>) => {
       const readOnly = useReadOnly();
       const isSelectionAreaVisible = usePluginOption(
         BlockSelectionPlugin,
@@ -179,10 +179,10 @@ export const TableElement = withHOC(
   ),
 );
 
-function TableFloatingToolbar({
+const TableFloatingToolbar = ({
   children,
   ...props
-}: React.ComponentProps<typeof PopoverContent>) {
+}: React.ComponentProps<typeof PopoverContent>) => {
   const { tf } = useEditorPlugin(TablePlugin);
   const selected = useSelected();
   const element = useElement<TTableElement>();
@@ -322,11 +322,11 @@ function TableFloatingToolbar({
       </PopoverContent>
     </Popover>
   );
-}
+};
 
-function TableBordersDropdownMenuContent(
+const TableBordersDropdownMenuContent = (
   props: React.ComponentProps<typeof DropdownMenuPrimitive.Content>,
-) {
+) => {
   const editor = useEditorRef();
   const {
     getOnSelectTableBorder,
@@ -399,15 +399,15 @@ function TableBordersDropdownMenuContent(
       </DropdownMenuGroup>
     </DropdownMenuContent>
   );
-}
+};
 
-function ColorDropdownMenu({
+const ColorDropdownMenu = ({
   children,
   tooltip,
 }: {
   children: React.ReactNode;
   tooltip: string;
-}) {
+}) => {
   const [open, setOpen] = React.useState(false);
 
   const editor = useEditorRef();
@@ -452,12 +452,12 @@ function ColorDropdownMenu({
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+};
 
-export function TableRowElement({
+export const TableRowElement = ({
   children,
   ...props
-}: PlateElementProps<TTableRowElement>) {
+}: PlateElementProps<TTableRowElement>) => {
   const { element } = props;
   const readOnly = useReadOnly();
   const selected = useSelected();
@@ -506,9 +506,9 @@ export function TableRowElement({
       {children}
     </PlateElement>
   );
-}
+};
 
-function RowDragHandle({ dragRef }: { dragRef: React.Ref<any> }) {
+const RowDragHandle = ({ dragRef }: { dragRef: React.Ref<any> }) => {
   const editor = useEditorRef();
   const element = useElement();
 
@@ -528,9 +528,9 @@ function RowDragHandle({ dragRef }: { dragRef: React.Ref<any> }) {
       <GripVertical className="text-muted-foreground" />
     </Button>
   );
-}
+};
 
-function RowDropLine() {
+const RowDropLine = () => {
   const { dropLine } = useDropLine();
 
   if (!dropLine) return null;
@@ -543,14 +543,14 @@ function RowDropLine() {
       )}
     />
   );
-}
+};
 
-export function TableCellElement({
+export const TableCellElement = ({
   isHeader,
   ...props
 }: PlateElementProps<TTableCellElement> & {
   isHeader?: boolean;
-}) {
+}) => {
   const { api } = useEditorPlugin(TablePlugin);
   const readOnly = useReadOnly();
   const element = props.element;
@@ -661,13 +661,13 @@ export function TableCellElement({
       )}
     </PlateElement>
   );
-}
+};
 
-export function TableCellHeaderElement(
+export const TableCellHeaderElement = (
   props: React.ComponentProps<typeof TableCellElement>,
-) {
+) => {
   return <TableCellElement {...props} isHeader />;
-}
+};
 
 const columnResizeVariants = cva('fade-in hidden animate-in', {
   variants: {

@@ -49,7 +49,7 @@ const inputVariants = cva(
 );
 
 // Helper to extract Cloudinary public ID from URL
-function getPublicIdFromUrl(url: string) {
+const getPublicIdFromUrl = (url: string) => {
   try {
     if (!url || !url.includes('cloudinary.com')) return null;
     const parts = url.split('/upload/');
@@ -66,15 +66,15 @@ function getPublicIdFromUrl(url: string) {
   } catch (e) {
     return null;
   }
-}
+};
 
-export function MediaToolbar({
+export const MediaToolbar = ({
   children,
   plugin,
 }: {
   children: React.ReactNode;
   plugin: WithRequiredKey;
-}) {
+}) => {
   const editor = useEditorRef();
   const readOnly = useReadOnly();
   const selected = useSelected();
@@ -369,4 +369,4 @@ export function MediaToolbar({
       </PopoverContent>
     </Popover>
   );
-}
+};

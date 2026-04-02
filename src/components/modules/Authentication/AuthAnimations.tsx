@@ -3,13 +3,13 @@
 import { motion } from "framer-motion";
 import React from "react";
 
-export function FadeIn({
+export const FadeIn = ({
   children,
   delay = 0,
 }: {
   children: React.ReactNode;
   delay?: number;
-}) {
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -19,9 +19,9 @@ export function FadeIn({
       {children}
     </motion.div>
   );
-}
+};
 
-export function FadeInLeft({
+export const FadeInLeft = ({
   children,
   delay = 0,
   className,
@@ -29,7 +29,7 @@ export function FadeInLeft({
   children: React.ReactNode;
   delay?: number;
   className?: string;
-}) {
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, x: -30 }}
@@ -40,9 +40,9 @@ export function FadeInLeft({
       {children}
     </motion.div>
   );
-}
+};
 
-export function FadeInUp({
+export const FadeInUp = ({
   children,
   delay = 0,
   className,
@@ -50,7 +50,7 @@ export function FadeInUp({
   children: React.ReactNode;
   delay?: number;
   className?: string;
-}) {
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -61,9 +61,9 @@ export function FadeInUp({
       {children}
     </motion.div>
   );
-}
+};
 
-export function FadeInScale({
+export const FadeInScale = ({
   children,
   delay = 0,
   className,
@@ -71,7 +71,7 @@ export function FadeInScale({
   children: React.ReactNode;
   delay?: number;
   className?: string;
-}) {
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.98 }}
@@ -82,9 +82,9 @@ export function FadeInScale({
       {children}
     </motion.div>
   );
-}
+};
 
-export function AnimatedGradientBg() {
+export const AnimatedGradientBg = () => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -93,18 +93,18 @@ export function AnimatedGradientBg() {
       className="absolute inset-0 bg-linear-to-tr from-indigo-500/10 via-transparent to-purple-500/10"
     />
   );
-}
+};
 
-export function HoverScaleLogo({
+export const HoverScaleLogo = ({
   children,
   className,
 }: {
   children: React.ReactNode;
   className?: string;
-}) {
+}) => {
   return (
     <motion.div whileHover={{ rotate: 10, scale: 1.1 }} className={className}>
       {children}
     </motion.div>
   );
-}
+};

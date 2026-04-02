@@ -3,11 +3,11 @@ import ServiceTable from "./ServiceTable";
 import { ManagementListWrapper } from "@/components/common/layouts/ManagementListWrapper";
 import { Sparkles } from "lucide-react";
 
-export async function ServicesList({
+export const ServicesList = async ({
   searchParams,
 }: {
   searchParams: Record<string, string>;
-}) {
+}) => {
   const res = await getServices(searchParams);
   const services = res?.data || [];
   const meta = res?.meta;
@@ -26,4 +26,4 @@ export async function ServicesList({
       <ServiceTable services={services} />
     </ManagementListWrapper>
   );
-}
+};

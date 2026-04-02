@@ -36,7 +36,7 @@ import {
   CommandShortcut,
 } from "@/components/ui/command";
 
-export default function AdminHeader() {
+const AdminHeader = () => {
   const { user, logout } = useAuth();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -212,4 +212,6 @@ export default function AdminHeader() {
       </div>
     </header>
   );
-}
+};
+
+export default AdminHeader;

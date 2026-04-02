@@ -9,12 +9,12 @@ interface TableBadgeProps {
   className?: string;
 }
 
-export function TableBadge({
+export const TableBadge = ({
   children,
   variant = "outline",
   status,
   className,
-}: TableBadgeProps) {
+}: TableBadgeProps) => {
   const statusStyles: Record<string, string> = {
     PUBLISHED:
       "bg-emerald-500/10 text-emerald-600 border-emerald-500/20 hover:bg-emerald-500/20 shadow-none dark:text-emerald-400",
@@ -37,4 +37,4 @@ export function TableBadge({
       {children}
     </Badge>
   );
-}
+};

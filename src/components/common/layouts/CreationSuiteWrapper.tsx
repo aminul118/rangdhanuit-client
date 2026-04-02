@@ -13,14 +13,14 @@ interface CreationSuiteWrapperProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-export function CreationSuiteWrapper({
+export const CreationSuiteWrapper = ({
   children,
   heroImage,
   heroLabel,
   loading,
   submitLabel,
   onSubmit,
-}: CreationSuiteWrapperProps) {
+}: CreationSuiteWrapperProps) => {
   return (
     <form
       onSubmit={onSubmit}
@@ -61,4 +61,4 @@ export function CreationSuiteWrapper({
       </div>
     </form>
   );
-}
+};

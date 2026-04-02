@@ -11,7 +11,7 @@ import { getSidebarMenus } from "./SidebarMenus";
 import { useAuth } from "@/providers/AuthProvider";
 import { useSocket } from "@/providers/SocketProvider";
 
-export default function Sidebar() {
+const Sidebar = () => {
   const pathname = usePathname();
   const { user } = useAuth();
   const { unreadCount } = useSocket();
@@ -130,4 +130,6 @@ export default function Sidebar() {
       </nav>
     </motion.div>
   );
-}
+};
+
+export default Sidebar;

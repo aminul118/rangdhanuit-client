@@ -29,7 +29,7 @@ import {
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 
-export function EquationElement(props: PlateElementProps<TEquationElement>) {
+export const EquationElement = (props: PlateElementProps<TEquationElement>) => {
   const selected = useSelected();
   const [open, setOpen] = React.useState(selected);
   const katexRef = React.useRef<HTMLDivElement | null>(null);
@@ -89,11 +89,11 @@ export function EquationElement(props: PlateElementProps<TEquationElement>) {
       {props.children}
     </PlateElement>
   );
-}
+};
 
-export function InlineEquationElement(
+export const InlineEquationElement = (
   props: PlateElementProps<TEquationElement>,
-) {
+) => {
   const element = props.element;
   const katexRef = React.useRef<HTMLDivElement | null>(null);
   const selected = useSelected();
@@ -173,7 +173,7 @@ export function InlineEquationElement(
       {props.children}
     </PlateElement>
   );
-}
+};
 
 const EquationInput = createPrimitiveComponent(TextareaAutosize)({
   propsHook: useEquationInput,

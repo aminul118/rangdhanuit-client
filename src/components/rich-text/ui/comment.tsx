@@ -56,7 +56,7 @@ export type TComment = {
   userId: string;
 };
 
-export function Comment(props: {
+export const Comment = (props: {
   comment: TComment;
   discussionLength: number;
   editingId: string | null;
@@ -65,7 +65,7 @@ export function Comment(props: {
   documentContent?: string;
   showDocumentContent?: boolean;
   onEditorClick?: () => void;
-}) {
+}) => {
   const {
     comment,
     discussionLength,
@@ -286,16 +286,16 @@ export function Comment(props: {
       </div>
     </div>
   );
-}
+};
 
-function CommentMoreDropdown(props: {
+const CommentMoreDropdown = (props: {
   comment: TComment;
   dropdownOpen: boolean;
   setDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setEditingId: React.Dispatch<React.SetStateAction<string | null>>;
   onCloseAutoFocus?: () => void;
   onRemoveComment?: () => void;
-}) {
+}) => {
   const {
     comment,
     dropdownOpen,
@@ -386,7 +386,7 @@ function CommentMoreDropdown(props: {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+};
 
 const useCommentEditor = (
   options: Omit<CreatePlateEditorOptions, 'plugins'> = {},
@@ -405,7 +405,7 @@ const useCommentEditor = (
   return commentEditor;
 };
 
-export function CommentCreateForm({
+export const CommentCreateForm = ({
   autoFocus = false,
   className,
   discussionId: discussionIdProp,
@@ -415,7 +415,7 @@ export function CommentCreateForm({
   className?: string;
   discussionId?: string;
   focusOnMount?: boolean;
-}) {
+}) => {
   const discussions = usePluginOption(discussionPlugin, 'discussions');
 
   const editor = useEditorRef();
@@ -598,7 +598,7 @@ export function CommentCreateForm({
       </div>
     </div>
   );
-}
+};
 
 export const formatCommentDate = (date: Date) => {
   const now = new Date();

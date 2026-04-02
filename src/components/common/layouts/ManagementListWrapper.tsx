@@ -18,14 +18,14 @@ interface ManagementListWrapperProps {
   modal?: ReactNode;
 }
 
-export function ManagementListWrapper({
+export const ManagementListWrapper = ({
   children,
   title,
   description,
   meta,
   addBtn,
   modal,
-}: ManagementListWrapperProps) {
+}: ManagementListWrapperProps) => {
   return (
     <TableWrapper
       title={title}
@@ -46,4 +46,4 @@ export function ManagementListWrapper({
       {children}
     </TableWrapper>
   );
-}
+};

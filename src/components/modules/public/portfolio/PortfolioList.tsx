@@ -13,7 +13,7 @@ interface PortfolioListProps {
   projects: IPortfolio[];
 }
 
-export function PortfolioList({ projects }: PortfolioListProps) {
+export const PortfolioList = ({ projects }: PortfolioListProps) => {
   if (!projects?.length) {
     return (
       <section className="bg-background py-12 text-center text-muted-foreground font-bold">
@@ -103,4 +103,4 @@ export function PortfolioList({ projects }: PortfolioListProps) {
       </Container>
     </section>
   );
-}
+};

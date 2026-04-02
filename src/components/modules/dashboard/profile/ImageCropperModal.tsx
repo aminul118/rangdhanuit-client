@@ -20,12 +20,12 @@ interface ImageCropperModalProps {
   onCropComplete: (croppedImage: Blob) => void;
 }
 
-export function ImageCropperModal({ 
+export const ImageCropperModal = ({ 
   image, 
   isOpen, 
   onClose, 
   onCropComplete 
-}: ImageCropperModalProps) {
+}: ImageCropperModalProps) => {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
@@ -152,4 +152,4 @@ export function ImageCropperModal({
       </DialogContent>
     </Dialog>
   );
-}
+};

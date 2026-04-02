@@ -11,7 +11,7 @@ import { FormField, SubmitButton } from "@/components/common/form";
 
 type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 
-export function ForgotPasswordForm() {
+export const ForgotPasswordForm = () => {
   const { executePost, isPending } = useActionHandler();
 
   const form = useForm<ForgotPasswordFormValues>({
@@ -52,4 +52,4 @@ export function ForgotPasswordForm() {
       />
     </form>
   );
-}
+};

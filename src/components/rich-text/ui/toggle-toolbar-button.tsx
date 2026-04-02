@@ -10,9 +10,9 @@ import { ListCollapseIcon } from 'lucide-react';
 
 import { ToolbarButton } from './toolbar';
 
-export function ToggleToolbarButton(
+export const ToggleToolbarButton = (
   props: React.ComponentProps<typeof ToolbarButton>,
-) {
+) => {
   const state = useToggleToolbarButtonState();
   const { props: buttonProps } = useToggleToolbarButton(state);
 
@@ -21,4 +21,4 @@ export function ToggleToolbarButton(
       <ListCollapseIcon />
     </ToolbarButton>
   );
-}
+};

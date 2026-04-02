@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
-export function AboutStats() {
+export const AboutStats = () => {
   return (
     <section className="bg-muted/10 border-y border-border/50 py-16 backdrop-blur-sm font-bold text-foreground transition-colors duration-500">
       <Container className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center uppercase tracking-wider">
@@ -58,4 +58,4 @@ export function AboutStats() {
       </Container>
     </section>
   );
-}
+};

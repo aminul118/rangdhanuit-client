@@ -3,11 +3,11 @@ import UserTable from "@/components/modules/dashboard/admin/Users/UserTable";
 import CreateUserModal from "@/components/modules/dashboard/admin/Users/CreateUserModal";
 import { ManagementListWrapper } from "@/components/common/layouts/ManagementListWrapper";
 
-export async function UsersList({
+export const UsersList = async ({
   searchParams,
 }: {
   searchParams: Record<string, string>;
-}) {
+}) => {
   const res = await getAllUsers(searchParams);
   const users = res?.data || [];
   const meta = res?.meta;
@@ -22,4 +22,4 @@ export async function UsersList({
       <UserTable users={users} />
     </ManagementListWrapper>
   );
-}
+};

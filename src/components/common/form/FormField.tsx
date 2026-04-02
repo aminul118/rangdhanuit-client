@@ -28,7 +28,7 @@ interface FormFieldProps extends Omit<React.ComponentProps<"input">, "size"> {
   size?: "default" | "xl";
 }
 
-export default function FormField({
+const FormField = ({
   label,
   id,
   icon,
@@ -38,7 +38,7 @@ export default function FormField({
   className,
   size = "default",
   ...inputProps
-}: FormFieldProps) {
+}: FormFieldProps) => {
   return (
     <div className={cn("space-y-2.5", wrapperClassName)}>
       <Label
@@ -92,4 +92,6 @@ export default function FormField({
       </div>
     </div>
   );
-}
+};
+
+export default FormField;

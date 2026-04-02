@@ -11,7 +11,7 @@ import {
 
 import { cn } from '@/lib/utils';
 
-export function HrElement(props: PlateElementProps) {
+export const HrElement = (props: PlateElementProps) => {
   const readOnly = useReadOnly();
   const selected = useSelected();
   const focused = useFocused();
@@ -30,4 +30,4 @@ export function HrElement(props: PlateElementProps) {
       {props.children}
     </PlateElement>
   );
-}
+};

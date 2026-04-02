@@ -33,7 +33,7 @@ interface TableActionDropdownProps {
   }[];
 }
 
-export function TableActionDropdown({
+export const TableActionDropdown = ({
   viewLink,
   editLink,
   deleteAction,
@@ -42,7 +42,7 @@ export function TableActionDropdown({
   deleteTitle = "Are you absolutely sure?",
   dropdownLabel = "Quick Actions",
   customItems,
-}: TableActionDropdownProps) {
+}: TableActionDropdownProps) => {
   const { executeDelete, isPending } = useActionHandler();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -158,4 +158,4 @@ export function TableActionDropdown({
       )}
     </>
   );
-}
+};

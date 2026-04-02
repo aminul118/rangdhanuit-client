@@ -40,7 +40,7 @@ const benefits = [
   },
 ];
 
-export function AboutWhyUs() {
+export const AboutWhyUs = () => {
   return (
     <section className="py-24 bg-muted/20">
       <Container>
@@ -115,4 +115,4 @@ export function AboutWhyUs() {
       </Container>
     </section>
   );
-}
+};

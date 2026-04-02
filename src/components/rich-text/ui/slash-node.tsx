@@ -207,9 +207,9 @@ const groups: Group[] = [
   },
 ];
 
-export function SlashInputElement(
+export const SlashInputElement = (
   props: PlateElementProps<TComboboxInputElement>,
-) {
+) => {
   const { editor, element } = props;
 
   return (
@@ -248,4 +248,4 @@ export function SlashInputElement(
       {props.children}
     </PlateElement>
   );
-}
+};

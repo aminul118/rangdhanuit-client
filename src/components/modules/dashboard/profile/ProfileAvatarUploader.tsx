@@ -13,11 +13,11 @@ interface ProfileAvatarUploaderProps {
   name?: string;
 }
 
-export function ProfileAvatarUploader({ 
+export const ProfileAvatarUploader = ({ 
   defaultValue, 
   onImageChange, 
   name = "User" 
-}: ProfileAvatarUploaderProps) {
+}: ProfileAvatarUploaderProps) => {
   const [preview, setPreview] = useState<string | undefined>(defaultValue);
   const [isCropperOpen, setIsCropperOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -142,4 +142,4 @@ export function ProfileAvatarUploader({
       </div>
     </div>
   );
-}
+};

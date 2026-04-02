@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import type { LucideProps } from 'lucide-react';
+import type { LucideProps } from "lucide-react";
 
-export function BorderAllIcon(props: LucideProps) {
+export const BorderAllIcon = (props: LucideProps) => {
   return (
     <svg
       fill="none"
@@ -30,9 +30,9 @@ export function BorderAllIcon(props: LucideProps) {
       <rect fill="currentColor" height="1" rx=".5" width="1" x="7" y="11" />
     </svg>
   );
-}
+};
 
-export function BorderBottomIcon(props: LucideProps) {
+export const BorderBottomIcon = (props: LucideProps) => {
   return (
     <svg
       fill="none"
@@ -77,9 +77,9 @@ export function BorderBottomIcon(props: LucideProps) {
       <rect fill="currentColor" height="1" rx=".5" width="1" x="1" y="11" />
     </svg>
   );
-}
+};
 
-export function BorderLeftIcon(props: LucideProps) {
+export const BorderLeftIcon = (props: LucideProps) => {
   return (
     <svg
       fill="none"
@@ -332,9 +332,9 @@ export function BorderLeftIcon(props: LucideProps) {
       />
     </svg>
   );
-}
+};
 
-export function BorderNoneIcon(props: LucideProps) {
+export const BorderNoneIcon = (props: LucideProps) => {
   return (
     <svg
       fill="none"
@@ -401,9 +401,9 @@ export function BorderNoneIcon(props: LucideProps) {
       <rect fill="currentColor" height="1" rx=".5" width="1" x="1" y="11.025" />
     </svg>
   );
-}
+};
 
-export function BorderRightIcon(props: LucideProps) {
+export const BorderRightIcon = (props: LucideProps) => {
   return (
     <svg
       fill="none"
@@ -604,9 +604,9 @@ export function BorderRightIcon(props: LucideProps) {
       />
     </svg>
   );
-}
+};
 
-export function BorderTopIcon(props: LucideProps) {
+export const BorderTopIcon = (props: LucideProps) => {
   return (
     <svg
       fill="none"
@@ -859,4 +859,4 @@ export function BorderTopIcon(props: LucideProps) {
       />
     </svg>
   );
-}
+};

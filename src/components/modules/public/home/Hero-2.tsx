@@ -150,7 +150,7 @@ const StatsCard = ({
   </motion.div>
 );
 
-export default function Hero2() {
+const Hero2 = () => {
   return (
     <section className="relative min-h-[95vh] flex items-center pt-32 pb-20 overflow-hidden">
       <BackgroundEffect />
@@ -279,4 +279,6 @@ export default function Hero2() {
       </motion.div>
     </section>
   );
-}
+};
+
+export default Hero2;

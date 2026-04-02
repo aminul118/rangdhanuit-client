@@ -12,10 +12,10 @@ interface ImageDropProps {
   defaultValues?: string[];
 }
 
-export default function MultipleImageDrop({
+const MultipleImageDrop = ({
   onChange,
   defaultValues = [],
-}: ImageDropProps) {
+}: ImageDropProps) => {
   const maxSizeMB = 5;
   const maxSize = maxSizeMB * 1024 * 1024; // 5MB default
   const maxFiles = 10;
@@ -150,4 +150,6 @@ export default function MultipleImageDrop({
       )}
     </div>
   );
-}
+};
+
+export default MultipleImageDrop;

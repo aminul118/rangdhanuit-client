@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export function MessagingSkeleton() {
+export const MessagingSkeleton = () => {
   return (
     <div className="flex h-[calc(100vh-120px)] gap-6 p-6">
       {/* Sidebar Skeleton (Conversation List) */}
@@ -46,4 +46,4 @@ export function MessagingSkeleton() {
       </div>
     </div>
   );
-}
+};

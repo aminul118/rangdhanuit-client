@@ -8,12 +8,12 @@ interface AdminPageWrapperProps {
   customSkeleton?: ReactNode;
 }
 
-export function AdminPageWrapper({
+export const AdminPageWrapper = ({
   children,
   padding = "p-6 md:p-12",
   skeletonColumns,
   customSkeleton,
-}: AdminPageWrapperProps) {
+}: AdminPageWrapperProps) => {
   const fallback = customSkeleton || <TableSkeleton columns={skeletonColumns} />;
   
   return (
@@ -23,4 +23,4 @@ export function AdminPageWrapper({
       </Suspense>
     </div>
   );
-}
+};

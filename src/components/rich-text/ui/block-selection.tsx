@@ -20,7 +20,7 @@ export const blockSelectionVariants = cva(
   },
 );
 
-export function BlockSelection(props: PlateElementProps) {
+export const BlockSelection = (props: PlateElementProps) => {
   const isBlockSelected = useBlockSelected();
   const isDragging = usePluginOption(DndPlugin, 'isDragging');
 
@@ -39,4 +39,4 @@ export function BlockSelection(props: PlateElementProps) {
       data-slot="block-selection"
     />
   );
-}
+};

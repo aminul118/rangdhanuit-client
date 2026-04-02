@@ -1,12 +1,9 @@
 import Sidebar from "@/components/layouts/Dashboard/Sidebar/Sidebar";
 import AdminHeader from "@/components/layouts/Dashboard/Header/Header";
 import { DashboardContainer } from "@/components/ui/Container";
+import { IChildrenProps } from "@/types";
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const AdminLayout = ({ children }: IChildrenProps) => {
   return (
     <div className="flex h-screen overflow-hidden bg-background">
       <Sidebar />
@@ -18,4 +15,6 @@ export default function AdminLayout({
       </div>
     </div>
   );
-}
+};
+
+export default AdminLayout;

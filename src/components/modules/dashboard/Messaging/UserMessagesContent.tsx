@@ -5,7 +5,7 @@ import { ChatWindow } from "@/components/modules/dashboard/Messaging/ChatWindow"
 import { Loader2, MessageSquare } from "lucide-react";
 import useMessaging from "@/hooks/useMessaging";
 
-export function UserMessagesContent() {
+export const UserMessagesContent = () => {
   const {
     messages,
     loading,
@@ -46,4 +46,4 @@ export function UserMessagesContent() {
       )}
     </div>
   );
-}
+};

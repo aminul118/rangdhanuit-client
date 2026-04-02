@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Search, PenTool, Code2, Rocket, RefreshCw } from "lucide-react";
+import { Search, PenTool, Code2, Rocket } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import {
   FADE_IN_UP,
@@ -40,7 +40,7 @@ const steps = [
   },
 ];
 
-export function AboutProcess() {
+export const AboutProcess = () => {
   return (
     <section className="py-24 relative overflow-hidden bg-background text-foreground border-t border-border/50 transition-colors duration-500">
       {/* Decorative Lines */}
@@ -115,4 +115,4 @@ export function AboutProcess() {
       </Container>
     </section>
   );
-}
+};

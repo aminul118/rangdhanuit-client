@@ -21,14 +21,14 @@ interface DeleteConfirmModalProps {
   isPending?: boolean;
 }
 
-export function DeleteConfirmModal({
+export const DeleteConfirmModal = ({
   isOpen,
   onOpenChange,
   onConfirm,
   title = "Are you absolutely sure?",
   description = "This action cannot be undone. This will permanently delete the selected item and remove it from our servers.",
   isPending = false,
-}: DeleteConfirmModalProps) {
+}: DeleteConfirmModalProps) => {
   return (
     <AlertDialog open={isOpen} onOpenChange={onOpenChange}>
       <AlertDialogContent className="bg-background/90 backdrop-blur-2xl border-border rounded-[2rem] shadow-2xl max-w-[400px]">
@@ -71,4 +71,4 @@ export function DeleteConfirmModal({
       </AlertDialogContent>
     </AlertDialog>
   );
-}
+};

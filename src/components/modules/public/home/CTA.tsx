@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { SCALE_IN, FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
-export default function CTA() {
+const CTA = () => {
   return (
     <section className="py-32 bg-background transition-colors duration-500">
       <Container>
@@ -116,4 +116,6 @@ export default function CTA() {
       </Container>
     </section>
   );
-}
+};
+
+export default CTA;

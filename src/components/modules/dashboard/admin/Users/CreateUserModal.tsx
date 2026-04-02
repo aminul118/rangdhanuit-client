@@ -41,7 +41,7 @@ const formSchema = z.object({
   role: z.enum(["ADMIN", "USER", "SUPER_ADMIN"]),
 });
 
-export default function CreateUserModal() {
+const CreateUserModal = () => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -56,7 +56,7 @@ export default function CreateUserModal() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     try {
       const res = await createUser(values);
@@ -222,4 +222,6 @@ export default function CreateUserModal() {
       </DialogContent>
     </Dialog>
   );
-}
+};
+
+export default CreateUserModal;

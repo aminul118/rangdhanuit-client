@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import BlogSearch from "@/components/modules/public/blog/BlogSearch";
 import { PageHeader } from "@/components/ui/PageHeader";
 
-export function BlogHero() {
+export const BlogHero = () => {
   return (
     <PageHeader
       title="Digital Insights & Innovation"
@@ -26,4 +26,4 @@ export function BlogHero() {
       </div>
     </PageHeader>
   );
-}
+};

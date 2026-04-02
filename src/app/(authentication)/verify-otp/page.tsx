@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Metadata } from "next";
 import { VerifyOtpForm } from "@/components/modules/Authentication/VerifyOtpForm";
 import { redirect } from "next/navigation";
@@ -15,11 +16,11 @@ export const metadata: Metadata = generateMetaTags({
   keywords: "verify otp, email verification, account security",
 });
 
-export default async function VerifyOTPPage({
+const VerifyOTPPage = async ({
   searchParams,
 }: {
   searchParams: TSearchParamsPromise;
-}) {
+}) => {
   const resolvedSearchParams = await searchParams;
   const email =
     typeof resolvedSearchParams.email === "string"
@@ -64,4 +65,6 @@ export default async function VerifyOTPPage({
       </div>
     </AuthLayoutWrapper>
   );
-}
+};
+
+export default VerifyOTPPage;

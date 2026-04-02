@@ -2,11 +2,11 @@ import { getBlogs } from "@/services/Blog/blogs";
 import BlogTable from "./BlogTable";
 import { ManagementListWrapper } from "@/components/common/layouts/ManagementListWrapper";
 
-export async function BlogsList({
+export const BlogsList = async ({
   searchParams,
 }: {
   searchParams: Record<string, string>;
-}) {
+}) => {
   const res = await getBlogs(searchParams);
   const blogs = res?.data || [];
   const meta = res?.meta;
@@ -24,4 +24,4 @@ export async function BlogsList({
       <BlogTable blogs={blogs} />
     </ManagementListWrapper>
   );
-}
+};

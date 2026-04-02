@@ -11,7 +11,7 @@ interface Blog {
   createdAt: string;
 }
 
-export default async function RecentBlogsSidebar() {
+const RecentBlogsSidebar = async () => {
   const data = (await getBlogs({
     sort: "-createdAt",
     limit: "4",
@@ -81,4 +81,6 @@ export default async function RecentBlogsSidebar() {
       </div>
     </aside>
   );
-}
+};
+
+export default RecentBlogsSidebar;

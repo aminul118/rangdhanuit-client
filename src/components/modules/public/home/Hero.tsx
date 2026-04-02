@@ -34,7 +34,7 @@ const FeatureBadge = ({
   </motion.div>
 );
 
-export default function Hero() {
+const Hero = () => {
   return (
     <section className="relative min-h-[95vh] flex items-center pt-32 pb-20 overflow-hidden bg-background">
       <BubbleBackground />
@@ -134,4 +134,6 @@ export default function Hero() {
       </motion.div>
     </section>
   );
-}
+};
+
+export default Hero;

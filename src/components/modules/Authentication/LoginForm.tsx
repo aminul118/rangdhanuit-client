@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -17,8 +17,11 @@ import { toast } from "sonner";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
-export function LoginForm() {
+export const LoginForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect") || "/dashboard";
+
   const { setUser } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const { executePost, isPending } = useActionHandler();
@@ -38,17 +41,22 @@ export function LoginForm() {
         message: "Welcome back! Login successful",
         onSuccess: (loginData: ILogin | null | undefined) => {
           if (loginData?.user) setUser(loginData.user);
-          router.push("/dashboard");
+          router.push(redirect);
         },
       },
       onError: (errorResponse: ApiResponse<ILogin | null>) => {
         if (errorResponse?.message === "USER_NOT_VERIFIED") {
           toast.warning("Your account is not verified. An OTP has been sent to your email.");
-          router.push(`/verify-otp?email=${encodeURIComponent(data.email)}`);
+          const verifyPath = `/verify-otp?email=${encodeURIComponent(data.email)}${
+            searchParams.get("redirect")
+              ? `&redirect=${encodeURIComponent(searchParams.get("redirect")!)}`
+              : ""
+          }`;
+          router.push(verifyPath);
           return true; // Mark as handled to prevent default error toast if desired
         }
         return false;
-      }
+      },
     });
   };
 
@@ -107,4 +115,4 @@ export function LoginForm() {
       />
     </form>
   );
-}
+};

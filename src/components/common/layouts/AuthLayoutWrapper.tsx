@@ -3,6 +3,7 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -35,7 +36,7 @@ interface AuthLayoutWrapperProps {
   headerClassName?: string;
 }
 
-export function AuthLayoutWrapper({
+export const AuthLayoutWrapper = ({
   children,
   title,
   description,
@@ -49,7 +50,13 @@ export function AuthLayoutWrapper({
   headerIcon,
   headerClassName = "space-y-1 pb-4",
   cardWidth = "sm:w-[420px]",
-}: AuthLayoutWrapperProps) {
+}: AuthLayoutWrapperProps) => {
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
+
+  const finalFooterLink = redirect
+    ? `${footerLink}${footerLink.includes("?") ? "&" : "?"}redirect=${encodeURIComponent(redirect)}`
+    : footerLink;
   return (
     <div className="relative grid lg:max-w-none lg:grid-cols-2 h-screen overflow-hidden selection:bg-indigo-500/30">
       {/* Background Decor */}
@@ -139,7 +146,7 @@ export function AuthLayoutWrapper({
                 <div className="text-sm text-center text-muted-foreground font-medium">
                   {footerText}{" "}
                   <Link
-                    href={footerLink}
+                    href={finalFooterLink}
                     className="text-indigo-500 hover:text-indigo-400 font-bold transition-colors flex items-center justify-center gap-1 mt-1 group/link"
                   >
                     {footerLinkLabel}
@@ -159,4 +166,4 @@ export function AuthLayoutWrapper({
       </div>
     </div>
   );
-}
+};

@@ -27,7 +27,7 @@ const values = [
   },
 ];
 
-export function AboutValues() {
+export const AboutValues = () => {
   return (
     <section className="bg-background text-foreground transition-colors duration-500">
       <Container>
@@ -69,4 +69,4 @@ export function AboutValues() {
       </Container>
     </section>
   );
-}
+};

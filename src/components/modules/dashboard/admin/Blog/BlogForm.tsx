@@ -23,12 +23,12 @@ interface BlogFormProps {
   submitLabel?: string;
 }
 
-export default function BlogFormModern({
+const BlogFormModern = ({
   initialData,
   onSubmit,
   loading,
   submitLabel = "Publish Article",
-}: BlogFormProps) {
+}: BlogFormProps) => {
   const [content, setContent] = useState(initialData?.content || "");
   const [image, setImage] = useState<File | null>(null);
 
@@ -120,4 +120,6 @@ export default function BlogFormModern({
       </motion.div>
     </CreationSuiteWrapper>
   );
-}
+};
+
+export default BlogFormModern;

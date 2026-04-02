@@ -9,7 +9,7 @@ import {
   VIEWPORT_CONFIG,
 } from "@/constants/animations";
 
-export function AboutStory() {
+export const AboutStory = () => {
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background Decor */}
@@ -97,4 +97,4 @@ export function AboutStory() {
       </Container>
     </section>
   );
-}
+};

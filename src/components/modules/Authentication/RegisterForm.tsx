@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -22,8 +22,9 @@ import { FormField, SubmitButton } from "@/components/common/form";
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
-export function RegisterForm() {
+export const RegisterForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { executePost, isPending } = useActionHandler();
@@ -45,7 +46,11 @@ export function RegisterForm() {
       success: {
         message: "Registration successful! Please verify your email.",
         onSuccess: () => {
-          router.push(`/verify-otp?email=${encodeURIComponent(data.email)}`);
+          const redirect = searchParams.get("redirect");
+          const verifyPath = `/verify-otp?email=${encodeURIComponent(data.email)}${
+            redirect ? `&redirect=${encodeURIComponent(redirect)}` : ""
+          }`;
+          router.push(verifyPath);
         },
       },
     });
@@ -141,4 +146,4 @@ export function RegisterForm() {
       />
     </form>
   );
-}
+};

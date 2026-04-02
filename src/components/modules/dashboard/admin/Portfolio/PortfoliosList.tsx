@@ -2,11 +2,11 @@ import { getPortfolios } from "@/services/Portfolio/portfolios";
 import ProjectTable from "@/components/modules/dashboard/admin/Portfolio/ProjectTable";
 import { ManagementListWrapper } from "@/components/common/layouts/ManagementListWrapper";
 
-export async function PortfoliosList({
+export const PortfoliosList = async ({
   searchParams,
 }: {
   searchParams: Record<string, string>;
-}) {
+}) => {
   const res = await getPortfolios(searchParams);
   const portfolios = res?.data || [];
   const meta = res?.meta;
@@ -24,4 +24,4 @@ export async function PortfoliosList({
       <ProjectTable portfolios={portfolios} />
     </ManagementListWrapper>
   );
-}
+};

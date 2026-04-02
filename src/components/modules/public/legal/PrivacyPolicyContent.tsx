@@ -5,7 +5,7 @@ import { Shield, Sparkles, Lock, Eye, Bell, Globe } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
-export default function PrivacyPolicyContent() {
+const PrivacyPolicyContent = () => {
   const sections = [
     {
       title: "Introduction",
@@ -133,4 +133,6 @@ export default function PrivacyPolicyContent() {
       </Container>
     </div>
   );
-}
+};
+
+export default PrivacyPolicyContent;

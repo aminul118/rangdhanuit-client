@@ -31,7 +31,7 @@ const projects = [
   },
 ];
 
-export default function PortfolioGrid() {
+const PortfolioGrid = () => {
   return (
     <section className="py-24 relative bg-background text-foreground transition-colors duration-500">
       <Container>
@@ -109,4 +109,6 @@ export default function PortfolioGrid() {
       </Container>
     </section>
   );
-}
+};
+
+export default PortfolioGrid;

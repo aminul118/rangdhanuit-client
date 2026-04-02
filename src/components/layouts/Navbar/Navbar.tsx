@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
@@ -22,13 +22,13 @@ const navLinks = [
 ];
 
 
-export default function Navbar() {
+const Navbar = () => {
   const pathname = usePathname();
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [scrolled, setScrolled] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { user } = useAuth();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
@@ -173,4 +173,6 @@ export default function Navbar() {
       </AnimatePresence>
     </nav>
   );
-}
+};
+
+export default Navbar;

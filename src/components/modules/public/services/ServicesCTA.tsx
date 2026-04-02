@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { SCALE_IN, FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
-export function ServicesCTA() {
+export const ServicesCTA = () => {
   return (
     <Container>
       <motion.div
@@ -51,4 +51,4 @@ export function ServicesCTA() {
       </motion.div>
     </Container>
   );
-}
+};

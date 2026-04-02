@@ -11,7 +11,7 @@ import {
 import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
-export default function TermsOfServiceContent() {
+const TermsOfServiceContent = () => {
   const sections = [
     {
       title: "Acceptance of Terms",
@@ -139,4 +139,6 @@ export default function TermsOfServiceContent() {
       </Container>
     </div>
   );
-}
+};
+
+export default TermsOfServiceContent;

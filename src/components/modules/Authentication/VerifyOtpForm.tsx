@@ -17,9 +17,10 @@ import { verifyOTPAction } from "@/services/Auth/otp/verify-otp";
 import { sendOTPAction } from "@/services/Auth/otp/send-otp";
 import useSearchParamsValues from "@/hooks/useSearchParamsValues";
 
-export function VerifyOtpForm() {
-  const { values, router } = useSearchParamsValues("email");
+export const VerifyOtpForm = () => {
+  const { values, router } = useSearchParamsValues("email", "redirect");
   const email = values.email || "";
+  const redirectPath = values.redirect || "/dashboard";
   const { setUser } = useAuth();
   const [otp, setOtp] = useState("");
   const [timer, setTimer] = useState(60);
@@ -45,7 +46,7 @@ export function VerifyOtpForm() {
         message: "Email verified successfully! Welcome aboard.",
         onSuccess: (loginData: ILogin | null | undefined) => {
           if (loginData?.user) setUser(loginData.user);
-          router.push("/dashboard");
+          router.push(redirectPath);
         },
       },
       errorMessage:
@@ -127,4 +128,4 @@ export function VerifyOtpForm() {
       </div>
     </>
   );
-}
+};

@@ -4,14 +4,7 @@ import generateMetaTags from "@/Seo/generateMetaTags";
 import { KeyRound } from "lucide-react";
 import { AuthLayoutWrapper } from "@/components/common/layouts/AuthLayoutWrapper";
 
-export const metadata: Metadata = generateMetaTags({
-  title: "Forgot Password | Rangdhanu IT",
-  description:
-    "Recover access to your Rangdhanu IT account by resetting your password.",
-  keywords: "forgot password, password recovery, account access",
-});
-
-export default function ForgotPasswordPage() {
+const ForgotPasswordPage = () => {
   return (
     <AuthLayoutWrapper
       title="Forgot Password?"
@@ -29,4 +22,14 @@ export default function ForgotPasswordPage() {
       <ForgotPasswordForm />
     </AuthLayoutWrapper>
   );
-}
+};
+
+export default ForgotPasswordPage;
+
+// SEO
+export const metadata: Metadata = generateMetaTags({
+  title: "Forgot Password | Rangdhanu IT",
+  description:
+    "Recover access to your Rangdhanu IT account by resetting your password.",
+  keywords: "forgot password, password recovery, account access",
+});

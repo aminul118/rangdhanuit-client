@@ -24,7 +24,7 @@ interface FormTextareaProps extends React.ComponentProps<"textarea"> {
   wrapperClassName?: string;
 }
 
-export default function FormTextarea({
+const FormTextarea = ({
   label,
   id,
   icon,
@@ -32,7 +32,7 @@ export default function FormTextarea({
   wrapperClassName,
   className,
   ...textareaProps
-}: FormTextareaProps) {
+}: FormTextareaProps) => {
   return (
     <div className={cn("space-y-2", wrapperClassName)}>
       <Label
@@ -76,4 +76,6 @@ export default function FormTextarea({
       </div>
     </div>
   );
-}
+};
+
+export default FormTextarea;

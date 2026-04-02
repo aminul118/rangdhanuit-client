@@ -36,7 +36,7 @@ const steps = [
   },
 ];
 
-export default function Process() {
+const Process = () => {
   return (
     <section className="py-24 relative bg-muted/10 text-foreground transition-colors duration-500">
       <Container>
@@ -93,4 +93,6 @@ export default function Process() {
       </Container>
     </section>
   );
-}
+};
+
+export default Process;

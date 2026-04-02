@@ -32,7 +32,7 @@ const stats = [
   },
 ];
 
-export default function Stats() {
+const Stats = () => {
   return (
     <section className="py-24 relative overflow-hidden bg-muted/10 text-foreground transition-colors duration-500">
       <Container>
@@ -64,4 +64,6 @@ export default function Stats() {
       </Container>
     </section>
   );
-}
+};
+
+export default Stats;

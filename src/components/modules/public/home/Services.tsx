@@ -17,7 +17,7 @@ interface ServicesProps {
   services: IService[];
 }
 
-export default function Services({ services }: ServicesProps) {
+const Services = ({ services }: ServicesProps) => {
   return (
     <section
       id="services"
@@ -117,7 +117,7 @@ export default function Services({ services }: ServicesProps) {
           transition={{ delay: 0.5 }}
           className="mt-20 flex flex-col items-center gap-6"
         >
-          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-muted-foreground font-bold">
+          <p className="text-[10px] font-black uppercase tracking-[0.5em] text-muted-foreground">
             Explore Our Full Spectrum of Expertise
           </p>
           <Link href="/services">
@@ -130,4 +130,6 @@ export default function Services({ services }: ServicesProps) {
       </Container>
     </section>
   );
-}
+};
+
+export default Services;

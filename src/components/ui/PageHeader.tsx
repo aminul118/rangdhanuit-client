@@ -18,13 +18,13 @@ interface PageHeaderProps {
   className?: string;
 }
 
-export function PageHeader({
+export const PageHeader = ({
   title,
   subtitle,
   badge,
   children,
   className,
-}: PageHeaderProps) {
+}: PageHeaderProps) => {
   return (
     <section
       className={cn(

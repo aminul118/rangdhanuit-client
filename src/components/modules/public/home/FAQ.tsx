@@ -29,7 +29,7 @@ const faqs = [
   },
 ];
 
-export default function FAQ() {
+const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -98,4 +98,6 @@ export default function FAQ() {
       </Container>
     </section>
   );
-}
+};
+
+export default FAQ;

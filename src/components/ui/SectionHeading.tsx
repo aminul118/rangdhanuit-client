@@ -11,12 +11,12 @@ interface SectionHeadingProps {
   align?: "left" | "center" | "right";
 }
 
-export default function SectionHeading({
+const SectionHeading = ({
   heading,
   description,
   className,
   align = "center",
-}: SectionHeadingProps) {
+}: SectionHeadingProps) => {
   return (
     <div
       className={cn(
@@ -49,4 +49,6 @@ export default function SectionHeading({
       )}
     </div>
   );
-}
+};
+
+export default SectionHeading;

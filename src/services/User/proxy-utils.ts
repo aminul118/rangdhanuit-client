@@ -7,7 +7,7 @@ import { type DecodedToken } from "./verified-user";
  * Decodes a JWT token manually to extract the payload.
  * Since this runs in Edge Runtime, atob is available.
  */
-export function decodeToken(token: string): DecodedToken | null {
+export const decodeToken = (token: string): DecodedToken | null => {
   try {
     const base64Url = token.split(".")[1];
     const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -22,16 +22,16 @@ export function decodeToken(token: string): DecodedToken | null {
     console.error("Failed to decode token:", error);
     return null;
   }
-}
+};
 
 /**
  * Sets the access and refresh tokens in the response cookies.
  */
-export function setAuthCookies(
+export const setAuthCookies = (
   response: NextResponse,
   accessToken: string,
   refreshToken?: string,
-) {
+) => {
   response.cookies.set("accessToken", accessToken, {
     ...baseCookieOption,
     maxAge: Number(envVars.jwt.accessTokenMaxAge) || 60 * 60 * 24, // 1 day
@@ -43,16 +43,16 @@ export function setAuthCookies(
       maxAge: Number(envVars.jwt.refreshTokenMaxAge) || 60 * 60 * 24 * 30, // 30 days
     });
   }
-}
+};
 
 /**
  * Helper to create a redirect response while preserving cookies from an existing response.
  */
-export function redirectTo(
+export const redirectTo = (
   origin: string,
   path: string,
   existingResponse?: NextResponse,
-) {
+) => {
   const redirectResponse = NextResponse.redirect(new URL(path, origin));
 
   if (existingResponse) {
@@ -62,13 +62,13 @@ export function redirectTo(
   }
 
   return redirectResponse;
-}
+};
 
 /**
  * Handles the logic for attempted token refresh, updating both
  * response cookies and request headers (for server component visibility).
  */
-export async function handleTokenRefresh(
+export const handleTokenRefresh = async (
   req: NextRequest,
   response: NextResponse,
   tryRefreshToken: () => Promise<{
@@ -79,7 +79,7 @@ export async function handleTokenRefresh(
   accessToken: string;
   refreshToken?: string;
   user: DecodedToken | null;
-} | null> {
+} | null> => {
   const refreshed = await tryRefreshToken();
 
   if (refreshed?.accessToken) {
@@ -107,4 +107,4 @@ export async function handleTokenRefresh(
   }
 
   return null;
-}
+};

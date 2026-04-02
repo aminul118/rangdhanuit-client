@@ -5,7 +5,7 @@ import { Target, Rocket } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
-export function AboutMission() {
+export const AboutMission = () => {
   return (
     <section className="bg-background text-foreground transition-colors duration-500">
       <Container>
@@ -51,4 +51,4 @@ export function AboutMission() {
       </Container>
     </section>
   );
-}
+};

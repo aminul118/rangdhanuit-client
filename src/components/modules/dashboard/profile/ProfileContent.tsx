@@ -39,7 +39,7 @@ const tabs = [
   },
 ];
 
-export function ProfileContent() {
+export const ProfileContent = () => {
   const { values, setParams } = useSearchParamsValues("tab");
   const queryTab = values.tab;
 
@@ -136,4 +136,4 @@ export function ProfileContent() {
       </div>
     </div>
   );
-}
+};

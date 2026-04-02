@@ -10,7 +10,7 @@ interface ServicesListProps {
   services: IService[];
 }
 
-export function ServicesList({ services }: ServicesListProps) {
+export const ServicesList = ({ services }: ServicesListProps) => {
   return (
     <Container>
       <motion.div
@@ -26,4 +26,4 @@ export function ServicesList({ services }: ServicesListProps) {
       </motion.div>
     </Container>
   );
-}
+};

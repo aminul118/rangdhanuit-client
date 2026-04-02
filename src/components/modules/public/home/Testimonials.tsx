@@ -49,7 +49,7 @@ const testimonials = [
   },
 ];
 
-export default function Testimonials() {
+const Testimonials = () => {
   return (
     <section className="py-24 relative overflow-hidden bg-muted/10 text-foreground transition-colors duration-500">
       <Container className="mb-16">
@@ -126,4 +126,6 @@ export default function Testimonials() {
       <div className="absolute top-0 right-0 w-32 h-full bg-linear-to-l from-background to-transparent z-10 pointer-events-none" />
     </section>
   );
-}
+};
+
+export default Testimonials;

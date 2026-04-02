@@ -31,7 +31,7 @@ import {
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 
-export function CodeBlockElement(props: PlateElementProps<TCodeBlockElement>) {
+export const CodeBlockElement = (props: PlateElementProps<TCodeBlockElement>) => {
   const { editor, element } = props;
 
   return (
@@ -74,9 +74,9 @@ export function CodeBlockElement(props: PlateElementProps<TCodeBlockElement>) {
       </div>
     </PlateElement>
   );
-}
+};
 
-function CodeBlockCombobox() {
+const CodeBlockCombobox = () => {
   const [open, setOpen] = React.useState(false);
   const readOnly = useReadOnly();
   const editor = useEditorRef();
@@ -153,15 +153,15 @@ function CodeBlockCombobox() {
       </PopoverContent>
     </Popover>
   );
-}
+};
 
-function CopyButton({
+const CopyButton = ({
   value,
   ...props
 }: { value: (() => string) | string } & Omit<
   React.ComponentProps<typeof Button>,
   'value'
->) {
+>) => {
   const [hasCopied, setHasCopied] = React.useState(false);
 
   React.useEffect(() => {
@@ -191,17 +191,17 @@ function CopyButton({
       )}
     </Button>
   );
-}
+};
 
-export function CodeLineElement(props: PlateElementProps) {
+export const CodeLineElement = (props: PlateElementProps) => {
   return <PlateElement {...props} />;
-}
+};
 
-export function CodeSyntaxLeaf(props: PlateLeafProps<TCodeSyntaxLeaf>) {
+export const CodeSyntaxLeaf = (props: PlateLeafProps<TCodeSyntaxLeaf>) => {
   const tokenClassName = props.leaf.className as string;
 
   return <PlateLeaf className={tokenClassName} {...props} />;
-}
+};
 
 const languages: { label: string; value: string }[] = [
   { label: 'Auto', value: 'auto' },

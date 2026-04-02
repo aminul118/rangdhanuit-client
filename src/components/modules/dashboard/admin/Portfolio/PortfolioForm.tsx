@@ -18,12 +18,12 @@ interface PortfolioFormProps {
   submitLabel?: string;
 }
 
-export default function PortfolioForm({
+const PortfolioForm = ({
   initialData,
   onSubmit,
   loading,
   submitLabel = "Add Project",
-}: PortfolioFormProps) {
+}: PortfolioFormProps) => {
   const [content, setContent] = useState(initialData?.description || "");
   const [image, setImage] = useState<File | null>(null);
 
@@ -141,4 +141,6 @@ export default function PortfolioForm({
       </motion.div>
     </CreationSuiteWrapper>
   );
-}
+};
+
+export default PortfolioForm;
