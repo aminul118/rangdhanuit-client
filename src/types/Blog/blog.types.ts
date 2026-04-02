@@ -1,3 +1,13 @@
+
+export interface BlogPayload {
+  title?: string;
+  content?: string;
+  category?: string;
+  featuredImage?: string;
+  tags?: string[];
+  status?: "DRAFT" | "PUBLISHED";
+}
+
 export interface IBlogAuthor {
   _id?: string;
   name: string;

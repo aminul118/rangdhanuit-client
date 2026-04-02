@@ -1,7 +1,7 @@
 "use server";
 
 import { catchAsyncAction } from "@/helpers/catchAsyncAction";
-import { ApiResponse, IBlog } from "@/types";
+import { ApiResponse, BlogPayload, IBlog } from "@/types";
 import serverFetch from "@/lib/server-fetch";
 
 export const getBlogs = async (
@@ -21,22 +21,11 @@ export const getBlogBySlug = async (
   });
 };
 
-export const getBlogById = async (
-  id: string,
-): Promise<ApiResponse<IBlog>> => {
+export const getBlogById = async (id: string): Promise<ApiResponse<IBlog>> => {
   return await serverFetch.get(`/blogs/id/${id}`, {
     next: { tags: ["blogs", id] },
   });
 };
-
-interface BlogPayload {
-  title?: string;
-  content?: string;
-  category?: string;
-  featuredImage?: string;
-  tags?: string[];
-  status?: "DRAFT" | "PUBLISHED";
-}
 
 export const createBlog = catchAsyncAction(
   async (payload: FormData | BlogPayload): Promise<ApiResponse<IBlog>> => {
