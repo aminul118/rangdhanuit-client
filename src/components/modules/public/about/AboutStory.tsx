@@ -70,7 +70,7 @@ export function AboutStory() {
             <div className="absolute -inset-4 bg-linear-to-tr from-indigo-500/20 to-purple-500/20 blur-2xl rounded-[3rem] scale-95 group-hover:scale-100 transition-transform duration-700" />
             <div className="relative aspect-square rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl">
               <Image
-                src="/Users/mdaminulislam/.gemini/antigravity/brain/612a7fb9-a102-4471-9a8f-0fdec850d996/about_story_hero_png_1774965678762.png"
+                src="/images/about-story.png"
                 alt="Innovation Hub"
                 fill
                 className="object-cover transition-transform duration-1000 group-hover:scale-110"

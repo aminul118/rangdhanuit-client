@@ -1,4 +1,4 @@
-import { Outfit, Geist } from 'next/font/google';
+import { Outfit, Geist, Space_Grotesk } from 'next/font/google';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -8,6 +8,12 @@ const outfit = Outfit({
 
 const geist = Geist({
   subsets: ['latin'],
+  variable: '--font-geist',
+  display: 'swap',
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
 });
@@ -15,6 +21,7 @@ const geist = Geist({
 const fonts = {
   outfit,
   geist,
+  spaceGrotesk,
 };
 
 export default fonts;

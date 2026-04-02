@@ -1,17 +1,13 @@
 import fonts from "@/config/fonts.config";
-import { ThemeProvider } from "next-themes";
 import generateMetaTags from "@/Seo/generateMetaTags";
 import generateViewport from "@/Seo/generateViewport";
 import "@/styles/globals.css";
 import { cn } from "@/lib/utils";
 import { Metadata, Viewport } from "next";
-import { Toaster } from "sonner";
 import TopLoadingBar from "@/components/common/loader/TopLoadingBar";
-import { AuthProvider } from "@/providers/AuthProvider";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { getMe } from "@/services/User/getMe";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
-import { SocketProvider } from "@/providers/SocketProvider";
+import { Providers } from "@/providers/Providers";
 import envVars from "@/config/env.config";
 import { IChildrenProps } from "@/types";
 
@@ -20,31 +16,19 @@ const MainLayout = async ({ children }: IChildrenProps) => {
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <GoogleAnalytics gaId={envVars.analytics.googleAnalytics} />
       <body
         className={cn(
           fonts.outfit.variable,
           fonts.geist.variable,
+          fonts.spaceGrotesk.variable,
           "antialiased font-sans",
         )}
-        suppressHydrationWarning
       >
+        <GoogleAnalytics gaId={envVars.analytics.googleAnalytics} />
+        <GoogleTagManager gtmId={envVars.analytics.googleTagManagerId} />
         <TopLoadingBar />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <AuthProvider initialUser={user}>
-            <SocketProvider>
-              <TooltipProvider>{children}</TooltipProvider>
-              <Toaster position="bottom-right" richColors />
-            </SocketProvider>
-          </AuthProvider>
-        </ThemeProvider>
+        <Providers initialUser={user}>{children}</Providers>
       </body>
-      <GoogleTagManager gtmId={envVars.analytics.googleTagManagerId} />
     </html>
   );
 };

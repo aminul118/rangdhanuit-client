@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
-import ContactClient from './ContactClient';
 import generateMetaTags from '@/Seo/generateMetaTags';
+import { ContactContent } from '@/components/modules/public/contact/ContactContent';
 
 export const metadata: Metadata = generateMetaTags({
   title: "Contact Us | Rangdhanu IT",
@@ -9,5 +9,5 @@ export const metadata: Metadata = generateMetaTags({
 });
 
 export default function ContactPage() {
-  return <ContactClient />;
+  return <ContactContent />;
 }
