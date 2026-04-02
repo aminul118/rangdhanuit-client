@@ -7,7 +7,7 @@ import { Metadata, Viewport } from "next";
 import TopLoadingBar from "@/components/common/loader/TopLoadingBar";
 import { getMe } from "@/services/User/getMe";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
-import { Providers } from "@/providers/Providers";
+import Providers from "@/providers/Providers";
 import envVars from "@/config/env.config";
 import { IChildrenProps } from "@/types";
 

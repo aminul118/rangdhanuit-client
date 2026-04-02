@@ -7,7 +7,10 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "sonner";
 import { IChildrenProps, IUser } from "@/types";
 
-export const Providers = ({ children, initialUser }: IChildrenProps & { initialUser: IUser | null }) => {
+const Providers = ({
+  children,
+  initialUser,
+}: IChildrenProps & { initialUser: IUser | null }) => {
   return (
     <ThemeProvider
       attribute="class"
@@ -24,3 +27,5 @@ export const Providers = ({ children, initialUser }: IChildrenProps & { initialU
     </ThemeProvider>
   );
 };
+
+export default Providers;
