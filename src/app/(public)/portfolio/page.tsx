@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import generateMetaTags from "@/Seo/generateMetaTags";
 import { PortfolioHero } from "@/components/modules/public/portfolio/PortfolioHero";
 import { PortfolioList } from "@/components/modules/public/portfolio/PortfolioList";
-import { PortfolioTestimonial } from "@/components/modules/public/portfolio/PortfolioTestimonial";
 
 export const metadata: Metadata = generateMetaTags({
   title: "Our Portfolio | Rangdhanu IT",
@@ -20,7 +19,6 @@ const PortfolioPage = async () => {
     <div className="flex flex-col gap-24 pb-24">
       <PortfolioHero />
       <PortfolioList projects={portfolios} />
-      <PortfolioTestimonial />
     </div>
   );
 };

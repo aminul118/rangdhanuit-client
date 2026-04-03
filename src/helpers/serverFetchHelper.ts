@@ -24,12 +24,16 @@ const serverFetchHelper = async <T>(
     const isFormData = rest.body instanceof FormData;
     const isString = typeof rest.body === "string";
     const body =
-      !isFormData && !isString && rest.body ? JSON.stringify(rest.body) : rest.body;
+      !isFormData && !isString && rest.body
+        ? JSON.stringify(rest.body)
+        : rest.body;
 
     const cookieHeader = [
       accessToken ? `accessToken=${accessToken}` : null,
       refreshToken ? `refreshToken=${refreshToken}` : null,
-    ].filter(Boolean).join("; ");
+    ]
+      .filter(Boolean)
+      .join("; ");
 
     return fetch(url, {
       ...rest,
@@ -56,8 +60,11 @@ const serverFetchHelper = async <T>(
 
   // Trigger revalidation for mutations
   if (["POST", "PUT", "PATCH", "DELETE"].includes(rest.method || "")) {
-    const tag = endpoint.split("/")[1];
+    const tag = endpoint.startsWith("/")
+      ? endpoint.split("/")[1]
+      : endpoint.split("/")[0];
     if (tag) {
+      // Revalidate the data tag
       revalidateTag(tag, "max");
     }
   }

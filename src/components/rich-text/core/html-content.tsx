@@ -1,6 +1,6 @@
 "use client";
 
-import { BlogEditorKit } from "@/components/rich-text/kits/blog-editor-kit";
+import { ReadOnlyViewerKit } from "@/components/rich-text/kits/read-only-viewer-kit";
 import { Editor } from "@/components/rich-text/ui/editor";
 import { Plate, usePlateEditor } from "platejs/react";
 import { useMemo } from "react";
@@ -26,8 +26,13 @@ const HtmlContent = ({ content, className }: IHtml) => {
     }
   }, [content]);
 
+  // Use the minimal viewer kit and filter out Highlight if any
+  const viewerPlugins = useMemo(() => {
+    return ReadOnlyViewerKit.filter((p) => p.key !== "highlight");
+  }, []);
+
   const editor = usePlateEditor({
-    plugins: BlogEditorKit,
+    plugins: viewerPlugins,
     value: value || undefined,
   });
 

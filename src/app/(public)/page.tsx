@@ -1,16 +1,16 @@
 import { Metadata } from "next";
 import Services from "@/components/modules/public/home/Services";
 import Partners from "@/components/modules/public/home/Partners";
+import PortfolioSlider from "@/components/modules/public/home/PortfolioSlider";
+import { getPortfolios } from "@/services/Portfolio/portfolios";
 import CTA from "@/components/modules/public/home/CTA";
 import Stats from "@/components/modules/public/home/Stats";
-import PortfolioGrid from "@/components/modules/public/home/PortfolioGrid";
 import Process from "@/components/modules/public/home/Process";
 import Testimonials from "@/components/modules/public/home/Testimonials";
 import FAQ from "@/components/modules/public/home/FAQ";
 import generateMetaTags from "@/Seo/generateMetaTags";
 import { getServices } from "@/services/Service/services";
 import Hero from "@/components/modules/public/home/Hero";
-
 
 export const metadata: Metadata = generateMetaTags({
   title: "Rangdhanu IT | Premium IT Solutions for Your Business",
@@ -21,8 +21,13 @@ export const metadata: Metadata = generateMetaTags({
 });
 
 const Home = async () => {
-  const res = await getServices({ limit: "6" });
-  const services = res?.data || [];
+  const [servicesRes, portfoliosRes] = await Promise.all([
+    getServices({ limit: "6" }),
+    getPortfolios({ isFeatured: "true" }),
+  ]);
+
+  const services = servicesRes?.data || [];
+  const portfolios = portfoliosRes?.data || [];
 
   return (
     <div className="flex flex-col">
@@ -30,7 +35,7 @@ const Home = async () => {
       <Partners />
       <Services services={services} />
       <Stats />
-      <PortfolioGrid />
+      <PortfolioSlider portfolios={portfolios} />
       <Process />
       <Testimonials />
       <FAQ />
