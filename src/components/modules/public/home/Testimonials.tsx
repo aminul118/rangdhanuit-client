@@ -84,33 +84,34 @@ const Testimonials = () => {
             (testimonial, index) => (
               <div
                 key={`${testimonial.name}-${index}`}
-                className="w-[400px] shrink-0 p-10 rounded-[2.5rem] glass border-border/50 hover:border-primary/50 transition-all backdrop-blur-sm relative group whitespace-normal"
+                className="w-[400px] shrink-0 p-10 rounded-[2.5rem] glass-premium border-border/50 hover:border-primary/50 transition-all backdrop-blur-3xl relative group whitespace-normal shadow-2xl"
               >
-                <Quote className="absolute top-8 right-8 w-12 h-12 text-indigo-500/10 group-hover:text-indigo-500/20 transition-colors" />
+                <Quote className="absolute top-8 right-8 w-12 h-12 text-primary/10 group-hover:text-primary/20 transition-colors" />
                 <div className="flex gap-1 mb-6">
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <Star
                       key={i}
-                      className="w-5 h-5 fill-indigo-500 text-indigo-500"
+                      className="w-5 h-5 fill-primary text-primary"
                     />
                   ))}
                 </div>
-                <p className="text-lg italic text-muted-foreground leading-relaxed mb-8">
+                <p className="text-lg italic text-muted-foreground leading-relaxed mb-8 font-medium">
                   &quot;{testimonial.content}&quot;
                 </p>
                 <div className="flex items-center gap-4">
-                  <Image
-                    src={testimonial.avatar}
-                    alt={testimonial.name}
-                    width={56}
-                    height={56}
-                    className="rounded-full shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-indigo-500/20"
-                  />
+                  <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-primary/20 p-0.5 group-hover:border-primary transition-all">
+                    <Image
+                      src={testimonial.avatar}
+                      alt={testimonial.name}
+                      fill
+                      className="rounded-full shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-700 object-cover"
+                    />
+                  </div>
                   <div>
-                    <h4 className="font-bold text-lg text-foreground">
+                    <h4 className="font-black text-lg text-foreground tracking-tight">
                       {testimonial.name}
                     </h4>
-                    <p className="text-sm text-muted-foreground font-bold">
+                    <p className="text-xs text-muted-foreground font-black uppercase tracking-widest">
                       {testimonial.role}
                     </p>
                   </div>

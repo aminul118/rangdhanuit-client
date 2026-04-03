@@ -26,6 +26,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
           src={blog.featuredImage}
           alt={blog.title}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover group-hover:scale-110 transition-transform duration-700"
         />
         <div className="absolute top-4 left-4 bg-indigo-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xl shadow-indigo-600/30">

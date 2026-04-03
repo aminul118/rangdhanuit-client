@@ -66,7 +66,7 @@ const Process = () => {
 
         <div className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Connecting Line (Desktop) */}
-          <div className="hidden lg:block absolute top-11 left-0 w-full h-1 bg-linear-to-r from-indigo-500 via-purple-500 to-orange-500 opacity-20 -z-10" />
+          <div className="hidden lg:block absolute top-20 left-0 w-full h-0.5 bg-linear-to-r from-indigo-500/30 via-purple-500/30 to-orange-500/30 -z-10" />
 
           {steps.map((step, index) => (
             <motion.div
@@ -76,15 +76,16 @@ const Process = () => {
               whileInView="whileInView"
               viewport={VIEWPORT_CONFIG}
               transition={{ delay: index * 0.1 }}
-              className="relative text-center group"
+              className="relative text-center group glass-premium p-8 rounded-[2.5rem] border-border/50 hover:border-primary/40 transition-all shadow-xl"
             >
               <div
-                className={`w-20 h-20 rounded-full ${step.color} mx-auto flex items-center justify-center mb-6 shadow-2xl transition-transform group-hover:scale-110`}
+                className={`w-20 h-20 rounded-2xl ${step.color} mx-auto flex items-center justify-center mb-8 shadow-2xl transition-all group-hover:scale-110 group-hover:rotate-6 relative`}
               >
-                <step.icon className="w-10 h-10 text-white" />
+                <div className="absolute inset-0 bg-white/20 dark:bg-black/20 rounded-2xl blur-sm" />
+                <step.icon className="w-10 h-10 text-white relative z-10" />
               </div>
-              <h3 className="text-2xl font-bold mb-4">{step.title}</h3>
-              <p className="text-muted-foreground leading-relaxed font-bold">
+              <h3 className="text-2xl font-black mb-4 text-foreground tracking-tight">{step.title}</h3>
+              <p className="text-muted-foreground leading-relaxed font-medium text-sm">
                 {step.description}
               </p>
             </motion.div>

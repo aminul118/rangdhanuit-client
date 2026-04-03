@@ -45,7 +45,7 @@ const Stats = () => {
               whileInView="whileInView"
               viewport={VIEWPORT_CONFIG}
               transition={{ delay: index * 0.1 }}
-              className="relative group p-8 rounded-3xl glass border-border/50 backdrop-blur-sm hover:border-primary/50 transition-all text-center"
+              className="relative group p-8 rounded-3xl glass-premium border-border/50 hover:border-primary/40 hover:glow-primary transition-all text-center"
             >
               <div className="flex justify-center mb-4">
                 <stat.icon

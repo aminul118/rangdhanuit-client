@@ -67,16 +67,25 @@ const FAQ = () => {
               whileInView="whileInView"
               viewport={VIEWPORT_CONFIG}
               transition={{ delay: index * 0.1 }}
-              className="rounded-3xl border border-border/50 overflow-hidden glass backdrop-blur-sm"
+              className={`rounded-3xl border transition-all duration-500 overflow-hidden ${
+                openIndex === index 
+                  ? "border-primary/40 glow-primary bg-card/80" 
+                  : "border-border/50 glass-premium hover:border-primary/30"
+              }`}
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full p-8 flex items-center justify-between text-left hover:bg-accent transition-colors"
+                className="w-full p-8 flex items-center justify-between text-left transition-colors relative"
               >
-                <span className="text-xl font-bold">{faq.question}</span>
-                <ChevronDown
-                  className={`w-6 h-6 transition-transform duration-500 ${openIndex === index ? "rotate-180" : ""}`}
-                />
+                {openIndex === index && (
+                  <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-primary to-violet-500" />
+                )}
+                <span className={`text-xl font-black tracking-tight transition-colors ${openIndex === index ? "text-primary" : "text-foreground"}`}>
+                  {faq.question}
+                </span>
+                <div className={`p-2 rounded-xl transition-all duration-500 ${openIndex === index ? "bg-primary text-primary-foreground rotate-180" : "bg-muted text-muted-foreground"}`}>
+                  <ChevronDown className="w-5 h-5" />
+                </div>
               </button>
               <AnimatePresence>
                 {openIndex === index && (
@@ -84,10 +93,12 @@ const FAQ = () => {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
                   >
                     <div className="px-8 pb-8 text-muted-foreground leading-relaxed text-lg font-medium">
-                      {faq.answer}
+                      <div className="pt-4 border-t border-border/50">
+                        {faq.answer}
+                      </div>
                     </div>
                   </motion.div>
                 )}
