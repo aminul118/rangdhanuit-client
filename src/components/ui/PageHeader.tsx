@@ -58,7 +58,7 @@ export const PageHeader = ({
               initial="initial"
               animate="animate"
               transition={{ delay: 0.1 }}
-              className="text-4xl md:text-6xl font-black tracking-tighter leading-none text-foreground"
+              className="text-3xl md:text-5xl font-black tracking-tighter leading-none text-foreground"
             >
               {title}
             </motion.h1>
@@ -69,7 +69,7 @@ export const PageHeader = ({
                 initial="initial"
                 animate="animate"
                 transition={{ delay: 0.2 }}
-                className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed font-medium"
+                className="text-lg  text-muted-foreground max-w-2xl mx-auto leading-relaxed font-medium"
               >
                 {subtitle}
               </motion.p>
@@ -90,4 +90,4 @@ export const PageHeader = ({
       </Container>
     </section>
   );
-}
+};

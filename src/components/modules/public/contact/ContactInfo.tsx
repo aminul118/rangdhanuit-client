@@ -67,10 +67,10 @@ const ContactInfo = () => {
         <div className="space-y-4">
           <motion.h3
             variants={itemVariants}
-            className="text-3xl md:text-4xl font-black text-foreground italic tracking-tighter"
+            className="text-3xl md:text-4xl font-black text-foreground  tracking-tighter"
           >
             Let&apos;s create something <br />
-            <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent underline decoration-indigo-500/20 underline-offset-8">
+            <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent  decoration-indigo-500/20 ">
               amazing together.
             </span>
           </motion.h3>

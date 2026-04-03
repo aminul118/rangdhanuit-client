@@ -47,7 +47,7 @@ const ContactForm = () => {
 
   return (
     <div className="glass-premium p-8 md:p-12 rounded-[2.5rem] shadow-2xl backdrop-blur-md border border-border/50">
-      <h2 className="text-3xl font-black mb-8 italic uppercase tracking-tight text-foreground">
+      <h2 className="text-3xl font-black mb-8   tracking-tight text-foreground">
         Send a Message
       </h2>
 

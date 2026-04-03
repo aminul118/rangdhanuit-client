@@ -1,11 +1,7 @@
-'use client';
+"use client";
 
-import LogOutDropDown from '@/components/modules/Authentication/LogOutDropdown';
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/ui/avatar';
+import LogOutDropDown from "@/components/modules/Authentication/LogOutDropdown";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,10 +9,10 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { LayoutGrid, User } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+} from "@/components/ui/dropdown-menu";
+import { LayoutGrid, User } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface NavUserProps {
   user: {
@@ -31,26 +27,25 @@ const NavUser = ({ user }: NavUserProps) => {
   const router = useRouter();
   const initials = user.name
     ? user.name
-        .split(' ')
+        .split(" ")
         .map((word) => word[0])
         .slice(0, 2)
-        .join('')
+        .join("")
         .toUpperCase()
-    : 'U';
+    : "U";
 
   const handleDashboardRedirect = () => {
-    router.push('/admin');
+    router.push("/admin");
   };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar className="cursor-pointer border border-white/10">
-          <AvatarImage
-            src={user?.picture}
-            alt={user.name}
-          />
-          <AvatarFallback>{initials}</AvatarFallback>
+        <Avatar className="cursor-pointer border border-border/50 bg-background/50 backdrop-blur-sm shadow-sm hover:bg-accent transition-all">
+          <AvatarImage src={user?.picture} alt={user.name} />
+          <AvatarFallback className="bg-primary/10 text-primary font-bold">
+            {initials}
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
 
@@ -66,11 +61,17 @@ const NavUser = ({ user }: NavUserProps) => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link href="/profile" className="flex items-center gap-2 cursor-pointer w-full">
+            <Link
+              href="/profile"
+              className="flex items-center gap-2 cursor-pointer w-full"
+            >
               <User size={16} /> Profile
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={handleDashboardRedirect} className="flex items-center gap-2 cursor-pointer">
+          <DropdownMenuItem
+            onClick={handleDashboardRedirect}
+            className="flex items-center gap-2 cursor-pointer"
+          >
             <LayoutGrid size={16} /> Dashboard
           </DropdownMenuItem>
         </DropdownMenuGroup>
