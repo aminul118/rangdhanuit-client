@@ -12,7 +12,7 @@ interface CreationHeaderProps {
 
 const CreationHeader = ({ title, subtitle, backLink }: CreationHeaderProps) => {
   return (
-    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12 px-2">
+    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12 ">
       <div className="space-y-3">
         <motion.div
           initial={{ opacity: 0, x: -10 }}
@@ -47,19 +47,6 @@ const CreationHeader = ({ title, subtitle, backLink }: CreationHeaderProps) => {
           </p>
         </motion.div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.3, duration: 0.6 }}
-        className="hidden md:block"
-      >
-        <div className="px-6 py-3 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-md">
-          <span className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-600">
-            Creation Mode
-          </span>
-        </div>
-      </motion.div>
     </div>
   );
 };

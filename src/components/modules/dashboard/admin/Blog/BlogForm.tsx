@@ -30,7 +30,7 @@ const BlogFormModern = ({
   submitLabel = "Publish Article",
 }: BlogFormProps) => {
   const [content, setContent] = useState(initialData?.content || "");
-  const [image, setImage] = useState<File | null>(null);
+  const [image, setImage] = useState<File | string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -21,12 +21,8 @@ export default function FormLayout({
   children,
 }: FormLayoutProps) {
   return (
-    <div className="container mx-auto pb-32 px-4 md:px-0">
-      <CreationHeader
-        title={title}
-        subtitle={subtitle}
-        backLink={backLink}
-      />
+    <div className="w-full">
+      <CreationHeader title={title} subtitle={subtitle} backLink={backLink} />
       {children}
     </div>
   );

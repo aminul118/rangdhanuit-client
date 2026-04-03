@@ -3,10 +3,13 @@
 import { ReactNode, useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 import CreationHeader from "@/components/common/layouts/CreationHeader";
+import envVars from "@/config/env.config";
 
 interface EditFormWrapperProps<T> {
   id: string;
-  fetcher?: (id: string) => Promise<{ success: boolean; data?: T; message?: string }>;
+  fetcher?: (
+    id: string,
+  ) => Promise<{ success: boolean; data?: T; message?: string }>;
   initialData?: T;
   title: string;
   subtitle: string;
@@ -32,16 +35,19 @@ export const EditFormWrapper = <T,>({
 
   useEffect(() => {
     if (initialData) return;
-    
+
     // Safety check: Avoid crash if fetcher is missing
     if (!fetcher) {
-      if (process.env.NODE_ENV === 'development') {
-        console.warn("EditFormWrapper: No fetcher or initialData provided. Cannot fetch asset for ID:", id);
+      if (envVars.nodeEnv === "development") {
+        console.warn(
+          "EditFormWrapper: No fetcher or initialData provided. Cannot fetch asset for ID:",
+          id,
+        );
       }
       setFetching(false);
       return;
     }
-    
+
     const fetchData = async () => {
       try {
         const res = await fetcher(id);
@@ -71,20 +77,14 @@ export const EditFormWrapper = <T,>({
         <h2 className="text-3xl font-black tracking-tight text-white/90">
           Not found
         </h2>
-        <p className="text-zinc-500 mt-4 font-bold">
-          {notFoundMessage}
-        </p>
+        <p className="text-zinc-500 mt-4 font-bold">{notFoundMessage}</p>
       </div>
     );
   }
 
   return (
     <div className={padding}>
-      <CreationHeader
-        title={title}
-        subtitle={subtitle}
-        backLink={backLink}
-      />
+      <CreationHeader title={title} subtitle={subtitle} backLink={backLink} />
       {children(data)}
     </div>
   );

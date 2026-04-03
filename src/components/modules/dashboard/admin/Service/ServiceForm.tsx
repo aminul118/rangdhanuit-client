@@ -42,7 +42,7 @@ const ServiceForm = ({
   submitLabel,
 }: ServiceFormProps) => {
   const [content, setContent] = useState(initialData?.content || "");
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageFile, setImageFile] = useState<File | string | null>(null);
   const [selectedIcon, setSelectedIcon] = useState(
     initialData?.icon || "Laptop"
   );
@@ -76,7 +76,7 @@ const ServiceForm = ({
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="space-y-10"
+        className="space-y-6"
       >
         <div className="space-y-3">
           <Input
@@ -118,7 +118,7 @@ const ServiceForm = ({
                   <SelectValue placeholder="Identify your service" />
                 </div>
               </SelectTrigger>
-              <SelectContent className="bg-background border-border/50 rounded-2xl">
+              <SelectContent className="bg-background border-border/50 rounded-2xl shadow-2xl backdrop-blur-xl">
                 {IconOptions.map((opt) => (
                   <SelectItem
                     key={opt.value}
@@ -160,7 +160,7 @@ const ServiceForm = ({
         transition={{ duration: 0.5, delay: 0.1 }}
         className="group relative"
       >
-        <div className="absolute -left-12 top-0 bottom-0 w-px bg-border/50 group-hover:bg-primary/20 transition-colors" />
+        <div className="absolute -left-12 top-0 bottom-0 w-px bg-border/20 group-hover:bg-primary/20 transition-colors" />
         <PlateRichEditor value={content} onChange={setContent} height={800} />
       </motion.div>
     </CreationSuiteWrapper>

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function AddBlogPage() {
   return (
-    <div className="min-h-[calc(100vh-80px)] p-6">
+    <div >
       <AddBlogForm />
     </div>
   );

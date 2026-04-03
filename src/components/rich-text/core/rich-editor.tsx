@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { BlogEditorKit } from '@/components/rich-text/kits/blog-editor-kit';
-import { deserializeHtml } from '@/components/rich-text/lib/html-serializer';
-import { Editor, EditorContainer } from '@/components/rich-text/ui/editor';
-import { Plate, usePlateEditor } from 'platejs/react';
-import { useMemo } from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { BlogEditorKit } from "@/components/rich-text/kits/blog-editor-kit";
+import { deserializeHtml } from "@/components/rich-text/lib/html-serializer";
+import { Editor, EditorContainer } from "@/components/rich-text/ui/editor";
+import { Plate, usePlateEditor } from "platejs/react";
+import { useMemo } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 export interface PlateRichEditorProps {
   value: string;
@@ -20,7 +20,7 @@ const PlateRichEditor = ({
   height = 800,
 }: PlateRichEditorProps) => {
   const initialValue = useMemo(() => {
-    if (!value) return [{ type: 'p', children: [{ text: '' }] }];
+    if (!value) return [{ type: "p", children: [{ text: "" }] }];
     try {
       return JSON.parse(value);
     } catch (e) {
@@ -45,7 +45,7 @@ const PlateRichEditor = ({
           style={{ height: height }}
           className="bg-background scrollbar-small overflow-y-auto rounded-md border"
         >
-          <Editor variant="fullWidth" className="p-4 focus:outline-none" />
+          <Editor variant="fullWidth" />
         </EditorContainer>
       </Plate>
     </DndProvider>
