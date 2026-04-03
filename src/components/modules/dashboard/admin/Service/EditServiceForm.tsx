@@ -1,6 +1,6 @@
 "use client";
 
-import { updateService } from "@/services/Service/services";
+import { getServiceById, updateService } from "@/services/Service/services";
 import ServiceForm from "./ServiceForm";
 import useActionHandler from "@/hooks/useActionHandler";
 import { IService } from "@/types/Service/service.types";
@@ -8,7 +8,7 @@ import { EditFormWrapper } from "@/components/common/layouts/EditFormWrapper";
 
 interface EditServiceFormProps {
   id: string;
-  initialData: IService;
+  initialData?: IService;
 }
 
 const EditServiceForm = ({ id, initialData }: EditServiceFormProps) => {
@@ -29,7 +29,8 @@ const EditServiceForm = ({ id, initialData }: EditServiceFormProps) => {
     <EditFormWrapper<IService>
       id={id}
       initialData={initialData}
-      title={`Refine ${initialData.title}`}
+      fetcher={getServiceById}
+      title={initialData ? `Refine ${initialData.title}` : "Refine Service"}
       subtitle="Ensure your service descriptions are accurate and compelling. High-quality details increase client trust."
       backLink="/admin/services"
     >

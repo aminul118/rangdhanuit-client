@@ -33,9 +33,18 @@ export const EditFormWrapper = <T,>({
   useEffect(() => {
     if (initialData) return;
     
+    // Safety check: Avoid crash if fetcher is missing
+    if (!fetcher) {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn("EditFormWrapper: No fetcher or initialData provided. Cannot fetch asset for ID:", id);
+      }
+      setFetching(false);
+      return;
+    }
+    
     const fetchData = async () => {
       try {
-        const res = await fetcher!(id);
+        const res = await fetcher(id);
         if (res.success && res.data) {
           setData(res.data);
         }

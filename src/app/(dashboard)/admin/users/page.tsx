@@ -15,7 +15,7 @@ const UsersAdminPage = async ({
   const params = (await searchParams) as Record<string, string>;
 
   return (
-    <AdminPageWrapper padding="p-6">
+    <AdminPageWrapper>
       <UsersList searchParams={params} />
     </AdminPageWrapper>
   );

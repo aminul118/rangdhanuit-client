@@ -18,7 +18,7 @@ const PortfoliosAdminPage = async ({
     <AdminPageWrapper
       skeletonColumns={[
         { width: "w-10" }, // SI
-        { width: "w-16", className: "h-8 rounded-md" } as any, // Thumbnail
+        { width: "w-16", className: "h-8 rounded-md" }, // Thumbnail
         { width: "w-full" }, // Title
         { width: "w-20" }, // Featured
         { width: "w-32" }, // Date

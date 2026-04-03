@@ -1,6 +1,6 @@
 "use client";
 
-import { updateBlog } from "@/services/Blog/blogs";
+import { getBlogById, updateBlog } from "@/services/Blog/blogs";
 import BlogForm from "./BlogForm";
 import useActionHandler from "@/hooks/useActionHandler";
 import { IBlog } from "@/types";
@@ -29,6 +29,7 @@ const EditBlogForm = ({ id, initialData }: EditBlogFormProps) => {
     <EditFormWrapper<IBlog>
       id={id}
       initialData={initialData}
+      fetcher={getBlogById}
       title="Edit Blog Post"
       subtitle="Refine your article for maximum engagement. Review your content, images, and SEO metadata before republishing."
       backLink="/admin/blogs"

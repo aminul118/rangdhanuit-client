@@ -121,16 +121,6 @@ export const useFileUpload = (
     [accept, maxSize],
   );
 
-  const createPreview = useCallback(
-    (file: File | FileMetadata): string | undefined => {
-      if (file instanceof File) {
-        return URL.createObjectURL(file);
-      }
-      return file.url;
-    },
-    [],
-  );
-
   const generateUniqueId = useCallback((file: File | FileMetadata): string => {
     if (file instanceof File) {
       return `${file.name}-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
@@ -167,7 +157,7 @@ export const useFileUpload = (
   }, [onFilesChange]);
 
   const addFiles = useCallback(
-    (newFiles: FileList | File[]) => {
+    async (newFiles: FileList | File[]) => {
       if (!newFiles || newFiles.length === 0) return;
 
       const newFilesArray = Array.from(newFiles);
@@ -175,11 +165,6 @@ export const useFileUpload = (
 
       // Clear existing errors when new files are uploaded
       setState((prev) => ({ ...prev, errors: [] }));
-
-      // In single file mode, clear existing files first
-      if (!multiple) {
-        clearFiles();
-      }
 
       // Check if adding these files would exceed maxFiles (only in multiple mode)
       if (
@@ -194,7 +179,17 @@ export const useFileUpload = (
 
       const validFiles: FileWithPreview[] = [];
 
-      newFilesArray.forEach((file) => {
+      // Pre-generate previews (Base64 is more reliable for dashboard uploader)
+      const generatePreview = async (file: File): Promise<string> => {
+        if (!file.type.startsWith("image/")) return "";
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result as string);
+          reader.readAsDataURL(file);
+        });
+      };
+
+      for (const file of newFilesArray) {
         // Only check for duplicates if multiple files are allowed
         if (multiple) {
           const isDuplicate = state.files.some(
@@ -202,62 +197,62 @@ export const useFileUpload = (
               existingFile.file.name === file.name &&
               existingFile.file.size === file.size,
           );
-
-          // Skip duplicate files silently
-          if (isDuplicate) {
-            return;
-          }
+          if (isDuplicate) continue;
         }
 
-        // Check file size
+        // Check file size and type
         if (file.size > maxSize) {
           errors.push(
             multiple
               ? `Some files exceed the maximum size of ${formatBytes(maxSize)}.`
               : `File exceeds the maximum size of ${formatBytes(maxSize)}.`,
           );
-          return;
+          continue;
         }
 
         const error = validateFile(file);
         if (error) {
           errors.push(error);
-        } else {
-          validFiles.push({
-            file,
-            id: generateUniqueId(file),
-            preview: createPreview(file),
-          });
+          continue;
         }
-      });
+
+        const preview = await generatePreview(file);
+        validFiles.push({
+          file,
+          id: generateUniqueId(file),
+          preview,
+        });
+      }
 
       // Only update state if we have valid files to add
       if (validFiles.length > 0) {
-        // Call the onFilesAdded callback with the newly added valid files
         onFilesAdded?.(validFiles);
 
         setState((prev) => {
-          const newFiles = !multiple
+          // If NOT multiple, we explicitly REPLACING the whole state to avoid race conditions
+          // Also clean up any old object URLs if they existed (though we use Base64 now)
+          if (!multiple) {
+            prev.files.forEach((f) => {
+              if (f.preview?.startsWith("blob:")) URL.revokeObjectURL(f.preview);
+            });
+          }
+
+          const resolvedFiles = !multiple
             ? validFiles
             : [...prev.files, ...validFiles];
-          onFilesChange?.(newFiles);
+
+          onFilesChange?.(resolvedFiles);
           return {
             ...prev,
-            files: newFiles,
+            files: resolvedFiles,
             errors,
           };
         });
       } else if (errors.length > 0) {
-        setState((prev) => ({
-          ...prev,
-          errors,
-        }));
+        setState((prev) => ({ ...prev, errors }));
       }
 
-      // Reset input value after handling files
-      if (inputRef.current) {
-        inputRef.current.value = '';
-      }
+      if (inputRef.current) inputRef.current.value = "";
     },
     [
       state.files,
@@ -265,9 +260,7 @@ export const useFileUpload = (
       multiple,
       maxSize,
       validateFile,
-      createPreview,
       generateUniqueId,
-      clearFiles,
       onFilesChange,
       onFilesAdded,
     ],

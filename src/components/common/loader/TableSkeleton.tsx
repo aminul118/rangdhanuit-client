@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 
-interface ColumnSkeletonProps {
+export interface ColumnSkeletonProps {
   width?: string;
   className?: string;
   isCircle?: boolean;

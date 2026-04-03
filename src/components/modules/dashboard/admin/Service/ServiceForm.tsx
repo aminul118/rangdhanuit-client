@@ -73,21 +73,21 @@ const ServiceForm = ({
     >
       {/* Title Section */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="space-y-8"
+        className="space-y-10"
       >
-        <div className="space-y-4">
+        <div className="space-y-3">
           <Input
             id="title"
             name="title"
             defaultValue={initialData?.title}
-            placeholder="Name your excellence..."
-            className="text-3xl md:text-5xl font-black border-none bg-transparent p-0 h-auto"
+            placeholder="Define your excellence..."
+            className="text-2xl md:text-3xl font-black border-none bg-transparent p-0 h-auto focus-visible:ring-0 placeholder:opacity-50"
           />
           <div className="h-px w-full bg-border/50 relative">
-            <div className="absolute left-0 top-0 h-full w-24 bg-linear-to-r from-primary to-transparent" />
+            <div className="absolute left-0 top-0 h-full w-20 bg-linear-to-r from-primary to-transparent" />
           </div>
         </div>
 

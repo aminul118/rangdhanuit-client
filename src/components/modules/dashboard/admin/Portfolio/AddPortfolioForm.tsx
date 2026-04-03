@@ -21,8 +21,8 @@ const AddPortfolioForm = () => {
 
   return (
     <FormLayout
-      title="Add New Project"
-      subtitle="Showcase your latest achievements. High-quality details and visuals will help you stand out to potential clients."
+      title="Create Workspace Project"
+      subtitle="Document your technical journey. Detail the challenges you overcame and the technology that powered your success."
       backLink="/admin/portfolio"
     >
       <PortfolioForm

@@ -50,21 +50,17 @@ const PortfolioForm = ({
     >
       {/* Title Section */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="space-y-12"
+        className="space-y-10"
       >
-        <div className="space-y-4">
+        <div className="space-y-3">
           <Input
             name="title"
             defaultValue={initialData?.title}
-            placeholder="Project Title..."
-            className="text-3xl md:text-5xl font-black border-none bg-transparent p-0 h-auto"
+            placeholder="Name your masterpiece..."
           />
-          <div className="h-px w-full bg-white/5 relative">
-            <div className="absolute left-0 top-0 h-full w-24 bg-linear-to-r from-indigo-500 to-transparent" />
-          </div>
         </div>
 
         {/* Project Metadata Grid */}

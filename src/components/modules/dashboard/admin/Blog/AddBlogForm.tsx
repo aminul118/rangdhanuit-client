@@ -25,8 +25,8 @@ const AddBlogForm = () => {
 
   return (
     <FormLayout
-      title="Write New Article"
-      subtitle="Share your thoughts and expertise with the world. Your content will be automatically optimized for reading."
+      title="Draft New Insight"
+      subtitle="Share your technical expertise or industry trends. Your perspective helps build authority in the digital space."
       backLink="/admin/blogs"
     >
       <BlogForm

@@ -1,16 +1,16 @@
 import { ReactNode, Suspense } from "react";
-import { TableSkeleton } from "@/components/common/loader/TableSkeleton";
+import { ColumnSkeletonProps, TableSkeleton } from "@/components/common/loader/TableSkeleton";
 
 interface AdminPageWrapperProps {
   children: ReactNode;
   padding?: string;
-  skeletonColumns?: { width: string }[];
+  skeletonColumns?: ColumnSkeletonProps[];
   customSkeleton?: ReactNode;
 }
 
 export const AdminPageWrapper = ({
   children,
-  padding = "p-6 md:p-12",
+  padding = "",
   skeletonColumns,
   customSkeleton,
 }: AdminPageWrapperProps) => {

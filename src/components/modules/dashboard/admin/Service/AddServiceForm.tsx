@@ -21,8 +21,8 @@ const AddServiceForm = () => {
 
   return (
     <FormLayout
-      title="Launch New Service"
-      subtitle="Introduce a new technical capability to your digital ecosystem. High-impact content will better resonate with your clients."
+      title="Define New Capability"
+      subtitle="Introduce a specialized service to your portfolio. Clearly define the value proposition and technical scope."
       backLink="/admin/services"
     >
       <ServiceForm
