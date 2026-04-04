@@ -22,7 +22,7 @@ export const PortfolioList = ({ projects }: PortfolioListProps) => {
   }
 
   return (
-    <section className="bg-background text-foreground pb-32">
+    <section className="bg-background text-foreground">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
@@ -71,7 +71,10 @@ export const PortfolioList = ({ projects }: PortfolioListProps) => {
                   </div>
 
                   {/* Title */}
-                  <Link href={`/portfolio/${project.slug}`} className="block group/title">
+                  <Link
+                    href={`/portfolio/${project.slug}`}
+                    className="block group/title"
+                  >
                     <h3 className="text-2xl font-black text-foreground leading-tight tracking-tight group-hover/title:text-primary transition-colors duration-300">
                       {project.title}
                     </h3>

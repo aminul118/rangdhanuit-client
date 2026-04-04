@@ -1,16 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Zap,
-  ShieldCheck,
-  Globe,
-  ChevronRight,
-  Code2,
-  Sparkles,
-  Rocket,
-} from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
+import CodeWindow from "./CodeWindow";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import {
@@ -42,7 +34,7 @@ const Hero = () => {
             >
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_hsl(var(--primary))]" />
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
-                Innovation Agency 2026
+                Innovation Software Agency
               </span>
               <ChevronRight className="w-3 h-3 text-primary/40 group-hover:translate-x-0.5 transition-transform" />
             </motion.div>
@@ -92,26 +84,6 @@ const Hero = () => {
               </Link>
             </motion.div>
 
-            {/* Sub-Feature Indicators - Mobile Optimized */}
-            <motion.div
-              variants={FADE_IN_UP}
-              className="mt-12 md:mt-16 flex flex-wrap gap-6 md:gap-8 justify-start"
-            >
-              {[
-                { icon: Zap, label: "Performance" },
-                { icon: ShieldCheck, label: "Security" },
-                { icon: Globe, label: "Scalability" },
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-2 md:gap-3 text-[10px] md:text-xs font-bold tracking-widest uppercase text-muted-foreground/60 hover:text-primary transition-colors cursor-default"
-                >
-                  <item.icon className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                  {item.label}
-                </div>
-              ))}
-            </motion.div>
-
             {/* Mobile-Only Metrics Grid */}
             <motion.div
               variants={FADE_IN_UP}
@@ -138,46 +110,14 @@ const Hero = () => {
 
           {/* Right Content - Visual Elements */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
             className="relative hidden lg:block"
           >
-            {/* Main Interactive Card */}
-            <div className="relative z-10 p-8 rounded-3xl bg-card/40 border border-border/50 backdrop-blur-2xl shadow-2xl overflow-hidden group transition-colors duration-500">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-primary/20 transition-colors" />
+            <CodeWindow />
 
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500/30" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-500/30" />
-                  <div className="w-3 h-3 rounded-full bg-green-500/30" />
-                </div>
-                <Code2 className="w-6 h-6 text-primary" />
-              </div>
-
-              <div className="space-y-4">
-                <div className="h-2 w-3/4 bg-foreground/5 rounded-full" />
-                <div className="h-2 w-full bg-foreground/5 rounded-full" />
-                <div className="h-2 w-1/2 bg-foreground/5 rounded-full" />
-                <div className="grid grid-cols-2 gap-4 mt-8">
-                  <div className="h-20 bg-primary/5 rounded-2xl border border-primary/10 flex flex-col items-center justify-center gap-2">
-                    <Sparkles className="w-5 h-5 text-primary" />
-                    <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">
-                      Innovation
-                    </span>
-                  </div>
-                  <div className="h-20 bg-muted/30 rounded-2xl border border-border flex flex-col items-center justify-center gap-2">
-                    <Rocket className="w-5 h-5 text-blue-500 dark:text-blue-400" />
-                    <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">
-                      Velocity
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Decorative Floating Elements */}
+            {/* Decorative Floating Elements (Metrics) */}
             <motion.div
               animate={{ y: [0, -20, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -211,31 +151,6 @@ const Hero = () => {
           </motion.div>
         </div>
       </Container>
-
-      {/* CSS for Theme-Aware Outline Text */}
-      <style jsx global>{`
-        .outline-text-theme {
-          -webkit-text-stroke: 1px hsl(var(--foreground) / 0.3);
-        }
-        @media (max-width: 768px) {
-          .outline-text-theme {
-            -webkit-text-stroke: 0.5px hsl(var(--foreground) / 0.3);
-          }
-        }
-      `}</style>
-
-      {/* Modern Centered Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-3"
-      >
-        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-muted-foreground">
-          Discover
-        </span>
-        <div className="w-px h-16 bg-linear-to-b from-primary via-primary/50 to-transparent" />
-      </motion.div>
     </section>
   );
 };

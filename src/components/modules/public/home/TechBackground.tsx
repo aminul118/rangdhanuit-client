@@ -22,15 +22,23 @@ export const TechBackground = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
 
-  const [particles] = useState(() => {
-    return [...Array(20)].map((_, i) => ({
-      id: i,
-      x: Math.random() * 100 + "%",
-      y: Math.random() * 100 + "%",
-      duration: Math.random() * 10 + 10,
-      delay: Math.random() * 20,
-    }));
-  });
+  const [particles, setParticles] = useState<{ id: number; x: string; y: string; duration: number; delay: number }[]>([]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const frameId = requestAnimationFrame(() => {
+      setMounted(true);
+      const generatedParticles = [...Array(20)].map((_, i) => ({
+        id: i,
+        x: Math.random() * 100 + "%",
+        y: Math.random() * 100 + "%",
+        duration: Math.random() * 10 + 10,
+        delay: Math.random() * 20,
+      }));
+      setParticles(generatedParticles);
+    });
+    return () => cancelAnimationFrame(frameId);
+  }, []);
 
   return (
     <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none bg-background transition-colors duration-500">
@@ -96,8 +104,8 @@ export const TechBackground = () => {
         className="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-violet-600/10 rounded-full blur-[180px]"
       />
 
-      {/* Innovation Particles */}
-      {particles.map((particle) => (
+      {/* Innovation Particles - Only render on client after hydration */}
+      {mounted && particles.map((particle) => (
         <motion.div
           key={particle.id}
           initial={{

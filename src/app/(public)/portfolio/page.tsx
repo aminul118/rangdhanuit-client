@@ -16,7 +16,7 @@ const PortfolioPage = async () => {
   const { data: portfolios } = await getPortfolios();
 
   return (
-    <div className="flex flex-col gap-24 pb-24">
+    <div className="min-h-screen bg-background pb-32 transition-colors duration-500">
       <PortfolioHero />
       <PortfolioList projects={portfolios} />
     </div>

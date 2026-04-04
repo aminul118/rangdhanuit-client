@@ -215,3 +215,13 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+
+.outline-text-theme {
+  -webkit-text-stroke: 1px hsl(var(--foreground) / 0.3);
+}
+
+@media (max-width: 768px) {
+  .outline-text-theme {
+    -webkit-text-stroke: 0.5px hsl(var(--foreground) / 0.3);
+  }
+}
