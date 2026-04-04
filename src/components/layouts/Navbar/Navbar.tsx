@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { ModeToggle } from "../ModeToggle";
@@ -11,6 +11,7 @@ import { useAuth } from "@/providers/AuthProvider";
 import NavUser from "./NavUser";
 import PortalButton from "./PortalButton";
 import { NotificationDropdown } from "../Dashboard/Header/NotificationDropdown";
+import Logo from "@/assets/Logo";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -47,12 +48,22 @@ const Navbar = () => {
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo - Left */}
         <div className="flex-1 flex justify-start">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center group-hover:rotate-12 transition-transform shadow-lg shadow-primary/20">
-              <span className="text-white font-bold text-xl">R</span>
+          <Link
+            href="/"
+            className="flex items-center gap-1.5 sm:gap-2.5 group whitespace-nowrap"
+          >
+            <div className="relative shrink-0">
+              <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <Logo className="w-8 h-8 sm:w-[42px] sm:h-[42px] relative transition-transform duration-500 group-hover:scale-110 group-active:scale-95" />
             </div>
-            <span className="text-xl font-bold tracking-tight hidden lg:block">
-              Rangdhanu <span className="text-primary font-black">IT</span>
+            <span className="text-lg sm:text-2xl font-bold tracking-tighter flex items-center leading-none">
+              <span className="bg-linear-to-r from-primary via-primary to-primary/70 bg-clip-text text-transparent drop-shadow-sm">
+                Rangdhanu
+              </span>
+              <span className="ml-1 text-primary font-black relative flex items-center">
+                IT
+                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 shadow-[0_0_8px_rgba(var(--color-primary),0.5)]" />
+              </span>
             </span>
           </Link>
         </div>
@@ -110,8 +121,10 @@ const Navbar = () => {
 
           {/* Mobile Actions/Toggle */}
           <div className="flex md:hidden items-center gap-2">
-            {user && <NotificationDropdown />}
-            <ModeToggle />
+            <div className="hidden xs:flex items-center gap-1.5">
+              {user && <NotificationDropdown />}
+              <ModeToggle />
+            </div>
             {user && (
               <NavUser
                 user={
@@ -125,11 +138,12 @@ const Navbar = () => {
               />
             )}
             <button
-              className="w-10 h-10 flex items-center justify-center rounded-full border border-border/50 bg-background/50 backdrop-blur-sm shadow-sm hover:bg-accent transition-all"
+              className="w-10 h-10 flex items-center justify-center rounded-full border border-border/50 bg-background/50 backdrop-blur-sm shadow-sm hover:bg-accent transition-all active:scale-90"
               onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle Menu"
             >
               {isOpen ? (
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5 text-primary" />
               ) : (
                 <Menu className="w-5 h-5" />
               )}
@@ -138,16 +152,26 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Nav */}
+      {/* Mobile Nav Overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="absolute top-full left-0 right-0 glass border-b md:hidden overflow-hidden"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="fixed inset-x-4 top-24 bottom-auto z-60 bg-background/98 dark:bg-card/98 backdrop-blur-3xl border border-border/60 rounded-3xl shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] md:hidden overflow-hidden"
           >
-            <div className="flex flex-col p-6 gap-2">
+            <div className="flex flex-col p-8 gap-4">
+              <div className="xs:hidden flex items-center justify-between px-2 mb-4">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground opacity-60">
+                  System
+                </span>
+                <div className="flex items-center gap-4">
+                  {user && <NotificationDropdown />}
+                  <ModeToggle />
+                </div>
+              </div>
+
               {navLinks.map((link) => {
                 const isActive =
                   pathname === link.href ||
@@ -157,29 +181,61 @@ const Navbar = () => {
                     key={link.name}
                     href={link.href}
                     className={cn(
-                      "text-lg font-medium px-4 py-3 rounded-xl transition-all",
+                      "text-xl font-bold px-6 py-4 rounded-2xl transition-all flex items-center justify-between group",
                       isActive
-                        ? "bg-primary/10 text-primary font-bold"
-                        : "text-foreground/70 hover:bg-accent hover:text-primary font-medium",
+                        ? "bg-primary/10 text-primary"
+                        : "text-foreground/70 hover:bg-accent/50 hover:text-foreground",
                     )}
                     onClick={() => setIsOpen(false)}
                   >
                     {link.name}
+                    <ChevronRight
+                      className={cn(
+                        "w-5 h-5 opacity-0 -translate-x-2 transition-all duration-300",
+                        isActive
+                          ? "opacity-40 translate-x-0"
+                          : "group-hover:opacity-40 group-hover:translate-x-0",
+                      )}
+                    />
                   </Link>
                 );
               })}
-              <div className="h-px bg-border/50 my-2" />
-              {!user && (
+              <div className="h-px bg-border/40 my-2" />
+              {!user ? (
                 <Link
                   href="/login"
-                  className="bg-primary text-white p-4 rounded-xl text-center font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                  className="bg-primary text-primary-foreground p-5 rounded-2xl text-center font-bold shadow-[0_20px_40px_-10px_hsl(var(--primary)/0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                   onClick={() => setIsOpen(false)}
                 >
                   Portal / Login
+                  <PortalButton />
                 </Link>
+              ) : (
+                <div className="flex flex-col gap-2">
+                  <Link
+                    href="/dashboard"
+                    className="p-5 rounded-2xl border border-border/60 text-center font-bold hover:bg-accent transition-all"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Go to Dashboard
+                  </Link>
+                </div>
               )}
             </div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Backdrop Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-55 md:hidden"
+            onClick={() => setIsOpen(false)}
+          />
         )}
       </AnimatePresence>
     </nav>

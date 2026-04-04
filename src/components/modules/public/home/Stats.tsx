@@ -34,7 +34,7 @@ const stats = [
 
 const Stats = () => {
   return (
-    <section className="py-24 relative overflow-hidden bg-muted/10 text-foreground transition-colors duration-500">
+    <section className="py-16 md:py-24 relative overflow-hidden bg-muted/10 text-foreground transition-colors duration-500">
       <Container>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, index) => (

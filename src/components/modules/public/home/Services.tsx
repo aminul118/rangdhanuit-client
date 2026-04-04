@@ -21,7 +21,7 @@ const Services = ({ services }: ServicesProps) => {
   return (
     <section
       id="services"
-      className="relative py-32 overflow-hidden bg-background transition-colors duration-500"
+      className="relative py-20 md:py-32 overflow-hidden bg-background transition-colors duration-500"
     >
       <Container>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
