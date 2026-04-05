@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import PartnerForm from "./PartnerForm";
 import { IPartner } from "@/types";
-import { createPartner, updatePartner } from "@/services/Partner/partner";
+import { createPartner, updatePartnerBySlug } from "@/services/Partner/partner";
 import useActionHandler from "@/hooks/useActionHandler";
 
 interface PartnerFormModalProps {
@@ -28,7 +28,7 @@ const PartnerFormModal = ({
 
   const handleSubmit = async (formData: FormData) => {
     const action = isEdit
-      ? () => updatePartner(initialData._id, formData)
+      ? () => updatePartnerBySlug(initialData.slug, formData)
       : () => createPartner(formData);
 
     await executePost({

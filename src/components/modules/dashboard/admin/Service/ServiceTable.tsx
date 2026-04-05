@@ -13,8 +13,8 @@ interface ServiceTableProps {
 const ServiceTable = ({ services }: ServiceTableProps) => {
   const [isPending] = useTransition();
 
-  const handleDelete = async (id: string) => {
-    return await deleteService(id);
+  const handleDelete = async (slug: string) => {
+    return await deleteService(slug);
   };
 
   const columns = ServiceTableColumns(handleDelete);

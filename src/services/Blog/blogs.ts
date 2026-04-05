@@ -16,10 +16,21 @@ export const getBlogs = async (
 export const getBlogBySlug = async (
   slug: string,
 ): Promise<ApiResponse<IBlog>> => {
-  return await serverFetch.get(`/blogs/${slug}`, {
+  return await serverFetch.get(`/blogs/slug/admin/${slug}`, {
     next: { tags: ["blogs", slug] },
   });
 };
+
+export const updateBlogBySlug = catchAsyncAction(
+  async (
+    slug: string,
+    payload: FormData | BlogPayload,
+  ): Promise<ApiResponse<IBlog>> => {
+    return await serverFetch.patch(`/blogs/slug/${slug}`, {
+      body: payload,
+    });
+  },
+);
 
 
 export const createBlog = catchAsyncAction(
@@ -30,19 +41,9 @@ export const createBlog = catchAsyncAction(
   },
 );
 
-export const updateBlog = catchAsyncAction(
-  async (
-    id: string,
-    payload: FormData | BlogPayload,
-  ): Promise<ApiResponse<IBlog>> => {
-    return await serverFetch.patch(`/blogs/${id}`, {
-      body: payload,
-    });
-  },
-);
 
 export const deleteBlog = catchAsyncAction(
-  async (id: string): Promise<ApiResponse<IBlog>> => {
-    return await serverFetch.delete(`/blogs/${id}`);
+  async (slug: string): Promise<ApiResponse<IBlog>> => {
+    return await serverFetch.delete(`/blogs/slug/${slug}`);
   },
 );

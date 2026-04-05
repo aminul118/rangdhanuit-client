@@ -1,4 +1,4 @@
-import { deletePartner } from "@/services/Partner/partner";
+import { deletePartnerBySlug } from "@/services/Partner/partner";
 import { IPartner } from "@/types";
 import { TableActionDropdown } from "@/components/common/table/TableActionDropdown";
 import { ExternalLink, Edit } from "lucide-react";
@@ -11,7 +11,7 @@ interface PartnerActionsProps {
 const PartnerActions = ({ partner, onEdit }: PartnerActionsProps) => {
   return (
     <TableActionDropdown
-      deleteAction={async () => await deletePartner(partner._id)}
+      deleteAction={async () => await deletePartnerBySlug(partner.slug)}
       deleteConfirmMessage={`Are you sure you want to delete ${partner.name}? This action will permanently remove them from your partner list.`}
       deleteSuccessMessage="Partner deleted successfully."
       customItems={[

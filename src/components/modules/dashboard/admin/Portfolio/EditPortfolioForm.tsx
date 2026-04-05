@@ -1,17 +1,17 @@
 "use client";
 
-import { getPortfolioById, updatePortfolio } from "@/services/Portfolio/portfolios";
+import { getPortfolioBySlug, updatePortfolioBySlug } from "@/services/Portfolio/portfolios";
 import PortfolioForm from "./PortfolioForm";
 import useActionHandler from "@/hooks/useActionHandler";
 import { EditFormWrapper } from "@/components/common/layouts/EditFormWrapper";
 import { IPortfolio } from "@/types";
 
-const EditPortfolioForm = ({ id }: { id: string }) => {
+const EditPortfolioForm = ({ slug }: { slug: string }) => {
   const { executePost, isPending } = useActionHandler();
 
   const handleUpdate = async (formData: FormData) => {
     await executePost({
-      action: () => updatePortfolio(id, formData),
+      action: () => updatePortfolioBySlug(slug, formData),
       success: {
         message: "Portfolio updated successfully!",
         redirectPath: "/admin/portfolios",
@@ -22,8 +22,8 @@ const EditPortfolioForm = ({ id }: { id: string }) => {
 
   return (
     <EditFormWrapper<IPortfolio>
-      id={id}
-      fetcher={getPortfolioById}
+      id={slug}
+      fetcher={getPortfolioBySlug}
       title="Edit Project Details"
       subtitle="Refine your project showcase with the latest details and high-quality imagery."
       backLink="/admin/portfolios"

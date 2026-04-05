@@ -307,7 +307,8 @@ function withTooltip<T extends React.ElementType>(Component: T) {
     const [mounted, setMounted] = React.useState(false);
 
     React.useEffect(() => {
-      setMounted(true);
+      const handle = requestAnimationFrame(() => setMounted(true));
+      return () => cancelAnimationFrame(handle);
     }, []);
 
     const component = <Component {...(props as React.ComponentProps<T>)} />;

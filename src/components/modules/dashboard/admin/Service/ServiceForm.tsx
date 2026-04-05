@@ -5,17 +5,9 @@ import { FormField } from "@/components/common/form";
 import PlateRichEditor from "@/components/rich-text/core/rich-editor";
 import { Label } from "@/components/ui/label";
 import SingleImageUploader from "@/components/ui/single-image-uploader";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { IService } from "@/types/Service/service.types";
+import { IService } from "@/types";
 import { motion } from "framer-motion";
-import { Info, Laptop, Smartphone, Compass, Palette, TrendingUp, ShieldCheck } from "lucide-react";
-
+import { Info, Sparkles, Image as ImageIcon } from "lucide-react";
 import { CreationSuiteWrapper } from "@/components/common/layouts/CreationSuiteWrapper";
 import { Input } from "@/components/ui/input";
 
@@ -26,15 +18,6 @@ interface ServiceFormProps {
   submitLabel: string;
 }
 
-const IconOptions = [
-  { value: "Laptop", label: "Web / Desktop", icon: Laptop },
-  { value: "Smartphone", label: "Mobile App", icon: Smartphone },
-  { value: "Compass", label: "Strategy / Navigation", icon: Compass },
-  { value: "Palette", label: "Design / UI / UX", icon: Palette },
-  { value: "TrendingUp", label: "SEO / Marketing", icon: TrendingUp },
-  { value: "ShieldCheck", label: "Security / Cyber", icon: ShieldCheck },
-];
-
 const ServiceForm = ({
   initialData,
   onSubmit,
@@ -43,18 +26,20 @@ const ServiceForm = ({
 }: ServiceFormProps) => {
   const [content, setContent] = useState(initialData?.content || "");
   const [imageFile, setImageFile] = useState<File | string | null>(null);
-  const [selectedIcon, setSelectedIcon] = useState(
-    initialData?.icon || "Laptop"
-  );
+  const [iconFile, setIconFile] = useState<File | string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     form.append("content", content);
-    form.append("icon", selectedIcon);
-    if (imageFile) {
+    
+    if (imageFile instanceof File) {
       form.append("image", imageFile);
     }
+    if (iconFile instanceof File) {
+      form.append("icon", iconFile);
+    }
+    
     await onSubmit(form);
   };
 
@@ -63,7 +48,7 @@ const ServiceForm = ({
       onSubmit={handleSubmit}
       loading={loading}
       submitLabel={submitLabel}
-      heroLabel="Presentation Hero Visual"
+      heroLabel="Visual Background / Thumbnail"
       heroImage={
         <SingleImageUploader
           defaultValue={initialData?.image}
@@ -71,96 +56,81 @@ const ServiceForm = ({
         />
       }
     >
-      {/* Title Section */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="space-y-6"
+        className="space-y-8"
       >
+        {/* Title & Underline */}
         <div className="space-y-3">
           <Input
             id="title"
             name="title"
             defaultValue={initialData?.title}
-            placeholder="Define your excellence..."
-            className="text-2xl md:text-3xl font-black border-none bg-transparent p-0 h-auto focus-visible:ring-0 placeholder:opacity-50"
+            placeholder="Define your technological excellence..."
+            className="text-3xl md:text-4xl font-black border-none bg-transparent p-0 h-auto focus-visible:ring-0 placeholder:opacity-40 tracking-tighter"
           />
-          <div className="h-px w-full bg-border/50 relative">
-            <div className="absolute left-0 top-0 h-full w-20 bg-linear-to-r from-primary to-transparent" />
+          <div className="h-0.5 w-full bg-border/20 relative">
+            <div className="absolute left-0 top-0 h-full w-32 bg-linear-to-r from-primary to-transparent" />
           </div>
         </div>
 
-        {/* Metadata Section: Icon & Teaser */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="space-y-3">
+        {/* Strategic Metadata: Icon & Teaser */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
+          {/* Icon Section (3 cols) */}
+          <div className="md:col-span-4 space-y-4">
             <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/80 ml-1.5 flex items-center gap-2">
-              <Info size={12} className="opacity-40" />
-              Visual Icon
+              <Sparkles size={12} className="text-primary" />
+              Service Icon
             </Label>
-            <Select
-              name="icon"
-              value={selectedIcon}
-              onValueChange={setSelectedIcon}
-            >
-              <SelectTrigger className="font-bold">
-                <div className="flex items-center gap-3">
-                  {selectedIcon && (
-                    <div className="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-400 shadow-lg">
-                      {(() => {
-                        const SelectedIcon =
-                          IconOptions.find((o) => o.value === selectedIcon)
-                            ?.icon || Laptop;
-                        return <SelectedIcon size={14} />;
-                      })()}
-                    </div>
-                  )}
-                  <SelectValue placeholder="Identify your service" />
-                </div>
-              </SelectTrigger>
-              <SelectContent className="bg-background border-border/50 rounded-2xl shadow-2xl backdrop-blur-xl">
-                {IconOptions.map((opt) => (
-                  <SelectItem
-                    key={opt.value}
-                    value={opt.value}
-                    className="py-3 focus:bg-indigo-500/10 focus:text-indigo-400 rounded-xl transition-colors"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-400">
-                        <opt.icon size={14} />
-                      </div>
-                      <span className="font-bold">{opt.label}</span>
-                    </div>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <div className="p-4 rounded-[2rem] bg-background/50 border border-white/5 shadow-inner min-h-[160px] flex items-center justify-center">
+               <SingleImageUploader
+                defaultValue={initialData?.icon}
+                onChange={setIconFile}
+              />
+            </div>
           </div>
 
-          <div className="space-y-3">
-            <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/80 ml-1.5">
+          {/* Teaser Section (8 cols) */}
+          <div className="md:col-span-8 space-y-4">
+            <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/80 ml-1.5 flex items-center gap-2">
+              <Info size={12} className="opacity-40" />
               Concise Teaser
             </Label>
             <FormField
               id="description"
               name="description"
               label=""
-              placeholder="Capture attention in one sentence..."
+              placeholder="Capture strategic attention in a single high-impact sentence..."
               defaultValue={initialData?.description}
               required
             />
+            <div className="grid grid-cols-2 gap-4 mt-6">
+                <div className="p-4 rounded-2xl bg-primary/5 border border-primary/10">
+                    <p className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">Optimization</p>
+                    <p className="text-xs text-muted-foreground/80">Every asset is auto-compressed for speed.</p>
+                </div>
+                <div className="p-4 rounded-2xl bg-indigo-500/5 border border-indigo-500/10">
+                    <p className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-1">Impact</p>
+                    <p className="text-xs text-muted-foreground/80">Premium icons enhance visual trust.</p>
+                </div>
+            </div>
           </div>
         </div>
       </motion.div>
 
-      {/* Immersive Editor Region */}
+      {/* Editor Content */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="group relative"
+        className="group relative pt-8"
       >
         <div className="absolute -left-12 top-0 bottom-0 w-px bg-border/20 group-hover:bg-primary/20 transition-colors" />
+        <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/80 ml-1.5 mb-4 block">
+          Full Detailed Editorial
+        </Label>
         <PlateRichEditor value={content} onChange={setContent} height={800} />
       </motion.div>
     </CreationSuiteWrapper>

@@ -6,8 +6,8 @@ const BlogActions = ({ blog }: { blog: IBlog }) => {
   return (
     <TableActionDropdown
       viewLink={`/blogs/${blog.slug}`}
-      editLink={`/admin/blogs/edit/${blog._id}`}
-      deleteAction={() => deleteBlog(blog._id as string)}
+      editLink={`/admin/blogs/edit/${blog.slug}`}
+      deleteAction={() => deleteBlog(blog.slug as string)}
       deleteConfirmMessage="Are you sure you want to delete this blog?"
       deleteSuccessMessage="Blog post removed successfully from the portal."
     />

@@ -1,12 +1,17 @@
-"use client";
-
-import React from "react";
+import  { useEffect, useState } from "react";
 
 interface TableTimestampProps {
   date?: string | number | Date;
 }
 
 const TableTimestamp = ({ date }: TableTimestampProps) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const handle = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(handle);
+  }, []);
+
   if (!date) {
     return (
       <div className="flex flex-col gap-0.5 whitespace-nowrap opacity-40 italic text-[11px] font-medium text-muted-foreground">
@@ -16,6 +21,11 @@ const TableTimestamp = ({ date }: TableTimestampProps) => {
   }
 
   const d = new Date(date);
+
+  // Prevent hydration mismatch by only rendering the date on the client
+  if (!mounted) {
+    return <div className="h-10 w-24 animate-pulse bg-muted rounded-lg opacity-10" />;
+  }
 
   return (
     <div className="flex flex-col gap-0.5 whitespace-nowrap group transition-all duration-300">

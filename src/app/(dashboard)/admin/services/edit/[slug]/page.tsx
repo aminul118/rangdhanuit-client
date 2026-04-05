@@ -1,4 +1,4 @@
-import { getServiceById } from "@/services/Service/services";
+import { getServiceBySlug } from "@/services/Service/services";
 import EditServiceForm from "@/components/modules/dashboard/admin/Service/EditServiceForm";
 import { Metadata } from 'next';
 import { notFound } from "next/navigation";
@@ -11,16 +11,16 @@ export const metadata: Metadata = {
 const EditServicePage = async ({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }) => {
-  const { id } = await params;
-  const res = await getServiceById(id);
+  const { slug } = await params;
+  const res = await getServiceBySlug(slug);
 
   if (!res.success || !res.data) {
     notFound();
   }
 
-  return <EditServiceForm id={id} initialData={res.data} />;
+  return <EditServiceForm slug={slug} initialData={res.data} />;
 };
 
 export default EditServicePage;

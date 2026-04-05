@@ -14,18 +14,11 @@ export const getPartners = async (
   });
 };
 
-export const getPartnerById = async (
-  id: string,
-): Promise<ApiResponse<IPartner>> => {
-  return await serverFetch.get(`/partners/${id}`, {
-    next: { tags: ["partners", id] },
-  });
-};
 
 export const getPartnerBySlug = async (
   slug: string,
 ): Promise<ApiResponse<IPartner>> => {
-  return await serverFetch.get(`/partners/slug/${slug}`, {
+  return await serverFetch.get(`/partners/${slug}`, {
     next: { tags: ["partners", slug] },
   });
 };
@@ -42,12 +35,12 @@ export const createPartner = catchAsyncAction(
   },
 );
 
-export const updatePartner = catchAsyncAction(
+export const updatePartnerBySlug = catchAsyncAction(
   async (
-    id: string,
+    slug: string,
     payload: FormData | PartnerPayload,
   ): Promise<ApiResponse<IPartner>> => {
-    const res = await serverFetch.patch(`/partners/${id}`, {
+    const res = await serverFetch.patch(`/partners/${slug}`, {
       body: payload,
     });
     revalidate("partners");
@@ -55,9 +48,9 @@ export const updatePartner = catchAsyncAction(
   },
 );
 
-export const deletePartner = catchAsyncAction(
-  async (id: string): Promise<ApiResponse<IPartner>> => {
-    const res = await serverFetch.delete(`/partners/${id}`);
+export const deletePartnerBySlug = catchAsyncAction(
+  async (slug: string): Promise<ApiResponse<IPartner>> => {
+    const res = await serverFetch.delete(`/partners/${slug}`);
     revalidate("partners");
     return res;
   },

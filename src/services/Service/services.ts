@@ -21,13 +21,6 @@ export const getServiceBySlug = async (
   });
 };
 
-export const getServiceById = async (
-  id: string,
-): Promise<ApiResponse<IService>> => {
-  return await serverFetch.get(`/services/${id}`, {
-    next: { tags: ["services", id] },
-  });
-};
 
 export const createService = catchAsyncAction(
   async (formData: FormData): Promise<ApiResponse<IService>> => {
@@ -37,16 +30,17 @@ export const createService = catchAsyncAction(
   },
 );
 
-export const updateService = catchAsyncAction(
-  async (id: string, formData: FormData): Promise<ApiResponse<IService>> => {
-    return await serverFetch.patch(`/services/${id}`, {
+
+export const updateServiceBySlug = catchAsyncAction(
+  async (slug: string, formData: FormData): Promise<ApiResponse<IService>> => {
+    return await serverFetch.patch(`/services/slug/${slug}`, {
       body: formData,
     });
   },
 );
 
 export const deleteService = catchAsyncAction(
-  async (id: string): Promise<ApiResponse<IService>> => {
-    return await serverFetch.delete(`/services/${id}`);
+  async (slug: string): Promise<ApiResponse<IService>> => {
+    return await serverFetch.delete(`/services/slug/${slug}`);
   },
 );

@@ -1,6 +1,6 @@
 "use client";
 
-import { updatePartner } from "@/services/Partner/partner";
+import { updatePartnerBySlug } from "@/services/Partner/partner";
 import PartnerForm from "./PartnerForm";
 import useActionHandler from "@/hooks/useActionHandler";
 import FormLayout from "@/components/common/layouts/FormLayout";
@@ -19,7 +19,7 @@ const EditPartnerForm = ({ partner }: EditPartnerFormProps) => {
 
   const handleUpdate = async (formData: FormData) => {
     await executePost({
-      action: () => updatePartner(partner._id, formData),
+      action: () => updatePartnerBySlug(partner.slug, formData),
       success: {
         message: "Partner updated successfully! Details are now current.",
         redirectPath: "/admin/partners",

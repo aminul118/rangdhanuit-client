@@ -21,32 +21,25 @@ export const getPortfolios = async (
   });
 };
 
-export const getPortfolioById = async (
-  id: string,
-): Promise<ApiResponse<IPortfolio>> => {
-  return await serverFetch.get(`/portfolios/${id}`, {
-    next: { tags: ["portfolios", id] },
-  });
-};
 
 export const getPortfolioBySlug = async (
   slug: string,
 ): Promise<ApiResponse<IPortfolio>> => {
-  return await serverFetch.get(`/portfolios/slug/${slug}`, {
+  return await serverFetch.get(`/portfolios/${slug}`, {
     next: { tags: ["portfolios", slug] },
   });
 };
 
-export const updatePortfolio = catchAsyncAction(
-  async (id: string, payload: FormData): Promise<ApiResponse<IPortfolio>> => {
-    return await serverFetch.put(`/portfolios/${id}`, {
+export const updatePortfolioBySlug = catchAsyncAction(
+  async (slug: string, payload: FormData): Promise<ApiResponse<IPortfolio>> => {
+    return await serverFetch.patch(`/portfolios/${slug}`, {
       body: payload,
     });
   },
 );
 
-export const deletePortfolio = catchAsyncAction(
-  async (id: string): Promise<ApiResponse<IPortfolio>> => {
-    return await serverFetch.delete(`/portfolios/${id}`);
+export const deletePortfolioBySlug = catchAsyncAction(
+  async (slug: string): Promise<ApiResponse<IPortfolio>> => {
+    return await serverFetch.delete(`/portfolios/${slug}`);
   },
 );
