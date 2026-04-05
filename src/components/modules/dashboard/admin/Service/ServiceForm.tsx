@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { isValidImageSrc } from "@/lib/utils";
 import { FormField } from "@/components/common/form";
 import PlateRichEditor from "@/components/rich-text/core/rich-editor";
 import { Label } from "@/components/ui/label";
 import SingleImageUploader from "@/components/ui/single-image-uploader";
 import { IService } from "@/types";
 import { motion } from "framer-motion";
-import { Info, Sparkles, Image as ImageIcon } from "lucide-react";
+import { Info, Sparkles } from "lucide-react";
 import { CreationSuiteWrapper } from "@/components/common/layouts/CreationSuiteWrapper";
 import { Input } from "@/components/ui/input";
 
@@ -51,7 +52,7 @@ const ServiceForm = ({
       heroLabel="Visual Background / Thumbnail"
       heroImage={
         <SingleImageUploader
-          defaultValue={initialData?.image}
+          defaultValue={isValidImageSrc(initialData?.image) ? initialData?.image : undefined}
           onChange={setImageFile}
         />
       }
@@ -67,7 +68,7 @@ const ServiceForm = ({
           <Input
             id="title"
             name="title"
-            defaultValue={initialData?.title}
+            defaultValue={initialData?.title || ""}
             placeholder="Define your technological excellence..."
             className="text-3xl md:text-4xl font-black border-none bg-transparent p-0 h-auto focus-visible:ring-0 placeholder:opacity-40 tracking-tighter"
           />
@@ -86,7 +87,7 @@ const ServiceForm = ({
             </Label>
             <div className="p-4 rounded-[2rem] bg-background/50 border border-white/5 shadow-inner min-h-[160px] flex items-center justify-center">
                <SingleImageUploader
-                defaultValue={initialData?.icon}
+                defaultValue={isValidImageSrc(initialData?.icon) ? initialData?.icon : undefined}
                 onChange={setIconFile}
               />
             </div>
@@ -103,7 +104,7 @@ const ServiceForm = ({
               name="description"
               label=""
               placeholder="Capture strategic attention in a single high-impact sentence..."
-              defaultValue={initialData?.description}
+              defaultValue={initialData?.description || ""}
               required
             />
             <div className="grid grid-cols-2 gap-4 mt-6">

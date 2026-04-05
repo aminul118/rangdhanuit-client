@@ -11,6 +11,7 @@ interface CreationSuiteWrapperProps {
   loading: boolean;
   submitLabel: string;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  variant?: "hero" | "compact";
 }
 
 export const CreationSuiteWrapper = ({
@@ -20,6 +21,7 @@ export const CreationSuiteWrapper = ({
   loading,
   submitLabel,
   onSubmit,
+  variant = "hero",
 }: CreationSuiteWrapperProps) => {
   return (
     <form
@@ -39,7 +41,11 @@ export const CreationSuiteWrapper = ({
               <label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/80 ml-1.5 flex items-center gap-2">
                 {heroLabel}
               </label>
-              <div className="rounded-[2rem] overflow-hidden min-h-[320px] flex items-center justify-center bg-zinc-950/40 border border-white/5 backdrop-blur-3xl shadow-2xl relative group/hero">
+              <div
+                className={`${
+                  variant === "compact" ? "min-h-[180px]" : "min-h-[320px]"
+                } rounded-[2rem] overflow-hidden flex items-center justify-center bg-zinc-950/40 border border-white/5 backdrop-blur-3xl shadow-2xl relative group/hero`}
+              >
                 <div className="absolute inset-0 bg-linear-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover/hero:opacity-100 transition-opacity duration-700" />
                 {heroImage}
               </div>

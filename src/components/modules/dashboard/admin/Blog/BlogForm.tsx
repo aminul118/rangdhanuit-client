@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { isValidImageSrc } from "@/lib/utils";
 import PlateRichEditor from "@/components/rich-text/core/rich-editor";
 import SingleImageUploader from "@/components/ui/single-image-uploader";
 import {
@@ -31,17 +32,19 @@ const BlogForm = ({
   submitLabel = "Publish Article",
 }: BlogFormProps) => {
   const [content, setContent] = useState(initialData?.content || "");
-  const [featuredImageFile, setFeaturedImageFile] = useState<File | string | null>(null);
+  const [featuredImageFile, setFeaturedImageFile] = useState<
+    File | string | null
+  >(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     form.append("content", content);
-    
+
     if (featuredImageFile instanceof File) {
       form.append("image", featuredImageFile); // Backend expects 'image' field for multer
     }
-    
+
     await onSubmit(form);
   };
 
@@ -53,7 +56,11 @@ const BlogForm = ({
       heroLabel="Master Editorial Visual"
       heroImage={
         <SingleImageUploader
-          defaultValue={initialData?.featuredImage}
+          defaultValue={
+            isValidImageSrc(initialData?.featuredImage)
+              ? initialData?.featuredImage
+              : undefined
+          }
           onChange={setFeaturedImageFile}
         />
       }
@@ -95,10 +102,30 @@ const BlogForm = ({
                 <SelectValue placeholder="Select Category" />
               </SelectTrigger>
               <SelectContent className="bg-background border-border/50 rounded-2xl shadow-2xl backdrop-blur-xl">
-                <SelectItem value="tech" className="focus:bg-primary/20 rounded-xl transition-colors">Technology</SelectItem>
-                <SelectItem value="design" className="focus:bg-primary/20 rounded-xl transition-colors">Design</SelectItem>
-                <SelectItem value="software" className="focus:bg-primary/20 rounded-xl transition-colors">Software</SelectItem>
-                <SelectItem value="ai" className="focus:bg-primary/20 rounded-xl transition-colors">Artificial Intelligence</SelectItem>
+                <SelectItem
+                  value="tech"
+                  className="focus:bg-primary/20 rounded-xl transition-colors"
+                >
+                  Technology
+                </SelectItem>
+                <SelectItem
+                  value="design"
+                  className="focus:bg-primary/20 rounded-xl transition-colors"
+                >
+                  Design
+                </SelectItem>
+                <SelectItem
+                  value="software"
+                  className="focus:bg-primary/20 rounded-xl transition-colors"
+                >
+                  Software
+                </SelectItem>
+                <SelectItem
+                  value="ai"
+                  className="focus:bg-primary/20 rounded-xl transition-colors"
+                >
+                  Artificial Intelligence
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -111,11 +138,11 @@ const BlogForm = ({
               <Tag size={12} className="text-primary/60" />
               Meta Identifiers
             </Label>
-            <Input 
-                name="tags" 
-                defaultValue={initialData?.tags?.join(", ")}
-                placeholder="tech, strategy, future..." 
-                className="h-14 rounded-2xl border-white/5 bg-white/5 focus-visible:bg-white/10 transition-all px-6 font-medium"
+            <Input
+              name="tags"
+              defaultValue={initialData?.tags?.join(", ")}
+              placeholder="tech, strategy, future..."
+              className="h-14 rounded-2xl border-white/5 bg-white/5 focus-visible:bg-white/10 transition-all px-6 font-medium"
             />
           </div>
         </div>
@@ -130,10 +157,10 @@ const BlogForm = ({
       >
         <div className="absolute -left-12 top-0 bottom-0 w-px bg-border/20 group-hover:bg-primary/20 transition-colors" />
         <div className="flex items-center gap-3 mb-6 ml-1.5">
-            <Sparkles size={14} className="text-primary animate-pulse" />
-            <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/80">
-              In-Depth Narrative
-            </Label>
+          <Sparkles size={14} className="text-primary animate-pulse" />
+          <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/80">
+            In-Depth Narrative
+          </Label>
         </div>
         <PlateRichEditor value={content} onChange={setContent} height={800} />
       </motion.div>

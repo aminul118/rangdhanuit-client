@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { isValidImageSrc } from "@/lib/utils";
 import SingleImageUploader from "@/components/ui/single-image-uploader";
 import { IPartner } from "@/types";
 import { CreationSuiteWrapper } from "@/components/common/layouts/CreationSuiteWrapper";
@@ -36,10 +37,12 @@ const PartnerForm = ({
       loading={loading}
       submitLabel={submitLabel}
       heroLabel="Partner Logo"
+      variant="compact"
       heroImage={
         <SingleImageUploader
-          defaultValue={initialData?.logo}
+          defaultValue={isValidImageSrc(initialData?.logo) ? initialData?.logo : undefined}
           onChange={setImage}
+          variant="compact"
         />
       }
     >

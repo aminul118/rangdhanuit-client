@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { Globe, Cpu, Wand2 } from "lucide-react";
 import { CreationSuiteWrapper } from "@/components/common/layouts/CreationSuiteWrapper";
 import { Input } from "@/components/ui/input";
+import { isValidImageSrc } from "@/lib/utils";
 
 interface PortfolioFormProps {
   initialData?: IPortfolio;
@@ -43,7 +44,7 @@ const PortfolioForm = ({
       heroLabel="Project Showcase Image"
       heroImage={
         <SingleImageUploader
-          defaultValue={initialData?.image}
+          defaultValue={isValidImageSrc(initialData?.image) ? initialData?.image : undefined}
           onChange={setImage}
         />
       }

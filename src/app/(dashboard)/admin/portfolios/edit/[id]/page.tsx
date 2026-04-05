@@ -14,7 +14,7 @@ const EditPortfolioPage = async ({
 
   return (
     <div>
-      <EditPortfolioForm id={id} />
+      <EditPortfolioForm slug={id} />
     </div>
   );
 };
