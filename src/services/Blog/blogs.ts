@@ -21,11 +21,6 @@ export const getBlogBySlug = async (
   });
 };
 
-export const getBlogById = async (id: string): Promise<ApiResponse<IBlog>> => {
-  return await serverFetch.get(`/blogs/id/${id}`, {
-    next: { tags: ["blogs", id] },
-  });
-};
 
 export const createBlog = catchAsyncAction(
   async (payload: FormData | BlogPayload): Promise<ApiResponse<IBlog>> => {

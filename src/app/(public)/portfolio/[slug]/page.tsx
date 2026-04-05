@@ -1,26 +1,25 @@
 import { getPortfolioBySlug } from "@/services/Portfolio/portfolios";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ISlugPageProps, IPortfolio } from "@/types";
+import { ISlugPageProps } from "@/types";
 import { PortfolioDetailsView } from "@/components/modules/public/portfolio/portfolio-details/PortfolioDetailsView";
 
 export async function generateMetadata({
   params,
 }: ISlugPageProps): Promise<Metadata> {
-  const { slug } = await params;
-  try {
-    const data = (await getPortfolioBySlug(slug)) as {
-      success: boolean;
-      data: IPortfolio;
-    };
+  const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
+  const slug = resolvedParams?.slug;
 
-    if (!data.success || !data.data) {
+  try {
+    const res = await getPortfolioBySlug(slug);
+
+    if (!res.success || !res.data) {
       return {
         title: "Project Not Found | Rangdhanu IT",
       };
     }
 
-    const project = data.data;
+    const project = res.data;
     const description = project.description
       .replace(/<[^>]*>/g, "")
       .slice(0, 160);
@@ -49,17 +48,20 @@ export async function generateMetadata({
 }
 
 export default async function PortfolioDetailsPage({ params }: ISlugPageProps) {
-  const { slug } = await params;
-  const data = (await getPortfolioBySlug(slug)) as {
-    success: boolean;
-    data: IPortfolio;
-  };
+  const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
+  const slug = resolvedParams?.slug;
 
-  if (!data.success || !data.data) {
+  if (!slug) {
     notFound();
   }
 
-  const project = data.data;
+  const res = await getPortfolioBySlug(slug);
+
+  if (!res.success || !res.data) {
+    notFound();
+  }
+
+  const project = res.data;
 
   return <PortfolioDetailsView project={project} />;
 }

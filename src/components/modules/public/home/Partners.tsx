@@ -4,24 +4,17 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { FADE_IN, VIEWPORT_CONFIG } from "@/constants/animations";
+import { IPartner } from "@/types";
 
-const partners = [
-  { name: "A1 Lift", logo: "/images/company/a1-lift.svg" },
-  { name: "Primo BD" },
-  { name: "SHRL", logo: "/images/company/shrl.webp" },
-  { name: "Digital Twins Energy" },
-];
+interface PartnersProps {
+  partners?: IPartner[];
+}
 
-const Partners = () => {
+const Partners = ({ partners = [] }: PartnersProps) => {
+  if (partners.length === 0) return null;
+
   // Repeat partners to fill the scrolling marquee
-  const repeatedPartners = [
-    ...partners,
-    ...partners,
-    ...partners,
-    ...partners,
-    ...partners,
-    ...partners,
-  ];
+  const repeatedPartners = Array.from({ length: 6 }, () => partners).flat();
 
   return (
     <section className="py-16 border-y border-border/50 bg-muted/5 overflow-hidden text-foreground">
@@ -44,7 +37,7 @@ const Partners = () => {
               className="mx-12 flex items-center justify-center grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default"
             >
               {partner.logo ? (
-                <div className="relative h-12 w-32">
+                <div className="relative h-12 w-32 px-4">
                   <Image
                     src={partner.logo}
                     alt={partner.name}

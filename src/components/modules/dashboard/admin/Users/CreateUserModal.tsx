@@ -30,8 +30,7 @@ import {
 } from "@/components/ui/select";
 import { SubmitButton } from "@/components/common/form";
 import { createUser } from "@/services/User/allUsers";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import useActionHandler from "@/hooks/useActionHandler";
 import { UserPlus, Sparkles, Shield } from "lucide-react";
 
 const formSchema = z.object({
@@ -43,8 +42,7 @@ const formSchema = z.object({
 
 const CreateUserModal = () => {
   const [open, setOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  const { execute, isPending } = useActionHandler();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -57,26 +55,18 @@ const CreateUserModal = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    setIsLoading(true);
-    try {
-      const res = await createUser(values);
-      if (res.success) {
-        toast.success("User created successfully. A magical moment! ✨");
-        setOpen(false);
-        form.reset();
-        router.refresh();
-      } else {
-        toast.error(
-          res.message || "Mission failed. We will get them next time.",
-        );
-      }
-    } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : "The universe is not ready for this user.";
-      toast.error(message);
-    } finally {
-      setIsLoading(false);
-    }
-  }
+    await execute({
+      action: () => createUser(values),
+      success: {
+        message: "User created successfully. A magical moment! ✨",
+        onSuccess: () => {
+          setOpen(false);
+          form.reset();
+        },
+        isRefresh: true,
+      },
+    });
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -213,7 +203,7 @@ const CreateUserModal = () => {
             <SubmitButton
               label="Confirm Creation"
               loadingLabel="Initiating..."
-              isLoading={isLoading}
+              isLoading={isPending}
               size="lg"
               iconRight={<Shield size={20} />}
             />

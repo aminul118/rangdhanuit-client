@@ -8,7 +8,9 @@ import { ServiceDetailsView } from "@/components/modules/public/services/service
 export async function generateMetadata({
   params,
 }: ISlugPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
+  const slug = resolvedParams?.slug;
+
   try {
     const res = await getServiceBySlug(slug);
     if (!res.success || !res.data) {
@@ -30,7 +32,13 @@ export async function generateMetadata({
 }
 
 export default async function ServiceDetailsPage({ params }: ISlugPageProps) {
-  const { slug } = await params;
+  const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
+  const slug = resolvedParams?.slug;
+
+  if (!slug) {
+    notFound();
+  }
+
   const res = await getServiceBySlug(slug);
 
   if (!res.success || !res.data) {

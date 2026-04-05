@@ -20,6 +20,16 @@ export const adminMenu: SidebarItem[] = [
     icon: MessageSquare,
     badgeKey: "messages",
   },
+  {
+    href: "/admin/partners",
+    label: "Partners",
+    icon: Briefcase,
+  },
+  {
+    href: "/admin/services",
+    label: "Services",
+    icon: Sparkles,
+  },
 
   {
     href: "/admin/portfolios",
@@ -32,11 +42,7 @@ export const adminMenu: SidebarItem[] = [
     label: "Blog",
     icon: FileText,
   },
-  {
-    href: "/admin/services",
-    label: "Services",
-    icon: Sparkles,
-  },
+
   {
     href: "/admin/users",
     label: "Manage Users",

@@ -10,3 +10,4 @@ export * from "./Notification/notification.types";
 export * from "./common.types";
 export * from "./react.types";
 export * from "./Contact/contact.types";
+export * from "./Partner/partner.types";

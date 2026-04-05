@@ -2,7 +2,7 @@
 
 import generateQueryUrl from "@/lib/generateQueryUrl";
 import { getCookie } from "@/lib/jwt";
-import { revalidateTag } from "next/cache";
+import { revalidate } from "./revalidate";
 import { AppError } from "./AppError";
 
 export type FetchOptions = Omit<RequestInit, "body"> & {
@@ -21,7 +21,13 @@ const serverFetchHelper = async <T>(
     const accessToken = await getCookie("accessToken");
     const refreshToken = await getCookie("refreshToken");
 
-    const isFormData = rest.body instanceof FormData;
+    const bodyContent = rest.body;
+    const isFormData =
+      bodyContent instanceof FormData ||
+      (bodyContent &&
+        typeof bodyContent === "object" &&
+        "append" in bodyContent &&
+        typeof (bodyContent as Record<string, unknown>).append === "function");
     const isString = typeof rest.body === "string";
     const body =
       !isFormData && !isString && rest.body
@@ -65,7 +71,7 @@ const serverFetchHelper = async <T>(
       : endpoint.split("/")[0];
     if (tag) {
       // Revalidate the data tag
-      revalidateTag(tag, "max");
+      revalidate(tag);
     }
   }
 

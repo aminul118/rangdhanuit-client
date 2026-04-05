@@ -17,6 +17,7 @@ const MainLayout = async ({ children }: IChildrenProps) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={cn(
           fonts.outfit.variable,
           fonts.geist.variable,

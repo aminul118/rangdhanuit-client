@@ -11,6 +11,7 @@ import FAQ from "@/components/modules/public/home/FAQ";
 import generateMetaTags from "@/Seo/generateMetaTags";
 import { getServices } from "@/services/Service/services";
 import Hero from "@/components/modules/public/home/Hero";
+import { getPartners } from "@/services/Partner/partner";
 
 export const metadata: Metadata = generateMetaTags({
   title: "Rangdhanu IT | Premium IT Solutions for Your Business",
@@ -21,18 +22,20 @@ export const metadata: Metadata = generateMetaTags({
 });
 
 const Home = async () => {
-  const [servicesRes, portfoliosRes] = await Promise.all([
+  const [servicesRes, portfoliosRes, partnersRes] = await Promise.all([
     getServices({ limit: "6" }),
     getPortfolios({ isFeatured: "true" }),
+    getPartners(),
   ]);
 
   const services = servicesRes?.data || [];
   const portfolios = portfoliosRes?.data || [];
+  const partners = partnersRes?.data || [];
 
   return (
     <div className="flex flex-col">
       <Hero />
-      <Partners />
+      <Partners partners={partners} />
       <Services services={services} />
       <Stats />
       <PortfolioSlider portfolios={portfolios} />
