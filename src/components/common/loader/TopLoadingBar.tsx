@@ -1,28 +1,21 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import LoadingBar from 'react-top-loading-bar';
-import { usePathname } from 'next/navigation';
+import NextTopLoader from 'nextjs-toploader';
 
 const TopLoadingBar = () => {
-  const [progress, setProgress] = useState(0);
-  const pathname = usePathname();
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setProgress(100);
-    }, 200);
-
-    return () => clearTimeout(timeout);
-  }, [pathname]);
-
   return (
-    <LoadingBar
+    <NextTopLoader
       color="#8b5cf6"
-      progress={progress}
-      onLoaderFinished={() => setProgress(0)}
+      initialPosition={0.08}
+      crawlSpeed={200}
       height={3}
-      shadow={true}
+      crawl={true}
+      showSpinner={false}
+      easing="ease"
+      speed={200}
+      shadow="0 0 10px #8b5cf6,0 0 5px #8b5cf6"
+      zIndex={1600}
+      showAtBottom={false}
     />
   );
 };
