@@ -15,6 +15,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { FADE_IN_UP, HOVER_LIFT } from "@/constants/animations";
+import metaConfig from "@/config/meta.config";
 
 const IconMap: Record<string, React.ElementType> = {
   Laptop,
@@ -45,7 +46,7 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
           {/* Progress Image Header */}
           <div className="relative aspect-video overflow-hidden">
             <Image
-              src={service.image}
+              src={service.image || metaConfig.baseImage}
               alt={service.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

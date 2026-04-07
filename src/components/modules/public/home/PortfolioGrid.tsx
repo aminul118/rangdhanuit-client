@@ -31,6 +31,8 @@ const projects = [
   },
 ];
 
+import metaConfig from "@/config/meta.config";
+
 const PortfolioGrid = () => {
   return (
     <section className="py-24 relative bg-background text-foreground transition-colors duration-500">
@@ -74,7 +76,6 @@ const PortfolioGrid = () => {
             </Link>
           </motion.div>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <motion.div
@@ -87,7 +88,7 @@ const PortfolioGrid = () => {
               className="group relative overflow-hidden rounded-[2.5rem] border border-border/50 aspect-video hover:border-primary/50 transition-all cursor-pointer"
             >
               <Image
-                src={project.image}
+                src={project.image || metaConfig.baseImage}
                 alt={project.title}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

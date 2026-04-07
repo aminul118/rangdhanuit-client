@@ -14,8 +14,8 @@ interface PortfolioDetailsViewProps {
 export const PortfolioDetailsView = ({ project }: PortfolioDetailsViewProps) => {
   const projectJsonLd = generateJsonLd("CreativeWork", {
     name: project.title,
-    description: project.description.replace(/<[^>]*>/g, "").slice(0, 160),
-    image: project.image,
+    description: (project?.content || "").replace(/<[^>]*>/g, "").slice(0, 160),
+    image: project.thumbnail,
     url: `${metaConfig.baseUrl}/portfolio/${project.slug}`,
     datePublished: project.createdAt,
     keywords: project.technologies.join(", "),
@@ -62,7 +62,7 @@ export const PortfolioDetailsView = ({ project }: PortfolioDetailsViewProps) => 
       <section className="container mx-auto px-6 -mt-12 relative z-20">
         <div className="grid gap-16 lg:grid-cols-3">
           {/* Main Context Area (Left/Wide) */}
-          <PortfolioDetailsMainContent description={project.description} />
+          <PortfolioDetailsMainContent description={project.content} />
 
           {/* Sidebar Area (Right/Narrative) */}
           <PortfolioDetailsSidebar project={project} />

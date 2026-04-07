@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 import { IPortfolio } from "@/types/Portfolio/portfolio.types";
 import Image from "next/image";
+import metaConfig from "@/config/meta.config";
 
 interface PortfolioListProps {
   projects: IPortfolio[];
@@ -41,7 +42,7 @@ export const PortfolioList = ({ projects }: PortfolioListProps) => {
                   className="relative aspect-video overflow-hidden block"
                 >
                   <Image
-                    src={project.image}
+                    src={project.thumbnail || metaConfig.baseImage}
                     alt={project.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -92,9 +93,9 @@ export const PortfolioList = ({ projects }: PortfolioListProps) => {
                       </div>
                     </Link>
 
-                    {project.link && (
+                    {project.liveLink && (
                       <a
-                        href={project.link}
+                        href={project.liveLink}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-10 h-10 rounded-full bg-muted/30 flex items-center justify-center hover:bg-primary hover:text-white transition-all text-muted-foreground hover:scale-110 active:scale-95"

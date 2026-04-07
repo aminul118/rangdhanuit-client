@@ -15,9 +15,9 @@ const ProjectTableColumn: Column<IPortfolio>[] = [
   {
     header: 'Thumbnail',
     accessor: (p) =>
-      p.image ? (
+      p.thumbnail ? (
         <Image
-          src={p.image}
+          src={p.thumbnail}
           alt={p.title}
           width={60}
           height={40}
@@ -26,7 +26,7 @@ const ProjectTableColumn: Column<IPortfolio>[] = [
       ) : (
         <div className="h-8 w-12 bg-muted rounded-md" />
       ),
-    sortKey: 'image',
+    sortKey: 'thumbnail',
   },
   {
     header: 'Title',

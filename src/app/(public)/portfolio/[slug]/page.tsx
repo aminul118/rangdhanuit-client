@@ -20,29 +20,38 @@ export async function generateMetadata({
     }
 
     const project = res.data;
-    const description = project.description
+    const description = (project.content || "")
       .replace(/<[^>]*>/g, "")
       .slice(0, 160);
 
     return {
-      title: `${project.title} | Portfolio | Rangdhanu IT`,
+      title: project.title,
       description,
       openGraph: {
         title: project.title,
         description,
-        images: [project.image],
+        images: [
+          {
+            url: project.thumbnail,
+            width: 1200,
+            height: 630,
+            alt: project.title,
+          },
+        ],
         type: "article",
+        section: "Portfolio",
       },
       twitter: {
         card: "summary_large_image",
         title: project.title,
         description,
-        images: [project.image],
+        images: [project.thumbnail],
       },
     };
-  } catch {
+  } catch (error) {
+    console.error("Error generating portfolio metadata:", error);
     return {
-      title: "Portfolio | Rangdhanu IT",
+      title: "Our Work",
     };
   }
 }

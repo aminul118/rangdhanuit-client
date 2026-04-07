@@ -101,7 +101,7 @@ const Testimonials = () => {
                 <div className="flex items-center gap-4">
                   <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-primary/20 p-0.5 group-hover:border-primary transition-all">
                     <Image
-                      src={testimonial.avatar}
+                      src={testimonial.avatar || "/default-avatar.png"}
                       alt={testimonial.name}
                       fill
                       className="rounded-full shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-700 object-cover"

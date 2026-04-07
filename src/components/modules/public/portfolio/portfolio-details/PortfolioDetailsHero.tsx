@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ArrowLeft, Calendar, Cpu, Wand2, Zap } from "lucide-react";
 import { IPortfolio } from "@/types/Portfolio/portfolio.types";
 
+import metaConfig from "@/config/meta.config";
+
 interface PortfolioDetailsHeroProps {
   project: IPortfolio;
 }
@@ -14,7 +16,7 @@ export const PortfolioDetailsHero = ({ project }: PortfolioDetailsHeroProps) => 
     <section className="relative h-[65vh] w-full overflow-hidden flex items-center justify-center pt-24">
       {/* Background Image with Overlay */}
       <Image
-        src={project.image}
+        src={project.thumbnail || metaConfig.baseImage}
         alt={project.title}
         fill
         className="object-cover"

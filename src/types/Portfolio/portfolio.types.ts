@@ -2,9 +2,10 @@ export interface IPortfolio {
   _id: string;
   title: string;
   slug: string;
-  description: string;
-  image: string;
-  link?: string;
+  content: string;
+  thumbnail: string;
+  liveLink?: string;
+  github?: string;
   technologies: string[];
   isFeatured?: boolean;
   createdAt: string;
@@ -13,9 +14,10 @@ export interface IPortfolio {
 
 export interface ICreatePortfolio {
   title: string;
-  description: string;
-  image: string;
-  link?: string;
+  content: string;
+  thumbnail: string;
+  liveLink?: string;
+  github?: string;
   technologies: string[];
   isFeatured?: boolean;
 }

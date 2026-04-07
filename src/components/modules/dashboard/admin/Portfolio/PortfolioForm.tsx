@@ -7,7 +7,8 @@ import { Label } from "@/components/ui/label";
 import SingleImageUploader from "@/components/ui/single-image-uploader";
 import { IPortfolio } from "@/types";
 import { motion } from "framer-motion";
-import { Globe, Cpu, Wand2 } from "lucide-react";
+import { FaGithub, FaGlobe } from "react-icons/fa";
+import { Cpu, Wand2 } from "lucide-react";
 import { CreationSuiteWrapper } from "@/components/common/layouts/CreationSuiteWrapper";
 import { Input } from "@/components/ui/input";
 import { isValidImageSrc } from "@/lib/utils";
@@ -25,14 +26,14 @@ const PortfolioForm = ({
   loading,
   submitLabel = "Add Project",
 }: PortfolioFormProps) => {
-  const [content, setContent] = useState(initialData?.description || "");
-  const [image, setImage] = useState<File | string | null>(null);
+  const [content, setContent] = useState(initialData?.content || "");
+  const [thumbnail, setThumbnail] = useState<File | string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    form.append("description", content);
-    if (image) form.append("image", image);
+    form.append("content", content);
+    if (thumbnail) form.append("thumbnail", thumbnail);
     await onSubmit(form);
   };
 
@@ -44,8 +45,8 @@ const PortfolioForm = ({
       heroLabel="Project Showcase Image"
       heroImage={
         <SingleImageUploader
-          defaultValue={isValidImageSrc(initialData?.image) ? initialData?.image : undefined}
-          onChange={setImage}
+          defaultValue={isValidImageSrc(initialData?.thumbnail) ? initialData?.thumbnail : undefined}
+          onChange={setThumbnail}
         />
       }
     >
@@ -69,15 +70,29 @@ const PortfolioForm = ({
           <div className="space-y-6">
             <div className="space-y-4">
               <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5 flex items-center gap-2">
-                <Globe size={12} className="opacity-40" />
+                <FaGlobe size={12} className="opacity-40" />
                 Live Deployment URL
               </Label>
               <FormField
-                id="link"
-                name="link"
+                id="liveLink"
+                name="liveLink"
                 label=""
                 placeholder="https://yourapp.com"
-                defaultValue={initialData?.link}
+                defaultValue={initialData?.liveLink}
+              />
+            </div>
+
+            <div className="space-y-4">
+              <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5 flex items-center gap-2">
+                <FaGithub size={12} className="opacity-40" />
+                GitHub Repository
+              </Label>
+              <FormField
+                id="github"
+                name="github"
+                label=""
+                placeholder="https://github.com/username/repo"
+                defaultValue={initialData?.github}
               />
             </div>
 

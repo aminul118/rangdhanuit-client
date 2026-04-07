@@ -7,6 +7,8 @@ import Link from "next/link";
 import { IBlogSummary } from "@/types";
 import { FADE_IN_UP, HOVER_LIFT, VIEWPORT_CONFIG } from "@/constants/animations";
 
+import metaConfig from "@/config/meta.config";
+
 interface BlogCardProps {
   blog: IBlogSummary;
 }
@@ -23,7 +25,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
     >
       <Link href={`/blog/${blog.slug}`} className="block relative h-56 md:h-64 w-full overflow-hidden">
         <Image
-          src={blog.featuredImage}
+          src={blog.featuredImage || metaConfig.baseImage}
           alt={blog.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -38,7 +40,7 @@ const BlogCard = ({ blog }: BlogCardProps) => {
         <div className="flex flex-wrap items-center gap-4 text-[10px] text-muted-foreground mb-6 font-black uppercase tracking-[0.2em]">
           <div className="flex items-center gap-1.5 group-hover:text-indigo-500 transition-colors">
             <User size={14} className="text-indigo-500" />
-            {blog.author.name}
+            {blog.author?.name || "Rangdhanu IT"}
           </div>
           <div className="flex items-center gap-1.5 group-hover:text-indigo-500 transition-colors">
             <Calendar size={14} className="text-indigo-500" />

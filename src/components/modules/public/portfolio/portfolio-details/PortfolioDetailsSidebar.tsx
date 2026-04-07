@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Cpu, ExternalLink, Globe, Zap } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 import { IPortfolio } from "@/types/Portfolio/portfolio.types";
 
 interface PortfolioDetailsSidebarProps {
@@ -56,29 +57,49 @@ export const PortfolioDetailsSidebar = ({
         </div>
       </div>
 
-      {/* Project Link Section */}
-      {project.link && (
-        <div className="glass-premium p-10 rounded-[3.5rem] border border-border/50 bg-indigo-600/5 backdrop-blur-xl group overflow-hidden">
-          <div className="flex items-center gap-3 mb-6">
+      {/* Project Links Section */}
+      {(project.liveLink || project.github) && (
+        <div className="glass-premium p-10 rounded-[3.5rem] border border-border/50 bg-card/60 backdrop-blur-xl space-y-6">
+          <h3 className="text-xl font-black uppercase tracking-wider text-foreground flex items-center gap-3">
             <Globe size={18} className="text-indigo-600" />
-            <h3 className="text-xl font-black uppercase tracking-wider text-foreground">
-              Live Result
-            </h3>
+            Project Links
+          </h3>
+
+          <div className="space-y-4">
+            {project.liveLink && (
+              <a
+                href={project.liveLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center justify-between p-4 rounded-2xl bg-indigo-600/5 border border-indigo-600/10 hover:bg-indigo-600 hover:text-white transition-all cursor-pointer"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-indigo-600/10 group-hover:bg-white/20 transition-colors">
+                    <Globe size={16} />
+                  </div>
+                  <span className="text-xs font-black uppercase tracking-widest">Live Preview</span>
+                </div>
+                <ExternalLink size={14} className="opacity-40 group-hover:opacity-100 transition-opacity" />
+              </a>
+            )}
+
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center justify-between p-4 rounded-2xl bg-zinc-800/5 border border-zinc-800/10 hover:bg-zinc-800 hover:text-white transition-all cursor-pointer"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-lg bg-zinc-800/10 group-hover:bg-white/20 transition-colors">
+                    <FaGithub size={16} />
+                  </div>
+                  <span className="text-xs font-black uppercase tracking-widest">Source Code</span>
+                </div>
+                <ExternalLink size={14} className="opacity-40 group-hover:opacity-100 transition-opacity" />
+              </a>
+            )}
           </div>
-          <p className="text-sm font-bold text-muted-foreground mb-8 line-clamp-1 break-all italic">
-            &quot;{project.link.replace(/^https?:\/\//, "").replace(/\/$/, "")}&quot;
-          </p>
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block w-full"
-          >
-            <button className="w-full h-14 bg-indigo-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-indigo-600/20 flex items-center justify-center gap-3 cursor-pointer">
-              Visit Project
-              <ExternalLink size={16} />
-            </button>
-          </a>
         </div>
       )}
 

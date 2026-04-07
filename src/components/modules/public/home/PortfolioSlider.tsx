@@ -12,6 +12,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 import { IPortfolio } from "@/types";
+import metaConfig from "@/config/meta.config";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, FreeMode } from "swiper/modules";
 
@@ -133,7 +134,7 @@ const PortfolioSlider = ({ portfolios }: PortfolioSliderProps) => {
                 >
                   <div className="relative overflow-hidden rounded-[2.5rem] border border-border/50 aspect-4/5 hover:border-primary/50 transition-all cursor-pointer bg-muted/20">
                     <Image
-                      src={project.image}
+                      src={project.thumbnail || metaConfig.baseImage}
                       alt={project.title}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

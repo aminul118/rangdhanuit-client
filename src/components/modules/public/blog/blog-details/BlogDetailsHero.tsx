@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ArrowLeft, Calendar, User, Eye, Sparkles } from "lucide-react";
 import { IBlog } from "@/types/Blog/blog.types";
 
+import metaConfig from "@/config/meta.config";
+
 interface BlogDetailsHeroProps {
   blog: IBlog;
 }
@@ -12,7 +14,7 @@ export const BlogDetailsHero = ({ blog }: BlogDetailsHeroProps) => {
     <section className="relative h-[70vh] w-full overflow-hidden flex items-center justify-center pt-24">
       {/* Featured Image Background */}
       <Image
-        src={blog.featuredImage}
+        src={blog.featuredImage || metaConfig.baseImage}
         alt={blog.title}
         fill
         className="object-cover"
@@ -52,7 +54,7 @@ export const BlogDetailsHero = ({ blog }: BlogDetailsHeroProps) => {
             <div className="flex flex-wrap items-center justify-center gap-6 text-muted-foreground/60 font-black uppercase tracking-widest text-[10px]">
               <div className="flex items-center gap-2 border-r border-border/50 pr-6">
                 <User size={14} className="text-indigo-400" />
-                {blog.author.name}
+                {blog.author?.name || "Rangdhanu IT"}
               </div>
               <div className="flex items-center gap-2 border-r border-border/50 pr-6">
                 <Calendar size={14} className="text-indigo-400" />

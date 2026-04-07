@@ -26,34 +26,38 @@ const PartnersSection = async () => {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 items-center">
-          {partners.map((partner) => (
-            <div
-              key={partner._id}
-              className="group relative flex items-center justify-center p-8 bg-zinc-900/50 hover:bg-zinc-800/80 border border-white/5 hover:border-primary/30 rounded-2xl transition-all duration-500 shadow-xl"
-            >
-              <div className="relative w-full h-12 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-110">
-                <Image
-                  src={partner.logo}
-                  alt={partner.name}
-                  fill
-                  className="object-contain"
-                />
-              </div>
+          {partners.map(
+            (partner) =>
+              partner.logo &&
+              partner.logo !== "" && (
+                <div
+                  key={partner._id}
+                  className="group relative flex items-center justify-center p-8 bg-zinc-900/50 hover:bg-zinc-800/80 border border-white/5 hover:border-primary/30 rounded-2xl transition-all duration-500 shadow-xl"
+                >
+                  <div className="relative w-full h-12 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 transform group-hover:scale-110">
+                    <Image
+                      src={partner.logo}
+                      alt={partner.name}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
 
-              {partner.link && (
-                <a
-                  href={partner.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute inset-0 z-20 cursor-pointer"
-                  aria-label={`Visit ${partner.name} website`}
-                />
-              )}
+                  {partner.link && (
+                    <a
+                      href={partner.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute inset-0 z-20 cursor-pointer"
+                      aria-label={`Visit ${partner.name} website`}
+                    />
+                  )}
 
-              {/* Subtle light effect on hover */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-radial-gradient from-primary to-transparent rounded-2xl" />
-            </div>
-          ))}
+                  {/* Subtle light effect on hover */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-radial-gradient from-primary to-transparent rounded-2xl" />
+                </div>
+              )
+          )}
         </div>
       </div>
     </section>

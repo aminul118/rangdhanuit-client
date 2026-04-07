@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { IService } from "@/types/Service/service.types";
 
+import metaConfig from "@/config/meta.config";
+
 const IconMap: Record<string, React.ElementType> = {
   Laptop,
   Smartphone,
@@ -34,7 +36,7 @@ export const ServiceDetailsHero = ({ service }: ServiceDetailsHeroProps) => {
     <section className="relative h-[70vh] w-full overflow-hidden flex items-center justify-center pt-24">
       {/* Background Image with Overlay */}
       <Image
-        src={service.image}
+        src={service.image || metaConfig.baseImage}
         alt={service.title}
         fill
         className="object-cover"

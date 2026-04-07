@@ -10,6 +10,8 @@ export interface MetaConfig {
   baseUrl: string;
   baseImage: string;
   siteName: string;
+  description: string;
+  keywords: string;
   category: string;
   applicationName: string;
   authors_name: string;
@@ -20,6 +22,8 @@ export interface MetaConfig {
   verification: {
     google: string;
     microsoft_bing: string;
+    yandex?: string;
+    me?: string;
   };
   publisher: string;
   preventCrawler: string[];

@@ -115,7 +115,7 @@ export function FontColorToolbarButton({
         </ToolbarButton>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="start">
+      <DropdownMenuContent align="start" className="w-fit p-1">
         <ColorPicker
           color={selectedColor || color}
           clearColor={clearColor}

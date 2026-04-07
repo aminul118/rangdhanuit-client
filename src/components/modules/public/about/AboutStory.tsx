@@ -9,6 +9,8 @@ import {
   VIEWPORT_CONFIG,
 } from "@/constants/animations";
 
+import metaConfig from "@/config/meta.config";
+
 export const AboutStory = () => {
   return (
     <section className="py-24 relative overflow-hidden">
@@ -67,6 +69,7 @@ export const AboutStory = () => {
             </div>
           </motion.div>
 
+          {/* ... (rest of the grid content) */}
           {/* Visual Content */}
           <motion.div
             variants={FADE_IN_RIGHT}

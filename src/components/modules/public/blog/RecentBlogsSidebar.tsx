@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Clock } from "lucide-react";
 import { getBlogs } from "@/services/Blog/blogs";
+import metaConfig from "@/config/meta.config";
 
 interface Blog {
   _id: string;
@@ -38,7 +39,7 @@ const RecentBlogsSidebar = async () => {
             >
               <div className="relative h-20 w-24 shrink-0 rounded-xl overflow-hidden border border-border/50">
                 <Image
-                  src={blog.featuredImage}
+                  src={blog.featuredImage || metaConfig.baseImage}
                   alt={blog.title}
                   fill
                   sizes="100px"

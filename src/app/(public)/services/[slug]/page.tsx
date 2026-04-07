@@ -18,16 +18,31 @@ export async function generateMetadata({
     }
     const service: IService = res.data;
     return {
-      title: `${service.title} | Our Services`,
+      title: service.title,
       description: service.description,
       openGraph: {
+        title: service.title,
+        description: service.description,
+        images: [
+          {
+            url: service.image,
+            width: 1200,
+            height: 630,
+            alt: service.title,
+          },
+        ],
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
         title: service.title,
         description: service.description,
         images: [service.image],
       },
     };
-  } catch {
-    return { title: "Services | Rangdhanu IT" };
+  } catch (error) {
+    console.error("Error generating service metadata:", error);
+    return { title: "Our Services" };
   }
 }
 

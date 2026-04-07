@@ -17,7 +17,7 @@ export const BlogDetailsView = ({ blog }: BlogDetailsViewProps) => {
     dateModified: blog.updatedAt || blog.createdAt,
     author: {
       "@type": "Person",
-      name: blog.author.name,
+      name: blog.author?.name || metaConfig.siteName,
     },
     publisher: {
       "@type": "Organization",
@@ -27,7 +27,7 @@ export const BlogDetailsView = ({ blog }: BlogDetailsViewProps) => {
         url: `${metaConfig.baseUrl}${metaConfig.bookmarks}`,
       },
     },
-    description: blog.content.replace(/<[^>]*>/g, "").slice(0, 160),
+    description: (blog?.content || "").replace(/<[^>]*>/g, "").slice(0, 160),
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `${metaConfig.baseUrl}/blog/${blog.slug}`,

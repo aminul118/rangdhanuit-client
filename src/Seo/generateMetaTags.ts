@@ -26,20 +26,33 @@ const generateMetaTags = ({
 
   return {
     metadataBase: new URL(baseUrl),
-    title,
-    description,
-    keywords,
+    title: {
+      default: title || siteName,
+      template: `%s | ${siteName}`,
+    },
+    description: description || metaConfig.description,
+    keywords: keywords || metaConfig.keywords,
     category,
     icons: {
-      icon: "/favicon.ico",
+      icon: [
+        { url: "/favicon.ico" },
+        { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+        { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      ],
       shortcut: "/favicon.ico",
-      apple: "/logo.png",
+      apple: "/apple-touch-icon.png",
+      other: [
+        {
+          rel: "mask-icon",
+          url: "/safari-pinned-tab.svg",
+        },
+      ],
     },
     openGraph: {
       type: "website",
       url: `${baseUrl}/${cleanPath}`,
       title: title || siteName,
-      description: description,
+      description: description || metaConfig.description,
       siteName,
       images: [
         {
@@ -49,10 +62,12 @@ const generateMetaTags = ({
           alt: title || siteName,
         },
       ],
+      locale: "en_US",
     },
     robots: {
       index: true,
       follow: true,
+      nocache: true,
       googleBot: {
         index: true,
         follow: true,
@@ -66,33 +81,42 @@ const generateMetaTags = ({
       site: twitter_site,
       creator: twitter_site,
       title: title || siteName,
-      description: description,
+      description: description || metaConfig.description,
       images: [image],
     },
     applicationName,
     alternates: {
       canonical: `${baseUrl}/${cleanPath}`,
+      languages: {
+        "en-US": "/en-US",
+      },
     },
     facebook: {
       appId: facebook_app_id,
     },
     verification: {
       google: metaConfig.verification.google,
+      yandex: metaConfig.verification.yandex,
+      me: metaConfig.verification.me,
       other: {
         "msvalidate.01": metaConfig.verification.microsoft_bing,
       },
     },
     publisher,
     creator: authors_name,
-    referrer: "no-referrer",
+    referrer: "origin-when-cross-origin",
     bookmarks,
-    abstract: description,
     authors: [
       {
         name: authors_name,
         url: authorPortfolio,
       },
     ],
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
   };
 };
 
