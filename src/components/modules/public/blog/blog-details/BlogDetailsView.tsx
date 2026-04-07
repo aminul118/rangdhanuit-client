@@ -4,12 +4,15 @@ import { BlogDetailsMainContent } from "./BlogDetailsMainContent";
 import { BlogDetailsSidebar } from "./BlogDetailsSidebar";
 import metaConfig from "@/config/meta.config";
 import { generateJsonLd } from "@/Seo/generateJsonLd";
+import { extractPlainText } from "@/helpers/extractPlainText";
 
 interface BlogDetailsViewProps {
   blog: IBlog;
 }
 
 export const BlogDetailsView = ({ blog }: BlogDetailsViewProps) => {
+  const description = extractPlainText(blog?.content || "").slice(0, 200);
+
   const articleJsonLd = generateJsonLd("BlogPosting", {
     headline: blog.title,
     image: blog.featuredImage,
@@ -27,7 +30,7 @@ export const BlogDetailsView = ({ blog }: BlogDetailsViewProps) => {
         url: `${metaConfig.baseUrl}${metaConfig.bookmarks}`,
       },
     },
-    description: (blog?.content || "").replace(/<[^>]*>/g, "").slice(0, 160),
+    description: extractPlainText(blog?.content || "").slice(0, 160),
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `${metaConfig.baseUrl}/blog/${blog.slug}`,
@@ -69,7 +72,7 @@ export const BlogDetailsView = ({ blog }: BlogDetailsViewProps) => {
       />
 
       {/* Hero Section Component */}
-      <BlogDetailsHero blog={blog} />
+      <BlogDetailsHero blog={blog} description={description} />
 
       {/* Content & Sidebar Section */}
       <div className="container mx-auto px-6 -mt-12 relative z-20">

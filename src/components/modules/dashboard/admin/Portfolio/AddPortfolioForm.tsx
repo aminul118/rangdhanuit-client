@@ -13,7 +13,7 @@ const AddPortfolioForm = () => {
       action: () => createPortfolio(formData),
       success: {
         message: "Portfolio item published! Your work is now live.",
-        redirectPath: "/admin/portfolio",
+        redirectPath: "/admin/portfolios",
         isRefresh: true,
       },
     });
@@ -23,7 +23,7 @@ const AddPortfolioForm = () => {
     <FormLayout
       title="Create Workspace Project"
       subtitle="Document your technical journey. Detail the challenges you overcame and the technology that powered your success."
-      backLink="/admin/portfolio"
+      backLink="/admin/portfolios"
     >
       <PortfolioForm
         onSubmit={handleCreate}

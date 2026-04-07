@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ISlugPageProps } from "@/types";
 import { ServiceDetailsView } from "@/components/modules/public/services/service-details/ServiceDetailsView";
+import { extractPlainText } from "@/helpers/extractPlainText";
 
 export async function generateMetadata({
   params,
@@ -16,32 +17,34 @@ export async function generateMetadata({
     if (!res.success || !res.data) {
       return { title: "Service Not Found | Rangdhanu IT" };
     }
-    const service: IService = res.data;
+    const { title, description: rawDescription, content, image } = res.data;
+    const description = extractPlainText(rawDescription || content || "").slice(0, 160);
+
     return {
-      title: service.title,
-      description: service.description,
+      title,
+      description,
       openGraph: {
-        title: service.title,
-        description: service.description,
+        title,
+        description,
         images: [
           {
-            url: service.image,
+            url: image,
             width: 1200,
             height: 630,
-            alt: service.title,
+            alt: title,
           },
         ],
         type: "website",
       },
       twitter: {
         card: "summary_large_image",
-        title: service.title,
-        description: service.description,
-        images: [service.image],
+        title,
+        description,
+        images: [image],
       },
     };
-  } catch (error) {
-    console.error("Error generating service metadata:", error);
+  } catch {
+
     return { title: "Our Services" };
   }
 }

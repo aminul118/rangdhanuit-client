@@ -7,9 +7,10 @@ import metaConfig from "@/config/meta.config";
 
 interface BlogDetailsHeroProps {
   blog: IBlog;
+  description?: string;
 }
 
-export const BlogDetailsHero = ({ blog }: BlogDetailsHeroProps) => {
+export const BlogDetailsHero = ({ blog, description }: BlogDetailsHeroProps) => {
   return (
     <section className="relative h-[70vh] w-full overflow-hidden flex items-center justify-center pt-24">
       {/* Featured Image Background */}
@@ -50,6 +51,12 @@ export const BlogDetailsHero = ({ blog }: BlogDetailsHeroProps) => {
             <h1 className="text-4xl md:text-7xl font-black tracking-tight text-foreground leading-tight max-w-5xl mx-auto">
               {blog.title}
             </h1>
+
+            {description && (
+              <p className="text-muted-foreground/80 text-lg md:text-xl font-medium max-w-3xl mx-auto leading-relaxed line-clamp-2">
+                {description}
+              </p>
+            )}
 
             <div className="flex flex-wrap items-center justify-center gap-6 text-muted-foreground/60 font-black uppercase tracking-widest text-[10px]">
               <div className="flex items-center gap-2 border-r border-border/50 pr-6">

@@ -3,10 +3,11 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ISlugPageProps } from "@/types";
 import { PortfolioDetailsView } from "@/components/modules/public/portfolio/portfolio-details/PortfolioDetailsView";
+import { extractPlainText } from "@/helpers/extractPlainText";
 
-export async function generateMetadata({
+export const generateMetadata = async ({
   params,
-}: ISlugPageProps): Promise<Metadata> {
+}: ISlugPageProps): Promise<Metadata> => {
   const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
   const slug = resolvedParams?.slug;
 
@@ -19,23 +20,21 @@ export async function generateMetadata({
       };
     }
 
-    const project = res.data;
-    const description = (project.content || "")
-      .replace(/<[^>]*>/g, "")
-      .slice(0, 160);
+    const { title, content, thumbnail } = res.data;
+    const description = extractPlainText(content || "").slice(0, 160);
 
     return {
-      title: project.title,
+      title,
       description,
       openGraph: {
-        title: project.title,
+        title,
         description,
         images: [
           {
-            url: project.thumbnail,
+            url: thumbnail,
             width: 1200,
             height: 630,
-            alt: project.title,
+            alt: title,
           },
         ],
         type: "article",
@@ -43,9 +42,9 @@ export async function generateMetadata({
       },
       twitter: {
         card: "summary_large_image",
-        title: project.title,
+        title,
         description,
-        images: [project.thumbnail],
+        images: [thumbnail],
       },
     };
   } catch (error) {
@@ -56,7 +55,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function PortfolioDetailsPage({ params }: ISlugPageProps) {
+const PortfolioDetailsPage = async ({ params }: ISlugPageProps) => {
   const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
   const slug = resolvedParams?.slug;
 
@@ -74,3 +73,5 @@ export default async function PortfolioDetailsPage({ params }: ISlugPageProps) {
 
   return <PortfolioDetailsView project={project} />;
 }
+
+export default PortfolioDetailsPage

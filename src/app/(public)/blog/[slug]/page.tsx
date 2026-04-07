@@ -4,10 +4,11 @@ import { notFound } from "next/navigation";
 import { ISlugPageProps } from "@/types";
 import { BlogDetailsView } from "@/components/modules/public/blog/blog-details/BlogDetailsView";
 import metaConfig from "@/config/meta.config";
+import { extractPlainText } from "@/helpers/extractPlainText";
 
-export async function generateMetadata({
+export const generateMetadata = async ({
   params,
-}: ISlugPageProps): Promise<Metadata> {
+}: ISlugPageProps): Promise<Metadata> => {
   const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
   const slug = resolvedParams?.slug;
 
@@ -20,39 +21,39 @@ export async function generateMetadata({
       };
     }
 
-    const blog = res.data;
-    const description = (blog.content || "").replace(/<[^>]*>/g, "").slice(0, 160);
+    const { title, content, featuredImage, tags, createdAt, author } = res.data;
+    const description = extractPlainText(content || "").slice(0, 160);
 
     return {
-      title: blog.title,
+      title,
       description,
-      keywords: blog.tags.join(", "),
+      keywords: tags.join(", "),
       openGraph: {
-        title: blog.title,
+        title,
         description,
-        images: [blog.featuredImage],
+        images: [featuredImage],
         type: "article",
-        publishedTime: blog.createdAt,
-        authors: [blog.author?.name || metaConfig.siteName || "Rangdhanu IT"],
+        publishedTime: createdAt,
+        authors: [author?.name || metaConfig.siteName || "Rangdhanu IT"],
         section: "Technology",
-        tags: blog.tags,
+        tags: tags,
       },
       twitter: {
         card: "summary_large_image",
-        title: blog.title,
+        title,
         description,
-        images: [blog.featuredImage],
+        images: [featuredImage],
       },
     };
-  } catch (error) {
-    console.error("Error generating blog metadata:", error);
+  } catch {
+
     return {
       title: "Blog Article",
     };
   }
 }
 
-export default async function BlogDetailsPage({ params }: ISlugPageProps) {
+const BlogDetailsPage = async ({ params }: ISlugPageProps) => {
   const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
   const slug = resolvedParams?.slug;
 
@@ -70,3 +71,5 @@ export default async function BlogDetailsPage({ params }: ISlugPageProps) {
 
   return <BlogDetailsView blog={blog} />;
 }
+
+export default BlogDetailsPage
