@@ -11,21 +11,20 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Logo & About */}
           <div className="col-span-1 md:col-span-1 flex flex-col gap-6">
-            <Link href="/" className="flex items-center gap-2.5 group">
+            <Link href="/" className="flex items-center gap-2.5 group" aria-label="Rangdhanu IT Home">
               <Logo className="w-8 h-8" />
-            
             </Link>
             <p className="text-zinc-400 text-sm leading-relaxed">
               Leading IT solutions provider specializing in web development, app development, and digital marketing.
             </p>
             <div className="flex items-center gap-4">
-              <Link href="#" className="p-2 bg-white/5 border border-white/10 rounded-full hover:text-primary transition-colors">
+              <Link href="#" className="p-2 bg-white/5 border border-white/10 rounded-full hover:text-primary transition-colors" aria-label="Email Us">
                 <Mail className="w-4 h-4" />
               </Link>
-              <Link href="#" className="p-2 bg-white/5 border border-white/10 rounded-full hover:text-primary transition-colors">
+              <Link href="#" className="p-2 bg-white/5 border border-white/10 rounded-full hover:text-primary transition-colors" aria-label="Call Us">
                 <Phone className="w-4 h-4" />
               </Link>
-              <Link href="#" className="p-2 bg-white/5 border border-white/10 rounded-full hover:text-primary transition-colors">
+              <Link href="#" className="p-2 bg-white/5 border border-white/10 rounded-full hover:text-primary transition-colors" aria-label="Visit Our Location">
                 <MapPin className="w-4 h-4" />
               </Link>
             </div>

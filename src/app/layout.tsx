@@ -5,14 +5,12 @@ import "@/styles/globals.css";
 import { cn } from "@/lib/utils";
 import { Metadata, Viewport } from "next";
 import TopLoadingBar from "@/components/common/loader/TopLoadingBar";
-import { getMe } from "@/services/User/getMe";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import Providers from "@/providers/Providers";
 import envVars from "@/config/env.config";
 import { IChildrenProps } from "@/types";
 
-const MainLayout = async ({ children }: IChildrenProps) => {
-  const user = await getMe();
+const MainLayout = ({ children }: IChildrenProps) => {
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -28,7 +26,7 @@ const MainLayout = async ({ children }: IChildrenProps) => {
         <GoogleAnalytics gaId={envVars.analytics.googleAnalytics} />
         <GoogleTagManager gtmId={envVars.analytics.googleTagManagerId} />
         <TopLoadingBar />
-        <Providers initialUser={user}>{children}</Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

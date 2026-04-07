@@ -9,12 +9,12 @@ import { ReactNode } from "react";
 
 interface IProvider {
   children: ReactNode;
-  initialUser: IUser | null;
+  initialUser?: IUser | null;
 }
 
 const Providers = ({
   children,
-  initialUser,
+  initialUser = null,
 }: IProvider) => {
   return (
     <ThemeProvider

@@ -9,7 +9,6 @@ const generateViewport = (): Viewport => {
     colorScheme: 'dark light',
     width: 'device-width',
     initialScale: 1,
-    maximumScale: 1,
   };
 };
 

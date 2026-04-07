@@ -51,6 +51,7 @@ const Navbar = () => {
           <Link
             href="/"
             className="flex items-center gap-1.5 sm:gap-2.5 group whitespace-nowrap"
+            aria-label="Rangdhanu IT Home"
           >
             <Logo className="w-8 h-8 sm:w-[42px] sm:h-[42px] relative" />
           </Link>
@@ -128,7 +129,7 @@ const Navbar = () => {
             <button
               className="w-10 h-10 flex items-center justify-center rounded-full border border-border/50 bg-background/50 backdrop-blur-sm shadow-sm hover:bg-accent transition-all active:scale-90"
               onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle Menu"
+              aria-label={isOpen ? "Close Menu" : "Open Menu"}
             >
               {isOpen ? (
                 <X className="w-5 h-5 text-primary" />

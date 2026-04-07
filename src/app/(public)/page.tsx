@@ -15,7 +15,7 @@ import LatestBlogs from "@/components/modules/public/home/LatestBlogs";
 import { getBlogs } from "@/services/Blog/blogs";
 
 export const metadata: Metadata = generateMetaTags({
-  title: "Rangdhanu IT | Premium IT Solutions for Your Business",
+  title: "Rangdhanu IT | Best IT Solutions for Your Business",
   description:
     "Transform your business with Rangdhanu IT's cutting-edge web development, mobile apps, and digital marketing services. Innovating the future, one pixel at a time.",
   keywords:

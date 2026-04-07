@@ -19,7 +19,7 @@ const Partners = ({ partners = [] }: PartnersProps) => {
   return (
     <section className="py-16 border-y border-border/50 bg-muted/5 overflow-hidden text-foreground">
       <Container className="mb-10 text-center text-foreground">
-        <motion.p
+        <motion.h2
           variants={FADE_IN}
           initial="initial"
           whileInView="whileInView"
@@ -27,7 +27,7 @@ const Partners = ({ partners = [] }: PartnersProps) => {
           className="text-sm font-bold text-muted-foreground uppercase tracking-[0.3em]"
         >
           Partnering with Innovation
-        </motion.p>
+        </motion.h2>
       </Container>
       <div className="flex relative group">
         <div className="flex animate-scroll-left whitespace-nowrap min-w-full items-center py-6">
