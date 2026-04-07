@@ -23,7 +23,7 @@ const SectionHeading = ({
         "max-w-3xl space-y-4 mb-12",
         align === "center" && "mx-auto text-center",
         align === "right" && "ml-auto text-right",
-        className
+        className,
       )}
     >
       <motion.h2

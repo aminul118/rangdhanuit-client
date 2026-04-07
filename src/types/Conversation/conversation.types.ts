@@ -1,4 +1,4 @@
-import { IUser } from '../User/user.types';
+import { IUser } from "../User/user.types";
 
 export interface IMessage {
   _id: string;
@@ -21,7 +21,10 @@ export interface IConversation {
   updatedAt: string;
 }
 
-export interface MessageConversation extends Omit<IConversation, 'participants' | 'lastMessage'> {
+export interface MessageConversation extends Omit<
+  IConversation,
+  "participants" | "lastMessage"
+> {
   participants: IUser[];
   lastMessage?: IMessage;
 }

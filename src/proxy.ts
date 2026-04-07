@@ -1,6 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { tryRefreshToken } from "./services/Auth/refreshToken";
-import { handleTokenRefresh, redirectTo, setAuthCookies } from "./services/User/proxy-utils";
+import {
+  handleTokenRefresh,
+  redirectTo,
+  setAuthCookies,
+} from "./services/User/proxy-utils";
 import {
   getDefaultDashboardRoute,
   getRouteOwner,
@@ -19,7 +23,8 @@ export default async function proxy(req: NextRequest) {
   // 1) First try with current access token
   let user = await getVerifiedUser(req);
   let refreshHappened = false;
-  let updatedTokens: { accessToken: string; refreshToken?: string } | null = null;
+  let updatedTokens: { accessToken: string; refreshToken?: string } | null =
+    null;
 
   // 2) If access is invalid but refresh exists -> refresh once
   const refreshToken = req.cookies.get("refreshToken")?.value;
@@ -48,7 +53,11 @@ export default async function proxy(req: NextRequest) {
 
   // If a refresh happened, sync the cookies to the final response
   if (refreshHappened && updatedTokens) {
-    setAuthCookies(response, updatedTokens.accessToken, updatedTokens.refreshToken);
+    setAuthCookies(
+      response,
+      updatedTokens.accessToken,
+      updatedTokens.refreshToken,
+    );
   }
 
   const role = user?.role as UserRole | undefined;

@@ -62,7 +62,9 @@ export const SecuritySettingsForm = () => {
             placeholder="Enter current password"
           />
           {errors.currentPassword && (
-            <p className="text-xs text-destructive">{errors.currentPassword.message as string}</p>
+            <p className="text-xs text-destructive">
+              {errors.currentPassword.message as string}
+            </p>
           )}
         </div>
 
@@ -75,7 +77,9 @@ export const SecuritySettingsForm = () => {
             placeholder="Enter new password"
           />
           {errors.newPassword && (
-            <p className="text-xs text-destructive">{errors.newPassword.message as string}</p>
+            <p className="text-xs text-destructive">
+              {errors.newPassword.message as string}
+            </p>
           )}
         </div>
 
@@ -88,7 +92,9 @@ export const SecuritySettingsForm = () => {
             placeholder="Confirm your new password"
           />
           {errors.confirmPassword && (
-            <p className="text-xs text-destructive">{errors.confirmPassword.message as string}</p>
+            <p className="text-xs text-destructive">
+              {errors.confirmPassword.message as string}
+            </p>
           )}
         </div>
       </div>

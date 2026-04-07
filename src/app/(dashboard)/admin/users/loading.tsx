@@ -31,9 +31,12 @@ export default function AdminUsersLoading() {
           <Skeleton className="w-24 h-8 rounded-xl bg-muted shadow-sm ml-auto" />
           <Skeleton className="w-20 h-8 rounded-xl bg-muted shadow-sm ml-auto" />
         </div>
-        
+
         {[1, 2, 3, 4, 5, 6, 7].map((i) => (
-          <div key={i} className="grid grid-cols-[80px_1fr_180px_150px_150px] gap-10 p-10 border-b border-border/20 last:border-0 hover:bg-white/5 transition-all duration-300">
+          <div
+            key={i}
+            className="grid grid-cols-[80px_1fr_180px_150px_150px] gap-10 p-10 border-b border-border/20 last:border-0 hover:bg-white/5 transition-all duration-300"
+          >
             <Skeleton className="w-16 h-16 rounded-[1.25rem] bg-muted/70 shadow-inner" />
             <div className="space-y-3">
               <Skeleton className="w-1/2 h-7 rounded-xl bg-muted" />
@@ -42,8 +45,8 @@ export default function AdminUsersLoading() {
             <Skeleton className="w-36 h-12 rounded-2xl bg-muted/50 ml-auto shadow-sm" />
             <Skeleton className="w-28 h-10 rounded-xl bg-muted/40 ml-auto shadow-sm" />
             <div className="flex justify-end gap-3">
-               <Skeleton className="w-12 h-12 rounded-[1rem] bg-muted/60" />
-               <Skeleton className="w-12 h-12 rounded-[1rem] bg-muted/60" />
+              <Skeleton className="w-12 h-12 rounded-[1rem] bg-muted/60" />
+              <Skeleton className="w-12 h-12 rounded-[1rem] bg-muted/60" />
             </div>
           </div>
         ))}
@@ -53,9 +56,9 @@ export default function AdminUsersLoading() {
       <div className="flex flex-col md:flex-row items-center justify-between gap-10 pt-4 px-6 mb-8">
         <Skeleton className="w-72 h-14 rounded-2xl bg-muted/40 border border-border/10 shadow-sm" />
         <div className="flex items-center gap-4">
-           <Skeleton className="w-16 h-16 rounded-2xl bg-muted/30" />
-           <Skeleton className="w-48 h-16 rounded-2xl bg-muted/30 shadow-lg" />
-           <Skeleton className="w-16 h-16 rounded-2xl bg-muted/30" />
+          <Skeleton className="w-16 h-16 rounded-2xl bg-muted/30" />
+          <Skeleton className="w-48 h-16 rounded-2xl bg-muted/30 shadow-lg" />
+          <Skeleton className="w-16 h-16 rounded-2xl bg-muted/30" />
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 
 /**
  * Client hook that detects auth state on navigation
@@ -10,11 +10,11 @@ const useAuthToken = () => {
   void pathname;
 
   // Synchronous check - no state needed
-  if (typeof window === 'undefined') return false;
+  if (typeof window === "undefined") return false;
 
-  const cookies = document.cookie.split(';');
+  const cookies = document.cookie.split(";");
   const hasAccessToken = cookies.some((cookie) =>
-    cookie.trim().startsWith('accessToken='),
+    cookie.trim().startsWith("accessToken="),
   );
 
   return hasAccessToken;

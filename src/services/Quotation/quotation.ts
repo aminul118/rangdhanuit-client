@@ -31,7 +31,10 @@ export const createQuotation = catchAsyncAction(
 );
 
 export const updateQuotation = catchAsyncAction(
-  async (id: string, data: Partial<IQuotation>): Promise<ApiResponse<IQuotation>> => {
+  async (
+    id: string,
+    data: Partial<IQuotation>,
+  ): Promise<ApiResponse<IQuotation>> => {
     return await serverFetch.patch(`/quotations/${id}`, {
       body: data,
     });

@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface TableTimestampProps {
   date?: string | number | Date;
@@ -24,7 +24,9 @@ const TableTimestamp = ({ date }: TableTimestampProps) => {
 
   // Prevent hydration mismatch by only rendering the date on the client
   if (!mounted) {
-    return <div className="h-10 w-24 animate-pulse bg-muted rounded-lg opacity-10" />;
+    return (
+      <div className="h-10 w-24 animate-pulse bg-muted rounded-lg opacity-10" />
+    );
   }
 
   return (

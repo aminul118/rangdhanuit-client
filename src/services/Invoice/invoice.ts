@@ -31,7 +31,10 @@ export const createInvoice = catchAsyncAction(
 );
 
 export const updateInvoice = catchAsyncAction(
-  async (id: string, data: Partial<IInvoice>): Promise<ApiResponse<IInvoice>> => {
+  async (
+    id: string,
+    data: Partial<IInvoice>,
+  ): Promise<ApiResponse<IInvoice>> => {
     return await serverFetch.patch(`/invoices/${id}`, {
       body: data,
     });

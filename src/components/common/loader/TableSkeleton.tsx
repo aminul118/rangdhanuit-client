@@ -76,7 +76,9 @@ export const TableSkeleton = ({
             <TableRow className="bg-muted/30 hover:bg-muted/30 border-b">
               {displayColumns.map((col, idx) => (
                 <TableHead key={idx} className="h-9 px-4 py-2">
-                  <Skeleton className={cn("h-4 rounded", col.width || "w-24")} />
+                  <Skeleton
+                    className={cn("h-4 rounded", col.width || "w-24")}
+                  />
                 </TableHead>
               ))}
             </TableRow>
@@ -89,9 +91,11 @@ export const TableSkeleton = ({
                     <Skeleton
                       className={cn(
                         "h-8",
-                        col.isCircle ? "rounded-full aspect-square" : "rounded-lg",
+                        col.isCircle
+                          ? "rounded-full aspect-square"
+                          : "rounded-lg",
                         col.width || "w-full",
-                        col.className
+                        col.className,
                       )}
                     />
                   </TableCell>

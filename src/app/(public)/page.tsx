@@ -23,12 +23,14 @@ export const metadata: Metadata = generateMetaTags({
 });
 
 const Home = async () => {
-  const [servicesRes, portfoliosRes, partnersRes, blogsRes] = await Promise.all([
-    getServices({ limit: "6" }),
-    getPortfolios({ isFeatured: "true" }),
-    getPartners(),
-    getBlogs({ limit: "3", sort: "-createdAt" }),
-  ]);
+  const [servicesRes, portfoliosRes, partnersRes, blogsRes] = await Promise.all(
+    [
+      getServices({ limit: "6" }),
+      getPortfolios({ isFeatured: "true" }),
+      getPartners(),
+      getBlogs({ limit: "3", sort: "-createdAt" }),
+    ],
+  );
 
   const services = servicesRes?.data || [];
   const portfolios = portfoliosRes?.data || [];

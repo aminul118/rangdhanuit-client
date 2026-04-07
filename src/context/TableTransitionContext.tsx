@@ -1,6 +1,13 @@
-'use client';
+"use client";
 
-import { createContext, useContext, useState, useTransition, ReactNode, TransitionStartFunction } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useTransition,
+  ReactNode,
+  TransitionStartFunction,
+} from "react";
 
 interface TableTransitionContextType {
   isPending: boolean;
@@ -8,11 +15,17 @@ interface TableTransitionContextType {
   startTransitionWithText: (text: string, callback: () => void) => void;
 }
 
-const TableTransitionContext = createContext<TableTransitionContextType | null>(null);
+const TableTransitionContext = createContext<TableTransitionContextType | null>(
+  null,
+);
 
-export const TableTransitionProvider = ({ children }: { children: ReactNode }) => {
+export const TableTransitionProvider = ({
+  children,
+}: {
+  children: ReactNode;
+}) => {
   const [isPending, startTransition] = useTransition();
-  const [loadingText, setLoadingText] = useState('Loading...');
+  const [loadingText, setLoadingText] = useState("Loading...");
 
   const startTransitionWithText = (text: string, callback: () => void) => {
     setLoadingText(text);
@@ -20,7 +33,9 @@ export const TableTransitionProvider = ({ children }: { children: ReactNode }) =
   };
 
   return (
-    <TableTransitionContext.Provider value={{ isPending, loadingText, startTransitionWithText }}>
+    <TableTransitionContext.Provider
+      value={{ isPending, loadingText, startTransitionWithText }}
+    >
       {children}
     </TableTransitionContext.Provider>
   );
@@ -29,7 +44,9 @@ export const TableTransitionProvider = ({ children }: { children: ReactNode }) =
 export const useTableTransition = () => {
   const context = useContext(TableTransitionContext);
   if (!context) {
-    throw new Error('useTableTransition must be used within a TableTransitionProvider');
+    throw new Error(
+      "useTableTransition must be used within a TableTransitionProvider",
+    );
   }
   return context;
 };

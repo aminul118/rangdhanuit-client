@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { ColumnItemPlugin, ColumnPlugin } from '@platejs/layout/react';
+import { ColumnItemPlugin, ColumnPlugin } from "@platejs/layout/react";
 
 import {
   ColumnElement,
   ColumnGroupElement,
-} from '@/components/rich-text/ui/column-node';
+} from "@/components/rich-text/ui/column-node";
 
 export const ColumnKit = [
   ColumnPlugin.withComponent(ColumnGroupElement),

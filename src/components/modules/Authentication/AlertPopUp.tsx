@@ -18,8 +18,8 @@ const AlertPopUp = ({ type, title, description, onClose }: Props) => {
     type === "success"
       ? CheckCircle2Icon
       : type === "error"
-      ? AlertCircleIcon
-      : InfoIcon;
+        ? AlertCircleIcon
+        : InfoIcon;
 
   return (
     <Alert

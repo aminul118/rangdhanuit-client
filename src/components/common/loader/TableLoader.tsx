@@ -13,7 +13,7 @@ const TableLoader = ({ className, text = "Updating..." }: TableLoaderProps) => {
     <div
       className={cn(
         "flex flex-col items-center justify-center gap-4 p-6 transition-all duration-300",
-        className
+        className,
       )}
     >
       <div className="relative flex items-center justify-center">
@@ -23,7 +23,7 @@ const TableLoader = ({ className, text = "Updating..." }: TableLoaderProps) => {
           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
           className="h-12 w-12 rounded-full border-t-2 border-r-2 border-indigo-500 border-b-transparent border-l-transparent shadow-[0_0_15px_-3px_rgba(79,70,229,0.4)]"
         />
-        
+
         {/* Inner Gradient Ring */}
         <motion.div
           animate={{ rotate: -360 }}

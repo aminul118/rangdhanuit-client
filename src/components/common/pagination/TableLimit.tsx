@@ -42,7 +42,9 @@ const TableLimit = ({
           disabled={isPending}
         >
           <SelectTrigger className="px-4 h-11 rounded-2xl border-white/10 bg-background/50 backdrop-blur-sm hover:bg-white/5 transition-all font-bold focus:ring-2 focus:ring-primary/20 focus:border-primary/30 text-xs">
-            <span className="text-muted-foreground mr-1 font-medium italic">Show:</span>
+            <span className="text-muted-foreground mr-1 font-medium italic">
+              Show:
+            </span>
             <SelectValue />
           </SelectTrigger>
           <SelectContent className="bg-black/90 backdrop-blur-xl border-white/10 text-white rounded-2xl p-1 shadow-2xl">

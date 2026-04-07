@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { MentionInputPlugin, MentionPlugin } from '@platejs/mention/react';
+import { MentionInputPlugin, MentionPlugin } from "@platejs/mention/react";
 
 import {
   MentionElement,
   MentionInputElement,
-} from '@/components/rich-text/ui/mention-node';
+} from "@/components/rich-text/ui/mention-node";
 
 export const MentionKit = [
   MentionPlugin.configure({

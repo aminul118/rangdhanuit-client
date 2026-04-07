@@ -1,10 +1,10 @@
-import type { TMentionElement } from 'platejs';
-import type { SlateElementProps } from 'platejs/static';
+import type { TMentionElement } from "platejs";
+import type { SlateElementProps } from "platejs/static";
 
-import { KEYS } from 'platejs';
-import { SlateElement } from 'platejs/static';
+import { KEYS } from "platejs";
+import { SlateElement } from "platejs/static";
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 export function MentionElementStatic(
   props: SlateElementProps<TMentionElement> & {
@@ -19,14 +19,14 @@ export function MentionElementStatic(
       {...props}
       as="span"
       className={cn(
-        'bg-muted inline-block rounded-md px-1.5 py-0.5 align-baseline text-sm font-medium',
-        element.children[0][KEYS.bold] === true && 'font-bold',
-        element.children[0][KEYS.italic] === true && 'italic',
-        element.children[0][KEYS.underline] === true && 'underline',
+        "bg-muted inline-block rounded-md px-1.5 py-0.5 align-baseline text-sm font-medium",
+        element.children[0][KEYS.bold] === true && "font-bold",
+        element.children[0][KEYS.italic] === true && "italic",
+        element.children[0][KEYS.underline] === true && "underline",
       )}
       attributes={{
         ...props.attributes,
-        'data-slate-value': element.value,
+        "data-slate-value": element.value,
       }}
     >
       {props.children}

@@ -34,7 +34,7 @@ const PartnerTable = ({ partners }: PartnerTableProps) => {
         getRowKey={(p) => p._id!}
         emptyMessage="No partners found. Showcase your collaborations by adding partners!"
       />
-      
+
       <PartnerFormModal
         isOpen={isModalOpen}
         onOpenChange={handleModalChange}

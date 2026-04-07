@@ -6,7 +6,9 @@ import { ApiResponse, INotification } from "@/types";
 
 export const fetchNotifications = catchAsyncAction(
   async (): Promise<ApiResponse<INotification[]>> => {
-    return await serverFetch.get<ApiResponse<INotification[]>>("/notifications");
+    return await serverFetch.get<ApiResponse<INotification[]>>(
+      "/notifications",
+    );
   },
 );
 

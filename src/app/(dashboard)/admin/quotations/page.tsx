@@ -18,10 +18,10 @@ const AdminQuotationsPage = async ({
   return (
     <AdminPageWrapper
       skeletonColumns={[
-        { width: "w-16" }, 
-        { width: "w-full" }, 
-        { width: "w-48" }, 
-        { width: "w-10" }, 
+        { width: "w-16" },
+        { width: "w-full" },
+        { width: "w-48" },
+        { width: "w-10" },
       ]}
     >
       <QuotationsList searchParams={params} />

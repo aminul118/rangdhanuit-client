@@ -128,8 +128,10 @@ export const TableActionDropdown = ({
 
           {deleteAction && (
             <>
-              {(viewLink || editLink || (customItems && customItems.length > 0)) && (
-                 <DropdownMenuSeparator className="bg-border/50" />
+              {(viewLink ||
+                editLink ||
+                (customItems && customItems.length > 0)) && (
+                <DropdownMenuSeparator className="bg-border/50" />
               )}
               <DropdownMenuItem
                 onSelect={(e) => {

@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import type { TDateElement } from 'platejs';
-import type { PlateElementProps } from 'platejs/react';
+import type { TDateElement } from "platejs";
+import type { PlateElementProps } from "platejs/react";
 
-import { PlateElement, useReadOnly } from 'platejs/react';
+import { PlateElement, useReadOnly } from "platejs/react";
 
-import { Calendar } from '@/components/ui/calendar';
+import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
 export const DateElement = (props: PlateElementProps<TDateElement>) => {
   const { editor, element } = props;
@@ -21,7 +21,7 @@ export const DateElement = (props: PlateElementProps<TDateElement>) => {
   const trigger = (
     <span
       className={cn(
-        'bg-muted text-muted-foreground w-fit cursor-pointer rounded-sm px-1',
+        "bg-muted text-muted-foreground w-fit cursor-pointer rounded-sm px-1",
       )}
       contentEditable={false}
       draggable
@@ -42,14 +42,14 @@ export const DateElement = (props: PlateElementProps<TDateElement>) => {
             new Date(today.setDate(today.getDate() + 2)).toDateString() ===
             elementDate.toDateString();
 
-          if (isToday) return 'Today';
-          if (isYesterday) return 'Yesterday';
-          if (isTomorrow) return 'Tomorrow';
+          if (isToday) return "Today";
+          if (isYesterday) return "Yesterday";
+          if (isTomorrow) return "Tomorrow";
 
           return elementDate.toLocaleDateString(undefined, {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
+            day: "numeric",
+            month: "long",
+            year: "numeric",
           });
         })()
       ) : (

@@ -3,7 +3,9 @@
 import { useTransition } from "react";
 import { IQuotation } from "@/types/Quotation/quotation.types";
 import { QuotationTableColumns } from "./QuotationTableColumn";
-import TableManageMent, { Column } from "@/components/common/table/TableManageMent";
+import TableManageMent, {
+  Column,
+} from "@/components/common/table/TableManageMent";
 
 interface QuotationTableProps {
   quotations: IQuotation[];

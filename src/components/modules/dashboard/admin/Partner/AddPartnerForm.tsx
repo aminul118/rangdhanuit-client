@@ -16,7 +16,8 @@ const AddPartnerForm = () => {
     await executePost({
       action: () => createPartner(formData),
       success: {
-        message: "Partner created successfully! Your collaboration is now live.",
+        message:
+          "Partner created successfully! Your collaboration is now live.",
         redirectPath: "/admin/partners",
         isRefresh: true,
       },

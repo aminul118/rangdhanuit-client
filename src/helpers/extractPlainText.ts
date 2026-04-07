@@ -3,7 +3,7 @@
  * 1. A JSON stringified array of Slate.js nodes
  * 2. An HTML string
  * 3. A plain text string
- * 
+ *
  * @param content The content string to process
  * @returns Cleaned plain text
  */
@@ -15,7 +15,7 @@ export const extractPlainText = (content: string): string => {
     const trimmedContent = content.trim();
     if (trimmedContent.startsWith("[") && trimmedContent.endsWith("]")) {
       const parsed = JSON.parse(trimmedContent);
-      
+
       // Recursive helper to extract text from Slate.js node structure
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const extractFromNodes = (nodes: any[]): string => {
@@ -39,6 +39,6 @@ export const extractPlainText = (content: string): string => {
   // Fallback: strip HTML tags and normalize whitespace
   return content
     .replace(/<[^>]*>/g, " ") // Replace tags with space to avoid merging words
-    .replace(/\s+/g, " ")      // Normalize multiple spaces
+    .replace(/\s+/g, " ") // Normalize multiple spaces
     .trim();
 };

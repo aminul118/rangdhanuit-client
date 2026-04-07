@@ -50,10 +50,12 @@ const FormField = ({
 
       <div className="relative group/input">
         {icon && (
-          <span className={cn(
-            "absolute left-4 text-muted-foreground/60 transition-colors group-focus-within/input:text-indigo-500 pointer-events-none flex items-center",
-            size === "xl" ? "top-5 h-5 w-5" : "top-3.5 h-4 w-4"
-          )}>
+          <span
+            className={cn(
+              "absolute left-4 text-muted-foreground/60 transition-colors group-focus-within/input:text-indigo-500 pointer-events-none flex items-center",
+              size === "xl" ? "top-5 h-5 w-5" : "top-3.5 h-4 w-4",
+            )}
+          >
             {icon}
           </span>
         )}
@@ -64,7 +66,7 @@ const FormField = ({
             size === "xl" ? "h-14 text-lg pl-12" : "pl-11",
             !icon && (size === "xl" ? "pl-5" : "pl-4"),
             rightSlot && "pr-12",
-            className
+            className,
           )}
           aria-invalid={!!error}
           {...inputProps}

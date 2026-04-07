@@ -9,7 +9,9 @@ import { extractPlainText } from "@/helpers/extractPlainText";
 export const generateMetadata = async ({
   params,
 }: ISlugPageProps): Promise<Metadata> => {
-  const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
+  const resolvedParams = await (params instanceof Promise
+    ? params
+    : Promise.resolve(params));
   const slug = resolvedParams?.slug;
 
   try {
@@ -46,15 +48,16 @@ export const generateMetadata = async ({
       },
     };
   } catch {
-
     return {
       title: "Blog Article",
     };
   }
-}
+};
 
 const BlogDetailsPage = async ({ params }: ISlugPageProps) => {
-  const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
+  const resolvedParams = await (params instanceof Promise
+    ? params
+    : Promise.resolve(params));
   const slug = resolvedParams?.slug;
 
   if (!slug) {
@@ -70,6 +73,6 @@ const BlogDetailsPage = async ({ params }: ISlugPageProps) => {
   const blog = res.data;
 
   return <BlogDetailsView blog={blog} />;
-}
+};
 
-export default BlogDetailsPage
+export default BlogDetailsPage;

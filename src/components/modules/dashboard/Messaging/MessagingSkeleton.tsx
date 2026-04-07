@@ -6,7 +6,10 @@ export const MessagingSkeleton = () => {
       {/* Sidebar Skeleton (Conversation List) */}
       <div className="flex-1 max-w-[350px] space-y-4">
         {[1, 2, 3, 4, 5].map((i) => (
-          <div key={i} className="flex gap-4 p-4 items-center bg-card/30 border border-border/50 rounded-2xl">
+          <div
+            key={i}
+            className="flex gap-4 p-4 items-center bg-card/30 border border-border/50 rounded-2xl"
+          >
             <Skeleton className="w-12 h-12 rounded-full shrink-0" />
             <div className="flex-1 space-y-2">
               <Skeleton className="w-2/3 h-4 rounded-md" />

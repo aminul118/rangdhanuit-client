@@ -11,10 +11,10 @@ type RefreshResponse = {
 const tryRefreshToken = async () => {
   // serverFetch automatically handles cookies via getCookie
   try {
-    const res = await serverFetch.post<{ 
-      success: boolean; 
-      data: RefreshResponse; 
-      message?: string 
+    const res = await serverFetch.post<{
+      success: boolean;
+      data: RefreshResponse;
+      message?: string;
     }>("/auth/refresh-token", {
       cache: "no-store",
     });

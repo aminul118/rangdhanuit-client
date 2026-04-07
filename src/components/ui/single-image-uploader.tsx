@@ -155,7 +155,9 @@ const SingleImageUploader = ({
                       variant="outline"
                       size={variant === "compact" ? "sm" : "lg"}
                       className={`${
-                        variant === "compact" ? "rounded-xl px-6 py-4" : "rounded-2xl px-10 py-7"
+                        variant === "compact"
+                          ? "rounded-xl px-6 py-4"
+                          : "rounded-2xl px-10 py-7"
                       } border border-white/10 font-black hover:bg-white/10 active:scale-95 transition-all text-[11px] uppercase tracking-widest shadow-2xl hover:shadow-primary/10`}
                       onClick={openFileDialog}
                     >
@@ -166,11 +168,15 @@ const SingleImageUploader = ({
                       variant="destructive"
                       size="icon"
                       className={`${
-                        variant === "compact" ? "size-10 rounded-xl" : "size-14 rounded-2xl"
+                        variant === "compact"
+                          ? "size-10 rounded-xl"
+                          : "size-14 rounded-2xl"
                       } border border-white/5 active:scale-95 transition-all shadow-2xl hover:bg-red-600`}
                       onClick={() => removeFile(files[0]?.id)}
                     >
-                      <XIcon className={variant === "compact" ? "size-4" : "size-5"} />
+                      <XIcon
+                        className={variant === "compact" ? "size-4" : "size-5"}
+                      />
                     </Button>
                   </div>
                 </motion.div>
@@ -193,7 +199,11 @@ const SingleImageUploader = ({
                         src={previewUrl!}
                         alt="Ambient glow"
                         fill
-                        className={variant === "compact" ? "object-contain" : "object-cover scale-110"}
+                        className={
+                          variant === "compact"
+                            ? "object-contain"
+                            : "object-cover scale-110"
+                        }
                       />
                     )}
                   </div>
@@ -208,7 +218,9 @@ const SingleImageUploader = ({
                           alt="Asset preview"
                           fill
                           className={`${
-                            variant === "compact" ? "object-contain p-12" : "object-cover"
+                            variant === "compact"
+                              ? "object-contain p-12"
+                              : "object-cover"
                           } transition-transform duration-2000 group-hover/preview:scale-105 ease-out`}
                           priority
                         />
@@ -250,7 +262,9 @@ const SingleImageUploader = ({
                   variant === "compact" ? "p-6" : "p-14"
                 } flex flex-col items-center justify-center text-center relative z-10`}
               >
-                <div className={`${variant === "compact" ? "mb-6" : "mb-12"} relative group/icon`}>
+                <div
+                  className={`${variant === "compact" ? "mb-6" : "mb-12"} relative group/icon`}
+                >
                   <div
                     className={`${
                       variant === "compact" ? "blur-xl" : "blur-2xl"
@@ -258,7 +272,9 @@ const SingleImageUploader = ({
                   />
                   <div
                     className={`${
-                      variant === "compact" ? "size-20 rounded-[1.5rem]" : "size-32 rounded-[2.5rem]"
+                      variant === "compact"
+                        ? "size-20 rounded-[1.5rem]"
+                        : "size-32 rounded-[2.5rem]"
                     } relative bg-zinc-900/40 backdrop-blur-3xl flex items-center justify-center border border-white/10 shadow-[0_0_50px_-12px_rgba(var(--primary),0.3)] group-hover/icon:scale-110 group-hover/icon:rotate-6 transition-all duration-700`}
                   >
                     <ImageIcon
@@ -269,7 +285,9 @@ const SingleImageUploader = ({
                   </div>
                   <div
                     className={`${
-                      variant === "compact" ? "-top-2 -right-2 px-2 py-1 rounded-lg" : "-top-4 -right-4 px-4 py-2 rounded-2xl"
+                      variant === "compact"
+                        ? "-top-2 -right-2 px-2 py-1 rounded-lg"
+                        : "-top-4 -right-4 px-4 py-2 rounded-2xl"
                     } absolute bg-primary/30 backdrop-blur-md border border-primary/40 shadow-xl`}
                   >
                     <Sparkles
@@ -287,7 +305,9 @@ const SingleImageUploader = ({
                 </h3>
                 <p
                   className={`${
-                    variant === "compact" ? "text-[10px] mb-6" : "text-[12px] mb-14"
+                    variant === "compact"
+                      ? "text-[10px] mb-6"
+                      : "text-[12px] mb-14"
                   } text-muted-foreground font-black uppercase tracking-[0.4em] leading-loose max-w-sm opacity-50`}
                 >
                   Inscribe digital identity <br />
@@ -300,11 +320,15 @@ const SingleImageUploader = ({
                   type="button"
                   size={variant === "compact" ? "lg" : "xl"}
                   className={`${
-                    variant === "compact" ? "rounded-xl px-10 py-6" : "rounded-[1.5rem] px-16 py-9"
+                    variant === "compact"
+                      ? "rounded-xl px-10 py-6"
+                      : "rounded-[1.5rem] px-16 py-9"
                   } text-[13px] font-black bg-primary text-primary-foreground hover:bg-primary/90 transition-all active:scale-95 uppercase tracking-[0.3em] shadow-[0_25px_50px_-12px_rgba(var(--primary),0.5)] border-t border-white/20 active:translate-y-1`}
                   onClick={openFileDialog}
                 >
-                  <UploadIcon className={`${variant === "compact" ? "mr-2 size-4" : "mr-4 size-6"}`} />
+                  <UploadIcon
+                    className={`${variant === "compact" ? "mr-2 size-4" : "mr-4 size-6"}`}
+                  />
                   Upload
                 </Button>
               </motion.div>

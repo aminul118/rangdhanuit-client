@@ -37,13 +37,10 @@ const Sidebar = () => {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-2.5"
           >
-            <Link
-              href="/"
-              className="flex flex-col leading-none group"
-            >
-              <Logo 
-                width={36} 
-                height={36} 
+            <Link href="/" className="flex flex-col leading-none group">
+              <Logo
+                width={36}
+                height={36}
                 textClassName="text-lg"
                 className="gap-2.5 mb-1"
               />

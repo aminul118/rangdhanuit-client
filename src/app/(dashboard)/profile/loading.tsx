@@ -13,7 +13,10 @@ export default function ProfileLoading() {
         {/* Navigation Sidebar Skeleton */}
         <div className="lg:w-72 space-y-2">
           {[1, 2, 3, 4].map((i) => (
-            <Skeleton key={i} className="w-full h-[52px] rounded-2xl bg-muted/50" />
+            <Skeleton
+              key={i}
+              className="w-full h-[52px] rounded-2xl bg-muted/50"
+            />
           ))}
         </div>
 

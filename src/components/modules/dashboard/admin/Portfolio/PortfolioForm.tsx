@@ -45,7 +45,11 @@ const PortfolioForm = ({
       heroLabel="Project Showcase Image"
       heroImage={
         <SingleImageUploader
-          defaultValue={isValidImageSrc(initialData?.thumbnail) ? initialData?.thumbnail : undefined}
+          defaultValue={
+            isValidImageSrc(initialData?.thumbnail)
+              ? initialData?.thumbnail
+              : undefined
+          }
           onChange={setThumbnail}
         />
       }

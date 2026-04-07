@@ -58,21 +58,13 @@ const BlogTableColumn: Column<IBlog>[] = [
   },
   {
     header: "Category",
-    accessor: (b) => (
-      <TableBadge>
-        {b.category}
-      </TableBadge>
-    ),
+    accessor: (b) => <TableBadge>{b.category}</TableBadge>,
     sortKey: "category",
     className: "w-32",
   },
   {
     header: "Status",
-    accessor: (b) => (
-      <TableBadge status={b.status}>
-        {b.status}
-      </TableBadge>
-    ),
+    accessor: (b) => <TableBadge status={b.status}>{b.status}</TableBadge>,
     sortKey: "status",
     className: "w-24",
   },

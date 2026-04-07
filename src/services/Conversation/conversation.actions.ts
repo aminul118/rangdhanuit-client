@@ -2,7 +2,13 @@
 
 import serverFetch from "@/lib/server-fetch";
 import { catchAsyncAction } from "@/helpers/catchAsyncAction";
-import { ApiResponse, IUser, IMessage, MessageConversation, IConversation } from "@/types";
+import {
+  ApiResponse,
+  IUser,
+  IMessage,
+  MessageConversation,
+  IConversation,
+} from "@/types";
 
 export const getAdminUser = catchAsyncAction(
   async (): Promise<ApiResponse<IUser>> => {

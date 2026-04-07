@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import { Column } from '@/components/common/table/TableManageMent';
-import { IPortfolio } from '@/types';
-import Image from 'next/image';
-import ProjectActions from './ProjectActions';
-import TableTimestamp from '@/components/common/table/TableTimestamp';
+import { Column } from "@/components/common/table/TableManageMent";
+import { IPortfolio } from "@/types";
+import Image from "next/image";
+import ProjectActions from "./ProjectActions";
+import TableTimestamp from "@/components/common/table/TableTimestamp";
 
 const ProjectTableColumn: Column<IPortfolio>[] = [
   {
-    header: 'SI',
+    header: "SI",
     accessor: (_, i) => i + 1,
-    sortKey: 'createdAt',
+    sortKey: "createdAt",
   },
   {
-    header: 'Thumbnail',
+    header: "Thumbnail",
     accessor: (p) =>
       p.thumbnail ? (
         <Image
@@ -26,30 +26,30 @@ const ProjectTableColumn: Column<IPortfolio>[] = [
       ) : (
         <div className="h-8 w-12 bg-muted rounded-md" />
       ),
-    sortKey: 'thumbnail',
+    sortKey: "thumbnail",
   },
   {
-    header: 'Title',
+    header: "Title",
     accessor: (p) => p.title,
-    sortKey: 'title',
+    sortKey: "title",
   },
   {
-    header: 'Featured',
+    header: "Featured",
     accessor: (p) =>
       p.isFeatured ? (
         <span className="text-green-600 font-medium">Yes</span>
       ) : (
         <span className="text-gray-500">No</span>
       ),
-    sortKey: 'isFeatured',
+    sortKey: "isFeatured",
   },
   {
-    header: 'Date & Time',
+    header: "Date & Time",
     accessor: (p) => <TableTimestamp date={p.createdAt} />,
-    sortKey: 'createdAt',
+    sortKey: "createdAt",
   },
   {
-    header: 'Actions',
+    header: "Actions",
     accessor: (p) => <ProjectActions project={p} />,
   },
 ];

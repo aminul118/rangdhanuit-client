@@ -59,23 +59,25 @@ const UserTableColumn: Column<IUser>[] = [
   },
   {
     header: "Verified",
-    accessor: (u) => (
+    accessor: (u) =>
       u.isVerified ? (
-        <CheckCircle2 size={18} className="text-emerald-500/80 drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]" />
+        <CheckCircle2
+          size={18}
+          className="text-emerald-500/80 drop-shadow-[0_0_8px_rgba(16,185,129,0.3)]"
+        />
       ) : (
         <XCircle size={18} className="text-rose-500/40" />
-      )
-    ),
+      ),
     sortKey: "isVerified",
     className: "w-20 text-center",
   },
   {
-    header: 'Joined At',
+    header: "Joined At",
     accessor: (u) => <TableTimestamp date={u.createdAt} />,
-    sortKey: 'createdAt',
+    sortKey: "createdAt",
   },
   {
-    header: 'Actions',
+    header: "Actions",
     accessor: (u) => <UserActions user={u} />,
   },
 ];

@@ -18,7 +18,7 @@ export const AdminMessagesContent = () => {
     loading,
     loadingMessages,
     recipient,
-    user
+    user,
   } = useMessaging();
 
   if (loading) {
@@ -64,7 +64,8 @@ export const AdminMessagesContent = () => {
               Select a conversation
             </h3>
             <p className="max-w-[400px]">
-              Choose a user from the list to start chatting or view the history of your support interactions.
+              Choose a user from the list to start chatting or view the history
+              of your support interactions.
             </p>
           </div>
         )}

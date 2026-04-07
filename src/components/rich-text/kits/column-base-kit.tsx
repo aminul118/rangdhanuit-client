@@ -1,9 +1,9 @@
-import { BaseColumnItemPlugin, BaseColumnPlugin } from '@platejs/layout';
+import { BaseColumnItemPlugin, BaseColumnPlugin } from "@platejs/layout";
 
 import {
   ColumnElementStatic,
   ColumnGroupElementStatic,
-} from '@/components/rich-text/ui/column-node-static';
+} from "@/components/rich-text/ui/column-node-static";
 
 export const BaseColumnKit = [
   BaseColumnPlugin.withComponent(ColumnGroupElementStatic),

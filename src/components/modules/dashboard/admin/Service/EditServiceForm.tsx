@@ -1,6 +1,9 @@
 "use client";
 
-import { getServiceBySlug, updateServiceBySlug } from "@/services/Service/services";
+import {
+  getServiceBySlug,
+  updateServiceBySlug,
+} from "@/services/Service/services";
 import ServiceForm from "./ServiceForm";
 import useActionHandler from "@/hooks/useActionHandler";
 import { IService } from "@/types";
@@ -18,7 +21,8 @@ const EditServiceForm = ({ slug, initialData }: EditServiceFormProps) => {
     await executePost({
       action: () => updateServiceBySlug(slug, formData),
       success: {
-        message: "Service refined! Changes are now reflecting on the main portal.",
+        message:
+          "Service refined! Changes are now reflecting on the main portal.",
         redirectPath: "/admin/services",
         isRefresh: true,
       },
@@ -35,10 +39,10 @@ const EditServiceForm = ({ slug, initialData }: EditServiceFormProps) => {
       backLink="/admin/services"
     >
       {(service: IService) => (
-        <ServiceForm 
-          onSubmit={handleUpdate} 
-          loading={isPending} 
-          submitLabel="Update Service" 
+        <ServiceForm
+          onSubmit={handleUpdate}
+          loading={isPending}
+          submitLabel="Update Service"
           initialData={service}
         />
       )}

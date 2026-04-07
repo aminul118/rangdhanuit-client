@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
-import { Search, X } from 'lucide-react';
-import { useEffect, useState, useCallback } from 'react';
-import { useTableTransition } from '@/context/TableTransitionContext';
-import { motion, AnimatePresence } from 'framer-motion';
-import { POP_IN, POP_IN_TRANSITION } from '@/constants/animations';
-import useSearchParamsValues from '@/hooks/useSearchParamsValues';
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { Search, X } from "lucide-react";
+import { useEffect, useState, useCallback } from "react";
+import { useTableTransition } from "@/context/TableTransitionContext";
+import { motion, AnimatePresence } from "framer-motion";
+import { POP_IN, POP_IN_TRANSITION } from "@/constants/animations";
+import useSearchParamsValues from "@/hooks/useSearchParamsValues";
 
 interface TableSearchProps {
   placeholder?: string;
@@ -15,21 +15,24 @@ interface TableSearchProps {
 }
 
 const TableSearch = ({
-  placeholder = 'Search...',
+  placeholder = "Search...",
   className,
 }: TableSearchProps) => {
-  const { values, setParams } = useSearchParamsValues('searchTerm');
-  const searchQuery = values.searchTerm || '';
+  const { values, setParams } = useSearchParamsValues("searchTerm");
+  const searchQuery = values.searchTerm || "";
   const [query, setQuery] = useState(searchQuery);
 
   const { startTransitionWithText } = useTableTransition();
 
   // Debounced search update
-  const updateSearch = useCallback((value: string) => {
-    startTransitionWithText('Searching...', () => {
-      setParams({ searchTerm: value, page: 1 });
-    });
-  }, [setParams, startTransitionWithText]);
+  const updateSearch = useCallback(
+    (value: string) => {
+      startTransitionWithText("Searching...", () => {
+        setParams({ searchTerm: value, page: 1 });
+      });
+    },
+    [setParams, startTransitionWithText],
+  );
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -42,8 +45,8 @@ const TableSearch = ({
   }, [query, searchQuery, updateSearch]);
 
   const handleClear = () => {
-    setQuery('');
-    updateSearch('');
+    setQuery("");
+    updateSearch("");
   };
 
   return (

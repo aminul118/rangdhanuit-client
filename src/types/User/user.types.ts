@@ -1,5 +1,5 @@
-export type UserRole = 'ADMIN' | 'USER' | 'SUPER_ADMIN';
-export type UserStatus = 'ACTIVE' | 'BLOCKED';
+export type UserRole = "ADMIN" | "USER" | "SUPER_ADMIN";
+export type UserStatus = "ACTIVE" | "BLOCKED";
 
 export interface IUser {
   _id: string;

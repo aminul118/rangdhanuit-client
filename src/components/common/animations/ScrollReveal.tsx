@@ -29,7 +29,12 @@ const ScrollReveal = ({
     hidden: {
       opacity: 0,
       y: animation === "fade-up" ? distance : 0,
-      x: animation === "fade-left" ? -distance : animation === "fade-right" ? distance : 0,
+      x:
+        animation === "fade-left"
+          ? -distance
+          : animation === "fade-right"
+            ? distance
+            : 0,
       scale: animation === "zoom-in" ? 0.95 : 1,
     },
     visible: {

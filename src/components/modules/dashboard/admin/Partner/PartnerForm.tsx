@@ -40,7 +40,9 @@ const PartnerForm = ({
       variant="compact"
       heroImage={
         <SingleImageUploader
-          defaultValue={isValidImageSrc(initialData?.logo) ? initialData?.logo : undefined}
+          defaultValue={
+            isValidImageSrc(initialData?.logo) ? initialData?.logo : undefined
+          }
           onChange={setImage}
           variant="compact"
         />

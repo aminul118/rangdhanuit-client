@@ -71,16 +71,16 @@ export const FLOAT_ANIMATION = {
 };
 
 export const GENTLE_FLOAT = {
-    animate: {
-      y: [0, 30, 0],
-      opacity: [0.2, 0.4, 0.2],
-    },
-    transition: {
-      duration: 7,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
-  };
+  animate: {
+    y: [0, 30, 0],
+    opacity: [0.2, 0.4, 0.2],
+  },
+  transition: {
+    duration: 7,
+    repeat: Infinity,
+    ease: "easeInOut",
+  },
+};
 
 export const POP_IN: Variants = {
   initial: { opacity: 0, scale: 0.9 },

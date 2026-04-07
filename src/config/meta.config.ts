@@ -1,4 +1,4 @@
-import { MetaConfig } from '@/types';
+import { MetaConfig } from "@/types";
 
 const metaConfig: MetaConfig = {
   baseUrl: "https://rangdhanuit.com",

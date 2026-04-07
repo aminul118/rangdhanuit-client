@@ -32,7 +32,6 @@ export const updateBlogBySlug = catchAsyncAction(
   },
 );
 
-
 export const createBlog = catchAsyncAction(
   async (payload: FormData | BlogPayload): Promise<ApiResponse<IBlog>> => {
     return await serverFetch.post("/blogs", {
@@ -40,7 +39,6 @@ export const createBlog = catchAsyncAction(
     });
   },
 );
-
 
 export const deleteBlog = catchAsyncAction(
   async (slug: string): Promise<ApiResponse<IBlog>> => {

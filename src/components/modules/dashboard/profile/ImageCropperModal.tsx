@@ -2,12 +2,12 @@
 
 import { useState, useCallback } from "react";
 import Cropper, { Point, Area } from "react-easy-crop";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogFooter 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -20,11 +20,11 @@ interface ImageCropperModalProps {
   onCropComplete: (croppedImage: Blob) => void;
 }
 
-export const ImageCropperModal = ({ 
-  image, 
-  isOpen, 
-  onClose, 
-  onCropComplete 
+export const ImageCropperModal = ({
+  image,
+  isOpen,
+  onClose,
+  onCropComplete,
 }: ImageCropperModalProps) => {
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -53,7 +53,7 @@ export const ImageCropperModal = ({
 
   const getCroppedImg = async (
     imageSrc: string,
-    pixelCrop: Area
+    pixelCrop: Area,
   ): Promise<Blob | null> => {
     const image = await createImage(imageSrc);
     const canvas = document.createElement("canvas");
@@ -73,7 +73,7 @@ export const ImageCropperModal = ({
       0,
       0,
       pixelCrop.width,
-      pixelCrop.height
+      pixelCrop.height,
     );
 
     return new Promise((resolve) => {
@@ -132,15 +132,15 @@ export const ImageCropperModal = ({
           </div>
 
           <DialogFooter className="gap-2 sm:gap-0">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={onClose}
               className="rounded-xl px-6 border-white/10 hover:bg-white/5"
             >
               <X className="w-4 h-4 mr-2" />
               Cancel
             </Button>
-            <Button 
+            <Button
               onClick={handleSave}
               className="rounded-xl px-8 bg-primary text-primary-foreground shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all"
             >

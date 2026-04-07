@@ -74,7 +74,9 @@ export const VerifyOtpForm = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-center space-y-4 w-full">
-        <Label className="text-xs font-bold uppercase tracking-widest text-zinc-500">Verification Code</Label>
+        <Label className="text-xs font-bold uppercase tracking-widest text-zinc-500">
+          Verification Code
+        </Label>
         <InputOTP
           maxLength={6}
           value={otp}

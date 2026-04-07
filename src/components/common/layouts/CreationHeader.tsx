@@ -11,7 +11,12 @@ interface CreationHeaderProps {
   extraActions?: React.ReactNode;
 }
 
-const CreationHeader = ({ title, subtitle, backLink, extraActions }: CreationHeaderProps) => {
+const CreationHeader = ({
+  title,
+  subtitle,
+  backLink,
+  extraActions,
+}: CreationHeaderProps) => {
   return (
     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12 ">
       <div className="space-y-3">

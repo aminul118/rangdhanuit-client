@@ -1,21 +1,21 @@
-import { cn } from '@/lib/utils';
-import { Loader, Loader2 } from 'lucide-react';
+import { cn } from "@/lib/utils";
+import { Loader, Loader2 } from "lucide-react";
 
 type SpinnerProps = {
   className?: string;
   size?: number;
-  variant?: 'default' | 'round';
+  variant?: "default" | "round";
 };
 
 const ButtonSpinner = ({
   className,
   size = 16,
-  variant = 'default',
+  variant = "default",
 }: SpinnerProps) => {
-  const Icon = variant === 'round' ? Loader2 : Loader;
+  const Icon = variant === "round" ? Loader2 : Loader;
 
   return (
-    <div className={cn('flex items-center justify-center', className)}>
+    <div className={cn("flex items-center justify-center", className)}>
       <Icon size={size} className="animate-spin" />
     </div>
   );

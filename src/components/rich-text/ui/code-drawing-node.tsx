@@ -1,13 +1,13 @@
 // @ts-nocheck
-'use client';
+"use client";
 
-import * as React from 'react';
+import * as React from "react";
 
 import type {
   CodeDrawingType,
   TCodeDrawingElement,
   ViewMode,
-} from '@platejs/code-drawing';
+} from "@platejs/code-drawing";
 import {
   CODE_DRAWING_TYPE_ARRAY,
   DEFAULT_MIN_HEIGHT,
@@ -17,10 +17,10 @@ import {
   VIEW_MODE_ARRAY,
   downloadImage,
   renderCodeDrawing,
-} from '@platejs/code-drawing';
-import debounce from 'lodash/debounce.js';
-import { DownloadIcon, Trash2 } from 'lucide-react';
-import type { PlateElementProps } from 'platejs/react';
+} from "@platejs/code-drawing";
+import debounce from "lodash/debounce.js";
+import { DownloadIcon, Trash2 } from "lucide-react";
+import type { PlateElementProps } from "platejs/react";
 import {
   PlateElement,
   useEditorRef,
@@ -29,29 +29,29 @@ import {
   useFocusedLast,
   useReadOnly,
   useSelected,
-} from 'platejs/react';
+} from "platejs/react";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverAnchor,
   PopoverContent,
-} from '@/components/ui/popover';
+} from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { useIsMobile } from '@/hooks/use-mobile';
+} from "@/components/ui/select";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 function useCodeDrawingElement({ element }: { element: TCodeDrawingElement }) {
   const editor = useEditorRef();
   const readOnly = useReadOnly();
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
-  const [image, setImage] = React.useState<string>('');
+  const [image, setImage] = React.useState<string>("");
 
   const lastRequestRef = React.useRef(0);
 
@@ -64,7 +64,7 @@ function useCodeDrawingElement({ element }: { element: TCodeDrawingElement }) {
           const requestId = lastRequestRef.current;
 
           if (!code || !code.trim() || !drawingType) {
-            setImage('');
+            setImage("");
             setLoading(false);
             setError(null);
             return;
@@ -86,8 +86,8 @@ function useCodeDrawingElement({ element }: { element: TCodeDrawingElement }) {
             }
           } catch (err) {
             if (lastRequestRef.current === requestId) {
-              setError(err instanceof Error ? err.message : 'Rendering failed');
-              setImage('');
+              setError(err instanceof Error ? err.message : "Rendering failed");
+              setImage("");
             }
           } finally {
             if (lastRequestRef.current === requestId) {
@@ -195,9 +195,9 @@ export function CodeDrawingElement(
     [editor, element],
   );
 
-  const code = element.data?.code ?? '';
-  const drawingType = element.data?.drawingType ?? 'Mermaid';
-  const drawingMode = element.data?.drawingMode ?? 'Both';
+  const code = element.data?.code ?? "";
+  const drawingType = element.data?.drawingType ?? "Mermaid";
+  const drawingMode = element.data?.drawingMode ?? "Both";
 
   const selectionCollapsed = useEditorSelector(
     (editor) => !editor.api.isExpanded(),
@@ -311,7 +311,7 @@ function CodeDrawingPreview({
 
   return (
     <div
-      className={`flex ${isMobile ? 'flex-col-reverse' : 'flex-col'} group bg-muted/50 my-4 w-full items-stretch border md:flex-row`}
+      className={`flex ${isMobile ? "flex-col-reverse" : "flex-col"} group bg-muted/50 my-4 w-full items-stretch border md:flex-row`}
       style={{
         minHeight: `${DEFAULT_MIN_HEIGHT}px`,
       }}
@@ -365,12 +365,12 @@ function CodeDrawingToolbar({
 
   const opacityClass =
     isMobile || toolbarVisible || languageSelectOpen || viewModeSelectOpen
-      ? 'opacity-100'
-      : 'opacity-0 group-hover:opacity-100';
+      ? "opacity-100"
+      : "opacity-0 group-hover:opacity-100";
 
   const positionClass = isMobile
-    ? 'flex items-center gap-2'
-    : 'absolute right-2 z-10 flex items-center gap-2';
+    ? "flex items-center gap-2"
+    : "absolute right-2 z-10 flex items-center gap-2";
 
   return (
     <div
@@ -392,7 +392,7 @@ function CodeDrawingToolbar({
         >
           <SelectTrigger
             className={`bg-muted/50 h-8 w-[120px] border-0 text-xs shadow-none ${
-              isMobile ? '' : 'transition-colors hover:bg-zinc-200'
+              isMobile ? "" : "transition-colors hover:bg-zinc-200"
             }`}
           >
             <SelectValue />
@@ -416,7 +416,7 @@ function CodeDrawingToolbar({
         >
           <SelectTrigger
             className={`bg-muted/50 h-8 w-[80px] border-0 text-xs shadow-none ${
-              isMobile ? '' : 'transition-colors hover:bg-zinc-200'
+              isMobile ? "" : "transition-colors hover:bg-zinc-200"
             }`}
           >
             <SelectValue />
@@ -476,17 +476,17 @@ function CodeDrawingTextarea({
   return (
     <div
       className={`${
-        isCodeOnlyMode ? 'w-full' : 'min-w-0 flex-1'
-      } flex flex-col ${isCodeOnlyMode && !isMobile ? 'relative' : ''} ${
-        showBorder && !isMobile ? 'border-r' : ''
+        isCodeOnlyMode ? "w-full" : "min-w-0 flex-1"
+      } flex flex-col ${isCodeOnlyMode && !isMobile ? "relative" : ""} ${
+        showBorder && !isMobile ? "border-r" : ""
       }`}
     >
       {toolbar && isCodeOnlyMode && (
         <div
           className={
             isMobile
-              ? 'mt-2 mb-2 flex justify-end px-2'
-              : 'absolute right-2 z-10 mt-2'
+              ? "mt-2 mb-2 flex justify-end px-2"
+              : "absolute right-2 z-10 mt-2"
           }
         >
           {toolbar}
@@ -496,9 +496,9 @@ function CodeDrawingTextarea({
       <div className="relative flex-1 rounded-md">
         <pre
           className={
-            'm-0 overflow-x-auto p-8 pr-4 font-mono text-sm leading-[normal] [tab-size:2] print:break-inside-avoid'
+            "m-0 overflow-x-auto p-8 pr-4 font-mono text-sm leading-[normal] [tab-size:2] print:break-inside-avoid"
           }
-          style={{ minHeight: `${DEFAULT_MIN_HEIGHT}px`, height: '100%' }}
+          style={{ minHeight: `${DEFAULT_MIN_HEIGHT}px`, height: "100%" }}
         >
           <code className="block h-full w-full">
             <textarea
@@ -541,16 +541,16 @@ function CodeDrawingPreviewArea({
 
   return (
     <div
-      className={`flex min-w-0 flex-1 flex-col ${isMobile ? '' : 'relative'} ${
-        showBorder && isMobile ? 'border-b' : ''
+      className={`flex min-w-0 flex-1 flex-col ${isMobile ? "" : "relative"} ${
+        showBorder && isMobile ? "border-b" : ""
       }`}
     >
       {toolbar && (
         <div
           className={
             isMobile
-              ? 'mt-2 mb-2 flex justify-end px-2'
-              : 'absolute right-2 z-10 mt-2'
+              ? "mt-2 mb-2 flex justify-end px-2"
+              : "absolute right-2 z-10 mt-2"
           }
         >
           {toolbar}
@@ -560,7 +560,7 @@ function CodeDrawingPreviewArea({
       {showImage ? (
         <div
           className={
-            'bg-muted/30 flex flex-1 items-center justify-center rounded-md p-4'
+            "bg-muted/30 flex flex-1 items-center justify-center rounded-md p-4"
           }
         >
           {loading && <div className="text-muted-foreground">Loading...</div>}
@@ -573,7 +573,7 @@ function CodeDrawingPreviewArea({
           )}
           {!loading && !image && (
             <div className="text-muted-foreground">
-              {code.trim() ? 'Rendering...' : 'Preview will appear here'}
+              {code.trim() ? "Rendering..." : "Preview will appear here"}
             </div>
           )}
         </div>

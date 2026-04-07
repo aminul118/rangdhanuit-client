@@ -33,11 +33,14 @@ export default function AdminPortfoliosLoading() {
           <Skeleton className="w-24 h-6 rounded-md bg-muted/80" />
         </div>
         {[1, 2, 3, 4, 5, 6].map((i) => (
-          <div key={i} className="flex items-center gap-6 p-8 border-b border-border/30 last:border-0 hover:bg-muted/5 transition-colors">
+          <div
+            key={i}
+            className="flex items-center gap-6 p-8 border-b border-border/30 last:border-0 hover:bg-muted/5 transition-colors"
+          >
             <Skeleton className="w-12 h-12 rounded-xl bg-muted/70 shadow-sm" />
             <div className="flex-1 space-y-3">
-               <Skeleton className="w-2/3 h-6 rounded-lg bg-muted" />
-               <Skeleton className="w-1/3 h-4 rounded-lg bg-muted/40" />
+              <Skeleton className="w-2/3 h-6 rounded-lg bg-muted" />
+              <Skeleton className="w-1/3 h-4 rounded-lg bg-muted/40" />
             </div>
             <Skeleton className="w-40 h-10 rounded-xl bg-muted/50" />
             <Skeleton className="w-32 h-8 rounded-lg bg-muted/40" />

@@ -14,7 +14,6 @@ export const getPartners = async (
   });
 };
 
-
 export const getPartnerBySlug = async (
   slug: string,
 ): Promise<ApiResponse<IPartner>> => {

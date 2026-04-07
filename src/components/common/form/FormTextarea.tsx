@@ -54,7 +54,7 @@ const FormTextarea = ({
           className={cn(
             "bg-zinc-900/50 border-zinc-800/50 hover:border-zinc-700/50 focus:border-indigo-500/50 transition-all rounded-xl placeholder:text-zinc-700 resize-none",
             icon && "pl-11",
-            className
+            className,
           )}
           aria-invalid={!!error}
           {...textareaProps}

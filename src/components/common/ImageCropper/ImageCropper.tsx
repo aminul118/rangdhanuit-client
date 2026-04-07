@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { Slider } from '@/components/ui/slider';
-import { useCallback, useState } from 'react';
-import Cropper, { Area, Point } from 'react-easy-crop';
-import getCroppedImg from './cropImage';
-import { Crop, ZoomIn } from 'lucide-react';
+} from "@/components/ui/dialog";
+import { Slider } from "@/components/ui/slider";
+import { useCallback, useState } from "react";
+import Cropper, { Area, Point } from "react-easy-crop";
+import getCroppedImg from "./cropImage";
+import { Crop, ZoomIn } from "lucide-react";
 
 type ImageCropperProps = {
   imageSrc: string;
@@ -98,14 +98,14 @@ const ImageCropper = ({
           </div>
 
           <DialogFooter className="gap-3">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={onClose}
               className="bg-white/5 border-white/10 hover:bg-white/10 transition-all rounded-xl h-12 px-6 font-bold"
             >
               Discard
             </Button>
-            <Button 
+            <Button
               onClick={handleSave}
               className="bg-primary text-primary-foreground hover:opacity-90 transition-all rounded-xl h-12 px-10 font-bold shadow-[0_0_20px_-5px_rgba(var(--primary),0.5)]"
             >

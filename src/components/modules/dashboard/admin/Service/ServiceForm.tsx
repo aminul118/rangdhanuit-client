@@ -33,14 +33,14 @@ const ServiceForm = ({
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     form.append("content", content);
-    
+
     if (imageFile instanceof File) {
       form.append("image", imageFile);
     }
     if (iconFile instanceof File) {
       form.append("icon", iconFile);
     }
-    
+
     await onSubmit(form);
   };
 
@@ -52,7 +52,9 @@ const ServiceForm = ({
       heroLabel="Visual Background / Thumbnail"
       heroImage={
         <SingleImageUploader
-          defaultValue={isValidImageSrc(initialData?.image) ? initialData?.image : undefined}
+          defaultValue={
+            isValidImageSrc(initialData?.image) ? initialData?.image : undefined
+          }
           onChange={setImageFile}
         />
       }
@@ -86,8 +88,12 @@ const ServiceForm = ({
               Service Icon
             </Label>
             <div className="p-4 rounded-[2rem] bg-background/50 border border-white/5 shadow-inner min-h-[160px] flex items-center justify-center">
-               <SingleImageUploader
-                defaultValue={isValidImageSrc(initialData?.icon) ? initialData?.icon : undefined}
+              <SingleImageUploader
+                defaultValue={
+                  isValidImageSrc(initialData?.icon)
+                    ? initialData?.icon
+                    : undefined
+                }
                 onChange={setIconFile}
               />
             </div>
@@ -108,14 +114,22 @@ const ServiceForm = ({
               required
             />
             <div className="grid grid-cols-2 gap-4 mt-6">
-                <div className="p-4 rounded-2xl bg-primary/5 border border-primary/10">
-                    <p className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">Optimization</p>
-                    <p className="text-xs text-muted-foreground/80">Every asset is auto-compressed for speed.</p>
-                </div>
-                <div className="p-4 rounded-2xl bg-indigo-500/5 border border-indigo-500/10">
-                    <p className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-1">Impact</p>
-                    <p className="text-xs text-muted-foreground/80">Premium icons enhance visual trust.</p>
-                </div>
+              <div className="p-4 rounded-2xl bg-primary/5 border border-primary/10">
+                <p className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">
+                  Optimization
+                </p>
+                <p className="text-xs text-muted-foreground/80">
+                  Every asset is auto-compressed for speed.
+                </p>
+              </div>
+              <div className="p-4 rounded-2xl bg-indigo-500/5 border border-indigo-500/10">
+                <p className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-1">
+                  Impact
+                </p>
+                <p className="text-xs text-muted-foreground/80">
+                  Premium icons enhance visual trust.
+                </p>
+              </div>
             </div>
           </div>
         </div>

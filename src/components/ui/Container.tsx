@@ -22,9 +22,5 @@ export const Container = ({ children, className }: ContainerProps) => {
  * Standardizes the 'w-11/12 mx-auto' pattern.
  */
 export const DashboardContainer = ({ children, className }: ContainerProps) => {
-  return (
-    <div className={cn("w-11/12 mx-auto", className)}>
-      {children}
-    </div>
-  );
+  return <div className={cn("w-11/12 mx-auto", className)}>{children}</div>;
 };

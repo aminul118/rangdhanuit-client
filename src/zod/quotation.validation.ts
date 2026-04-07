@@ -3,7 +3,11 @@ import { z } from "zod";
 export const quotationSchemaZodValidation = z.object({
   clientName: z.string().min(1, "Client Name is required"),
   clientAddress: z.string().min(1, "Client Address is required"),
-  clientEmail: z.string().email("Invalid email address").optional().or(z.literal("")),
+  clientEmail: z
+    .string()
+    .email("Invalid email address")
+    .optional()
+    .or(z.literal("")),
   clientPhone: z.string().min(1, "Client Phone is required"),
   projectName: z.string().min(1, "Project Name is required"),
   description: z.string().min(10, "Description must be at least 10 characters"),

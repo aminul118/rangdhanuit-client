@@ -7,7 +7,10 @@ export default function AdminMessagesLoading() {
       <div className="flex-1 max-w-[380px] flex flex-col gap-4">
         <Skeleton className="h-10 w-full rounded-xl bg-muted/40 mb-2" />
         {[1, 2, 3, 4, 5, 6].map((i) => (
-          <div key={i} className="flex gap-4 p-4 items-center bg-card/40 border border-border/50 rounded-[1.25rem] shadow-sm">
+          <div
+            key={i}
+            className="flex gap-4 p-4 items-center bg-card/40 border border-border/50 rounded-[1.25rem] shadow-sm"
+          >
             <Skeleton className="w-14 h-14 rounded-full shrink-0 bg-muted shadow-inner" />
             <div className="flex-1 space-y-3">
               <div className="flex justify-between items-center">
@@ -32,8 +35,8 @@ export default function AdminMessagesLoading() {
             </div>
           </div>
           <div className="flex gap-3">
-             <Skeleton className="w-10 h-10 rounded-full bg-muted" />
-             <Skeleton className="w-10 h-10 rounded-full bg-muted" />
+            <Skeleton className="w-10 h-10 rounded-full bg-muted" />
+            <Skeleton className="w-10 h-10 rounded-full bg-muted" />
           </div>
         </div>
 

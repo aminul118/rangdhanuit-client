@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import type React from 'react';
+import type React from "react";
 import {
   useCallback,
   useRef,
@@ -8,7 +8,7 @@ import {
   type ChangeEvent,
   type DragEvent,
   type InputHTMLAttributes,
-} from 'react';
+} from "react";
 
 export type FileMetadata = {
   name: string;
@@ -64,7 +64,7 @@ export const useFileUpload = (
   const {
     maxFiles = Infinity,
     maxSize = Infinity,
-    accept = '*',
+    accept = "*",
     multiple = false,
     initialFiles = [],
     onFilesChange,
@@ -95,17 +95,17 @@ export const useFileUpload = (
         }
       }
 
-      if (accept !== '*') {
-        const acceptedTypes = accept.split(',').map((type) => type.trim());
-        const fileType = file instanceof File ? file.type || '' : file.type;
-        const fileExtension = `.${file instanceof File ? file.name.split('.').pop() : file.name.split('.').pop()}`;
+      if (accept !== "*") {
+        const acceptedTypes = accept.split(",").map((type) => type.trim());
+        const fileType = file instanceof File ? file.type || "" : file.type;
+        const fileExtension = `.${file instanceof File ? file.name.split(".").pop() : file.name.split(".").pop()}`;
 
         const isAccepted = acceptedTypes.some((type) => {
-          if (type.startsWith('.')) {
+          if (type.startsWith(".")) {
             return fileExtension.toLowerCase() === type.toLowerCase();
           }
-          if (type.endsWith('/*')) {
-            const baseType = type.split('/')[0];
+          if (type.endsWith("/*")) {
+            const baseType = type.split("/")[0];
             return fileType.startsWith(`${baseType}/`);
           }
           return fileType === type;
@@ -135,14 +135,14 @@ export const useFileUpload = (
         if (
           file.preview &&
           file.file instanceof File &&
-          file.file.type.startsWith('image/')
+          file.file.type.startsWith("image/")
         ) {
           URL.revokeObjectURL(file.preview);
         }
       });
 
       if (inputRef.current) {
-        inputRef.current.value = '';
+        inputRef.current.value = "";
       }
 
       const newState = {
@@ -233,7 +233,8 @@ export const useFileUpload = (
           // Also clean up any old object URLs if they existed (though we use Base64 now)
           if (!multiple) {
             prev.files.forEach((f) => {
-              if (f.preview?.startsWith("blob:")) URL.revokeObjectURL(f.preview);
+              if (f.preview?.startsWith("blob:"))
+                URL.revokeObjectURL(f.preview);
             });
           }
 
@@ -274,7 +275,7 @@ export const useFileUpload = (
           fileToRemove &&
           fileToRemove.preview &&
           fileToRemove.file instanceof File &&
-          fileToRemove.file.type.startsWith('image/')
+          fileToRemove.file.type.startsWith("image/")
         ) {
           URL.revokeObjectURL(fileToRemove.preview);
         }
@@ -364,7 +365,7 @@ export const useFileUpload = (
     (props: InputHTMLAttributes<HTMLInputElement> = {}) => {
       return {
         ...props,
-        type: 'file' as const,
+        type: "file" as const,
         onChange: handleFileChange,
         accept: props.accept || accept,
         multiple: props.multiple !== undefined ? props.multiple : multiple,
@@ -394,11 +395,11 @@ export const useFileUpload = (
 
 // Helper function to format bytes to human-readable format
 export const formatBytes = (bytes: number, decimals = 2): string => {
-  if (bytes === 0) return '0 Bytes';
+  if (bytes === 0) return "0 Bytes";
 
   const k = 1024;
   const dm = decimals < 0 ? 0 : decimals;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
   const i = Math.floor(Math.log(bytes) / Math.log(k));
 

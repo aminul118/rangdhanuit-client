@@ -1,4 +1,4 @@
-export type UserRole = 'ADMIN' | 'USER' | 'SUPER_ADMIN';
+export type UserRole = "ADMIN" | "USER" | "SUPER_ADMIN";
 
 export type RouteConfig = {
   exact: string[];
@@ -6,14 +6,14 @@ export type RouteConfig = {
 };
 
 const authRoutes = [
-  '/login',
-  '/register',
-  '/forgot-password',
-  '/reset-password',
+  "/login",
+  "/register",
+  "/forgot-password",
+  "/reset-password",
 ];
 
 const commonProtectedRoutes: RouteConfig = {
-  exact: ['/my-profile', '/settings'],
+  exact: ["/my-profile", "/settings"],
   patterns: [],
 };
 
@@ -41,26 +41,26 @@ const isRouteMatches = (pathname: string, routes: RouteConfig): boolean => {
 
 const getRouteOwner = (
   pathname: string,
-): 'ADMIN' | 'SUPER_ADMIN' | 'COMMON' | 'USER' | null => {
-  if (isRouteMatches(pathname, superAdminProtectedRoutes)) return 'SUPER_ADMIN';
-  if (isRouteMatches(pathname, adminProtectedRoutes)) return 'ADMIN';
-  if (isRouteMatches(pathname, userProtectedRoutes)) return 'USER';
-  if (isRouteMatches(pathname, commonProtectedRoutes)) return 'COMMON';
+): "ADMIN" | "SUPER_ADMIN" | "COMMON" | "USER" | null => {
+  if (isRouteMatches(pathname, superAdminProtectedRoutes)) return "SUPER_ADMIN";
+  if (isRouteMatches(pathname, adminProtectedRoutes)) return "ADMIN";
+  if (isRouteMatches(pathname, userProtectedRoutes)) return "USER";
+  if (isRouteMatches(pathname, commonProtectedRoutes)) return "COMMON";
   return null;
 };
 
 const getDefaultDashboardRoute = (role: string): string => {
   const upperRole = role.toUpperCase();
-  if (upperRole === 'ADMIN' || upperRole === 'SUPER_ADMIN') return '/admin';
-  if (upperRole === 'USER') return '/dashboard';
-  return '/';
+  if (upperRole === "ADMIN" || upperRole === "SUPER_ADMIN") return "/admin";
+  if (upperRole === "USER") return "/dashboard";
+  return "/";
 };
 
 const isValidRedirectForRole = (path: string, role: string): boolean => {
   const owner = getRouteOwner(path);
-  if (owner === null || owner === 'COMMON') return true;
+  if (owner === null || owner === "COMMON") return true;
   const upperRole = role.toUpperCase();
-  if (upperRole === 'SUPER_ADMIN') return true;
+  if (upperRole === "SUPER_ADMIN") return true;
   return owner === upperRole;
 };
 

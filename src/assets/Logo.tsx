@@ -36,7 +36,7 @@ const Logo = ({
         <span
           className={cn(
             "font-bold tracking-tighter flex items-center leading-none whitespace-nowrap",
-            textClassName || "text-lg sm:text-2xl"
+            textClassName || "text-lg sm:text-2xl",
           )}
         >
           <span className="bg-linear-to-r from-primary via-primary to-primary/70 bg-clip-text text-transparent drop-shadow-sm">

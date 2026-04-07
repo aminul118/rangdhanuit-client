@@ -21,7 +21,6 @@ export const getServiceBySlug = async (
   });
 };
 
-
 export const createService = catchAsyncAction(
   async (formData: FormData): Promise<ApiResponse<IService>> => {
     return await serverFetch.post("/services", {
@@ -29,7 +28,6 @@ export const createService = catchAsyncAction(
     });
   },
 );
-
 
 export const updateServiceBySlug = catchAsyncAction(
   async (slug: string, formData: FormData): Promise<ApiResponse<IService>> => {

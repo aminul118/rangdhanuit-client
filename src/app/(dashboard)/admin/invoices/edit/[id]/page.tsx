@@ -14,7 +14,7 @@ interface Props {
 
 const EditInvoicePage = async ({ params }: Props) => {
   const { id } = await params;
-  
+
   const res = await getInvoiceById(id);
 
   if (!res.success || !res.data) {
@@ -28,8 +28,12 @@ const EditInvoicePage = async ({ params }: Props) => {
     ...invoice,
     issueDate: new Date(invoice.issueDate),
     dueDate: new Date(invoice.dueDate),
-    projectStartTime: invoice.projectStartTime ? new Date(invoice.projectStartTime) : undefined,
-    projectApproximateFinishTime: invoice.projectApproximateFinishTime ? new Date(invoice.projectApproximateFinishTime) : undefined,
+    projectStartTime: invoice.projectStartTime
+      ? new Date(invoice.projectStartTime)
+      : undefined,
+    projectApproximateFinishTime: invoice.projectApproximateFinishTime
+      ? new Date(invoice.projectApproximateFinishTime)
+      : undefined,
   };
 
   return (

@@ -1,4 +1,4 @@
-import { ZodSchema } from 'zod';
+import { ZodSchema } from "zod";
 
 const catchZodError = <T>(
   zodSchema: ZodSchema<T>,

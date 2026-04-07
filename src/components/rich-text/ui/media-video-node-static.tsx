@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import { cn } from '@/lib/utils';
-import { parseVideoUrl } from '@platejs/media';
-import { Play } from 'lucide-react';
-import type { TCaptionElement, TResizableProps, TVideoElement } from 'platejs';
-import { NodeApi } from 'platejs';
-import type { SlateElementProps } from 'platejs/static';
-import { SlateElement } from 'platejs/static';
-import { useEffect, useRef, useState } from 'react';
-import LiteYouTubeEmbed from 'react-lite-youtube-embed';
-import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
+import { cn } from "@/lib/utils";
+import { parseVideoUrl } from "@platejs/media";
+import { Play } from "lucide-react";
+import type { TCaptionElement, TResizableProps, TVideoElement } from "platejs";
+import { NodeApi } from "platejs";
+import type { SlateElementProps } from "platejs/static";
+import { SlateElement } from "platejs/static";
+import { useEffect, useRef, useState } from "react";
+import LiteYouTubeEmbed from "react-lite-youtube-embed";
+import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
 
 export function VideoElementStatic(
   props: SlateElementProps<TVideoElement & TCaptionElement & TResizableProps>,
 ) {
-  const { align = 'center', caption, url, width } = props.element;
+  const { align = "center", caption, url, width } = props.element;
 
   const videoData = parseVideoUrl(url);
-  const isYoutube = videoData?.provider === 'youtube';
+  const isYoutube = videoData?.provider === "youtube";
   const embed = videoData;
   const provider = embed?.provider;
 
@@ -56,7 +56,7 @@ export function VideoElementStatic(
       <div style={{ textAlign: align as any }}>
         <figure
           className="group relative m-0 inline-block max-w-full cursor-default"
-          style={{ width: width || '100%' }}
+          style={{ width: width || "100%" }}
           onMouseMove={handleActivity}
           onMouseEnter={() => setIsUserActive(true)}
         >
@@ -66,16 +66,16 @@ export function VideoElementStatic(
                 id={embed!.id!}
                 title="youtube"
                 wrapperClass={cn(
-                  'rounded-sm',
-                  'relative block cursor-pointer bg-black bg-center bg-cover [contain:content]',
+                  "rounded-sm",
+                  "relative block cursor-pointer bg-black bg-center bg-cover [contain:content]",
                   'after:block after:pb-[var(--aspect-ratio)] after:content-[""]',
-                  '[&_>_iframe]:absolute [&_>_iframe]:top-0 [&_>_iframe]:left-0 [&_>_iframe]:size-full',
+                  "[&_>_iframe]:absolute [&_>_iframe]:top-0 [&_>_iframe]:left-0 [&_>_iframe]:size-full",
                 )}
               />
               <div
                 className={cn(
-                  'pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-500',
-                  isUserActive && !isPlaying ? 'opacity-80' : 'opacity-0',
+                  "pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-500",
+                  isUserActive && !isPlaying ? "opacity-80" : "opacity-0",
                 )}
               >
                 <div className="rounded-full bg-black/50 p-4">
@@ -86,17 +86,17 @@ export function VideoElementStatic(
           ) : embed ? (
             <div
               className={cn(
-                'relative w-full',
-                provider === 'vimeo' && 'pb-[75%]',
-                provider === 'youku' && 'pb-[56.25%]',
-                provider === 'dailymotion' && 'pb-[56.0417%]',
-                provider === 'coub' && 'pb-[51.25%]',
+                "relative w-full",
+                provider === "vimeo" && "pb-[75%]",
+                provider === "youku" && "pb-[56.25%]",
+                provider === "dailymotion" && "pb-[56.0417%]",
+                provider === "coub" && "pb-[51.25%]",
               )}
               onClick={() => setIsPlaying(true)}
             >
               <iframe
                 className={cn(
-                  'absolute top-0 left-0 size-full rounded-sm border-0',
+                  "absolute top-0 left-0 size-full rounded-sm border-0",
                 )}
                 title="embed"
                 src={embed.url}
@@ -104,8 +104,8 @@ export function VideoElementStatic(
               />
               <div
                 className={cn(
-                  'pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-500',
-                  isUserActive && !isPlaying ? 'opacity-80' : 'opacity-0',
+                  "pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-500",
+                  isUserActive && !isPlaying ? "opacity-80" : "opacity-0",
                 )}
               >
                 <div className="rounded-full bg-black/50 p-4">
@@ -125,8 +125,8 @@ export function VideoElementStatic(
               />
               <div
                 className={cn(
-                  'pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-500',
-                  isUserActive && !isPlaying ? 'opacity-80' : 'opacity-0',
+                  "pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-500",
+                  isUserActive && !isPlaying ? "opacity-80" : "opacity-0",
                 )}
               >
                 <div className="rounded-full bg-black/50 p-4">

@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { BlockSelectionPlugin } from '@platejs/selection/react';
-import { getPluginTypes, KEYS } from 'platejs';
+import { BlockSelectionPlugin } from "@platejs/selection/react";
+import { getPluginTypes, KEYS } from "platejs";
 
-import { BlockSelection } from '@/components/rich-text/ui/block-selection';
+import { BlockSelection } from "@/components/rich-text/ui/block-selection";
 
 export const BlockSelectionKit = [
   BlockSelectionPlugin.configure(({ editor }) => ({
@@ -21,7 +21,7 @@ export const BlockSelectionKit = [
     },
     render: {
       belowRootNodes: (props) => {
-        if (!props.attributes.className?.includes('slate-selectable'))
+        if (!props.attributes.className?.includes("slate-selectable"))
           return null;
 
         return <BlockSelection {...(props as any)} />;

@@ -11,7 +11,6 @@ import envVars from "@/config/env.config";
 import { IChildrenProps } from "@/types";
 
 const MainLayout = ({ children }: IChildrenProps) => {
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body

@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import logger from '@/lib/logger';
-import { ApiResponse } from '@/types';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { toast } from 'sonner';
-import { useTopLoader } from 'nextjs-toploader';
+import logger from "@/lib/logger";
+import { ApiResponse } from "@/types";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
+import { useTopLoader } from "nextjs-toploader";
 
 interface SuccessConfig<T> {
   loadingText?: string;
@@ -92,7 +92,9 @@ const useActionHandler = () => {
   /**
    * Compatibility wrapper for POST actions.
    */
-  const executePost = async <T>(options: ExecuteOptions<T>): Promise<boolean> => {
+  const executePost = async <T>(
+    options: ExecuteOptions<T>,
+  ): Promise<boolean> => {
     const result = await execute(options);
     return !!result?.success;
   };
@@ -100,14 +102,16 @@ const useActionHandler = () => {
   /**
    * Compatibility wrapper for DELETE actions with a confirmation default.
    */
-  const executeDelete = async <T>(options: ExecuteOptions<T>): Promise<boolean> => {
+  const executeDelete = async <T>(
+    options: ExecuteOptions<T>,
+  ): Promise<boolean> => {
     const result = await execute({
       ...options,
       success: {
         loadingText: "Deleting...",
         isRefresh: true,
         ...options.success,
-      }
+      },
     });
     return !!result?.success;
   };

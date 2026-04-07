@@ -13,10 +13,10 @@ interface ProfileAvatarUploaderProps {
   name?: string;
 }
 
-export const ProfileAvatarUploader = ({ 
-  defaultValue, 
-  onImageChange, 
-  name = "User" 
+export const ProfileAvatarUploader = ({
+  defaultValue,
+  onImageChange,
+  name = "User",
 }: ProfileAvatarUploaderProps) => {
   const [preview, setPreview] = useState<string | undefined>(defaultValue);
   const [isCropperOpen, setIsCropperOpen] = useState(false);
@@ -40,8 +40,8 @@ export const ProfileAvatarUploader = ({
   };
 
   const handleCropComplete = (croppedBlob: Blob) => {
-    const croppedFile = new File([croppedBlob], "profile-picture.jpg", { 
-      type: "image/jpeg" 
+    const croppedFile = new File([croppedBlob], "profile-picture.jpg", {
+      type: "image/jpeg",
     });
     const url = URL.createObjectURL(croppedBlob);
     setPreview(url);
@@ -59,7 +59,7 @@ export const ProfileAvatarUploader = ({
       <div className="relative">
         {/* Glow Effect */}
         <div className="absolute -inset-1 bg-linear-to-r from-primary to-indigo-500 rounded-full blur opacity-25 group-hover/avatar:opacity-40 transition duration-500" />
-        
+
         {/* Avatar Container */}
         <div className="relative h-40 w-40 rounded-full border-4 border-background overflow-hidden bg-muted shadow-2xl">
           <Avatar className="h-full w-full">
@@ -70,7 +70,7 @@ export const ProfileAvatarUploader = ({
           </Avatar>
 
           {/* Hover Overlay */}
-          <div 
+          <div
             onClick={() => fileInputRef.current?.click()}
             className="absolute inset-0 bg-black/60 opacity-0 group-hover/avatar:opacity-100 transition-all duration-300 flex flex-col items-center justify-center cursor-pointer backdrop-blur-[2px]"
           >
@@ -98,7 +98,7 @@ export const ProfileAvatarUploader = ({
           >
             <Upload className="w-4 h-4" />
           </button>
-          
+
           {preview && (
             <button
               type="button"
@@ -112,11 +112,11 @@ export const ProfileAvatarUploader = ({
         </div>
       </div>
 
-      <input 
-        type="file" 
-        ref={fileInputRef} 
-        onChange={handleFileChange} 
-        className="hidden" 
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        className="hidden"
         accept="image/*"
       />
 
@@ -133,11 +133,11 @@ export const ProfileAvatarUploader = ({
           />
         )}
       </AnimatePresence>
-      
+
       <div className="text-center">
         <p className="text-sm font-medium text-foreground">Profile Image</p>
         <p className="text-xs text-muted-foreground mt-1">
-           JPG, PNG or GIF. Max 2MB.
+          JPG, PNG or GIF. Max 2MB.
         </p>
       </div>
     </div>

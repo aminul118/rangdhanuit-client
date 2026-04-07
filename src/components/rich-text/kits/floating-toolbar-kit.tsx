@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { createPlatePlugin } from 'platejs/react';
+import { createPlatePlugin } from "platejs/react";
 
-import { FloatingToolbar } from '@/components/rich-text/ui/floating-toolbar';
-import { FloatingToolbarButtons } from '@/components/rich-text/ui/floating-toolbar-buttons';
+import { FloatingToolbar } from "@/components/rich-text/ui/floating-toolbar";
+import { FloatingToolbarButtons } from "@/components/rich-text/ui/floating-toolbar-buttons";
 
 export const FloatingToolbarKit = [
   createPlatePlugin({
-    key: 'floating-toolbar',
+    key: "floating-toolbar",
     render: {
       afterEditable: () => (
         <FloatingToolbar>

@@ -9,7 +9,7 @@ export const QuotationsList = async ({
   searchParams: Record<string, string>;
 }) => {
   const res = await getQuotations(searchParams);
-  const quotations = res?.data || []; 
+  const quotations = res?.data || [];
   const meta = res?.meta || { total: 0, page: 1, limit: 10, totalPage: 1 };
 
   return (
@@ -20,7 +20,12 @@ export const QuotationsList = async ({
       addBtn={{
         label: "Create Quotation",
         link: "/admin/quotations/create",
-        icon: <FileSignature className="mr-2 group-hover:rotate-12 transition-transform" size={20} />,
+        icon: (
+          <FileSignature
+            className="mr-2 group-hover:rotate-12 transition-transform"
+            size={20}
+          />
+        ),
       }}
     >
       <QuotationTable quotations={quotations} />

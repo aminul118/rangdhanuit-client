@@ -1,6 +1,6 @@
-import { IUser } from '../User/user.types';
+import { IUser } from "../User/user.types";
 
-export type NotificationType = 'MESSAGE' | 'SYSTEM' | 'ALERT';
+export type NotificationType = "MESSAGE" | "SYSTEM" | "ALERT";
 
 export interface INotification {
   _id: string;

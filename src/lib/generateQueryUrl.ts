@@ -1,4 +1,4 @@
-import envVars from '@/config/env.config';
+import envVars from "@/config/env.config";
 
 const generateQueryUrl = (endpoint: string, query?: Record<string, string>) => {
   const url = new URL(`${envVars.apiUrl}${endpoint}`);
@@ -8,9 +8,9 @@ const generateQueryUrl = (endpoint: string, query?: Record<string, string>) => {
       if (
         value !== undefined &&
         value !== null &&
-        value !== '' &&
-        value !== 'undefined' &&
-        value !== 'null'
+        value !== "" &&
+        value !== "undefined" &&
+        value !== "null"
       ) {
         url.searchParams.append(key, String(value));
       }

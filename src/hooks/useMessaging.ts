@@ -21,7 +21,10 @@ interface UseMessagingOptions {
  * A comprehensive hook to manage the messaging system state and actions.
  * Consolidates conversation fetching, message loading, and real-time updates.
  */
-export default function useMessaging({ autoLoad = true, isUserView = false }: UseMessagingOptions = {}) {
+export default function useMessaging({
+  autoLoad = true,
+  isUserView = false,
+}: UseMessagingOptions = {}) {
   const { user } = useAuth();
   const { socket, setUnreadCount } = useSocket();
   const [conversations, setConversations] = useState<MessageConversation[]>([]);
@@ -31,59 +34,62 @@ export default function useMessaging({ autoLoad = true, isUserView = false }: Us
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [targetAdmin, setTargetAdmin] = useState<IUser | null>(null);
 
-  const fetchConversations = useCallback(async (isInitial = false) => {
-    if (!isInitial) setLoading(true);
-    
-    try {
+  const fetchConversations = useCallback(
+    async (isInitial = false) => {
+      if (!isInitial) setLoading(true);
+
+      try {
         const res = await getMyConversations();
         const convs = res.success && res.data ? res.data : [];
         setConversations(convs);
 
         if (isUserView) {
-            let existingConv: MessageConversation | null = null;
-            let admin: IUser | null = null;
+          let existingConv: MessageConversation | null = null;
+          let admin: IUser | null = null;
 
-            for (const conv of convs) {
-                const foundAdmin = conv.participants.find(
-                  (p) => p.role === "ADMIN" || p.role === "SUPER_ADMIN",
-                );
-                if (foundAdmin) {
-                  existingConv = conv;
-                  admin = foundAdmin;
-                  break;
-                }
+          for (const conv of convs) {
+            const foundAdmin = conv.participants.find(
+              (p) => p.role === "ADMIN" || p.role === "SUPER_ADMIN",
+            );
+            if (foundAdmin) {
+              existingConv = conv;
+              admin = foundAdmin;
+              break;
             }
+          }
 
-            if (!admin) {
-                const adminRes = await getAdminUser();
-                if (adminRes.success) admin = adminRes.data;
-            }
+          if (!admin) {
+            const adminRes = await getAdminUser();
+            if (adminRes.success) admin = adminRes.data;
+          }
 
-            setTargetAdmin(admin);
-            if (existingConv && isInitial) {
-                setSelectedConvId(existingConv._id);
-            }
+          setTargetAdmin(admin);
+          if (existingConv && isInitial) {
+            setSelectedConvId(existingConv._id);
+          }
         }
-    } catch (e) {
+      } catch (e) {
         console.error("Failed to load messaging context:", e);
-    } finally {
+      } finally {
         setLoading(false);
-    }
-  }, [isUserView]);
+      }
+    },
+    [isUserView],
+  );
 
   const fetchMessages = useCallback(async (convId: string) => {
     setLoadingMessages(true);
     try {
-        const res = await getConversationMessages(convId);
-        if (res.success && res.data) {
-          setMessages(res.data);
-          // Mark as read silently
-          await markConversationRead(convId);
-        }
+      const res = await getConversationMessages(convId);
+      if (res.success && res.data) {
+        setMessages(res.data);
+        // Mark as read silently
+        await markConversationRead(convId);
+      }
     } catch (e) {
-        console.error("Failed to load messages:", e);
+      console.error("Failed to load messages:", e);
     } finally {
-       setLoadingMessages(false);
+      setLoadingMessages(false);
     }
   }, []);
 
@@ -130,8 +136,12 @@ export default function useMessaging({ autoLoad = true, isUserView = false }: Us
     }
   }, [socket, fetchConversations]);
 
-  const selectedConversation = conversations.find((c) => c._id === selectedConvId);
-  const participantRecipient = selectedConversation?.participants?.find((p) => p._id !== user?._id);
+  const selectedConversation = conversations.find(
+    (c) => c._id === selectedConvId,
+  );
+  const participantRecipient = selectedConversation?.participants?.find(
+    (p) => p._id !== user?._id,
+  );
   const recipient = isUserView ? targetAdmin : participantRecipient;
 
   return {

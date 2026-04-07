@@ -1,25 +1,25 @@
-import * as React from 'react';
+import * as React from "react";
 
-import type { SlateElementProps } from 'platejs/static';
+import type { SlateElementProps } from "platejs/static";
 
-import { type VariantProps, cva } from 'class-variance-authority';
-import { SlateElement } from 'platejs/static';
+import { type VariantProps, cva } from "class-variance-authority";
+import { SlateElement } from "platejs/static";
 
-const headingVariants = cva('relative mb-1', {
+const headingVariants = cva("relative mb-1", {
   variants: {
     variant: {
-      h1: 'mt-[1.6em] pb-1 font-bold font-heading text-2xl lg:text-3xl',
-      h2: 'mt-[1.4em] pb-px font-heading font-semibold text-xl sm:text-2xl lg:text-2xl tracking-tight',
-      h3: 'mt-[1em] pb-px font-heading font-semibold text-lg sm:text-xl lg:text-xl tracking-tight',
-      h4: 'mt-[0.75em] font-heading font-semibold text-base sm:text-lg lg:text-lg tracking-tight',
-      h5: 'mt-[0.75em] font-semibold text-base sm:text-lg lg:text-lg tracking-tight',
-      h6: 'mt-[0.75em] font-semibold text-sm sm:text-base lg:text-lg tracking-tight',
+      h1: "mt-[1.6em] pb-1 font-bold font-heading text-2xl lg:text-3xl",
+      h2: "mt-[1.4em] pb-px font-heading font-semibold text-xl sm:text-2xl lg:text-2xl tracking-tight",
+      h3: "mt-[1em] pb-px font-heading font-semibold text-lg sm:text-xl lg:text-xl tracking-tight",
+      h4: "mt-[0.75em] font-heading font-semibold text-base sm:text-lg lg:text-lg tracking-tight",
+      h5: "mt-[0.75em] font-semibold text-base sm:text-lg lg:text-lg tracking-tight",
+      h6: "mt-[0.75em] font-semibold text-sm sm:text-base lg:text-lg tracking-tight",
     },
   },
 });
 
 export function HeadingElementStatic({
-  variant = 'h1',
+  variant = "h1",
   ...props
 }: SlateElementProps & VariantProps<typeof headingVariants>) {
   const id = props.element.id as string | undefined;

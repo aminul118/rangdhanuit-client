@@ -1,6 +1,9 @@
 "use client";
 
-import { getPortfolioBySlug, updatePortfolioBySlug } from "@/services/Portfolio/portfolios";
+import {
+  getPortfolioBySlug,
+  updatePortfolioBySlug,
+} from "@/services/Portfolio/portfolios";
 import PortfolioForm from "./PortfolioForm";
 import useActionHandler from "@/hooks/useActionHandler";
 import { EditFormWrapper } from "@/components/common/layouts/EditFormWrapper";

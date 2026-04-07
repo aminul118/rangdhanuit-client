@@ -1,5 +1,5 @@
-import { deleteBlog } from '@/services/Blog/blogs';
-import { IBlog } from '@/types';
+import { deleteBlog } from "@/services/Blog/blogs";
+import { IBlog } from "@/types";
 import { TableActionDropdown } from "@/components/common/table/TableActionDropdown";
 
 const BlogActions = ({ blog }: { blog: IBlog }) => {

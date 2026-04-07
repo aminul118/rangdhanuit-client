@@ -20,7 +20,12 @@ export const ServicesList = async ({
       addBtn={{
         label: "Create New Service",
         link: "/admin/services/add",
-        icon: <Sparkles className="mr-2 group-hover:rotate-12 transition-transform" size={20} />,
+        icon: (
+          <Sparkles
+            className="mr-2 group-hover:rotate-12 transition-transform"
+            size={20}
+          />
+        ),
       }}
     >
       <ServiceTable services={services} />

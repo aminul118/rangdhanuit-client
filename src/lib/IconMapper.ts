@@ -1,9 +1,9 @@
-import { 
-  Laptop, 
-  Smartphone, 
-  Compass, 
-  Palette, 
-  TrendingUp, 
+import {
+  Laptop,
+  Smartphone,
+  Compass,
+  Palette,
+  TrendingUp,
   ShieldCheck,
   Zap,
   Layout,
@@ -22,8 +22,8 @@ import {
   Eye,
   Lock,
   Wifi,
-  Database
-} from 'lucide-react';
+  Database,
+} from "lucide-react";
 
 export const IconMap: Record<string, React.ElementType> = {
   // Primary Mappings
@@ -37,7 +37,7 @@ export const IconMap: Record<string, React.ElementType> = {
   Search,
   Layout,
   Code2,
-  
+
   // Secondary Mappings
   Globe,
   Settings,
@@ -52,7 +52,7 @@ export const IconMap: Record<string, React.ElementType> = {
   Eye,
   Lock,
   Wifi,
-  Database
+  Database,
 };
 
 export const getIcon = (iconName: string): React.ElementType => {

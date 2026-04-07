@@ -82,7 +82,9 @@ const TableWrapperContent = ({
         <div
           className={cn(
             "transition-all duration-500 ease-in-out",
-            isPending ? "opacity-40 grayscale-[0.2] pointer-events-none" : "opacity-100 grayscale-0"
+            isPending
+              ? "opacity-40 grayscale-[0.2] pointer-events-none"
+              : "opacity-100 grayscale-0",
           )}
         >
           {children}

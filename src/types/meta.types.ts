@@ -31,6 +31,6 @@ export interface MetaConfig {
 
 export interface Routes {
   url: string;
-  changeFrequency: 'daily' | 'weekly' | 'monthly' | 'yearly';
+  changeFrequency: "daily" | "weekly" | "monthly" | "yearly";
   priority: number;
 }

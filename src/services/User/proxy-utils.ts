@@ -95,7 +95,10 @@ export const handleTokenRefresh = async (
     // Sync req.headers for downstream Server Components
     req.headers.set(
       "Cookie",
-      [`accessToken=${accessToken}`, refreshToken ? `refreshToken=${refreshToken}` : null]
+      [
+        `accessToken=${accessToken}`,
+        refreshToken ? `refreshToken=${refreshToken}` : null,
+      ]
         .filter(Boolean)
         .join("; "),
     );

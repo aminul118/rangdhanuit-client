@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import TableManageMent from "@/components/common/table/TableManageMent";
 import UserTableColumn from "./UserTableColumn";

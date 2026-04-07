@@ -48,13 +48,20 @@ const SubmitButton = ({
       disabled={isLoading || disabled}
       className={cn(
         "w-full bg-linear-to-r from-indigo-500 via-purple-600 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white font-bold transition-all duration-300 group active:scale-[0.98]",
-        size === "xl" ? "h-14 rounded-2xl text-lg shadow-[0_20px_40px_-15px_rgba(79,70,229,0.5)]" : "shadow-[0_8px_16px_-4px_rgba(79,70,229,0.3)] rounded-2xl",
-        className
+        size === "xl"
+          ? "h-14 rounded-2xl text-lg shadow-[0_20px_40px_-15px_rgba(79,70,229,0.5)]"
+          : "shadow-[0_8px_16px_-4px_rgba(79,70,229,0.3)] rounded-2xl",
+        className,
       )}
     >
       {isLoading ? (
         <>
-          <Loader2 className={cn("animate-spin", (size === "lg" || size === "xl") ? "h-5 w-5 mr-3" : "h-4 w-4 mr-2")} />
+          <Loader2
+            className={cn(
+              "animate-spin",
+              size === "lg" || size === "xl" ? "h-5 w-5 mr-3" : "h-4 w-4 mr-2",
+            )}
+          />
           {loadingLabel || "Processing..."}
         </>
       ) : (

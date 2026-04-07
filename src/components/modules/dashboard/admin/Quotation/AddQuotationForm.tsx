@@ -13,11 +13,13 @@ const AddQuotationForm = () => {
     await executePost({
       action: () => createQuotation(data as any),
       success: {
-        message: "Quotation generated successfully! Your strategic proposal is ready.",
+        message:
+          "Quotation generated successfully! Your strategic proposal is ready.",
         redirectPath: "/admin/quotations",
         isRefresh: true,
       },
-      errorMessage: "Failed to generate quotation. Please review the project details.",
+      errorMessage:
+        "Failed to generate quotation. Please review the project details.",
     });
   };
 

@@ -51,13 +51,17 @@ export const ThemeSettings = () => {
               onClick={() => setTheme(t.value)}
               className={cn(
                 "group relative flex flex-col items-center justify-center p-6 bg-card border rounded-2xl transition-all duration-300 hover:border-primary/50 hover:shadow-lg",
-                isActive ? "border-primary ring-2 ring-primary/20" : "border-border"
+                isActive
+                  ? "border-primary ring-2 ring-primary/20"
+                  : "border-border",
               )}
             >
               <div
                 className={cn(
                   "p-3 rounded-xl mb-4 transition-colors",
-                  isActive ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary"
+                  isActive
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary",
                 )}
               >
                 <Icon className="w-6 h-6" />
@@ -72,10 +76,13 @@ export const ThemeSettings = () => {
           );
         })}
       </div>
-      
+
       <div className="p-4 bg-muted/50 rounded-xl">
         <p className="text-sm text-muted-foreground">
-          Current active mode: <span className="font-semibold text-foreground capitalize">{resolvedTheme}</span>
+          Current active mode:{" "}
+          <span className="font-semibold text-foreground capitalize">
+            {resolvedTheme}
+          </span>
         </p>
       </div>
     </div>

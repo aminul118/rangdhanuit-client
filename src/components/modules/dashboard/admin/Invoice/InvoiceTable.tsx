@@ -3,7 +3,9 @@
 import { useTransition } from "react";
 import { IInvoice } from "@/types/Invoice/invoice.types";
 import { InvoiceTableColumns } from "./InvoiceTableColumn";
-import TableManageMent, { Column } from "@/components/common/table/TableManageMent";
+import TableManageMent, {
+  Column,
+} from "@/components/common/table/TableManageMent";
 
 interface InvoiceTableProps {
   invoices: IInvoice[];

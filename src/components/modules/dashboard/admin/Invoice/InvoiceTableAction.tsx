@@ -19,8 +19,8 @@ const InvoiceTableAction = ({ row }: InvoiceTableActionProps) => {
 
   const generatePDF = async () => {
     if (!templateRef.current) {
-        toast.error("Template not ready. Please try again.");
-        return;
+      toast.error("Template not ready. Please try again.");
+      return;
     }
 
     const toastId = toast.loading("Generating PDF...");
@@ -41,7 +41,7 @@ const InvoiceTableAction = ({ row }: InvoiceTableActionProps) => {
       const imgDims = pngImage.scaleToFit(595.28, 841.89); // A4
 
       const page = pdfDoc.addPage([595.28, 841.89]);
-      const x = (page.getWidth() / 2) - (imgDims.width / 2);
+      const x = page.getWidth() / 2 - imgDims.width / 2;
       const y = page.getHeight() - imgDims.height;
 
       page.drawImage(pngImage, {
@@ -53,9 +53,11 @@ const InvoiceTableAction = ({ row }: InvoiceTableActionProps) => {
 
       // 3. Open the PDF
       const pdfBytes = await pdfDoc.save();
-      const blob = new Blob([pdfBytes as unknown as BlobPart], { type: "application/pdf" });
+      const blob = new Blob([pdfBytes as unknown as BlobPart], {
+        type: "application/pdf",
+      });
       const url = URL.createObjectURL(blob);
-      
+
       const newWindow = window.open(url, "_blank");
       if (!newWindow) {
         const link = document.createElement("a");
@@ -65,7 +67,7 @@ const InvoiceTableAction = ({ row }: InvoiceTableActionProps) => {
         link.click();
         document.body.removeChild(link);
       }
-      
+
       setTimeout(() => URL.revokeObjectURL(url), 10000);
       toast.success("PDF generated successfully!", { id: toastId });
     } catch (error) {
@@ -86,8 +88,8 @@ const InvoiceTableAction = ({ row }: InvoiceTableActionProps) => {
             label: "Download PDF",
             icon: Download,
             onClick: generatePDF,
-            className: "focus:text-indigo-500 focus:bg-indigo-500/10"
-          }
+            className: "focus:text-indigo-500 focus:bg-indigo-500/10",
+          },
         ]}
       />
       {/* Hidden template specifically for this row's data */}

@@ -1,5 +1,5 @@
-import { deletePortfolioBySlug } from '@/services/Portfolio/portfolios';
-import { IPortfolio } from '@/types';
+import { deletePortfolioBySlug } from "@/services/Portfolio/portfolios";
+import { IPortfolio } from "@/types";
 import { TableActionDropdown } from "@/components/common/table/TableActionDropdown";
 
 const ProjectActions = ({ project }: { project: IPortfolio }) => {

@@ -4,7 +4,9 @@ import { useTransition } from "react";
 import { IService } from "@/types/Service/service.types";
 import { ServiceTableColumns } from "./ServiceTableColumn";
 import { deleteService } from "@/services/Service/services";
-import TableManageMent, { Column } from "@/components/common/table/TableManageMent";
+import TableManageMent, {
+  Column,
+} from "@/components/common/table/TableManageMent";
 
 interface ServiceTableProps {
   services: IService[];

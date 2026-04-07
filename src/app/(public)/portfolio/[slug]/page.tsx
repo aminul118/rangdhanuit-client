@@ -8,7 +8,9 @@ import { extractPlainText } from "@/helpers/extractPlainText";
 export const generateMetadata = async ({
   params,
 }: ISlugPageProps): Promise<Metadata> => {
-  const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
+  const resolvedParams = await (params instanceof Promise
+    ? params
+    : Promise.resolve(params));
   const slug = resolvedParams?.slug;
 
   try {
@@ -53,10 +55,12 @@ export const generateMetadata = async ({
       title: "Our Work",
     };
   }
-}
+};
 
 const PortfolioDetailsPage = async ({ params }: ISlugPageProps) => {
-  const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
+  const resolvedParams = await (params instanceof Promise
+    ? params
+    : Promise.resolve(params));
   const slug = resolvedParams?.slug;
 
   if (!slug) {
@@ -72,6 +76,6 @@ const PortfolioDetailsPage = async ({ params }: ISlugPageProps) => {
   const project = res.data;
 
   return <PortfolioDetailsView project={project} />;
-}
+};
 
-export default PortfolioDetailsPage
+export default PortfolioDetailsPage;

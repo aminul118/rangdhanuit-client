@@ -21,7 +21,6 @@ export const getPortfolios = async (
   });
 };
 
-
 export const getPortfolioBySlug = async (
   slug: string,
 ): Promise<ApiResponse<IPortfolio>> => {

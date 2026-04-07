@@ -1,4 +1,3 @@
-
 import html2canvas from "html2canvas-pro";
 import { PDFDocument } from "pdf-lib";
 import { Button } from "@/components/ui/button";
@@ -45,7 +44,7 @@ export const HTMLToPDF = ({
       const page = pdfDoc.addPage([595.28, 841.89]);
 
       // Center the image if it doesn't take up the full height
-      const x = (page.getWidth() / 2) - (imgDims.width / 2);
+      const x = page.getWidth() / 2 - imgDims.width / 2;
       const y = page.getHeight() - imgDims.height; // Top aligned
 
       page.drawImage(pngImage, {
@@ -57,7 +56,9 @@ export const HTMLToPDF = ({
 
       // 3. Open the PDF in a new tab/window
       const pdfBytes = await pdfDoc.save();
-      const blob = new Blob([pdfBytes as unknown as BlobPart], { type: "application/pdf" });
+      const blob = new Blob([pdfBytes as unknown as BlobPart], {
+        type: "application/pdf",
+      });
       const url = URL.createObjectURL(blob);
 
       const newWindow = window.open(url, "_blank");
@@ -74,9 +75,7 @@ export const HTMLToPDF = ({
 
       // Clean up the URL object after a short delay to ensure it loads
       setTimeout(() => URL.revokeObjectURL(url), 10000);
-
     } catch (error) {
-
       toast.error("Failed to generate PDF");
     } finally {
       setIsGenerating(false);

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Pagination,
@@ -38,28 +38,30 @@ const TablePagination = ({ meta, className }: TablePaginationProps) => {
   const getPageNumbers = () => {
     const pages = [];
     const showMax = 5;
-    
+
     if (totalPage <= showMax) {
       for (let i = 1; i <= totalPage; i++) pages.push(i);
     } else {
       pages.push(1);
-      if (page > 3) pages.push('ellipsis');
-      
+      if (page > 3) pages.push("ellipsis");
+
       const start = Math.max(2, page - 1);
       const end = Math.min(totalPage - 1, page + 1);
-      
+
       for (let i = start; i <= end; i++) {
         if (!pages.includes(i)) pages.push(i);
       }
-      
-      if (page < totalPage - 2) pages.push('ellipsis');
+
+      if (page < totalPage - 2) pages.push("ellipsis");
       if (!pages.includes(totalPage)) pages.push(totalPage);
     }
     return pages;
   };
 
   return (
-    <div className={cn("flex items-center justify-between py-6 px-2", className)}>
+    <div
+      className={cn("flex items-center justify-between py-6 px-2", className)}
+    >
       <div className="text-sm text-muted-foreground font-medium">
         Showing page <span className="text-foreground">{page}</span> of{" "}
         <span className="text-foreground">{totalPage}</span>
@@ -79,7 +81,7 @@ const TablePagination = ({ meta, className }: TablePaginationProps) => {
 
           {getPageNumbers().map((p, idx) => (
             <PaginationItem key={idx}>
-              {p === 'ellipsis' ? (
+              {p === "ellipsis" ? (
                 <div className="flex h-10 w-10 items-center justify-center text-muted-foreground">
                   <MoreHorizontal size={18} />
                 </div>
@@ -90,7 +92,7 @@ const TablePagination = ({ meta, className }: TablePaginationProps) => {
                     "flex h-10 w-10 items-center justify-center rounded-xl border transition-all text-sm font-bold",
                     page === p
                       ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
-                      : "bg-background/50 backdrop-blur-sm border-border/50 hover:bg-accent"
+                      : "bg-background/50 backdrop-blur-sm border-border/50 hover:bg-accent",
                   )}
                 >
                   {p}

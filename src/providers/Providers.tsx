@@ -1,4 +1,3 @@
-
 import { ThemeProvider } from "next-themes";
 import { AuthProvider, IUser } from "./AuthProvider";
 import { SocketProvider } from "./SocketProvider";
@@ -6,16 +5,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "sonner";
 import { ReactNode } from "react";
 
-
 interface IProvider {
   children: ReactNode;
   initialUser?: IUser | null;
 }
 
-const Providers = ({
-  children,
-  initialUser = null,
-}: IProvider) => {
+const Providers = ({ children, initialUser = null }: IProvider) => {
   return (
     <ThemeProvider
       attribute="class"

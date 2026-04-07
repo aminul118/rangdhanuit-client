@@ -14,7 +14,7 @@ interface Props {
 
 const EditQuotationPage = async ({ params }: Props) => {
   const { id } = await params;
-  
+
   const res = await getQuotationById(id);
 
   if (!res.success || !res.data) {

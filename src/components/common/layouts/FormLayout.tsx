@@ -24,10 +24,10 @@ export default function FormLayout({
 }: FormLayoutProps) {
   return (
     <div className="w-full">
-      <CreationHeader 
-        title={title} 
-        subtitle={subtitle} 
-        backLink={backLink} 
+      <CreationHeader
+        title={title}
+        subtitle={subtitle}
+        backLink={backLink}
         extraActions={extraActions}
       />
       {children}

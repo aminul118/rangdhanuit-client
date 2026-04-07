@@ -3,7 +3,16 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
-import { CalendarIcon, Sparkles, Building2, CreditCard, Layout, History, Headset, DownloadCloud } from "lucide-react";
+import {
+  CalendarIcon,
+  Sparkles,
+  Building2,
+  CreditCard,
+  Layout,
+  History,
+  Headset,
+  DownloadCloud,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -16,7 +25,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import {
   quotationSchemaZodValidation,
@@ -57,7 +70,8 @@ const QuotationForm = ({
       advancePercentage: initialData?.advancePercentage || 50,
       midwayPercentage: initialData?.midwayPercentage || 30,
       completionPercentage: initialData?.completionPercentage || 20,
-      paymentMethod: initialData?.paymentMethod || "Bank Transfer / Mobile Banking",
+      paymentMethod:
+        initialData?.paymentMethod || "Bank Transfer / Mobile Banking",
       revisions: initialData?.revisions || 3,
       supportDays: initialData?.supportDays || 30,
     },
@@ -75,7 +89,7 @@ const QuotationForm = ({
             <Building2 className="text-indigo-500" size={24} />
             Client & Project Identity
           </h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <FormField
               control={form.control}
@@ -87,7 +101,11 @@ const QuotationForm = ({
                     Project Vision Name
                   </FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g. Next-Gen E-commerce Platform" className="h-14 rounded-2xl bg-white/5 border-white/10 text-lg font-bold" {...field} />
+                    <Input
+                      placeholder="e.g. Next-Gen E-commerce Platform"
+                      className="h-14 rounded-2xl bg-white/5 border-white/10 text-lg font-bold"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -99,9 +117,15 @@ const QuotationForm = ({
               name="clientName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">Business / Client Name</FormLabel>
+                  <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">
+                    Business / Client Name
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="John Doe or Acme Inc." className="rounded-xl" {...field} />
+                    <Input
+                      placeholder="John Doe or Acme Inc."
+                      className="rounded-xl"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -113,9 +137,15 @@ const QuotationForm = ({
               name="clientPhone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">Primary Contact</FormLabel>
+                  <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">
+                    Primary Contact
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="+880 1XXX XXXXXX" className="rounded-xl" {...field} />
+                    <Input
+                      placeholder="+880 1XXX XXXXXX"
+                      className="rounded-xl"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -127,9 +157,15 @@ const QuotationForm = ({
               name="clientEmail"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">Digital Contact (Email)</FormLabel>
+                  <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">
+                    Digital Contact (Email)
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="client@vision.com" className="rounded-xl" {...field} />
+                    <Input
+                      placeholder="client@vision.com"
+                      className="rounded-xl"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -141,9 +177,15 @@ const QuotationForm = ({
               name="clientAddress"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">Physical / Legal Address</FormLabel>
+                  <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">
+                    Physical / Legal Address
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="Street, City, Country" className="rounded-xl" {...field} />
+                    <Input
+                      placeholder="Street, City, Country"
+                      className="rounded-xl"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -158,19 +200,21 @@ const QuotationForm = ({
             <Layout className="text-purple-500" size={24} />
             Strategic Scope & Architecture
           </h3>
-          
+
           <div className="space-y-8">
             <FormField
               control={form.control}
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">Strategic Overview</FormLabel>
+                  <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">
+                    Strategic Overview
+                  </FormLabel>
                   <FormControl>
-                    <Textarea 
-                      placeholder="Define the high-level goals and challenges this project addresses..." 
-                      className="min-h-[120px] rounded-2xl bg-white/5 border-white/10" 
-                      {...field} 
+                    <Textarea
+                      placeholder="Define the high-level goals and challenges this project addresses..."
+                      className="min-h-[120px] rounded-2xl bg-white/5 border-white/10"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -183,12 +227,14 @@ const QuotationForm = ({
               name="deliverables"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">Core Deliverables (Markdown Supported)</FormLabel>
+                  <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">
+                    Core Deliverables (Markdown Supported)
+                  </FormLabel>
                   <FormControl>
-                    <Textarea 
-                      placeholder="- Responsive Web Application&#10;- Integrated API Suite&#10;- Custom Admin Dashboard" 
-                      className="min-h-[160px] rounded-2xl bg-white/5 border-white/10 font-mono text-sm" 
-                      {...field} 
+                    <Textarea
+                      placeholder="- Responsive Web Application&#10;- Integrated API Suite&#10;- Custom Admin Dashboard"
+                      className="min-h-[160px] rounded-2xl bg-white/5 border-white/10 font-mono text-sm"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -202,7 +248,9 @@ const QuotationForm = ({
                 name="startDate"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5 mb-2">Initiation Date</FormLabel>
+                    <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5 mb-2">
+                      Initiation Date
+                    </FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -210,16 +258,24 @@ const QuotationForm = ({
                             variant={"outline"}
                             className={cn(
                               "w-full pl-3 text-left font-normal h-12 rounded-xl bg-white/5 border-white/10",
-                              !field.value && "text-muted-foreground"
+                              !field.value && "text-muted-foreground",
                             )}
                           >
-                            {field.value ? format(field.value, "PPP") : <span>Select Launch Date</span>}
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Select Launch Date</span>
+                            )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar mode="single" selected={field.value || undefined} onSelect={field.onChange} />
+                        <Calendar
+                          mode="single"
+                          selected={field.value || undefined}
+                          onSelect={field.onChange}
+                        />
                       </PopoverContent>
                     </Popover>
                     <FormMessage />
@@ -232,7 +288,9 @@ const QuotationForm = ({
                 name="endDate"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5 mb-2">Completion Deadline</FormLabel>
+                    <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5 mb-2">
+                      Completion Deadline
+                    </FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -240,16 +298,24 @@ const QuotationForm = ({
                             variant={"outline"}
                             className={cn(
                               "w-full pl-3 text-left font-normal h-12 rounded-xl bg-white/5 border-white/10",
-                              !field.value && "text-muted-foreground"
+                              !field.value && "text-muted-foreground",
                             )}
                           >
-                            {field.value ? format(field.value, "PPP") : <span>Select Deadline</span>}
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Select Deadline</span>
+                            )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar mode="single" selected={field.value || undefined} onSelect={field.onChange} />
+                        <Calendar
+                          mode="single"
+                          selected={field.value || undefined}
+                          onSelect={field.onChange}
+                        />
                       </PopoverContent>
                     </Popover>
                     <FormMessage />
@@ -266,23 +332,27 @@ const QuotationForm = ({
             <CreditCard className="text-emerald-500" size={24} />
             Financial Investment & Terms
           </h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <FormField
               control={form.control}
               name="totalCost"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">Total Project Value</FormLabel>
+                  <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">
+                    Total Project Value
+                  </FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <Input 
-                        type="number" 
-                        className="h-14 pl-12 rounded-2xl bg-emerald-500/5 border-emerald-500/20 text-emerald-400 font-black text-xl" 
-                        {...field} 
-                        onChange={e => field.onChange(Number(e.target.value))}
+                      <Input
+                        type="number"
+                        className="h-14 pl-12 rounded-2xl bg-emerald-500/5 border-emerald-500/20 text-emerald-400 font-black text-xl"
+                        {...field}
+                        onChange={(e) => field.onChange(Number(e.target.value))}
                       />
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-500/50 font-bold">BDT</span>
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-500/50 font-bold">
+                        BDT
+                      </span>
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -295,9 +365,15 @@ const QuotationForm = ({
               name="paymentMethod"
               render={({ field }) => (
                 <FormItem className="md:col-span-2">
-                  <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">Preferred Asset Transfer Method</FormLabel>
+                  <FormLabel className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500/80 ml-1.5">
+                    Preferred Asset Transfer Method
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="Bank Transfer, Wire, etc." className="h-14 rounded-2xl bg-white/5 border-white/10" {...field} />
+                    <Input
+                      placeholder="Bank Transfer, Wire, etc."
+                      className="h-14 rounded-2xl bg-white/5 border-white/10"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -311,9 +387,15 @@ const QuotationForm = ({
               name="advancePercentage"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[10px] font-bold text-zinc-400 uppercase">Initiation (%)</FormLabel>
+                  <FormLabel className="text-[10px] font-bold text-zinc-400 uppercase">
+                    Initiation (%)
+                  </FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                    <Input
+                      type="number"
+                      {...field}
+                      onChange={(e) => field.onChange(Number(e.target.value))}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -324,9 +406,15 @@ const QuotationForm = ({
               name="midwayPercentage"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[10px] font-bold text-zinc-400 uppercase">Development (%)</FormLabel>
+                  <FormLabel className="text-[10px] font-bold text-zinc-400 uppercase">
+                    Development (%)
+                  </FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                    <Input
+                      type="number"
+                      {...field}
+                      onChange={(e) => field.onChange(Number(e.target.value))}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -337,9 +425,15 @@ const QuotationForm = ({
               name="completionPercentage"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[10px] font-bold text-zinc-400 uppercase">Launch (%)</FormLabel>
+                  <FormLabel className="text-[10px] font-bold text-zinc-400 uppercase">
+                    Launch (%)
+                  </FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                    <Input
+                      type="number"
+                      {...field}
+                      onChange={(e) => field.onChange(Number(e.target.value))}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -357,7 +451,13 @@ const QuotationForm = ({
                     <History size={12} /> Optimization Cycles
                   </FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="Number of revisions" className="rounded-xl" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                    <Input
+                      type="number"
+                      placeholder="Number of revisions"
+                      className="rounded-xl"
+                      {...field}
+                      onChange={(e) => field.onChange(Number(e.target.value))}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -373,7 +473,13 @@ const QuotationForm = ({
                     <Headset size={12} /> Priority Support (Days)
                   </FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="Post-launch support" className="rounded-xl" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                    <Input
+                      type="number"
+                      placeholder="Post-launch support"
+                      className="rounded-xl"
+                      {...field}
+                      onChange={(e) => field.onChange(Number(e.target.value))}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -383,11 +489,13 @@ const QuotationForm = ({
         </div>
 
         <div className="flex justify-end gap-4 pt-8">
-          <HTMLToPDF 
-            contentRef={templateRef} 
-            fileName={`${allValues.projectName || "Proposal"}.pdf`} 
-            buttonLabel="Preview & Download Proposal" 
-            icon={<DownloadCloud className="w-5 h-5 mr-3 text-indigo-400 group-hover:text-indigo-300 transition-colors" />}
+          <HTMLToPDF
+            contentRef={templateRef}
+            fileName={`${allValues.projectName || "Proposal"}.pdf`}
+            buttonLabel="Preview & Download Proposal"
+            icon={
+              <DownloadCloud className="w-5 h-5 mr-3 text-indigo-400 group-hover:text-indigo-300 transition-colors" />
+            }
           />
           <SubmitButton
             label={submitLabel}

@@ -9,7 +9,9 @@ import { extractPlainText } from "@/helpers/extractPlainText";
 export async function generateMetadata({
   params,
 }: ISlugPageProps): Promise<Metadata> {
-  const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
+  const resolvedParams = await (params instanceof Promise
+    ? params
+    : Promise.resolve(params));
   const slug = resolvedParams?.slug;
 
   try {
@@ -18,7 +20,10 @@ export async function generateMetadata({
       return { title: "Service Not Found | Rangdhanu IT" };
     }
     const { title, description: rawDescription, content, image } = res.data;
-    const description = extractPlainText(rawDescription || content || "").slice(0, 160);
+    const description = extractPlainText(rawDescription || content || "").slice(
+      0,
+      160,
+    );
 
     return {
       title,
@@ -44,13 +49,14 @@ export async function generateMetadata({
       },
     };
   } catch {
-
     return { title: "Our Services" };
   }
 }
 
 export default async function ServiceDetailsPage({ params }: ISlugPageProps) {
-  const resolvedParams = await (params instanceof Promise ? params : Promise.resolve(params));
+  const resolvedParams = await (params instanceof Promise
+    ? params
+    : Promise.resolve(params));
   const slug = resolvedParams?.slug;
 
   if (!slug) {
