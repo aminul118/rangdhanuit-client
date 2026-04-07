@@ -46,10 +46,7 @@ const Footer = async () => {
               development, app development, and digital marketing. We deliver
               excellence with every pixel and line of code.
             </p>
-            <div className="flex items-start gap-4 text-zinc-400 text-xs leading-relaxed max-w-xs">
-              <MapPin className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-              <span>{contactData.address}</span>
-            </div>
+
             <div className="flex items-center gap-4">
               <Link
                 href={`mailto:${contactData.email}`}
@@ -140,55 +137,6 @@ const Footer = async () => {
                 </Link>
               </li>
             </ul>
-          </div>
-        </div>
-
-        {/* Global Services Grid (Bottom) */}
-        <div className="pt-16 border-t border-white/5">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div>
-              <h4 className="text-sm font-black uppercase tracking-[0.3em] mb-3 text-primary">
-                Our Digital Ecosystem
-              </h4>
-              <p className="text-xs text-zinc-500 font-medium">
-                Explore all our specialized service domains and technical
-                categories.
-              </p>
-            </div>
-            <Link
-              href="/services"
-              className="text-[10px] font-black uppercase tracking-widest text-zinc-400 hover:text-white transition-all flex items-center gap-2 group"
-            >
-              Full Service Overview
-              <ArrowUpRight
-                size={14}
-                className="group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform"
-              />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-10">
-            {allServices.length > 0 ? (
-              allServices.map((service) => (
-                <Link
-                  key={service._id}
-                  href={`/services/${service.slug}`}
-                  className="group flex flex-col gap-3"
-                >
-                  <span className="text-[11px] font-black tracking-[0.15em] text-zinc-300 group-hover:text-primary transition-colors uppercase leading-tight">
-                    {service.title}
-                  </span>
-                  <div className="h-px bg-white/5 w-8 group-hover:w-full transition-all duration-500 group-hover:bg-primary/50" />
-                  <p className="text-[10px] text-zinc-500 line-clamp-1 group-hover:text-zinc-400 transition-colors">
-                    {service.description}
-                  </p>
-                </Link>
-              ))
-            ) : (
-              <p className="italic text-zinc-600 text-xs">
-                Excellence in digital craftsmanship...
-              </p>
-            )}
           </div>
         </div>
 
