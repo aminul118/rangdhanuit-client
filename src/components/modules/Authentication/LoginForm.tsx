@@ -29,8 +29,8 @@ export const LoginForm = () => {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: "admin@gmail.com",
+      password: "12345678",
     },
   });
 
@@ -47,11 +47,10 @@ export const LoginForm = () => {
       onError: (errorResponse: ApiResponse<ILogin | null>) => {
         if (errorResponse?.message === "USER_NOT_VERIFIED") {
           toast.warning("Your account is not verified. An OTP has been sent to your email.");
-          const verifyPath = `/verify-otp?email=${encodeURIComponent(data.email)}${
-            searchParams.get("redirect")
+          const verifyPath = `/verify-otp?email=${encodeURIComponent(data.email)}${searchParams.get("redirect")
               ? `&redirect=${encodeURIComponent(searchParams.get("redirect")!)}`
               : ""
-          }`;
+            }`;
           router.push(verifyPath);
           return true; // Mark as handled to prevent default error toast if desired
         }

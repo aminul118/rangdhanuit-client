@@ -1,190 +1,41 @@
-"use client";
+import EditInvoiceForm from "@/components/modules/dashboard/admin/Invoice/EditInvoiceForm";
+import { getInvoiceById } from "@/services/Invoice/invoice";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-import React, { useRef, useState, useEffect } from "react";
-import { AdminPageWrapper } from "@/components/common/layouts/AdminPageWrapper";
-import { HTMLToPDF } from "@/components/common/PDFGenerator";
-import { InvoiceTemplate, InvoiceData, InvoiceLineItem } from "@/components/modules/dashboard/admin/Invoice/InvoiceTemplate";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Plus, Trash2, Save } from "lucide-react";
-import { getInvoiceById, updateInvoice } from "@/services/Invoice/invoice";
-import { useParams } from "next/navigation";
-import { toast } from "sonner";
-import useActionHandler from "@/hooks/useActionHandler";
+export const metadata: Metadata = {
+  title: "Edit Invoice | Rangdhanu IT",
+  description: "Update invoice details and regenerate professional PDF.",
+};
 
-const EditInvoicePage = () => {
-  const templateRef = useRef<HTMLDivElement>(null);
-  const { executePost, isPending } = useActionHandler();
-  const params = useParams();
-  const id = params.id as string;
-  const [isLoading, setIsLoading] = useState(true);
+interface Props {
+  params: Promise<{ id: string }>;
+}
+
+const EditInvoicePage = async ({ params }: Props) => {
+  const { id } = await params;
   
-  const [data, setData] = useState<InvoiceData>(() => ({
-    clientName: "TechCorp Ltd.",
-    clientAddress: "123 Business Avenue, Dhaka",
-    invoiceNumber: `INV-${Date.now()}`,
-    issueDate: new Date(),
-    dueDate: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000), // 15 days
-    lineItems: [
-      { description: "Web Development", quantity: 1, unitPrice: 100000, total: 100000 }
-    ],
-    subtotal: 100000,
-    tax: 0,
-    discount: 0,
-    total: 100000,
-    notes: "Payment due within 15 days.",
-  }));
+  const res = await getInvoiceById(id);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type } = e.target;
-    setData(prev => ({
-      ...prev,
-      [name]: type === "number" ? Number(value) : value,
-    }));
+  if (!res.success || !res.data) {
+    notFound();
+  }
+
+  const invoice = res.data;
+
+  // Convert string dates to Date objects for react-hook-form
+  const initialData = {
+    ...invoice,
+    issueDate: new Date(invoice.issueDate),
+    dueDate: new Date(invoice.dueDate),
+    projectStartTime: invoice.projectStartTime ? new Date(invoice.projectStartTime) : undefined,
+    projectApproximateFinishTime: invoice.projectApproximateFinishTime ? new Date(invoice.projectApproximateFinishTime) : undefined,
   };
-
-  const handleLineItemChange = (index: number, field: keyof InvoiceLineItem, value: string | number) => {
-    const newItems = [...data.lineItems];
-    newItems[index] = { ...newItems[index], [field]: value };
-    
-    // Auto calculate total for the line item
-    if (field === 'quantity' || field === 'unitPrice') {
-      newItems[index].total = newItems[index].quantity * newItems[index].unitPrice;
-    }
-
-    // Auto calculate invoice totals
-    const newSubtotal = newItems.reduce((acc, curr) => acc + curr.total, 0);
-    
-    setData(prev => ({
-      ...prev,
-      lineItems: newItems,
-      subtotal: newSubtotal,
-      total: newSubtotal + prev.tax - prev.discount
-    }));
-  };
-
-  useEffect(() => {
-    const fetchDoc = async () => {
-      try {
-        const res = await getInvoiceById(id);
-        if (res.success && res.data) {
-          setData(res.data as unknown as InvoiceData);
-        }
-      } catch {
-        toast.error("Failed to load invoice");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    if (id) {
-      fetchDoc();
-    }
-  }, [id]);
-
-  const addLineItem = () => {
-    setData(prev => ({
-      ...prev,
-      lineItems: [...prev.lineItems, { description: "", quantity: 1, unitPrice: 0, total: 0 }]
-    }));
-  };
-
-  const removeLineItem = (index: number) => {
-    const newItems = data.lineItems.filter((_, i) => i !== index);
-    const newSubtotal = newItems.reduce((acc, curr) => acc + curr.total, 0);
-    
-    setData(prev => ({
-      ...prev,
-      lineItems: newItems,
-      subtotal: newSubtotal,
-      total: newSubtotal + prev.tax - prev.discount
-    }));
-  };
-
-  const handleSave = async () => {
-    executePost({
-      action: async () => await updateInvoice(id, data),
-      success: {
-        message: "Invoice updated successfully!",
-        redirectPath: "/admin/invoices",
-      },
-      errorMessage: "Failed to update invoice"
-    });
-  };
-
-  if (isLoading) return <div className="p-8 text-center">Loading...</div>;
 
   return (
-    <AdminPageWrapper skeletonColumns={[{ width: "w-full" }]}>
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">Edit Invoice</h1>
-          <p className="text-muted-foreground">View, edit, and generate PDF</p>
-        </div>
-        <div className="flex gap-3">
-          <HTMLToPDF contentRef={templateRef} fileName={`${data.invoiceNumber}_Invoice.pdf`} buttonLabel="Download Invoice" />
-          <Button onClick={handleSave} disabled={isPending}>
-            <Save className="w-4 h-4 mr-2" />
-            {isPending ? "Saving..." : "Update Database"}
-          </Button>
-        </div>
-      </div>
-
-      <div className="bg-card p-6 rounded-lg shadow-sm border border-border flex flex-col gap-6">
-        <h2 className="text-lg font-semibold border-b border-border pb-2 text-foreground">Invoice Details</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <Label>Invoice Number</Label>
-            <Input name="invoiceNumber" value={data.invoiceNumber} onChange={handleChange} />
-          </div>
-          <div></div>
-          <div>
-            <Label>Client Name</Label>
-            <Input name="clientName" value={data.clientName} onChange={handleChange} />
-          </div>
-          <div>
-            <Label>Client Address</Label>
-            <Input name="clientAddress" value={data.clientAddress} onChange={handleChange} />
-          </div>
-        </div>
-
-        <h2 className="text-lg font-semibold border-b border-border pb-2 mt-4 flex justify-between items-center text-foreground">
-          Line Items
-          <Button variant="outline" size="sm" onClick={addLineItem}><Plus className="w-3 h-3 mr-1"/> Add Item</Button>
-        </h2>
-        
-        <div className="space-y-4">
-          {data.lineItems.map((item, idx) => (
-            <div key={idx} className="flex gap-4 items-end">
-              <div className="flex-1">
-                <Label>Description</Label>
-                <Input value={item.description} onChange={(e) => handleLineItemChange(idx, 'description', e.target.value)} />
-              </div>
-              <div className="w-24">
-                <Label>Qty</Label>
-                <Input type="number" value={item.quantity} onChange={(e) => handleLineItemChange(idx, 'quantity', Number(e.target.value))} />
-              </div>
-              <div className="w-32">
-                <Label>Price</Label>
-                <Input type="number" value={item.unitPrice} onChange={(e) => handleLineItemChange(idx, 'unitPrice', Number(e.target.value))} />
-              </div>
-              <div className="w-32">
-                <Label>Total</Label>
-                <Input type="number" value={item.total} readOnly className="bg-muted text-muted-foreground" />
-              </div>
-              <div>
-                <Button variant="destructive" size="icon" onClick={() => removeLineItem(idx)} disabled={data.lineItems.length === 1}>
-                  <Trash2 className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Hidden PDF content */}
-      <InvoiceTemplate data={data} templateRef={templateRef} />
-    </AdminPageWrapper>
+    <div className="p-4 md:p-8">
+      <EditInvoiceForm id={id} initialData={initialData as any} />
+    </div>
   );
 };
 

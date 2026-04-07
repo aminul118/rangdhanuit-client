@@ -1,22 +1,25 @@
-import React from "react";
+
 import html2canvas from "html2canvas-pro";
 import { PDFDocument } from "pdf-lib";
 import { Button } from "@/components/ui/button";
 import { DownloadIcon } from "lucide-react";
 import { toast } from "sonner";
+import { useState } from "react";
 
 interface HTMLToPDFProps {
   contentRef: React.RefObject<HTMLDivElement | null>;
   fileName?: string;
   buttonLabel?: string;
+  icon?: React.ReactNode;
 }
 
 export const HTMLToPDF = ({
   contentRef,
   fileName = "document.pdf",
   buttonLabel = "Download PDF",
+  icon,
 }: HTMLToPDFProps) => {
-  const [isGenerating, setIsGenerating] = React.useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const generatePDF = async () => {
     if (!contentRef.current) return;
@@ -34,9 +37,9 @@ export const HTMLToPDF = ({
 
       // 2. Create PDF with pdf-lib
       const pdfDoc = await PDFDocument.create();
-      
+
       const pngImage = await pdfDoc.embedPng(imgData);
-      
+
       const imgDims = pngImage.scaleToFit(595.28, 841.89); // A4 Size at 72 PPI
 
       const page = pdfDoc.addPage([595.28, 841.89]);
@@ -54,11 +57,11 @@ export const HTMLToPDF = ({
 
       // 3. Open the PDF in a new tab/window
       const pdfBytes = await pdfDoc.save();
-      const blob = new Blob([pdfBytes], { type: "application/pdf" });
+      const blob = new Blob([pdfBytes as unknown as BlobPart], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
-      
+
       const newWindow = window.open(url, "_blank");
-      
+
       if (!newWindow) {
         // Fallback for popup blockers
         const link = document.createElement("a");
@@ -68,13 +71,12 @@ export const HTMLToPDF = ({
         link.click();
         document.body.removeChild(link);
       }
-      
+
       // Clean up the URL object after a short delay to ensure it loads
       setTimeout(() => URL.revokeObjectURL(url), 10000);
 
-      toast.success("PDF generated successfully!");
     } catch (error) {
-      console.error("Failed to generate PDF:", error);
+
       toast.error("Failed to generate PDF");
     } finally {
       setIsGenerating(false);
@@ -83,7 +85,7 @@ export const HTMLToPDF = ({
 
   return (
     <Button onClick={generatePDF} disabled={isGenerating} variant="outline">
-      <DownloadIcon className="w-4 h-4 mr-2" />
+      {icon ? icon : <DownloadIcon className="w-4 h-4 mr-2" />}
       {isGenerating ? "Generating..." : buttonLabel}
     </Button>
   );

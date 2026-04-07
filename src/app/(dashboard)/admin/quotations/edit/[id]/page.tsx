@@ -1,138 +1,39 @@
-"use client";
+import EditQuotationForm from "@/components/modules/dashboard/admin/Quotation/EditQuotationForm";
+import { getQuotationById } from "@/services/Quotation/quotation";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-import React, { useRef, useState, useEffect } from "react";
-import { AdminPageWrapper } from "@/components/common/layouts/AdminPageWrapper";
-import { HTMLToPDF } from "@/components/common/PDFGenerator";
-import { QuotationTemplate, QuotationData } from "@/components/modules/dashboard/admin/Quotation/QuotationTemplate";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { getQuotationById, updateQuotation } from "@/services/Quotation/quotation";
-import { useParams } from "next/navigation";
-import { Save } from "lucide-react";
-import useActionHandler from "@/hooks/useActionHandler";
+export const metadata: Metadata = {
+  title: "Edit Quotation | Rangdhanu IT",
+  description: "Refine strategic proposal and regenerate professional PDF.",
+};
 
-const EditQuotationPage = () => {
-  const templateRef = useRef<HTMLDivElement>(null);
-  const { executePost, isPending } = useActionHandler();
-  const params = useParams();
-  const id = params.id as string;
-  const [isLoading, setIsLoading] = useState(true);
+interface Props {
+  params: Promise<{ id: string }>;
+}
+
+const EditQuotationPage = async ({ params }: Props) => {
+  const { id } = await params;
   
-  const [data, setData] = useState<QuotationData>(() => ({
-    clientName: "TechCorp Ltd.",
-    clientAddress: "123 Business Avenue, Dhaka",
-    projectName: "E-Commerce Platform",
-    description: "Design and development of a custom React/Node.js eCommerce platform.",
-    deliverables: "Web UI, Admin Dashboard, REST API, Payment Gateway Integration",
-    startDate: new Date(),
-    endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
-    totalCost: 150000,
-    advancePercentage: 50,
-    midwayPercentage: 0,
-    completionPercentage: 50,
-    paymentMethod: "Bank Transfer",
-    revisions: 3,
-    supportDays: 30,
-  }));
+  const res = await getQuotationById(id);
 
-  useEffect(() => {
-    const fetchDoc = async () => {
-      try {
-        const res = await getQuotationById(id);
-        if (res.success && res.data) {
-          setData(res.data as unknown as QuotationData);
-        }
-      } catch {
-        // failed to load silently handled or redirect
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    if (id) {
-      fetchDoc();
-    }
-  }, [id]);
+  if (!res.success || !res.data) {
+    notFound();
+  }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type } = e.target;
-    setData(prev => ({
-      ...prev,
-      [name]: type === "number" ? Number(value) : value,
-    }));
+  const quotation = res.data;
+
+  // Convert string dates to Date objects for react-hook-form
+  const initialData = {
+    ...quotation,
+    startDate: quotation.startDate ? new Date(quotation.startDate) : undefined,
+    endDate: quotation.endDate ? new Date(quotation.endDate) : undefined,
   };
-
-  const handleSave = async () => {
-    executePost({
-      action: async () => await updateQuotation(id, data),
-      success: {
-        message: "Quotation updated successfully!",
-        redirectPath: "/admin/quotations",
-      },
-      errorMessage: "Failed to update quotation"
-    });
-  };
-
-  if (isLoading) return <div className="p-8 text-center">Loading...</div>;
 
   return (
-    <AdminPageWrapper skeletonColumns={[{ width: "w-full" }]}>
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">Edit Quotation</h1>
-          <p className="text-muted-foreground">View, edit, and generate PDF</p>
-        </div>
-        <div className="flex gap-3">
-          <HTMLToPDF contentRef={templateRef} fileName={`${data.clientName.replace(/\s+/g, '_')}_Quotation.pdf`} />
-          <Button onClick={handleSave} disabled={isPending}>
-            <Save className="w-4 h-4 mr-2" />
-            {isPending ? "Saving..." : "Update Database"}
-          </Button>
-        </div>
-      </div>
-
-      <div className="bg-card p-6 rounded-lg shadow-sm border border-border flex flex-col gap-6">
-        <h2 className="text-lg font-semibold border-b border-border pb-2 text-foreground">Client Details</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <Label>Client Name</Label>
-            <Input name="clientName" value={data.clientName} onChange={handleChange} />
-          </div>
-          <div>
-            <Label>Client Address</Label>
-            <Input name="clientAddress" value={data.clientAddress} onChange={handleChange} />
-          </div>
-        </div>
-
-        <h2 className="text-lg font-semibold border-b border-border pb-2 mt-4 text-foreground">Project Details</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="col-span-1 md:col-span-2">
-            <Label>Project Name</Label>
-            <Input name="projectName" value={data.projectName} onChange={handleChange} />
-          </div>
-          <div className="col-span-1 md:col-span-2">
-            <Label>Description</Label>
-            <Textarea name="description" value={data.description} onChange={handleChange} className="h-20" />
-          </div>
-          <div className="col-span-1 md:col-span-2">
-            <Label>Deliverables</Label>
-            <Textarea name="deliverables" value={data.deliverables} onChange={handleChange} className="h-20" />
-          </div>
-          <div>
-            <Label>Total Cost (BDT)</Label>
-            <Input type="number" name="totalCost" value={data.totalCost} onChange={handleChange} />
-          </div>
-          <div>
-            <Label>Revisions</Label>
-            <Input type="number" name="revisions" value={data.revisions} onChange={handleChange} />
-          </div>
-        </div>
-      </div>
-
-      {/* Hidden PDF content */}
-      <QuotationTemplate data={data} templateRef={templateRef} />
-    </AdminPageWrapper>
+    <div className="p-4 md:p-8">
+      <EditQuotationForm id={id} initialData={initialData as any} />
+    </div>
   );
 };
 

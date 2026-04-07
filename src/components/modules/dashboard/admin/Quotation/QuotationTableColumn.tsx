@@ -4,8 +4,7 @@ import { Column } from "@/components/common/table/TableManageMent";
 import { IQuotation } from "@/types/Quotation/quotation.types";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
-import { TableActionDropdown } from "@/components/common/table/TableActionDropdown";
-import { deleteQuotation } from "@/services/Quotation/quotation";
+import QuotationTableAction from "./QuotationTableAction";
 
 export const QuotationTableColumns = (): Column<IQuotation>[] => [
   {
@@ -59,12 +58,7 @@ export const QuotationTableColumns = (): Column<IQuotation>[] => [
     accessor: (row: IQuotation) => {
       return (
         <div className="text-right">
-          <TableActionDropdown
-            editLink={`/admin/quotations/edit/${row._id}`}
-            deleteAction={async () => deleteQuotation(row._id)}
-            deleteConfirmMessage="Are you sure you want to delete this quotation?"
-            deleteSuccessMessage="Quotation successfully removed."
-          />
+          <QuotationTableAction row={row} />
         </div>
       );
     },

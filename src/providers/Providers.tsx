@@ -1,16 +1,20 @@
-"use client";
-
 import { ThemeProvider } from "next-themes";
-import { AuthProvider } from "./AuthProvider";
+import { AuthProvider, IUser } from "./AuthProvider";
 import { SocketProvider } from "./SocketProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "sonner";
-import { IChildrenProps, IUser } from "@/types";
+import { ReactNode } from "react";
+
+
+interface IProvider {
+  children: ReactNode;
+  initialUser: IUser | null;
+}
 
 const Providers = ({
   children,
   initialUser,
-}: IChildrenProps & { initialUser: IUser | null }) => {
+}: IProvider) => {
   return (
     <ThemeProvider
       attribute="class"

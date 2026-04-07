@@ -4,8 +4,7 @@ import { Column } from "@/components/common/table/TableManageMent";
 import { IInvoice } from "@/types/Invoice/invoice.types";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
-import { TableActionDropdown } from "@/components/common/table/TableActionDropdown";
-import { deleteInvoice } from "@/services/Invoice/invoice";
+import InvoiceTableAction from "./InvoiceTableAction";
 
 export const InvoiceTableColumns = (): Column<IInvoice>[] => [
   {
@@ -60,12 +59,7 @@ export const InvoiceTableColumns = (): Column<IInvoice>[] => [
     accessor: (row: IInvoice) => {
       return (
         <div className="text-right">
-          <TableActionDropdown
-            editLink={`/admin/invoices/edit/${row._id}`}
-            deleteAction={async () => deleteInvoice(row._id)}
-            deleteConfirmMessage="Are you sure you want to delete this invoice?"
-            deleteSuccessMessage="Invoice successfully removed."
-          />
+          <InvoiceTableAction row={row} />
         </div>
       );
     },

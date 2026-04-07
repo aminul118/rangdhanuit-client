@@ -5,6 +5,7 @@ import { ApiResponse } from '@/types';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { useTopLoader } from 'nextjs-toploader';
 
 interface SuccessConfig<T> {
   loadingText?: string;
@@ -25,6 +26,7 @@ interface ExecuteOptions<T> {
 const useActionHandler = () => {
   const router = useRouter();
   const [isPending, setIsPending] = useState(false);
+  const topLoader = useTopLoader();
 
   /**
    * Universal execution engine for any API action.
@@ -38,6 +40,7 @@ const useActionHandler = () => {
     if (isPending) return null;
 
     setIsPending(true);
+    topLoader.start();
     const toastId = toast.loading(success?.loadingText || "Processing...");
 
     try {
@@ -82,6 +85,7 @@ const useActionHandler = () => {
       return null;
     } finally {
       setIsPending(false);
+      topLoader.done();
     }
   };
 

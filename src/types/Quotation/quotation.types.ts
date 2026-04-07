@@ -3,6 +3,7 @@ export interface IQuotation {
   clientName: string;
   clientAddress: string;
   clientEmail?: string;
+  clientPhone: string;
   projectName: string;
   description: string;
   deliverables: string;

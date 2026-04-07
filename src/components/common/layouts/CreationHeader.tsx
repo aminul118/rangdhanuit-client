@@ -8,9 +8,10 @@ interface CreationHeaderProps {
   title: string;
   subtitle: string;
   backLink: string;
+  extraActions?: React.ReactNode;
 }
 
-const CreationHeader = ({ title, subtitle, backLink }: CreationHeaderProps) => {
+const CreationHeader = ({ title, subtitle, backLink, extraActions }: CreationHeaderProps) => {
   return (
     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12 ">
       <div className="space-y-3">
@@ -36,12 +37,19 @@ const CreationHeader = ({ title, subtitle, backLink }: CreationHeaderProps) => {
           transition={{ delay: 0.1, duration: 0.6, ease: "circOut" }}
           className="space-y-2"
         >
-          <h1 className="text-2xl md:text-3xl font-black tracking-tight text-white flex items-center gap-4">
-            {title}
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 shadow-[0_0_20px_-5px_hsl(var(--primary)/30%)]">
-              <Sparkles className="text-primary animate-pulse" size={20} />
-            </div>
-          </h1>
+          <div className="flex items-center gap-4">
+            <h1 className="text-2xl md:text-3xl font-black tracking-tight text-white flex items-center gap-4">
+              {title}
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 shadow-[0_0_20px_-5px_hsl(var(--primary)/30%)]">
+                <Sparkles className="text-primary animate-pulse" size={20} />
+              </div>
+            </h1>
+            {extraActions && (
+              <div className="ml-4 flex items-center h-full pt-1">
+                {extraActions}
+              </div>
+            )}
+          </div>
           <p className="text-zinc-500 font-medium text-base max-w-xl leading-relaxed">
             {subtitle}
           </p>
