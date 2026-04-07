@@ -67,7 +67,7 @@ const CodeWindow = () => {
             if (/=>|\.\.\.|=/.test(part)) {
               return <span key={j} className="text-blue-500">{part}</span>;
             }
-             if (/\d+/.test(part)) {
+            if (/\d+/.test(part)) {
               return <span key={j} className="text-orange-500">{part}</span>;
             }
             return <span key={j} className="text-foreground/80 dark:text-foreground/90">{part}</span>;
@@ -99,10 +99,10 @@ const CodeWindow = () => {
       </div>
 
       {/* Editor Content */}
-      <div className="p-6 md:p-8 min-h-[320px] max-h-[400px] overflow-y-auto scrollbar-hide">
+      <div className="p-6 md:p-8 min-h-[380px] max-h-[400px] scrollbar-hide overflow-y-hidden">
         {highlightCode(displayText)}
         {isTyping && (
-           <motion.span
+          <motion.span
             animate={{ opacity: [1, 0] }}
             transition={{ duration: 0.8, repeat: Infinity }}
             className="inline-block w-1.5 h-4 md:w-2 md:h-5 bg-primary ml-1 translate-y-0.5"

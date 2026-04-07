@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "prod": "npm run build && vercel --prod"
+    "prod": "bun run build && vercel --prod"
   },
   "dependencies": {
     "@ariakit/react": "^0.4.24",

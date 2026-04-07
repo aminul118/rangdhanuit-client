@@ -5,7 +5,7 @@ const baseCookieOption = {
   secure: envVars.nodeEnv === 'production',
   sameSite: 'lax' as const,
   // Adjust domain based on your deployment
-  domain: envVars.nodeEnv === 'production' ? 'rangdhanu-it.com' : 'localhost',
+  domain: envVars.nodeEnv === 'production' ? '.rangdhanuit.com' : 'localhost',
   path: '/',
 } as const;
 

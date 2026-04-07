@@ -40,7 +40,7 @@ const Home = async () => {
       <Stats />
       <PortfolioSlider portfolios={portfolios} />
       <Process />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <FAQ />
       <CTA />
     </div>

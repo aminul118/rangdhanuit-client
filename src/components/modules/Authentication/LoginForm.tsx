@@ -21,7 +21,6 @@ export const LoginForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "/dashboard";
-
   const { setUser } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const { executePost, isPending } = useActionHandler();
@@ -29,8 +28,8 @@ export const LoginForm = () => {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "admin@gmail.com",
-      password: "12345678",
+      email: "",
+      password: "",
     },
   });
 
