@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import Logo from '@/assets/Logo';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -10,13 +11,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Logo & About */}
           <div className="col-span-1 md:col-span-1 flex flex-col gap-6">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold">R</span>
-              </div>
-              <span className="text-xl font-bold tracking-tight text-white">
-                Rangdhanu <span className="text-primary">IT</span>
-              </span>
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <Logo className="w-8 h-8" />
+            
             </Link>
             <p className="text-zinc-400 text-sm leading-relaxed">
               Leading IT solutions provider specializing in web development, app development, and digital marketing.

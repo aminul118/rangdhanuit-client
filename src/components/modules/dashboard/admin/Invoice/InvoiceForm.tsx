@@ -2,8 +2,15 @@
 
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { format } from "date-fns";
-import { CalendarIcon, Plus, Trash2 } from "lucide-react";
+import { format, addDays, startOfToday } from "date-fns";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { CalendarIcon, Plus, Trash2, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -42,6 +49,7 @@ const InvoiceForm = ({
   submitLabel = "Save Invoice",
 }: InvoiceFormProps) => {
   const templateRef = useRef<HTMLDivElement>(null);
+  // Generate stable default values for hydration safety
   const form = useForm<InvoiceFormValues>({
     resolver: zodResolver(invoiceSchemaZodValidation),
     defaultValues: {
@@ -49,9 +57,9 @@ const InvoiceForm = ({
       clientEmail: initialData?.clientEmail || "",
       clientPhone: initialData?.clientPhone || "",
       clientAddress: initialData?.clientAddress || "",
-      invoiceNumber: initialData?.invoiceNumber || `INV-${Date.now()}`,
+      invoiceNumber: initialData?.invoiceNumber || "", 
       issueDate: initialData?.issueDate || new Date(),
-      dueDate: initialData?.dueDate || new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
+      dueDate: initialData?.dueDate || new Date(),
       lineItems: initialData?.lineItems || [
         { description: "", quantity: 1, unitPrice: 0, total: 0 },
       ],
@@ -65,36 +73,67 @@ const InvoiceForm = ({
     },
   });
 
+  // Handle client-side only initialization for new invoices
+  useEffect(() => {
+    if (!initialData) {
+      if (!form.getValues("invoiceNumber")) {
+        form.setValue("invoiceNumber", `INV-${Date.now()}`);
+      }
+
+      // Default due date (15 days from now)
+      const currentDueDate = form.getValues("dueDate");
+      // Check if it's just the 'now' date we set in defaultValues
+      const diff = Math.abs(currentDueDate.getTime() - new Date().getTime());
+      if (diff < 1000) { // Only if it was roughly initialized just now
+        form.setValue("dueDate", new Date(Date.now() + 15 * 24 * 60 * 60 * 1000));
+      }
+    }
+  }, [initialData, form]);
+
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "lineItems",
   });
 
-  const watchLineItems = form.watch("lineItems");
-  const watchTax = form.watch("tax");
-  const watchDiscount = form.watch("discount");
+  const watchLineItems = form.watch("lineItems") || [];
+  const watchTax = form.watch("tax") || 0;
+  const watchDiscount = form.watch("discount") || 0;
   const allValues = form.watch();
 
-  // Re-calculate totals when line items, tax, or discount change
+  // Re-calculate totals instantly for the UI to be highly responsive
+  const calculatedSubtotal = watchLineItems.reduce((acc, item) => {
+    const itemTotal = (Number(item.quantity) || 0) * (Number(item.unitPrice) || 0);
+    return acc + itemTotal;
+  }, 0);
+
+  const basePriceAfterDiscount = Math.max(0, calculatedSubtotal - (Number(watchDiscount) || 0));
+  const calculatedTaxAmount = basePriceAfterDiscount * ((Number(watchTax) || 0) / 100);
+
+  const calculatedTotal = Math.max(
+    0,
+    basePriceAfterDiscount + calculatedTaxAmount
+  );
+
+  // Sync totals with form state for validation/submission purpose
   useEffect(() => {
-    const subtotal = watchLineItems.reduce((acc, item) => {
-      const itemTotal = (item.quantity || 0) * (item.unitPrice || 0);
-      return acc + itemTotal;
-    }, 0);
+    const currentSubtotal = form.getValues("subtotal");
+    const currentTotal = form.getValues("total");
 
-    const total = subtotal + (Number(watchTax) || 0) - (Number(watchDiscount) || 0);
+    if (currentSubtotal !== calculatedSubtotal) {
+      form.setValue("subtotal", calculatedSubtotal, { shouldValidate: true });
+    }
+    if (currentTotal !== calculatedTotal) {
+      form.setValue("total", calculatedTotal, { shouldValidate: true });
+    }
 
-    form.setValue("subtotal", subtotal);
-    form.setValue("total", total >= 0 ? total : 0);
-
-    // Update individual line item totals for consistency (though they are calculated on render too)
+    // Ensure each line item's individual total is synced
     watchLineItems.forEach((item, index) => {
-      const itemTotal = (item.quantity || 0) * (item.unitPrice || 0);
+      const itemTotal = (Number(item.quantity) || 0) * (Number(item.unitPrice) || 0);
       if (item.total !== itemTotal) {
-        form.setValue(`lineItems.${index}.total`, itemTotal);
+        form.setValue(`lineItems.${index}.total`, itemTotal, { shouldValidate: true });
       }
     });
-  }, [watchLineItems, watchTax, watchDiscount, form]);
+  }, [calculatedSubtotal, calculatedTotal, watchLineItems, form]);
 
   return (
     <Form {...form}>
@@ -190,7 +229,18 @@ const InvoiceForm = ({
               name="issueDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel className="text-xs font-black uppercase tracking-widest text-slate-500 mb-2">Issue Date</FormLabel>
+                  <div className="flex justify-between items-center mb-2">
+                    <FormLabel className="text-xs font-black uppercase tracking-widest text-slate-500">Issue Date</FormLabel>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => field.onChange(startOfToday())}
+                      className="h-6 text-[10px] uppercase font-bold text-indigo-600 hover:text-indigo-700 p-0"
+                    >
+                      <Zap size={10} className="mr-1" /> Today
+                    </Button>
+                  </div>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
@@ -229,7 +279,30 @@ const InvoiceForm = ({
               name="dueDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel className="text-xs font-black uppercase tracking-widest text-slate-500 mb-2">Due Date</FormLabel>
+                  <div className="flex justify-between items-center mb-2">
+                    <FormLabel className="text-xs font-black uppercase tracking-widest text-slate-500">Due Date</FormLabel>
+                    <Select
+                      onValueChange={(value) => {
+                        const days = parseInt(value);
+                        if (!isNaN(days)) {
+                          const baseDate = form.getValues("issueDate") || new Date();
+                          field.onChange(addDays(baseDate, days));
+                        }
+                      }}
+                    >
+                      <SelectTrigger className="h-6 w-auto border-none bg-transparent text-[10px] uppercase font-bold text-indigo-600 hover:text-indigo-700 p-0 shadow-none focus:ring-0">
+                        <SelectValue placeholder="Terms" />
+                      </SelectTrigger>
+                      <SelectContent align="end" className="rounded-xl">
+                        <SelectItem value="7" className="text-xs">7 Days</SelectItem>
+                        <SelectItem value="15" className="text-xs">15 Days</SelectItem>
+                        <SelectItem value="30" className="text-xs">30 Days</SelectItem>
+                        <SelectItem value="45" className="text-xs">45 Days</SelectItem>
+                        <SelectItem value="60" className="text-xs">60 Days</SelectItem>
+                        <SelectItem value="90" className="text-xs">90 Days</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
@@ -389,7 +462,7 @@ const InvoiceForm = ({
                           <Input
                             type="number"
                             {...field}
-                            onChange={(e) => field.onChange(Number(e.target.value))}
+                            onChange={(e) => field.onChange(Number(e.target.value) || 0)}
 
                           />
                         </FormControl>
@@ -409,7 +482,7 @@ const InvoiceForm = ({
                           <Input
                             type="number"
                             {...field}
-                            onChange={(e) => field.onChange(Number(e.target.value))}
+                            onChange={(e) => field.onChange(Number(e.target.value) || 0)}
 
                           />
                         </FormControl>
@@ -446,24 +519,32 @@ const InvoiceForm = ({
             <div className="w-80 space-y-4  p-6 rounded-[1.5rem] border ">
               <div className="flex justify-between text-sm">
                 <span className="text-slate-500 font-medium">Subtotal</span>
-                <span className="font-bold text-slate-900">{form.watch("subtotal").toLocaleString()} BDT</span>
+                <span className="font-bold text-slate-900">{calculatedSubtotal.toLocaleString()} BDT</span>
               </div>
 
               <FormField
                 control={form.control}
                 name="tax"
                 render={({ field }) => (
-                  <FormItem className="flex justify-between items-center space-y-0">
-                    <FormLabel className="text-sm text-slate-500 font-medium">Tax Amount</FormLabel>
-                    <FormControl className="w-32">
-                      <Input
-                        type="number"
-                        {...field}
-                        onChange={(e) => field.onChange(Number(e.target.value))}
-                        className="h-8 text-right font-bold"
-                      />
-                    </FormControl>
-                  </FormItem>
+                  <div className="space-y-1">
+                    <FormItem className="flex justify-between items-center space-y-0">
+                      <FormLabel className="text-sm text-slate-500 font-medium">Tax (%)</FormLabel>
+                      <FormControl className="w-32">
+                        <div className="relative">
+                          <Input
+                            type="number"
+                            {...field}
+                            onChange={(e) => field.onChange(Number(e.target.value) || 0)}
+                            className="h-8 text-right pr-6 font-bold"
+                          />
+                          <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">%</span>
+                        </div>
+                      </FormControl>
+                    </FormItem>
+                    <div className="flex justify-end text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                      Tax Amount: {calculatedTaxAmount.toLocaleString()} BDT
+                    </div>
+                  </div>
                 )}
               />
 
@@ -477,7 +558,7 @@ const InvoiceForm = ({
                       <Input
                         type="number"
                         {...field}
-                        onChange={(e) => field.onChange(Number(e.target.value))}
+                        onChange={(e) => field.onChange(Number(e.target.value) || 0)}
                         className="h-8 text-right font-bold text-emerald-600"
                       />
                     </FormControl>
@@ -488,7 +569,7 @@ const InvoiceForm = ({
               <div className="pt-4 border-t-2 border-indigo-100 mt-4">
                 <div className="flex justify-between items-center">
                   <span className="text-xs font-black uppercase tracking-widest text-indigo-900">Total BDT</span>
-                  <span className="text-2xl font-black text-indigo-900">{form.watch("total").toLocaleString()}</span>
+                  <span className="text-2xl font-black text-indigo-900">{calculatedTotal.toLocaleString()}</span>
                 </div>
               </div>
             </div>

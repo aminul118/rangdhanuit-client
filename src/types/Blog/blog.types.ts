@@ -25,6 +25,7 @@ export interface IBlog {
   views: number;
   status: 'DRAFT' | 'PUBLISHED';
   isDeleted: boolean;
+  isFeatured: boolean;
   createdAt: string;
   updatedAt: string;
 }

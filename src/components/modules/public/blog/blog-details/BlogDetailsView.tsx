@@ -5,6 +5,7 @@ import { BlogDetailsSidebar } from "./BlogDetailsSidebar";
 import metaConfig from "@/config/meta.config";
 import { generateJsonLd } from "@/Seo/generateJsonLd";
 import { extractPlainText } from "@/helpers/extractPlainText";
+import { BlogViewCounter } from "./BlogViewCounter";
 
 interface BlogDetailsViewProps {
   blog: IBlog;
@@ -62,6 +63,7 @@ export const BlogDetailsView = ({ blog }: BlogDetailsViewProps) => {
 
   return (
     <main className="min-h-screen pb-32 bg-background transition-colors duration-500 overflow-x-hidden">
+      <BlogViewCounter slug={blog.slug} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={articleJsonLd}

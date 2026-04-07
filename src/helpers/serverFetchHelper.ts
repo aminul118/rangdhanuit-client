@@ -43,6 +43,7 @@ const serverFetchHelper = async <T>(
 
     return fetch(url, {
       ...rest,
+      next: (options as any).next,
       body: body as BodyInit | null,
       headers: {
         ...(isFormData ? {} : { "Content-Type": "application/json" }),

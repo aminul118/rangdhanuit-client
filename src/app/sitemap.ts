@@ -1,4 +1,3 @@
-import metaConfig from "@/config/meta.config";
 import generateSitemapEntries from "@/Seo/generateSitemapEntries";
 import { staticRoutes } from "@/Seo/staticRoutes";
 import { getPortfolios } from "@/services/Portfolio/portfolios";

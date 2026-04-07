@@ -76,7 +76,7 @@ const AdminHeader = () => {
             className="relative h-11 w-full justify-start rounded-2xl bg-muted/10 border-border/50 text-sm text-muted-foreground hover:bg-accent hover:border-border transition-all duration-300 px-4 group"
             onClick={() => setOpen(true)}
           >
-            <Search className="mr-2 h-4 w-4 group-hover:text-indigo-500 transition-colors" />
+            <Search className="mr-2 h-4 w-4 group-hover:text-primary transition-colors" />
             <span>Search menu items or actions...</span>
             <kbd className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 hidden h-6 select-none items-center gap-1 rounded border border-border/50 bg-muted/20 px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
               <span className="text-xs">⌘</span>K
@@ -95,7 +95,7 @@ const AdminHeader = () => {
                     onSelect={() => handleNavigate(item.href)}
                     className="flex items-center gap-3 p-3 rounded-xl cursor-pointer"
                   >
-                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-500">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
                       <item.icon size={18} />
                     </div>
                     <span className="text-sm font-semibold">{item.label}</span>
@@ -161,7 +161,7 @@ const AdminHeader = () => {
                 <div className="relative">
                   <Avatar className="h-9 w-9 border-2 border-border/50 shadow-lg">
                     <AvatarImage src={user?.picture} />
-                    <AvatarFallback className="bg-linear-to-br from-indigo-500 to-purple-600 text-white text-xs font-bold">
+                    <AvatarFallback className="bg-linear-to-br from-primary to-purple-600 text-white text-xs font-bold">
                       {user?.name?.charAt(0) || "U"}
                     </AvatarFallback>
                   </Avatar>
@@ -188,13 +188,13 @@ const AdminHeader = () => {
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="bg-border/50" />
             <Link href="/profile">
-              <DropdownMenuItem className="rounded-xl px-3 py-2.5 gap-3 focus:bg-indigo-500/10 focus:text-indigo-500 cursor-pointer transition-colors">
+              <DropdownMenuItem className="rounded-xl px-3 py-2.5 gap-3 focus:bg-primary/10 focus:text-primary cursor-pointer transition-colors">
                 <UserIcon size={18} />
                 <span className="font-medium text-sm">View Profile</span>
               </DropdownMenuItem>
             </Link>
             <Link href="/profile?tab=theme">
-              <DropdownMenuItem className="rounded-xl px-3 py-2.5 gap-3 focus:bg-indigo-500/10 focus:text-indigo-500 cursor-pointer transition-colors">
+              <DropdownMenuItem className="rounded-xl px-3 py-2.5 gap-3 focus:bg-primary/10 focus:text-primary cursor-pointer transition-colors">
                 <Settings size={18} />
                 <span className="font-medium text-sm">Account Settings</span>
               </DropdownMenuItem>

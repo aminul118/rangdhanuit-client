@@ -4,6 +4,7 @@ import Image from "next/image";
 import BlogActions from "./BlogActions";
 import TableTimestamp from "@/components/common/table/TableTimestamp";
 import { TableBadge } from "@/components/common/table/TableBadge";
+import { Star } from "lucide-react";
 
 const BlogTableColumn: Column<IBlog>[] = [
   {
@@ -40,6 +41,20 @@ const BlogTableColumn: Column<IBlog>[] = [
     ),
     sortKey: "title",
     className: "min-w-[200px]",
+  },
+  {
+    header: "Featured",
+    accessor: (b) => (
+      <div className="flex items-center justify-center">
+        {b.isFeatured ? (
+          <Star size={16} className="fill-amber-400 text-amber-400" />
+        ) : (
+          <Star size={16} className="text-muted-foreground/30" />
+        )}
+      </div>
+    ),
+    sortKey: "isFeatured",
+    className: "w-20 text-center",
   },
   {
     header: "Category",

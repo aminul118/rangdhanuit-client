@@ -19,7 +19,7 @@ const UserDashboardWrapper = () => {
   return (
     <div className="relative min-h-[calc(100vh-80px)] overflow-hidden">
       {/* Decorative Background */}
-      <div className="absolute top-0 left-0 -ml-40 -mt-40 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[100px] -z-10 animate-pulse" />
+      <div className="absolute top-0 left-0 -ml-40 -mt-40 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px] -z-10 animate-pulse" />
       <div className="absolute bottom-0 right-0 -mr-40 -mb-40 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-[100px] -z-10 animate-pulse" />
 
       <div className="container mx-auto py-12 px-8 relative">
@@ -32,14 +32,14 @@ const UserDashboardWrapper = () => {
           >
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <span className="bg-indigo-500/10 text-indigo-500 text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full border border-indigo-500/20">
+                <span className="bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full border border-primary/20">
                   Account Verified
                 </span>
                 <Sparkles size={14} className="text-yellow-500 animate-pulse" />
               </div>
               <h1 className="text-4xl md:text-5xl font-black tracking-tight text-foreground">
                 Welcome back, <br />
-                <span className="bg-linear-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-primary to-purple-600 bg-clip-text text-transparent">
                   {user?.name || "Explorer"}!
                 </span>
               </h1>
@@ -56,12 +56,12 @@ const UserDashboardWrapper = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 }}
-              className="group relative p-8 rounded-3xl bg-card border border-white/5 hover:border-indigo-500/30 transition-all duration-500 overflow-hidden shadow-2xl shadow-indigo-500/5"
+              className="group relative p-8 rounded-3xl bg-card border border-white/5 hover:border-primary/30 transition-all duration-500 overflow-hidden shadow-2xl shadow-primary/5"
             >
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
 
               <div className="relative z-10">
-                <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 mb-6 group-hover:scale-110 transition-transform duration-500">
+                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform duration-500">
                   <MessageSquare size={28} />
                 </div>
                 <h3 className="text-2xl font-bold mb-3">Support Chat</h3>
@@ -70,7 +70,7 @@ const UserDashboardWrapper = () => {
                   minutes for your technical queries.
                 </p>
                 <Link href="/dashboard/messages">
-                  <Button className="w-full rounded-2xl h-12 bg-indigo-500 hover:bg-indigo-600 shadow-xl shadow-indigo-500/20 group/btn">
+                  <Button className="w-full rounded-2xl h-12 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 group/btn">
                     Open Support Hub
                     <ArrowRight
                       size={18}
@@ -125,7 +125,7 @@ const UserDashboardWrapper = () => {
               <h4 className="text-sm font-black uppercase tracking-[0.2em] text-muted-foreground">
                 Recent Activity
               </h4>
-              <div className="flex items-center gap-1.5 text-xs text-indigo-400 font-bold bg-indigo-500/10 px-3 py-1 rounded-full">
+              <div className="flex items-center gap-1.5 text-xs text-primary/80 font-bold bg-primary/10 px-3 py-1 rounded-full">
                 <Clock size={12} />
                 Updated Just Now
               </div>

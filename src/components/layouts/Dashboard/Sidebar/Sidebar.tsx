@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronRight, ShieldCheck } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import Logo from "@/assets/Logo";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -26,29 +27,41 @@ const Sidebar = () => {
       animate={{ width: isCollapsed ? 80 : 280 }}
       className={cn(
         "relative flex flex-col h-screen border-r border-border/50 bg-background/80 backdrop-blur-xl transition-colors duration-300 z-40",
-        "before:absolute before:inset-0 before:bg-linear-to-b before:from-indigo-500/5 before:to-purple-500/5 before:-z-10",
+        "before:absolute before:inset-0 before:bg-linear-to-b before:from-primary/5 before:to-purple-500/5 before:-z-10",
       )}
     >
       <div className="flex items-center justify-between p-4 h-20 border-b border-border/50 shrink-0">
-        {!isCollapsed && (
+        {!isCollapsed ? (
           <motion.div
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2.5"
           >
-            <div className="w-10 h-10 rounded-xl bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-              <ShieldCheck className="text-white" size={24} />
-            </div>
             <Link
               href="/"
-              className="font-bold text-lg tracking-tight bg-linear-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent"
+              className="flex flex-col leading-none group"
             >
-              Rangdhanu{" "}
-              <span className="text-foreground/80 font-medium text-sm block -mt-1 uppercase tracking-widest">
+              <Logo 
+                width={36} 
+                height={36} 
+                textClassName="text-lg"
+                className="gap-2.5 mb-1"
+              />
+              <span className="text-muted-foreground/60 font-medium text-[10px] uppercase tracking-widest ml-[46px]">
                 {role === "ADMIN" || role === "SUPER_ADMIN"
-                  ? "Admin"
-                  : "Dashboard"}
+                  ? "Admin Panel"
+                  : "User Portal"}
               </span>
+            </Link>
+          </motion.div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="mx-auto"
+          >
+            <Link href="/">
+              <Logo className="w-8 h-8" />
             </Link>
           </motion.div>
         )}
@@ -80,14 +93,14 @@ const Sidebar = () => {
                 className={cn(
                   "relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group cursor-pointer overflow-hidden",
                   isActive
-                    ? "bg-linear-to-r from-indigo-500/10 to-purple-500/10 text-indigo-500 shadow-[inset_0_0_0_1px_rgba(99,102,241,0.2)]"
+                    ? "bg-linear-to-r from-primary/10 to-purple-500/10 text-primary shadow-[inset_0_0_0_1px_hsla(var(--primary),0.2)]"
                     : "text-muted-foreground hover:bg-accent hover:text-foreground",
                 )}
               >
                 {isActive && (
                   <motion.div
                     layoutId="active-pill"
-                    className="absolute left-0 w-1 h-6 bg-indigo-500 rounded-r-full"
+                    className="absolute left-0 w-1 h-6 bg-primary rounded-r-full"
                   />
                 )}
                 <div className="relative">
@@ -96,8 +109,8 @@ const Sidebar = () => {
                     className={cn(
                       "transition-all duration-300",
                       isActive
-                        ? "text-indigo-500 scale-110"
-                        : "group-hover:text-indigo-500 group-hover:scale-110",
+                        ? "text-primary scale-110"
+                        : "group-hover:text-primary group-hover:scale-110",
                     )}
                   />
                   {showBadge && isCollapsed && (

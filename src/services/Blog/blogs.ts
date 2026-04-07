@@ -47,3 +47,9 @@ export const deleteBlog = catchAsyncAction(
     return await serverFetch.delete(`/blogs/slug/${slug}`);
   },
 );
+
+export const incrementBlogView = async (
+  slug: string,
+): Promise<ApiResponse<IBlog>> => {
+  return await serverFetch.patch(`/blogs/view/${slug}`);
+};

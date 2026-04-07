@@ -15,6 +15,7 @@ import { IPortfolio } from "@/types";
 import metaConfig from "@/config/meta.config";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, FreeMode } from "swiper/modules";
+import { PortfolioCard } from "../portfolio/PortfolioCard";
 
 // Import Swiper styles
 import "swiper/css";
@@ -128,53 +129,7 @@ const PortfolioSlider = ({ portfolios }: PortfolioSliderProps) => {
           >
             {portfolios.map((project) => (
               <SwiperSlide key={project._id}>
-                <Link
-                  href={`/portfolio/${project.slug}`}
-                  className="block group"
-                >
-                  <div className="relative overflow-hidden rounded-[2.5rem] border border-border/50 aspect-4/5 hover:border-primary/50 transition-all cursor-pointer bg-muted/20">
-                    <Image
-                      src={project.thumbnail || metaConfig.baseImage}
-                      alt={project.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                    />
-
-                    {/* Glossy Overlay */}
-                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
-
-                    {/* Content */}
-                    <div className="absolute inset-0 flex flex-col justify-end p-8 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                      <div className="flex flex-wrap gap-2 mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
-                        {project.technologies.slice(0, 2).map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-primary/20 text-primary backdrop-blur-md border border-primary/20"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-
-                      <h3 className="text-2xl md:text-3xl font-black text-white mb-2 tracking-tight group-hover:text-primary transition-colors">
-                        {project.title}
-                      </h3>
-
-                      <div className="flex items-center gap-3 text-white/60 group-hover:text-white transition-colors">
-                        <span className="text-xs font-bold uppercase tracking-[0.2em]">
-                          View Case Study
-                        </span>
-                        <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-primary transition-all">
-                          <ExternalLink className="w-4 h-4" />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Shimmer Effect */}
-                    <div className="absolute inset-0 bg-linear-to-tr from-white/0 via-white/5 to-white/0 -translate-x-full group-hover:animate-shimmer pointer-events-none" />
-                  </div>
-                </Link>
+                <PortfolioCard project={project} />
               </SwiperSlide>
             ))}
           </Swiper>

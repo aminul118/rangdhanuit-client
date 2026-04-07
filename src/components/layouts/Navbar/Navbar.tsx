@@ -52,19 +52,7 @@ const Navbar = () => {
             href="/"
             className="flex items-center gap-1.5 sm:gap-2.5 group whitespace-nowrap"
           >
-            <div className="relative shrink-0">
-              <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <Logo className="w-8 h-8 sm:w-[42px] sm:h-[42px] relative transition-transform duration-500 group-hover:scale-110 group-active:scale-95" />
-            </div>
-            <span className="text-lg sm:text-2xl font-bold tracking-tighter flex items-center leading-none">
-              <span className="bg-linear-to-r from-primary via-primary to-primary/70 bg-clip-text text-transparent drop-shadow-sm">
-                Rangdhanu
-              </span>
-              <span className="ml-1 text-primary font-black relative flex items-center">
-                IT
-                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 shadow-[0_0_8px_rgba(var(--color-primary),0.5)]" />
-              </span>
-            </span>
+            <Logo className="w-8 h-8 sm:w-[42px] sm:h-[42px] relative" />
           </Link>
         </div>
 
