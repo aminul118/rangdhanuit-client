@@ -1,4 +1,11 @@
-import HtmlContent from "@/components/rich-text/core/html-content";
+"use client";
+
+import dynamic from "next/dynamic";
+
+const HtmlContent = dynamic(() => import("@/components/rich-text/core/html-content"), {
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-muted/20 h-64 rounded-2xl w-full" />,
+});
 
 interface BlogDetailsMainContentProps {
   content: string;

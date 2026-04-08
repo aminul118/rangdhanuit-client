@@ -43,7 +43,10 @@ const serverFetchHelper = async <T>(
 
     return fetch(url, {
       ...rest,
-      next: (options as any).next,
+      next: {
+        revalidate: 3600, // Default stale-while-revalidate period (1 hour)
+        ...(options as any).next,
+      },
       body: body as BodyInit | null,
       headers: {
         ...(isFormData ? {} : { "Content-Type": "application/json" }),

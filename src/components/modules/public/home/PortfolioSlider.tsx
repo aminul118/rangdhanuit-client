@@ -7,12 +7,10 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 import { IPortfolio } from "@/types";
-import metaConfig from "@/config/meta.config";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, FreeMode } from "swiper/modules";
 import { PortfolioCard } from "../portfolio/PortfolioCard";

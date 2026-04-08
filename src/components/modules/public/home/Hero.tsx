@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronRight } from "lucide-react";
-import CodeWindow from "./CodeWindow";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import {
@@ -10,11 +10,11 @@ import {
   STAGGER_CHILDREN,
   VIEWPORT_CONFIG,
 } from "@/constants/animations";
-import dynamic from "next/dynamic";
-const TechBackground = dynamic(
-  () => import("./TechBackground").then((mod) => mod.TechBackground),
-  { ssr: false }
-);
+import { TechBackground } from "./TechBackground";
+const CodeWindow = dynamic(() => import("./CodeWindow"), {
+  ssr: false,
+  loading: () => <div className="w-full h-[400px] bg-card/20 rounded-2xl animate-pulse" />,
+});
 
 const Hero = () => {
   return (
