@@ -35,6 +35,7 @@ export default function FAQSearch() {
         <input
           type="text"
           placeholder="Search for questions, categories, or keywords..."
+          aria-label="Search FAQs"
           defaultValue={searchParams.get("search")?.toString()}
           onChange={(e) => handleSearch(e.target.value)}
           className="w-full pl-16 pr-8 py-5 rounded-2xl bg-card/50 backdrop-blur-xl border border-border/50 focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-hidden text-base font-medium transition-all shadow-lg"

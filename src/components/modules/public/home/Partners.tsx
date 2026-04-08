@@ -17,7 +17,7 @@ const Partners = ({ partners = [] }: PartnersProps) => {
   const repeatedPartners = Array.from({ length: 6 }, () => partners).flat();
 
   return (
-    <section className="py-16 border-y border-border/50 bg-muted/5 overflow-hidden text-foreground">
+    <section className="py-16 border-y border-border/60 bg-muted/10 overflow-hidden text-foreground">
       <Container className="mb-10 text-center text-foreground">
         <motion.h2
           variants={FADE_IN}
@@ -47,7 +47,7 @@ const Partners = ({ partners = [] }: PartnersProps) => {
                   />
                 </div>
               ) : (
-                <span className="text-xl font-bold tracking-tight text-foreground/80 whitespace-nowrap">
+                <span className="text-xl font-black tracking-tight text-foreground whitespace-nowrap">
                   {partner.name}
                 </span>
               )}

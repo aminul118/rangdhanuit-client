@@ -9,6 +9,8 @@ import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import Providers from "@/providers/Providers";
 import envVars from "@/config/env.config";
 import { IChildrenProps } from "@/types";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 const MainLayout = ({ children }: IChildrenProps) => {
   return (
@@ -25,6 +27,8 @@ const MainLayout = ({ children }: IChildrenProps) => {
         <GoogleAnalytics gaId={envVars.analytics.googleAnalytics} />
         <GoogleTagManager gtmId={envVars.analytics.googleTagManagerId} />
         <TopLoadingBar />
+        <SpeedInsights />
+        <Analytics />
         <Providers>{children}</Providers>
       </body>
     </html>

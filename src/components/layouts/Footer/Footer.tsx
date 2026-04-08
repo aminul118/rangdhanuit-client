@@ -79,14 +79,14 @@ const Footer = async () => {
             <h4 className="text-sm font-black uppercase tracking-[0.2em] mb-8 text-primary">
               Company
             </h4>
-            <ul className="flex flex-col gap-5 text-sm text-zinc-400">
+            <ul className="flex flex-col gap-5 text-sm text-zinc-300">
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
                     className="hover:text-white transition-colors flex items-center gap-3 group"
                   >
-                    <span className="w-1 h-1 bg-primary/40 rounded-full group-hover:bg-primary transition-colors" />
+                    <span className="w-1 h-1 bg-primary/60 rounded-full group-hover:bg-primary transition-colors" />
                     {link.name}
                   </Link>
                 </li>
@@ -96,16 +96,16 @@ const Footer = async () => {
 
           {/* Support & Legal */}
           <div className="col-span-1">
-            <h4 className="text-sm font-black uppercase tracking-[0.2em] mb-8 text-primary">
+            <h3 className="text-sm font-black uppercase tracking-[0.2em] mb-8 text-[#a78bfa]">
               Support
-            </h4>
-            <ul className="flex flex-col gap-5 text-sm text-zinc-400">
+            </h3>
+            <ul className="flex flex-col gap-5 text-sm text-zinc-300">
               <li>
                 <Link
                   href="/contact"
                   className="hover:text-white transition-colors flex items-center gap-3 group"
                 >
-                  <span className="w-1 h-1 bg-primary/40 rounded-full group-hover:bg-primary transition-colors" />
+                  <span className="w-1 h-1 bg-primary/60 rounded-full group-hover:bg-primary transition-colors" />
                   Support Center
                 </Link>
               </li>
@@ -141,8 +141,8 @@ const Footer = async () => {
         </div>
 
         <div className="mt-24 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-[11px] text-zinc-600 font-bold uppercase tracking-widest text-center md:text-left">
-            © {currentYear} <span className="text-zinc-400">Rangdhanu IT</span>.
+          <p className="text-[11px] text-zinc-300 font-bold uppercase tracking-widest text-center md:text-left">
+            © {currentYear} <span className="text-zinc-200">Rangdhanu IT</span>.
             All rights reserved.
           </p>
         </div>

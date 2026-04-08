@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   experimental: {
     authInterrupts: true,
+    optimizePackageImports: ["lucide-react"],
     serverActions: {
       bodySizeLimit: "10mb",
     },

@@ -69,10 +69,16 @@ const PortfolioSlider = ({ portfolios }: PortfolioSliderProps) => {
               viewport={VIEWPORT_CONFIG}
               className="flex gap-2 order-2 sm:order-1"
             >
-              <button className="portfolio-prev w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl glass-premium flex items-center justify-center hover:bg-primary hover:text-white transition-all cursor-pointer border border-border/50 shadow-xl group">
+              <button 
+                className="portfolio-prev w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl glass-premium flex items-center justify-center hover:bg-primary hover:text-white transition-all cursor-pointer border border-border/50 shadow-xl group"
+                aria-label="Previous portfolio item"
+              >
                 <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 group-hover:-translate-x-1 transition-transform" />
               </button>
-              <button className="portfolio-next w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl glass-premium flex items-center justify-center hover:bg-primary hover:text-white transition-all cursor-pointer border border-border/50 shadow-xl group">
+              <button 
+                className="portfolio-next w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl glass-premium flex items-center justify-center hover:bg-primary hover:text-white transition-all cursor-pointer border border-border/50 shadow-xl group"
+                aria-label="Next portfolio item"
+              >
                 <ChevronRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
               </button>
             </motion.div>

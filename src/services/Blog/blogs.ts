@@ -9,7 +9,7 @@ export const getBlogs = async (
 ): Promise<ApiResponse<IBlog[]>> => {
   return await serverFetch.get("/blogs", {
     query,
-    next: { tags: ["blogs"] },
+    next: { tags: ["blogs"], revalidate: 3600 },
   });
 };
 
@@ -17,7 +17,7 @@ export const getBlogBySlug = async (
   slug: string,
 ): Promise<ApiResponse<IBlog>> => {
   return await serverFetch.get(`/blogs/slug/admin/${slug}`, {
-    next: { tags: ["blogs", slug] },
+    next: { tags: ["blogs", slug], revalidate: 3600 },
   });
 };
 

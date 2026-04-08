@@ -45,7 +45,7 @@ export const AboutWhyUs = () => {
     <section className="py-24 bg-muted/20">
       <Container>
         <div className="text-center space-y-4 mb-20">
-          <motion.h4
+          <motion.div
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -53,7 +53,7 @@ export const AboutWhyUs = () => {
             className="text-xs font-black uppercase tracking-[0.4em] text-indigo-500"
           >
             Competitive Edge
-          </motion.h4>
+          </motion.div>
           <motion.h2
             variants={FADE_IN_UP}
             initial="initial"

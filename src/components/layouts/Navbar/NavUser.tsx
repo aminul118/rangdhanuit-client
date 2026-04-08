@@ -41,7 +41,11 @@ const NavUser = ({ user }: NavUserProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar className="cursor-pointer border border-border/50 bg-background/50 backdrop-blur-sm shadow-sm hover:bg-accent transition-all">
+        <Avatar
+          className="cursor-pointer border border-border/50 bg-background/50 backdrop-blur-sm shadow-sm hover:bg-accent transition-all"
+          aria-label="Open user menu"
+          role="button"
+        >
           <AvatarImage src={user?.picture} alt={user.name} />
           <AvatarFallback className="bg-primary/10 text-primary font-bold">
             {initials}

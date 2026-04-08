@@ -9,7 +9,7 @@ export const getServices = async (
 ): Promise<ApiResponse<IService[]>> => {
   return await serverFetch.get("/services", {
     query,
-    next: { tags: ["services"] },
+    next: { tags: ["services"], revalidate: 3600 },
   });
 };
 
@@ -17,7 +17,7 @@ export const getServiceBySlug = async (
   slug: string,
 ): Promise<ApiResponse<IService>> => {
   return await serverFetch.get(`/services/slug/${slug}`, {
-    next: { tags: ["services", slug] },
+    next: { tags: ["services", slug], revalidate: 3600 },
   });
 };
 

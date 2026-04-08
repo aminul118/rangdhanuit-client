@@ -17,7 +17,7 @@ export const getPortfolios = async (
 ): Promise<ApiResponse<IPortfolio[]>> => {
   return await serverFetch.get("/portfolios", {
     query,
-    next: { tags: ["portfolios"] },
+    next: { tags: ["portfolios"], revalidate: 3600 },
   });
 };
 
@@ -25,7 +25,7 @@ export const getPortfolioBySlug = async (
   slug: string,
 ): Promise<ApiResponse<IPortfolio>> => {
   return await serverFetch.get(`/portfolios/${slug}`, {
-    next: { tags: ["portfolios", slug] },
+    next: { tags: ["portfolios", slug], revalidate: 3600 },
   });
 };
 

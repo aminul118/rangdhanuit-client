@@ -1,18 +1,27 @@
 import { Metadata } from "next";
-import Services from "@/components/modules/public/home/Services";
-import Partners from "@/components/modules/public/home/Partners";
-import PortfolioSlider from "@/components/modules/public/home/PortfolioSlider";
+import dynamic from "next/dynamic";
 import { getPortfolios } from "@/services/Portfolio/portfolios";
-import CTA from "@/components/modules/public/home/CTA";
-import Stats from "@/components/modules/public/home/Stats";
-import Process from "@/components/modules/public/home/Process";
-import FAQ from "@/components/modules/public/home/FAQ";
 import generateMetaTags from "@/Seo/generateMetaTags";
 import { getServices } from "@/services/Service/services";
 import Hero from "@/components/modules/public/home/Hero";
+import Partners from "@/components/modules/public/home/Partners";
 import { getPartners } from "@/services/Partner/partner";
-import LatestBlogs from "@/components/modules/public/home/LatestBlogs";
 import { getBlogs } from "@/services/Blog/blogs";
+const Services = dynamic(
+  () => import("@/components/modules/public/home/Services"),
+);
+const Stats = dynamic(() => import("@/components/modules/public/home/Stats"));
+const PortfolioSlider = dynamic(
+  () => import("@/components/modules/public/home/PortfolioSlider"),
+);
+const Process = dynamic(
+  () => import("@/components/modules/public/home/Process"),
+);
+const LatestBlogs = dynamic(
+  () => import("@/components/modules/public/home/LatestBlogs"),
+);
+const FAQ = dynamic(() => import("@/components/modules/public/home/FAQ"));
+const CTA = dynamic(() => import("@/components/modules/public/home/CTA"));
 
 export const metadata: Metadata = generateMetaTags({
   title: "Rangdhanu IT | Best IT Solutions for Your Business",

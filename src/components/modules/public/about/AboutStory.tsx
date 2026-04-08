@@ -28,15 +28,15 @@ export const AboutStory = () => {
             className="space-y-8"
           >
             <div className="space-y-4">
-              <h2 className="text-sm font-black uppercase tracking-[0.3em] text-indigo-500">
+              <div className="text-sm font-black uppercase tracking-[0.3em] text-indigo-500">
                 Pioneering the Digital Frontier
-              </h2>
-              <h3 className="text-4xl md:text-5xl font-black text-foreground leading-tight tracking-tighter">
+              </div>
+              <h2 className="text-4xl md:text-5xl font-black text-foreground leading-tight tracking-tighter">
                 A Journey Rooted in <br />
                 <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent underline decoration-indigo-500/20 underline-offset-8">
                   Pure Innovation
                 </span>
-              </h3>
+              </h2>
             </div>
 
             <div className="space-y-6 text-lg text-muted-foreground font-medium leading-relaxed">
@@ -54,13 +54,13 @@ export const AboutStory = () => {
               </p>
               <div className="flex gap-10 pt-4">
                 <div>
-                  <h4 className="text-3xl font-black text-indigo-500">5+</h4>
+                  <div className="text-3xl font-black text-indigo-500">5+</div>
                   <p className="text-xs uppercase tracking-widest font-black">
                     Years Expertise
                   </p>
                 </div>
                 <div>
-                  <h4 className="text-3xl font-black text-purple-500">100+</h4>
+                  <div className="text-3xl font-black text-purple-500">100+</div>
                   <p className="text-xs uppercase tracking-widest font-black">
                     Dreams Realized
                   </p>

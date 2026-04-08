@@ -51,7 +51,7 @@ export const AboutProcess = () => {
 
       <Container>
         <div className="text-center space-y-4 mb-20">
-          <motion.h4
+          <motion.p
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -59,7 +59,7 @@ export const AboutProcess = () => {
             className="text-xs font-black uppercase tracking-[0.4em] text-indigo-500"
           >
             How We Deliver
-          </motion.h4>
+          </motion.p>
           <motion.h2
             variants={FADE_IN_UP}
             initial="initial"

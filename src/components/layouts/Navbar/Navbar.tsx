@@ -132,9 +132,9 @@ const Navbar = () => {
               aria-label={isOpen ? "Close Menu" : "Open Menu"}
             >
               {isOpen ? (
-                <X className="w-5 h-5 text-primary" />
+                <X className="w-5 h-5 text-primary" aria-hidden="true" />
               ) : (
-                <Menu className="w-5 h-5" />
+                <Menu className="w-5 h-5" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -152,7 +152,7 @@ const Navbar = () => {
           >
             <div className="flex flex-col p-8 gap-4">
               <div className="xs:hidden flex items-center justify-between px-2 mb-4">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground opacity-60">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80">
                   System
                 </span>
                 <div className="flex items-center gap-4">

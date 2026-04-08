@@ -56,7 +56,7 @@ const VerifyOTPPage = async ({
         <Suspense
           fallback={
             <div className="flex justify-center p-4">
-              <span className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></span>
+              <span className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500" />
             </div>
           }
         >

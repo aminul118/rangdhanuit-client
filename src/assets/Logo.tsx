@@ -39,12 +39,12 @@ const Logo = ({
             textClassName || "text-lg sm:text-2xl",
           )}
         >
-          <span className="bg-linear-to-r from-primary via-primary to-primary/70 bg-clip-text text-transparent drop-shadow-sm">
+          <span className="bg-linear-to-r from-primary via-primary to-primary bg-clip-text text-transparent drop-shadow-sm">
             Rangdhanu
           </span>
-          <span className="ml-1 text-primary font-black relative flex items-center">
+          <span className="ml-1 text-[#6d28d9] font-black relative flex items-center">
             IT
-            <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 shadow-[0_0_8px_rgba(var(--color-primary),0.5)]" />
+            <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#6d28d9] rounded-full origin-left scale-x-0 group-hover:scale-x-100 transition-all duration-300 shadow-[0_0_8px_rgba(109,40,217,0.5)]" />
           </span>
         </span>
       )}
