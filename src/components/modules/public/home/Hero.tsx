@@ -10,7 +10,11 @@ import {
   STAGGER_CHILDREN,
   VIEWPORT_CONFIG,
 } from "@/constants/animations";
-import { TechBackground } from "./TechBackground";
+import dynamic from "next/dynamic";
+const TechBackground = dynamic(
+  () => import("./TechBackground").then((mod) => mod.TechBackground),
+  { ssr: false }
+);
 
 const Hero = () => {
   return (

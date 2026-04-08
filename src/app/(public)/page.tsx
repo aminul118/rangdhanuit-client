@@ -1,37 +1,17 @@
 import { Metadata } from "next";
-import dynamic from "next/dynamic";
 import { getPortfolios } from "@/services/Portfolio/portfolios";
 import generateMetaTags from "@/Seo/generateMetaTags";
 import { getServices } from "@/services/Service/services";
 import { getPartners } from "@/services/Partner/partner";
 import { getBlogs } from "@/services/Blog/blogs";
 import Hero from "@/components/modules/public/home/Hero";
-const Partners = dynamic(
-  () => import("@/components/modules/public/home/Partners"),
-  { ssr: true },
-);
-const Services = dynamic(
-  () => import("@/components/modules/public/home/Services"),
-  { ssr: true },
-);
-const Stats = dynamic(() => import("@/components/modules/public/home/Stats"), {
-  ssr: true,
-});
-const PortfolioSlider = dynamic(
-  () => import("@/components/modules/public/home/PortfolioSlider"),
-  { ssr: true },
-);
-const Process = dynamic(
-  () => import("@/components/modules/public/home/Process"),
-  { ssr: true },
-);
-const LatestBlogs = dynamic(
-  () => import("@/components/modules/public/home/LatestBlogs"),
-  { ssr: true },
-);
-const CTA = dynamic(() => import("@/components/modules/public/home/CTA"), {
-  ssr: true,
-});
+import Partners from "@/components/modules/public/home/Partners";
+import Services from "@/components/modules/public/home/Services";
+import Stats from "@/components/modules/public/home/Stats";
+import PortfolioSlider from "@/components/modules/public/home/PortfolioSlider";
+import Process from "@/components/modules/public/home/Process";
+import LatestBlogs from "@/components/modules/public/home/LatestBlogs";
+import CTA from "@/components/modules/public/home/CTA";
 
 export const metadata: Metadata = generateMetaTags({
   title: "Rangdhanu IT | Best IT Solutions for Your Business",
