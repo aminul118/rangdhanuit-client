@@ -27,22 +27,13 @@ const MobileNav = ({
 }: MobileNavProps) => {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      className="fixed inset-x-4 top-24 bottom-auto z-60 bg-background/98 dark:bg-card/98 backdrop-blur-3xl border border-border/60 rounded-3xl shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)] md:hidden overflow-hidden"
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ opacity: 1, height: "auto" }}
+      exit={{ opacity: 0, height: 0 }}
+      transition={{ duration: 0.3 }}
+      className="overflow-hidden border-b border-white/10 bg-background/95 backdrop-blur-xl md:hidden"
     >
-      <div className="flex flex-col p-8 gap-4">
-        <div className="xs:hidden flex items-center justify-between px-2 mb-4">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80">
-            System
-          </span>
-          <div className="flex items-center gap-4">
-            {user && <NotificationDropdown />}
-            <ModeToggle />
-          </div>
-        </div>
-
+      <div className="container mx-auto flex flex-col items-center gap-1 p-6">
         {navLinks.map((link) => {
           const isActive =
             pathname === link.href ||
@@ -52,46 +43,57 @@ const MobileNav = ({
               key={link.name}
               href={link.href}
               className={cn(
-                "text-xl font-bold px-6 py-4 rounded-2xl transition-all flex items-center justify-between group",
+                "relative w-full rounded-lg py-2.5 text-center text-base font-medium transition-all",
                 isActive
-                  ? "bg-primary/10 text-primary"
-                  : "text-foreground/70 hover:bg-accent/50 hover:text-foreground",
+                  ? "bg-blue-500/10 text-blue-400"
+                  : "text-muted-foreground hover:bg-white/5 hover:text-foreground",
               )}
               onClick={() => setIsOpen(false)}
             >
               {link.name}
-              <ChevronRight
-                className={cn(
-                  "w-5 h-5 opacity-0 -translate-x-2 transition-all duration-300",
-                  isActive
-                    ? "opacity-40 translate-x-0"
-                    : "group-hover:opacity-40 group-hover:translate-x-0",
-                )}
-              />
             </Link>
           );
         })}
-        <div className="h-px bg-border/40 my-2" />
-        {!user ? (
-          <Link
-            href="/login"
-            className="bg-primary text-primary-foreground p-5 rounded-2xl text-center font-bold shadow-[0_20px_40px_-10px_hsl(var(--primary)/0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
-            onClick={() => setIsOpen(false)}
-          >
-            Portal / Login
-            <PortalButton />
-          </Link>
-        ) : (
-          <div className="flex flex-col gap-2">
+
+        {/* Mobile Portal / User Section */}
+        <div className="mt-4 flex w-full justify-center border-t border-border/40 pt-6">
+          {!user ? (
             <Link
-              href="/dashboard"
-              className="p-5 rounded-2xl border border-border/60 text-center font-bold hover:bg-accent transition-all"
+              href="/login"
+              className="group relative flex w-full max-w-xs items-center justify-center overflow-hidden rounded-full bg-background py-3 font-bold text-foreground shadow-lg active:scale-95 transition-all"
               onClick={() => setIsOpen(false)}
             >
-              Go to Dashboard
+              {/* Rotating Animated Border */}
+              <div className="absolute inset-0 rounded-full border border-white/10 p-px">
+                <div className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#3b82f6_0%,#06b6d4_50%,#3b82f6_100%)]" />
+              </div>
+              <div className="absolute inset-px rounded-full bg-background" />
+              <span className="relative z-10 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                Portal / Login
+              </span>
             </Link>
-          </div>
-        )}
+          ) : (
+            <div className="flex flex-col w-full items-center gap-4">
+              <Link
+                href="/dashboard"
+                className="group relative flex w-full max-w-xs items-center justify-center overflow-hidden rounded-full bg-background py-3 font-bold text-foreground shadow-lg active:scale-95 transition-all"
+                onClick={() => setIsOpen(false)}
+              >
+                <div className="absolute inset-0 rounded-full border border-white/10 p-px">
+                  <div className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#3b82f6_0%,#06b6d4_50%,#3b82f6_100%)]" />
+                </div>
+                <div className="absolute inset-px rounded-full bg-background" />
+                <span className="relative z-10 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                  Dashboard
+                </span>
+              </Link>
+              <div className="flex items-center justify-center gap-6 mt-2">
+                <ModeToggle />
+                <NotificationDropdown />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </motion.div>
   );

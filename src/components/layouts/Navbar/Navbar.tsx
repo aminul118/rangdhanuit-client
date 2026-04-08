@@ -1,15 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronRight } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
+import { Fade as Hamburger } from "hamburger-react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+} from "framer-motion";
 import { ModeToggle } from "../ModeToggle";
 import dynamic from "next/dynamic";
 import { useAuth } from "@/providers/AuthProvider";
 import Logo from "@/assets/Logo";
+import { cn } from "@/lib/utils";
 
 const NotificationDropdown = dynamic(
   () =>
@@ -37,26 +42,40 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const { user } = useAuth();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    if (latest > previous && latest > 150) {
+      if (!hidden) setHidden(true);
+    } else {
+      if (hidden) setHidden(false);
+    }
+    if (latest > 50) {
+      if (!scrolled) setScrolled(true);
+    } else {
+      if (scrolled) setScrolled(false);
+    }
+  });
 
   return (
-    <nav
+    <motion.header
+      variants={{
+        visible: { y: 0 },
+        hidden: { y: "-100%" },
+      }}
+      animate={hidden ? "hidden" : "visible"}
+      transition={{ duration: 0.35, ease: "easeInOut" }}
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
+        "fixed top-0 left-0 z-50 w-full transition-all duration-300",
         scrolled
-          ? "glass py-4 shadow-sm border-border/50"
-          : "bg-transparent py-6 border-transparent",
+          ? "border-b border-white/5 bg-background/80 py-4 shadow-lg backdrop-blur-md"
+          : "bg-transparent py-4",
       )}
     >
-      <div className="container mx-auto px-6 flex items-center justify-between">
-        {/* Logo - Left */}
-        <div className="flex-1 flex justify-start">
+      <nav className="container mx-auto px-6 flex items-center justify-between">
+        <div className="flex-1 flex justify-start relative z-[80]">
           <Link
             href="/"
             className="flex items-center gap-1.5 sm:gap-2.5 group whitespace-nowrap"
@@ -135,22 +154,24 @@ const Navbar = () => {
                 }
               />
             )}
-            <button
-              className="w-10 h-10 flex items-center justify-center rounded-full border border-border/50 bg-background/50 backdrop-blur-sm shadow-sm hover:bg-accent transition-all active:scale-90"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label={isOpen ? "Close Menu" : "Open Menu"}
-            >
-              {isOpen ? (
-                <X className="w-5 h-5 text-primary" aria-hidden="true" />
-              ) : (
-                <Menu className="w-5 h-5" aria-hidden="true" />
-              )}
-            </button>
+            <div className="z-[80] scale-90 sm:scale-100">
+              <Hamburger
+                toggled={isOpen}
+                toggle={setIsOpen}
+                size={20}
+                duration={0.4}
+                distance="sm"
+                color={
+                  isOpen ? "hsl(var(--foreground))" : "hsl(var(--primary))"
+                }
+                rounded
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile Nav Overlay */}
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
           <MobileNav
@@ -164,20 +185,7 @@ const Navbar = () => {
           />
         )}
       </AnimatePresence>
-
-      {/* Mobile Backdrop Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-55 md:hidden"
-            onClick={() => setIsOpen(false)}
-          />
-        )}
-      </AnimatePresence>
-    </nav>
+    </motion.header>
   );
 };
 
