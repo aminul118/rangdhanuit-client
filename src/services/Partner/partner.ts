@@ -10,7 +10,7 @@ export const getPartners = async (
 ): Promise<ApiResponse<IPartner[]>> => {
   return await serverFetch.get("/partners", {
     query,
-    next: { tags: ["partners"], revalidate: 3600 },
+    next: { tags: ["partners"] },
   });
 };
 
@@ -18,7 +18,7 @@ export const getPartnerBySlug = async (
   slug: string,
 ): Promise<ApiResponse<IPartner>> => {
   return await serverFetch.get(`/partners/${slug}`, {
-    next: { tags: ["partners", slug], revalidate: 3600 },
+    next: { tags: ["partners", slug] },
   });
 };
 

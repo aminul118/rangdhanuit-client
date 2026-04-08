@@ -19,12 +19,11 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { adminMenu } from "../Sidebar/adminMenu";
-import { userMenu } from "../Sidebar/userMenu";
-import Link from "next/link";
-import { NotificationDropdown } from "./NotificationDropdown";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { SidebarItem } from "../Sidebar/SidebarMenus";
+import { NotificationDropdown } from "./NotificationDropdown";
 import {
   CommandDialog,
   CommandEmpty,
@@ -40,6 +39,23 @@ const AdminHeader = () => {
   const { user, logout } = useAuth();
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [menuItems, setMenuItems] = useState<SidebarItem[]>([]);
+
+  // Dynamic menu loading for search
+  useEffect(() => {
+    if (open) {
+      const loadMenus = async () => {
+        if (user?.role === "ADMIN" || user?.role === "SUPER_ADMIN") {
+          const { adminMenu } = await import("../Sidebar/adminMenu");
+          setMenuItems(adminMenu);
+        } else {
+          const { userMenu } = await import("../Sidebar/userMenu");
+          setMenuItems(userMenu);
+        }
+      };
+      loadMenus();
+    }
+  }, [open, user?.role]);
 
   // Keyboard shortcut Cmd+K
   useEffect(() => {
@@ -52,11 +68,6 @@ const AdminHeader = () => {
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
   }, []);
-
-  const menuItems =
-    user?.role === "ADMIN" || user?.role === "SUPER_ADMIN"
-      ? adminMenu
-      : userMenu;
 
   const handleNavigate = (href: string) => {
     setOpen(false);

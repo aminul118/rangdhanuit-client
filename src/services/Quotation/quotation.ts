@@ -4,6 +4,7 @@ import serverFetch from "@/lib/server-fetch";
 import { catchAsyncAction } from "@/helpers/catchAsyncAction";
 import { ApiResponse } from "@/types";
 import { IQuotation } from "@/types/Quotation/quotation.types";
+import { revalidate } from "@/helpers/revalidate";
 
 export const getQuotations = async (
   query?: Record<string, string>,
@@ -24,9 +25,11 @@ export const getQuotationById = async (
 
 export const createQuotation = catchAsyncAction(
   async (data: Partial<IQuotation>): Promise<ApiResponse<IQuotation>> => {
-    return await serverFetch.post("/quotations", {
+    const res = await serverFetch.post("/quotations", {
       body: data,
     });
+    revalidate("quotations");
+    return res;
   },
 );
 
@@ -35,14 +38,18 @@ export const updateQuotation = catchAsyncAction(
     id: string,
     data: Partial<IQuotation>,
   ): Promise<ApiResponse<IQuotation>> => {
-    return await serverFetch.patch(`/quotations/${id}`, {
+    const res = await serverFetch.patch(`/quotations/${id}`, {
       body: data,
     });
+    revalidate(["quotations", id]);
+    return res;
   },
 );
 
 export const deleteQuotation = catchAsyncAction(
   async (id: string): Promise<ApiResponse<IQuotation>> => {
-    return await serverFetch.delete(`/quotations/${id}`);
+    const res = await serverFetch.delete(`/quotations/${id}`);
+    revalidate(["quotations", id]);
+    return res;
   },
 );

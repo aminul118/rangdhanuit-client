@@ -41,4 +41,9 @@ export const staticRoutes: Routes[] = [
     changeFrequency: "yearly",
     priority: 0.3,
   },
+  {
+    url: "faq",
+    changeFrequency: "yearly",
+    priority: 0.3,
+  },
 ];

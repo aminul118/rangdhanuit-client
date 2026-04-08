@@ -3,6 +3,7 @@
 import { catchAsyncAction } from "@/helpers/catchAsyncAction";
 import { ApiResponse, IUser, IUserStats } from "@/types";
 import serverFetch from "@/lib/server-fetch";
+import { revalidate } from "@/helpers/revalidate";
 
 export const getAllUsers = async (
   query?: Record<string, string>,
@@ -15,9 +16,11 @@ export const getAllUsers = async (
 
 export const createUser = catchAsyncAction(
   async (userData: Partial<IUser>): Promise<ApiResponse<IUser>> => {
-    return await serverFetch.post("/users/create-user", {
+    const res = await serverFetch.post("/users/create-user", {
       body: userData,
     });
+    revalidate("users");
+    return res;
   },
 );
 
@@ -26,23 +29,29 @@ export const updateUserStatus = catchAsyncAction(
     id: string,
     status: "ACTIVE" | "BLOCKED",
   ): Promise<ApiResponse<IUser>> => {
-    return await serverFetch.patch(`/users/${id}/status`, {
+    const res = await serverFetch.patch(`/users/${id}/status`, {
       body: { status },
     });
+    revalidate(["users", id]);
+    return res;
   },
 );
 
 export const updateUserRole = catchAsyncAction(
   async (id: string, role: "ADMIN" | "USER"): Promise<ApiResponse<IUser>> => {
-    return await serverFetch.patch(`/users/${id}/role`, {
+    const res = await serverFetch.patch(`/users/${id}/role`, {
       body: { role },
     });
+    revalidate(["users", id]);
+    return res;
   },
 );
 
 export const deleteUser = catchAsyncAction(
   async (id: string): Promise<ApiResponse<IUser>> => {
-    return await serverFetch.delete(`/users/${id}`);
+    const res = await serverFetch.delete(`/users/${id}`);
+    revalidate(["users", id]);
+    return res;
   },
 );
 
