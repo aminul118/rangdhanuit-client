@@ -14,6 +14,7 @@ export interface IUser {
   bio?: string;
   contactNo?: string;
   slug?: string;
+  roleChanged?: boolean;
   createdAt: string;
   updatedAt: string;
 }

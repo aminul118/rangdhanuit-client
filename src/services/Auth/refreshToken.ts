@@ -2,29 +2,27 @@
 
 import serverFetch from "@/lib/server-fetch";
 import { AppError } from "@/helpers/AppError";
-
-type RefreshResponse = {
-  accessToken: string;
-  refreshToken: string;
-};
+import { ApiResponse, ILogin } from "@/types";
+import { setAccessToken, setRefreshToken } from "./cookie-token";
 
 const tryRefreshToken = async () => {
   // serverFetch automatically handles cookies via getCookie
   try {
-    const res = await serverFetch.post<{
-      success: boolean;
-      data: RefreshResponse;
-      message?: string;
-    }>("/auth/refresh-token", {
-      cache: "no-store",
-    });
+    const res = await serverFetch.post<ApiResponse<ILogin>>(
+      "/auth/refresh-token",
+      {
+        cache: "no-store",
+      },
+    );
 
     if (!res?.success || !res?.data?.accessToken) return null;
 
-    return {
-      accessToken: res.data.accessToken,
-      refreshToken: res.data.refreshToken,
-    } as RefreshResponse;
+    const { accessToken, refreshToken } = res.data;
+
+    await setAccessToken(accessToken);
+    await setRefreshToken(refreshToken);
+
+    return res.data;
   } catch (error) {
     if (error instanceof AppError && error.statusCode === 401) {
       // Expected if guest or session expired

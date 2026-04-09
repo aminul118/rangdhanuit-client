@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import { logoutAction } from "@/services/Auth/logout";
 import { getMe } from "@/services/User/getMe";
+import { tryRefreshToken } from "@/services/Auth/refreshToken";
 
 import { IUser, ILogin } from "@/types";
 
@@ -39,6 +40,14 @@ export const AuthProvider = ({
       setLoading(true);
       const data = await getMe();
       if (data) {
+        // If role changed on server, sync session (refresh tokens)
+        if (data.roleChanged) {
+          const refreshed = await tryRefreshToken();
+          if (refreshed?.user) {
+            setUser(refreshed.user);
+            return;
+          }
+        }
         setUser(data);
       } else {
         setUser(null);
