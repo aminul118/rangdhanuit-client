@@ -31,7 +31,7 @@ export const updateBlogBySlug = catchAsyncAction(
     const res = await serverFetch.patch(`/blogs/slug/${slug}`, {
       body: payload,
     });
-    revalidate(["blogs", slug]);
+    await revalidate(["blogs", slug]);
     return res;
   },
 );
@@ -41,7 +41,7 @@ export const createBlog = catchAsyncAction(
     const res = await serverFetch.post("/blogs", {
       body: payload,
     });
-    revalidate("blogs");
+    await revalidate("blogs");
     return res;
   },
 );
@@ -49,7 +49,7 @@ export const createBlog = catchAsyncAction(
 export const deleteBlog = catchAsyncAction(
   async (slug: string): Promise<ApiResponse<IBlog>> => {
     const res = await serverFetch.delete(`/blogs/slug/${slug}`);
-    revalidate(["blogs", slug]);
+    await revalidate(["blogs", slug]);
     return res;
   },
 );

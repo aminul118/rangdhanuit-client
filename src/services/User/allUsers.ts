@@ -19,7 +19,7 @@ export const createUser = catchAsyncAction(
     const res = await serverFetch.post("/users/create-user", {
       body: userData,
     });
-    revalidate("users");
+    await revalidate("users");
     return res;
   },
 );
@@ -32,7 +32,7 @@ export const updateUserStatus = catchAsyncAction(
     const res = await serverFetch.patch(`/users/${id}/status`, {
       body: { status },
     });
-    revalidate(["users", id]);
+    await revalidate(["users", id]);
     return res;
   },
 );
@@ -42,7 +42,7 @@ export const updateUserRole = catchAsyncAction(
     const res = await serverFetch.patch(`/users/${id}/role`, {
       body: { role },
     });
-    revalidate(["users", id]);
+    await revalidate(["users", id]);
     return res;
   },
 );
@@ -50,7 +50,7 @@ export const updateUserRole = catchAsyncAction(
 export const deleteUser = catchAsyncAction(
   async (id: string): Promise<ApiResponse<IUser>> => {
     const res = await serverFetch.delete(`/users/${id}`);
-    revalidate(["users", id]);
+    await revalidate(["users", id]);
     return res;
   },
 );

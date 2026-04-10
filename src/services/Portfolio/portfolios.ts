@@ -10,7 +10,7 @@ export const createPortfolio = catchAsyncAction(
     const res = await serverFetch.post("/portfolios/create-portfolio", {
       body: payload,
     });
-    revalidate("portfolios");
+    await revalidate("portfolios");
     return res;
   },
 );
@@ -38,7 +38,7 @@ export const updatePortfolioBySlug = catchAsyncAction(
     const res = await serverFetch.patch(`/portfolios/${slug}`, {
       body: payload,
     });
-    revalidate(["portfolios", slug]);
+    await revalidate(["portfolios", slug]);
     return res;
   },
 );
@@ -46,7 +46,7 @@ export const updatePortfolioBySlug = catchAsyncAction(
 export const deletePortfolioBySlug = catchAsyncAction(
   async (slug: string): Promise<ApiResponse<IPortfolio>> => {
     const res = await serverFetch.delete(`/portfolios/${slug}`);
-    revalidate(["portfolios", slug]);
+    await revalidate(["portfolios", slug]);
     return res;
   },
 );

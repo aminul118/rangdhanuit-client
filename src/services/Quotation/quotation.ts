@@ -28,7 +28,7 @@ export const createQuotation = catchAsyncAction(
     const res = await serverFetch.post("/quotations", {
       body: data,
     });
-    revalidate("quotations");
+    await revalidate("quotations");
     return res;
   },
 );
@@ -41,7 +41,7 @@ export const updateQuotation = catchAsyncAction(
     const res = await serverFetch.patch(`/quotations/${id}`, {
       body: data,
     });
-    revalidate(["quotations", id]);
+    await revalidate(["quotations", id]);
     return res;
   },
 );
@@ -49,7 +49,7 @@ export const updateQuotation = catchAsyncAction(
 export const deleteQuotation = catchAsyncAction(
   async (id: string): Promise<ApiResponse<IQuotation>> => {
     const res = await serverFetch.delete(`/quotations/${id}`);
-    revalidate(["quotations", id]);
+    await revalidate(["quotations", id]);
     return res;
   },
 );

@@ -30,7 +30,7 @@ export const createPartner = catchAsyncAction(
     const res = await serverFetch.post("/partners", {
       body: payload,
     });
-    revalidate("partners");
+    await revalidate("partners");
     return res;
   },
 );
@@ -43,7 +43,7 @@ export const updatePartnerBySlug = catchAsyncAction(
     const res = await serverFetch.patch(`/partners/${slug}`, {
       body: payload,
     });
-    revalidate("partners");
+    await revalidate("partners");
     return res;
   },
 );
@@ -51,7 +51,7 @@ export const updatePartnerBySlug = catchAsyncAction(
 export const deletePartnerBySlug = catchAsyncAction(
   async (slug: string): Promise<ApiResponse<IPartner>> => {
     const res = await serverFetch.delete(`/partners/${slug}`);
-    revalidate("partners");
+    await revalidate("partners");
     return res;
   },
 );

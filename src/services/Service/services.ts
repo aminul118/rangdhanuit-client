@@ -28,7 +28,7 @@ export const createService = catchAsyncAction(
     const res = await serverFetch.post("/services", {
       body: formData,
     });
-    revalidate("services");
+    await revalidate("services");
     return res;
   },
 );
@@ -38,7 +38,7 @@ export const updateServiceBySlug = catchAsyncAction(
     const res = await serverFetch.patch(`/services/slug/${slug}`, {
       body: formData,
     });
-    revalidate(["services", slug]);
+    await revalidate(["services", slug]);
     return res;
   },
 );
@@ -46,7 +46,7 @@ export const updateServiceBySlug = catchAsyncAction(
 export const deleteService = catchAsyncAction(
   async (slug: string): Promise<ApiResponse<IService>> => {
     const res = await serverFetch.delete(`/services/slug/${slug}`);
-    revalidate(["services", slug]);
+    await revalidate(["services", slug]);
     return res;
   },
 );

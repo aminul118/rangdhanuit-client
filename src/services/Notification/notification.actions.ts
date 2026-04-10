@@ -19,7 +19,7 @@ export const fetchNotifications = catchAsyncAction(
 export const markAllNotificationsRead = catchAsyncAction(
   async (): Promise<ApiResponse<Record<string, unknown>>> => {
     const res = await serverFetch.patch("/notifications/mark-all-as-read");
-    revalidate("notifications");
+    await revalidate("notifications");
     return res;
   },
 );
@@ -27,7 +27,7 @@ export const markAllNotificationsRead = catchAsyncAction(
 export const markNotificationRead = catchAsyncAction(
   async (id: string): Promise<ApiResponse<INotification>> => {
     const res = await serverFetch.patch(`/notifications/${id}/read`);
-    revalidate("notifications");
+    await revalidate("notifications");
     return res;
   },
 );
@@ -35,7 +35,7 @@ export const markNotificationRead = catchAsyncAction(
 export const clearAllNotificationsAction = catchAsyncAction(
   async (): Promise<ApiResponse<Record<string, unknown>>> => {
     const res = await serverFetch.delete("/notifications");
-    revalidate("notifications");
+    await revalidate("notifications");
     return res;
   },
 );
@@ -43,7 +43,7 @@ export const clearAllNotificationsAction = catchAsyncAction(
 export const deleteNotificationAction = catchAsyncAction(
   async (id: string): Promise<ApiResponse<INotification>> => {
     const res = await serverFetch.delete(`/notifications/${id}`);
-    revalidate("notifications");
+    await revalidate("notifications");
     return res;
   },
 );

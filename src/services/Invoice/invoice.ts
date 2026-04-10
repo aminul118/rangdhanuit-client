@@ -28,7 +28,7 @@ export const createInvoice = catchAsyncAction(
     const res = await serverFetch.post("/invoices", {
       body: data,
     });
-    revalidate("invoices");
+    await revalidate("invoices");
     return res;
   },
 );
@@ -41,7 +41,7 @@ export const updateInvoice = catchAsyncAction(
     const res = await serverFetch.patch(`/invoices/${id}`, {
       body: data,
     });
-    revalidate(["invoices", id]);
+    await revalidate(["invoices", id]);
     return res;
   },
 );
@@ -49,7 +49,7 @@ export const updateInvoice = catchAsyncAction(
 export const deleteInvoice = catchAsyncAction(
   async (id: string): Promise<ApiResponse<IInvoice>> => {
     const res = await serverFetch.delete(`/invoices/${id}`);
-    revalidate(["invoices", id]);
+    await revalidate(["invoices", id]);
     return res;
   },
 );
