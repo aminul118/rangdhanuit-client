@@ -76,9 +76,9 @@ const Footer = async () => {
 
           {/* Quick Links */}
           <div className="col-span-1">
-            <h4 className="text-sm font-black uppercase tracking-[0.2em] mb-8 text-primary">
+            <h2 className="text-sm font-black uppercase tracking-[0.2em] mb-8 text-violet-400">
               Company
-            </h4>
+            </h2>
             <ul className="flex flex-col gap-5 text-sm text-zinc-300">
               {quickLinks.map((link) => (
                 <li key={link.name}>
@@ -96,9 +96,9 @@ const Footer = async () => {
 
           {/* Support & Legal */}
           <div className="col-span-1">
-            <h3 className="text-sm font-black uppercase tracking-[0.2em] mb-8 text-[#a78bfa]">
+            <h2 className="text-sm font-black uppercase tracking-[0.2em] mb-8 text-violet-400">
               Support
-            </h3>
+            </h2>
             <ul className="flex flex-col gap-5 text-sm text-zinc-300">
               <li>
                 <Link

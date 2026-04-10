@@ -4,14 +4,25 @@ import generateMetaTags from "@/Seo/generateMetaTags";
 import { getServices } from "@/services/Service/services";
 import { getPartners } from "@/services/Partner/partner";
 import { getBlogs } from "@/services/Blog/blogs";
+import dynamic from "next/dynamic";
 import Hero from "@/components/modules/public/home/Hero";
-import Partners from "@/components/modules/public/home/Partners";
-import Services from "@/components/modules/public/home/Services";
-import Stats from "@/components/modules/public/home/Stats";
-import PortfolioSlider from "@/components/modules/public/home/PortfolioSlider";
-import Process from "@/components/modules/public/home/Process";
-import LatestBlogs from "@/components/modules/public/home/LatestBlogs";
-import CTA from "@/components/modules/public/home/CTA";
+const Partners = dynamic(
+  () => import("@/components/modules/public/home/Partners"),
+);
+const Services = dynamic(
+  () => import("@/components/modules/public/home/Services"),
+);
+const Stats = dynamic(() => import("@/components/modules/public/home/Stats"));
+const PortfolioSlider = dynamic(
+  () => import("@/components/modules/public/home/PortfolioSlider"),
+);
+const Process = dynamic(
+  () => import("@/components/modules/public/home/Process"),
+);
+const LatestBlogs = dynamic(
+  () => import("@/components/modules/public/home/LatestBlogs"),
+);
+const CTA = dynamic(() => import("@/components/modules/public/home/CTA"));
 
 export const metadata: Metadata = generateMetaTags({
   title: "Rangdhanu IT | Best IT Solutions for Your Business",

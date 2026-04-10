@@ -13,7 +13,7 @@ interface PartnersProps {
 const Partners = ({ partners = [] }: PartnersProps) => {
   if (partners.length === 0) return null;
 
-  // Repeat partners to fill the scrolling marquee
+  // Repeat partners to fill the scrolling marquee natively without JS observer loops
   const repeatedPartners = Array.from({ length: 6 }, () => partners).flat();
 
   return (
@@ -43,7 +43,8 @@ const Partners = ({ partners = [] }: PartnersProps) => {
                     alt={partner.name}
                     fill
                     className="object-contain"
-                    sizes="(max-width: 768px) 100vw, 128px"
+                    sizes="128px"
+                    priority={index < 4}
                   />
                 </div>
               ) : (

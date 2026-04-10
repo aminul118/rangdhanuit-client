@@ -11,6 +11,7 @@ export const getBlogs = async (
   return await serverFetch.get("/blogs", {
     query,
     next: { tags: ["blogs"] },
+    skipAuth: true,
   });
 };
 

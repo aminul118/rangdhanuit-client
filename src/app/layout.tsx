@@ -15,6 +15,9 @@ import { Analytics } from "@vercel/analytics/next";
 const MainLayout = ({ children }: IChildrenProps) => {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://static.cloudflareinsights.com" />
+      </head>
       <body
         suppressHydrationWarning
         className={cn(
@@ -24,8 +27,14 @@ const MainLayout = ({ children }: IChildrenProps) => {
           "antialiased font-sans",
         )}
       >
-        <GoogleAnalytics gaId={envVars.analytics.googleAnalytics} />
-        <GoogleTagManager gtmId={envVars.analytics.googleTagManagerId} />
+        {envVars.analytics.googleAnalytics &&
+          envVars.analytics.googleAnalytics !== "undefined" && (
+            <GoogleAnalytics gaId={envVars.analytics.googleAnalytics} />
+          )}
+        {envVars.analytics.googleTagManagerId &&
+          envVars.analytics.googleTagManagerId !== "undefined" && (
+            <GoogleTagManager gtmId={envVars.analytics.googleTagManagerId} />
+          )}
         <TopLoadingBar />
         <SpeedInsights />
         <Analytics />

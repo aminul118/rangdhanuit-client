@@ -21,6 +21,7 @@ export const getPortfolios = async (
   return await serverFetch.get("/portfolios", {
     query,
     next: { tags: ["portfolios"] },
+    skipAuth: true,
   });
 };
 

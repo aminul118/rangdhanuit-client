@@ -35,7 +35,7 @@ export const PageHeader = ({
       {/* Subtle Background Mesh */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-full bg-primary/5 rounded-full blur-[120px]" />
-        <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center mask-[linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--primary)/0.05)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--primary)/0.05)_1px,transparent_1px)] bg-[size:32px_32px] mask-[linear-gradient(180deg,white,rgba(255,255,255,0))]" />
       </div>
 
       <Container>
@@ -44,7 +44,7 @@ export const PageHeader = ({
             {badge && (
               <motion.div
                 variants={FADE_IN_UP}
-                initial="initial"
+                initial={false}
                 animate="animate"
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] md:text-xs font-bold uppercase tracking-widest backdrop-blur-sm"
               >
@@ -55,7 +55,7 @@ export const PageHeader = ({
 
             <motion.h1
               variants={FADE_IN_UP}
-              initial="initial"
+              initial={false}
               animate="animate"
               transition={{ delay: 0.1 }}
               className="text-3xl md:text-5xl font-black tracking-tighter leading-none text-foreground"
@@ -66,7 +66,7 @@ export const PageHeader = ({
             {subtitle && (
               <motion.p
                 variants={FADE_IN_UP}
-                initial="initial"
+                initial={false}
                 animate="animate"
                 transition={{ delay: 0.2 }}
                 className="text-lg  text-muted-foreground max-w-2xl mx-auto leading-relaxed font-medium"

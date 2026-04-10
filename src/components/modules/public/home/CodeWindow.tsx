@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const codeSnippet = `const Innovation = () => {
@@ -27,23 +27,39 @@ const CodeWindow = () => {
   const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
-    let index = 0;
-    const interval = setInterval(() => {
-      if (index < codeSnippet.length) {
-        setDisplayText(codeSnippet.substring(0, index + 1));
-        index++;
-      } else {
-        setIsTyping(false);
-        clearInterval(interval);
-        // Restart after a delay
-        setTimeout(() => {
-          setDisplayText("");
-          setIsTyping(true);
-        }, 5000);
-      }
-    }, 40);
+    // Component is hidden on screens < 1024px (lg:block in Hero.tsx).
+    // Avoid expensive running intervals on mobile.
+    if (window.innerWidth < 1024) {
+      setDisplayText(codeSnippet);
+      setIsTyping(false);
+      return;
+    }
 
-    return () => clearInterval(interval);
+    let index = 0;
+    let timer: NodeJS.Timeout;
+
+    // Initial delay to prioritize main content loading
+    const delayTimer = setTimeout(() => {
+      timer = setInterval(() => {
+        if (index < codeSnippet.length) {
+          setDisplayText(codeSnippet.substring(0, index + 1));
+          index++;
+        } else {
+          setIsTyping(false);
+          clearInterval(timer);
+          // Restart after a longer delay
+          setTimeout(() => {
+            setDisplayText("");
+            setIsTyping(true);
+          }, 8000);
+        }
+      }, 60);
+    }, 1000);
+
+    return () => {
+      clearTimeout(delayTimer);
+      if (timer) clearInterval(timer);
+    };
   }, [isTyping]);
 
   // Simple syntax highlighter (regex-based for key terms)

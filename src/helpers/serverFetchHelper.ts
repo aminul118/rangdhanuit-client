@@ -8,18 +8,23 @@ import { AppError } from "./AppError";
 export type FetchOptions = Omit<RequestInit, "body"> & {
   body?: unknown;
   query?: Record<string, string>;
+  skipAuth?: boolean;
 };
 
 const serverFetchHelper = async <T>(
   endpoint: string,
   options: FetchOptions,
 ): Promise<T> => {
-  const { headers, query, ...rest } = options;
+  const { headers, query, skipAuth, ...rest } = options;
   const url = generateQueryUrl(endpoint, query);
 
   const makeRequest = async () => {
-    const accessToken = await getCookie("accessToken");
-    const refreshToken = await getCookie("refreshToken");
+    let accessToken = null;
+    let refreshToken = null;
+    if (!skipAuth) {
+      accessToken = await getCookie("accessToken");
+      refreshToken = await getCookie("refreshToken");
+    }
 
     const bodyContent = rest.body;
     const isFormData =

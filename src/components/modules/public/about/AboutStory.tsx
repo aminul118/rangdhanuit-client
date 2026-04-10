@@ -28,7 +28,7 @@ export const AboutStory = () => {
             className="space-y-8"
           >
             <div className="space-y-4">
-              <div className="text-sm font-black uppercase tracking-[0.3em] text-indigo-500">
+              <div className="text-sm font-black uppercase tracking-[0.3em] text-indigo-600 dark:text-indigo-400">
                 Pioneering the Digital Frontier
               </div>
               <h2 className="text-4xl md:text-5xl font-black text-foreground leading-tight tracking-tighter">
@@ -54,13 +54,13 @@ export const AboutStory = () => {
               </p>
               <div className="flex gap-10 pt-4">
                 <div>
-                  <div className="text-3xl font-black text-indigo-500">5+</div>
+                  <div className="text-3xl font-black text-indigo-600 dark:text-indigo-400">5+</div>
                   <p className="text-xs uppercase tracking-widest font-black">
                     Years Expertise
                   </p>
                 </div>
                 <div>
-                  <div className="text-3xl font-black text-purple-500">100+</div>
+                  <div className="text-3xl font-black text-purple-600 dark:text-purple-400">100+</div>
                   <p className="text-xs uppercase tracking-widest font-black">
                     Dreams Realized
                   </p>
@@ -84,7 +84,8 @@ export const AboutStory = () => {
                 src="/images/about-story.png"
                 alt="Innovation Hub"
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                sizes="(max-width: 768px) 90vw, 500px"
+                quality={60}
                 className="object-cover transition-transform duration-1000 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent pointer-events-none" />

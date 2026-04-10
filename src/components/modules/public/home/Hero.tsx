@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { LazyMotion, domAnimation, m as motion } from "framer-motion";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -8,17 +8,37 @@ import { Container } from "@/components/ui/Container";
 import {
   FADE_IN_UP,
   STAGGER_CHILDREN,
-  VIEWPORT_CONFIG,
 } from "@/constants/animations";
-import { TechBackground } from "./TechBackground";
+
+const TechBackground = dynamic(
+  () => import("./TechBackground").then((mod) => mod.TechBackground),
+  { ssr: false }
+);
+
 const CodeWindow = dynamic(() => import("./CodeWindow"), {
   ssr: false,
-  loading: () => <div className="w-full h-[400px] bg-card/20 rounded-2xl animate-pulse" />,
+  loading: () => (
+    <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/40 backdrop-blur-3xl shadow-2xl min-h-[380px] max-h-[400px]">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border/40 bg-muted/20">
+        <div className="flex gap-1.5">
+          <div className="w-2.5 h-2.5 rounded-full bg-red-500/30 border border-red-500/50" />
+          <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/30 border border-yellow-500/50" />
+          <div className="w-2.5 h-2.5 rounded-full bg-green-500/30 border border-green-500/50" />
+        </div>
+      </div>
+      <div className="p-6 md:p-8 space-y-4">
+        <div className="h-4 bg-primary/10 rounded w-3/4 animate-pulse" />
+        <div className="h-4 bg-primary/5 rounded w-1/2 animate-pulse" />
+        <div className="h-4 bg-primary/10 rounded w-5/6 animate-pulse" />
+      </div>
+    </div>
+  ),
 });
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden text-foreground selection:bg-primary/20 transition-colors duration-500">
+    <LazyMotion features={domAnimation}>
+      <section className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden text-foreground selection:bg-primary/20 transition-colors duration-500">
       <TechBackground />
 
       <Container className="relative z-10">
@@ -26,9 +46,8 @@ const Hero = () => {
           {/* Left Content */}
           <motion.div
             variants={STAGGER_CHILDREN}
-            initial="initial"
-            whileInView="animate"
-            viewport={VIEWPORT_CONFIG}
+            initial={false}
+            animate="animate"
             className="flex flex-col items-start text-left"
           >
             {/* Minimal High-Tech Badge */}
@@ -155,7 +174,8 @@ const Hero = () => {
           </motion.div>
         </div>
       </Container>
-    </section>
+      </section>
+    </LazyMotion>
   );
 };
 

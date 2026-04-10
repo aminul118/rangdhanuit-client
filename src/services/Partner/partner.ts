@@ -11,6 +11,7 @@ export const getPartners = async (
   return await serverFetch.get("/partners", {
     query,
     next: { tags: ["partners"] },
+    skipAuth: true,
   });
 };
 

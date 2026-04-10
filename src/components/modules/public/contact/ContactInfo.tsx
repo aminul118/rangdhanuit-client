@@ -58,7 +58,7 @@ const ContactInfo = () => {
   return (
     <motion.div
       variants={containerVariants}
-      initial="hidden"
+      initial={false}
       whileInView="visible"
       viewport={{ once: true }}
       className="flex flex-col justify-center h-full max-w-xl"
@@ -66,6 +66,7 @@ const ContactInfo = () => {
       <div className="space-y-8">
         <div className="space-y-4">
           <motion.h3
+            initial={false}
             variants={itemVariants}
             className="text-3xl md:text-4xl font-black text-foreground  tracking-tighter"
           >
@@ -75,6 +76,7 @@ const ContactInfo = () => {
             </span>
           </motion.h3>
           <motion.p
+            initial={false}
             variants={itemVariants}
             className="text-muted-foreground text-lg font-medium leading-relaxed"
           >

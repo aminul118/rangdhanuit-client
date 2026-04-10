@@ -12,7 +12,14 @@ export const TechBackground = () => {
   const smoothY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
+    if (window.innerWidth < 768) return;
+
+    let lastMove = 0;
     const handleMouseMove = (e: MouseEvent) => {
+      const now = Date.now();
+      if (now - lastMove < 32) return; // Throttle to ~30fps for mouse follow
+      lastMove = now;
+      
       const { clientX, clientY } = e;
       mouseX.set(clientX);
       mouseY.set(clientY);
@@ -28,7 +35,9 @@ export const TechBackground = () => {
   useEffect(() => {
     const frameId = requestAnimationFrame(() => {
       setMounted(true);
-      const generatedParticles = [...Array(20)].map((_, i) => ({
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+      const count = isMobile ? 0 : 20;
+      const generatedParticles = [...Array(count)].map((_, i) => ({
         id: i,
         x: Math.random() * 100 + "%",
         y: Math.random() * 100 + "%",

@@ -11,6 +11,7 @@ export const getServices = async (
   return await serverFetch.get("/services", {
     query,
     next: { tags: ["services"] },
+    skipAuth: true,
   });
 };
 

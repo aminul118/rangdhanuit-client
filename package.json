@@ -12,6 +12,12 @@
     "check-format": "prettier --check .",
     "prepare": "husky"
   },
+  "browserslist": [
+    ">0.3%",
+    "not dead",
+    "not op_mini all",
+    "last 2 versions"
+  ],
   "dependencies": {
     "@ariakit/react": "^0.4.24",
     "@emoji-mart/data": "^1.2.1",
@@ -81,6 +87,7 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "19.2.4",
     "react-easy-crop": "^5.5.7",
+    "react-fast-marquee": "^1.6.5",
     "react-hook-form": "^7.72.0",
     "react-icons": "^5.6.0",
     "react-lite-youtube-embed": "^3.5.1",

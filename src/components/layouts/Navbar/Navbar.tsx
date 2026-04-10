@@ -164,6 +164,7 @@ const Navbar = () => {
                 color={
                   isOpen ? "hsl(var(--foreground))" : "hsl(var(--primary))"
                 }
+                label="Toggle menu"
                 rounded
               />
             </div>
