@@ -11,12 +11,18 @@ interface PortfolioCardProps {
   project: IPortfolio;
   className?: string;
   showActions?: boolean;
+  priority?: boolean;
 }
 
-export const PortfolioCard = ({ project, className, showActions = true }: PortfolioCardProps) => {
+export const PortfolioCard = ({ 
+  project, 
+  className, 
+  showActions = true,
+  priority = false 
+}: PortfolioCardProps) => {
   return (
     <div className={cn(
-      "group glass-premium rounded-[2.5rem] border border-border/50 overflow-hidden bg-card/40 hover:border-primary/50 transition-all duration-500 flex flex-col h-full shadow-2xl hover:shadow-primary/10 hover:-translate-y-2",
+      "group glass-premium rounded-sm border border-border/50 overflow-hidden bg-card/40 hover:border-primary/50 transition-all duration-500 flex flex-col h-full shadow-2xl hover:shadow-primary/10 hover:-translate-y-2",
       className
     )}>
       {/* Media Section */}
@@ -30,6 +36,7 @@ export const PortfolioCard = ({ project, className, showActions = true }: Portfo
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-[1.5s] group-hover:scale-110"
+          priority={priority}
         />
         <div className="absolute inset-0 bg-linear-to-tr from-white/0 via-white/5 to-white/0 -translate-x-full group-hover:animate-shimmer pointer-events-none" />
       </Link>
@@ -41,7 +48,7 @@ export const PortfolioCard = ({ project, className, showActions = true }: Portfo
           {project.technologies?.slice(0, 2).map((tech) => (
             <span
               key={tech}
-              className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-primary/5 text-primary border border-primary/10"
+              className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-primary/5 text-indigo-950 dark:text-indigo-200 border border-primary/10"
             >
               {tech}
             </span>
@@ -58,9 +65,9 @@ export const PortfolioCard = ({ project, className, showActions = true }: Portfo
           href={`/portfolio/${project.slug}`}
           className="block group/title"
         >
-          <h3 className="text-2xl font-black text-foreground leading-tight tracking-tight group-hover/title:text-primary transition-colors duration-300">
+          <h2 className="text-2xl font-black text-foreground leading-tight tracking-tight group-hover/title:text-primary transition-colors duration-300">
             {project.title}
-          </h3>
+          </h2>
         </Link>
 
         {/* Action Bar */}
@@ -68,7 +75,7 @@ export const PortfolioCard = ({ project, className, showActions = true }: Portfo
           <div className="flex items-center justify-between pt-4 mt-auto border-t border-border/50">
             <Link
               href={`/portfolio/${project.slug}`}
-              className="flex items-center gap-2 text-primary font-black uppercase tracking-widest text-[10px] group/link"
+              className="flex items-center gap-2 text-indigo-900 dark:text-indigo-300 font-black uppercase tracking-widest text-[10px] group/link"
             >
               View Case Study
               <div className="w-8 h-8 rounded-full border border-primary/20 flex items-center justify-center group-hover/link:bg-primary group-hover/link:text-white transition-all duration-300">

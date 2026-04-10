@@ -28,7 +28,7 @@ export const PageHeader = ({
   return (
     <section
       className={cn(
-        "relative pt-32 pb-16 overflow-hidden bg-background/50",
+        "relative pt-32 pb-16 overflow-hidden bg-background",
         className,
       )}
     >
@@ -46,7 +46,7 @@ export const PageHeader = ({
                 variants={FADE_IN_UP}
                 initial={false}
                 animate="animate"
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] md:text-xs font-bold uppercase tracking-widest backdrop-blur-sm"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-indigo-950 dark:text-indigo-200 text-[10px] md:text-xs font-bold uppercase tracking-widest backdrop-blur-sm"
               >
                 {badge.icon && <badge.icon className="w-3.5 h-3.5" />}
                 <span>{badge.text}</span>

@@ -1,14 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, Globe } from "lucide-react";
-import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
+import { FADE_IN_UP, STAGGER_CHILDREN, VIEWPORT_CONFIG } from "@/constants/animations";
 import { IPortfolio } from "@/types/Portfolio/portfolio.types";
-import Image from "next/image";
-import metaConfig from "@/config/meta.config";
-
 import { PortfolioCard } from "./PortfolioCard";
 
 interface PortfolioListProps {
@@ -27,20 +22,22 @@ export const PortfolioList = ({ projects }: PortfolioListProps) => {
   return (
     <section className="bg-background text-foreground">
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          variants={STAGGER_CHILDREN}
+          initial="initial"
+          whileInView="whileInView"
+          viewport={VIEWPORT_CONFIG}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {projects.map((project, index) => (
             <motion.div
               key={project._id}
               variants={FADE_IN_UP}
-              initial="initial"
-              whileInView="whileInView"
-              viewport={VIEWPORT_CONFIG}
-              transition={{ delay: index * 0.05 }}
             >
-              <PortfolioCard project={project} />
+              <PortfolioCard project={project} priority={index < 2} />
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </Container>
     </section>
   );

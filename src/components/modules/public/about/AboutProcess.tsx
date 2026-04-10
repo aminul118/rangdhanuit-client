@@ -86,7 +86,7 @@ export const AboutProcess = () => {
             <motion.div
               key={index}
               variants={FADE_IN_UP}
-              className="relative group p-10 rounded-[3.5rem] bg-card border border-border/50 hover:bg-muted/30 transition-all duration-500 shadow-2xl shadow-black/5"
+              className="relative group p-10 rounded-sm bg-card border border-border/50 hover:bg-muted/30 transition-all duration-500 shadow-2xl shadow-black/5"
             >
               <div className="absolute -top-6 -right-6 text-6xl font-black text-foreground/5 group-hover:text-foreground/10 transition-colors pointer-events-none italic">
                 0{index + 1}

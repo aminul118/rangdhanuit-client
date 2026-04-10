@@ -1,16 +1,4 @@
-import { Outfit, Geist, Space_Grotesk } from "next/font/google";
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit",
-  display: "swap",
-});
-
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist",
-  display: "swap",
-});
+import { Space_Grotesk } from "next/font/google";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -19,8 +7,6 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const fonts = {
-  outfit,
-  geist,
   spaceGrotesk,
 };
 

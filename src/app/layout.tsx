@@ -20,21 +20,10 @@ const MainLayout = ({ children }: IChildrenProps) => {
       </head>
       <body
         suppressHydrationWarning
-        className={cn(
-          fonts.outfit.variable,
-          fonts.geist.variable,
-          fonts.spaceGrotesk.variable,
-          "antialiased font-sans",
-        )}
+        className={cn(fonts.spaceGrotesk.variable, "antialiased font-sans")}
       >
-        {envVars.analytics.googleAnalytics &&
-          envVars.analytics.googleAnalytics !== "undefined" && (
-            <GoogleAnalytics gaId={envVars.analytics.googleAnalytics} />
-          )}
-        {envVars.analytics.googleTagManagerId &&
-          envVars.analytics.googleTagManagerId !== "undefined" && (
-            <GoogleTagManager gtmId={envVars.analytics.googleTagManagerId} />
-          )}
+        <GoogleAnalytics gaId={envVars.analytics.googleAnalytics} />
+        <GoogleTagManager gtmId={envVars.analytics.googleTagManagerId} />
         <TopLoadingBar />
         <SpeedInsights />
         <Analytics />

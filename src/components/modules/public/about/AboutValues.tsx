@@ -49,11 +49,11 @@ export const AboutValues = () => {
               whileInView="whileInView"
               viewport={VIEWPORT_CONFIG}
               transition={{ delay: index * 0.1 }}
-              className="glass border-border/50 p-8 rounded-3xl backdrop-blur-sm shadow-lg hover:border-primary/50 transition-all group"
+              className="glass border-border/50 p-8 rounded-sm backdrop-blur-sm shadow-lg hover:border-primary/50 hover:shadow-lg transition-all group"
             >
               <div
                 className={cn(
-                  "w-10 h-10 rounded-lg flex items-center justify-center mb-6 transition-transform group-hover:scale-110",
+                  "w-10 h-10 rounded-sm flex items-center justify-center mb-6 transition-transform group-hover:scale-110",
                   value.color,
                 )}
               >

@@ -29,9 +29,10 @@ const IconMap: Record<string, React.ElementType> = {
 interface ServiceCardProps {
   service: IService;
   index: number;
+  priority?: boolean;
 }
 
-const ServiceCard = ({ service, index }: ServiceCardProps) => {
+const ServiceCard = ({ service, index, priority = false }: ServiceCardProps) => {
   const Icon = IconMap[service.icon] || Laptop;
 
   return (
@@ -42,7 +43,7 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
       className="group relative"
     >
       <Link href={`/services/${service.slug}`}>
-        <div className="relative overflow-hidden rounded-[2rem] md:rounded-[2.5rem] glass border-border/50 backdrop-blur-xl h-full flex flex-col transition-all duration-500 hover:border-indigo-500/30 hover:shadow-[0_20px_50px_-20px_rgba(99,102,241,0.2)]">
+        <div className="relative overflow-hidden rounded-sm md:rounded-sm glass border-border/50 backdrop-blur-xl h-full flex flex-col transition-all duration-500 hover:border-indigo-500/30 hover:shadow-[0_20px_50px_-20px_rgba(99,102,241,0.2)]">
           {/* Progress Image Header */}
           <div className="relative aspect-video overflow-hidden">
             <Image
@@ -51,6 +52,7 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover transition-transform duration-700 group-hover:scale-110"
+              priority={priority}
             />
             <div className="absolute inset-0 bg-linear-to-t from-background via-background/20 to-transparent" />
 
@@ -68,21 +70,21 @@ const ServiceCard = ({ service, index }: ServiceCardProps) => {
                 size={12}
                 className="text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity"
               />
-              <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] text-indigo-500/60">
+              <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] text-indigo-950 dark:text-indigo-200">
                 Professional Capability
               </span>
             </div>
 
-            <h3 className="text-xl md:text-2xl font-black mb-3 tracking-tight group-hover:text-indigo-400 transition-colors text-foreground">
+            <h2 className="text-xl md:text-2xl font-black mb-3 tracking-tight group-hover:text-indigo-400 transition-colors text-foreground">
               {service.title}
-            </h3>
+            </h2>
 
             <p className="text-muted-foreground text-sm leading-relaxed mb-6 line-clamp-3 font-medium">
               {service.description}
             </p>
 
             <div className="mt-auto pt-6 border-t border-border/50 flex items-center justify-between">
-              <span className="text-[10px] md:text-xs font-black uppercase tracking-widest text-muted-foreground group-hover:text-foreground transition-colors flex items-center gap-2">
+              <span className="text-[10px] md:text-xs font-black uppercase tracking-widest text-slate-950 dark:text-slate-300 group-hover:text-foreground transition-colors flex items-center gap-2">
                 Explore Service
                 <ArrowRight
                   size={14}

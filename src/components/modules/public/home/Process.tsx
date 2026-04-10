@@ -76,12 +76,12 @@ const Process = () => {
               whileInView="whileInView"
               viewport={VIEWPORT_CONFIG}
               transition={{ delay: index * 0.1 }}
-              className="relative text-center group glass-premium p-8 rounded-[2.5rem] border-border/50 hover:border-primary/40 transition-all shadow-xl"
+              className="relative text-center group glass-premium p-8 rounded-sm border-border/50 hover:border-primary/40 transition-all shadow-xl"
             >
               <div
-                className={`w-20 h-20 rounded-2xl ${step.color} mx-auto flex items-center justify-center mb-8 shadow-2xl transition-all group-hover:scale-110 group-hover:rotate-6 relative`}
+                className={`w-20 h-20 rounded-sm ${step.color} mx-auto flex items-center justify-center mb-8 shadow-2xl transition-all group-hover:scale-110 group-hover:rotate-6 relative`}
               >
-                <div className="absolute inset-0 bg-white/20 dark:bg-black/20 rounded-2xl blur-sm" />
+                <div className="absolute inset-0 bg-white/20 dark:bg-black/20 rounded-sm blur-sm" />
                 <step.icon className="w-10 h-10 text-white relative z-10" />
               </div>
               <h3 className="text-2xl font-black mb-4 text-foreground tracking-tight">{step.title}</h3>

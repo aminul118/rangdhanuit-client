@@ -51,7 +51,8 @@ export const STAGGER_CHILDREN: Variants = {
 
 export const VIEWPORT_CONFIG = {
   once: true,
-  amount: 0.2,
+  amount: 0.05,
+  margin: "50px",
 };
 
 export const HOVER_LIFT = {

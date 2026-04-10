@@ -91,7 +91,7 @@ export const AboutWhyUs = () => {
             <motion.div
               key={index}
               variants={FADE_IN_UP}
-              className="group p-8 rounded-[3rem] bg-card border border-border/50 hover:border-indigo-500/30 shadow-2xl shadow-black/5 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden"
+              className="group p-8 rounded-sm bg-card border border-border/50 hover:border-indigo-500/30 shadow-2xl shadow-black/5 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden"
             >
               <div
                 className={`absolute top-0 right-0 w-32 h-32 bg-linear-to-bl ${benefit.color} opacity-0 group-hover:opacity-5 blur-[50px] transition-all duration-700 pointer-events-none`}

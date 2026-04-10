@@ -73,8 +73,8 @@ const Services = ({ services }: ServicesProps) => {
                 {...HOVER_LIFT}
                 className="relative group h-full"
               >
-                <div className="absolute inset-0 bg-linear-to-b from-muted to-transparent rounded-[2.5rem] -z-10 group-hover:from-primary/10 transition-colors duration-500" />
-                <div className="h-full border border-border/50 p-10 rounded-[2.5rem] glass backdrop-blur-xl flex flex-col items-start hover:border-primary/30 transition-all duration-500 overflow-hidden">
+                <div className="absolute inset-0 bg-linear-to-b from-muted to-transparent rounded-sm -z-10 group-hover:from-primary/10 transition-colors duration-500" />
+                <div className="h-full border border-border/50 p-10 rounded-sm glass backdrop-blur-xl flex flex-col items-start hover:border-primary/30 transition-all duration-500 overflow-hidden">
                   {/* Background Glow */}
                   <div className="absolute -right-20 -top-20 w-40 h-40 rounded-full blur-[80px] opacity-0 group-hover:opacity-20 transition-opacity duration-700 bg-linear-to-br from-primary/20 to-transparent" />
 
