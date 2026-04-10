@@ -23,7 +23,7 @@ const contactDetails = [
   {
     icon: MapPin,
     title: "Our Office",
-    value: "Rampura, Dhaka-1230",
+    value: "278, 1 W Monipur, Mirpur",
     href: null,
     color: "text-pink-500",
     bg: "bg-pink-500/10",
