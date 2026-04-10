@@ -65,16 +65,16 @@ const ContactInfo = () => {
     >
       <div className="space-y-8">
         <div className="space-y-4">
-          <motion.h3
+          <motion.h2
             initial={false}
             variants={itemVariants}
-            className="text-3xl md:text-4xl font-black text-foreground  tracking-tighter"
+            className="text-3xl md:text-4xl font-black text-foreground tracking-tighter"
           >
             Let&apos;s create something <br />
-            <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent  decoration-indigo-500/20 ">
+            <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent decoration-indigo-500/20">
               amazing together.
             </span>
-          </motion.h3>
+          </motion.h2>
           <motion.p
             initial={false}
             variants={itemVariants}
@@ -99,7 +99,7 @@ const ContactInfo = () => {
                 <item.icon className={`h-7 w-7 ${item.color}`} />
               </div>
               <div className="flex flex-col">
-                <span className="text-xs font-black uppercase tracking-widest text-muted-foreground/60 mb-1">
+                <span className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-1">
                   {item.title}
                 </span>
                 {item.href ? (

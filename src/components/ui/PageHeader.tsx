@@ -79,7 +79,7 @@ export const PageHeader = ({
           {children && (
             <motion.div
               variants={FADE_IN_UP}
-              initial="initial"
+              initial={false}
               animate="animate"
               transition={{ delay: 0.3 }}
             >

@@ -3,8 +3,10 @@ import { Metadata } from "next";
 import { TSearchParamsPromise, IBlog } from "@/types";
 import { Container } from "@/components/ui/Container";
 import { BlogHero } from "@/components/modules/public/blog/BlogHero";
-import { BlogList } from "@/components/modules/public/blog/BlogList";
-
+import dynamic from "next/dynamic";
+const BlogList = dynamic(() =>
+  import("@/components/modules/public/blog/BlogList").then((m) => m.BlogList),
+);
 import generateMetaTags from "@/Seo/generateMetaTags";
 
 export const metadata: Metadata = generateMetaTags({
