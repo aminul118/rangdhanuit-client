@@ -22,10 +22,9 @@ const MainLayout = ({ children }: IChildrenProps) => {
         suppressHydrationWarning
         className={cn(fonts.spaceGrotesk.variable, "antialiased font-sans")}
       >
-        <GoogleAnalytics gaId={envVars.analytics.googleAnalytics} />
-        <GoogleTagManager gtmId={envVars.analytics.googleTagManagerId} />
-        <TopLoadingBar />
         <SpeedInsights />
+        <GoogleAnalytics gaId="G-RKTJLQEYCK" />
+        <TopLoadingBar />
         <Analytics />
         <Providers>{children}</Providers>
       </body>
