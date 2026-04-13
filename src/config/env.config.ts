@@ -3,11 +3,6 @@ const envVars = {
   baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
   apiUrl: process.env.NEXT_PUBLIC_API_URL,
 
-  analytics: {
-    googleAnalytics: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS as string,
-    googleTagManagerId: process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID as string,
-  },
-
   cloudinary: {
     cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME as string,
     apiKey: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY as string,
