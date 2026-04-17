@@ -21,7 +21,7 @@ const Providers = ({ children, initialUser = null }: IProvider) => {
       <AuthProvider initialUser={initialUser}>
         <SocketProvider>
           <TooltipProvider>{children}</TooltipProvider>
-          <Toaster position="bottom-right" richColors />
+          <Toaster position="top-right" richColors closeButton />
         </SocketProvider>
       </AuthProvider>
     </ThemeProvider>
