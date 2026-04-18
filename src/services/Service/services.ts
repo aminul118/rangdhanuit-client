@@ -20,6 +20,7 @@ export const getServiceBySlug = async (
 ): Promise<ApiResponse<IService>> => {
   return await serverFetch.get(`/services/slug/${slug}`, {
     next: { tags: ["services", slug] },
+    skipAuth: true,
   });
 };
 
@@ -29,6 +30,7 @@ export const createService = catchAsyncAction(
       body: formData,
     });
     await revalidate("services");
+    await revalidate("/", "path");
     return res;
   },
 );
@@ -39,6 +41,7 @@ export const updateServiceBySlug = catchAsyncAction(
       body: formData,
     });
     await revalidate(["services", slug]);
+    await revalidate("/", "path");
     return res;
   },
 );
@@ -47,6 +50,7 @@ export const deleteService = catchAsyncAction(
   async (slug: string): Promise<ApiResponse<IService>> => {
     const res = await serverFetch.delete(`/services/slug/${slug}`);
     await revalidate(["services", slug]);
+    await revalidate("/", "path");
     return res;
   },
 );

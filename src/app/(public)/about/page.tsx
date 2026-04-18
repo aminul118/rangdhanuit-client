@@ -38,6 +38,7 @@ export const metadata: Metadata = generateMetaTags({
   description:
     "Learn about Rangdhanu IT's mission, vision, and core values. We are a team of passionate tech experts dedicated to your success.",
   keywords: "about us, our team, mission, vision, IT experts",
+  websitePath: "about",
 });
 
 export default function AboutPage() {

@@ -8,6 +8,7 @@ export const metadata: Metadata = generateMetaTags({
     "Read the Terms of Service for using Rangdhanu IT's website and services. Understand your rights and responsibilities when working with us.",
   keywords:
     "terms of service, user agreement, legal terms, Rangdhanu IT terms, service guidelines",
+  websitePath: "terms-of-service",
 });
 
 export default function TermsOfServicePage() {

@@ -1,9 +1,14 @@
-import { getPortfolioBySlug } from "@/services/Portfolio/portfolios";
+import {
+  getPortfolioBySlug,
+  getPortfolios,
+} from "@/services/Portfolio/portfolios";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ISlugPageProps } from "@/types";
 import { PortfolioDetailsView } from "@/components/modules/public/portfolio/portfolio-details/PortfolioDetailsView";
 import { extractPlainText } from "@/helpers/extractPlainText";
+import metaConfig from "@/config/meta.config";
+import generateMetaTags from "@/Seo/generateMetaTags";
 
 export const generateMetadata = async ({
   params,
@@ -25,36 +30,31 @@ export const generateMetadata = async ({
     const { title, content, thumbnail } = res.data;
     const description = extractPlainText(content || "").slice(0, 160);
 
-    return {
+    return generateMetaTags({
       title,
       description,
-      openGraph: {
-        title,
-        description,
-        images: [
-          {
-            url: thumbnail,
-            width: 1200,
-            height: 630,
-            alt: title,
-          },
-        ],
-        type: "article",
-        section: "Portfolio",
-      },
-      twitter: {
-        card: "summary_large_image",
-        title,
-        description,
-        images: [thumbnail],
-      },
-    };
+      keywords: metaConfig.keywords,
+      image: thumbnail,
+      websitePath: `portfolio/${slug}`,
+    });
   } catch (error) {
     console.error("Error generating portfolio metadata:", error);
     return {
       title: "Our Work",
     };
   }
+};
+
+export const generateStaticParams = async () => {
+  const res = await getPortfolios({ limit: "100" });
+
+  if (!res.success || !res.data) {
+    return [];
+  }
+
+  return res.data.map((portfolio) => ({
+    slug: portfolio.slug,
+  }));
 };
 
 const PortfolioDetailsPage = async ({ params }: ISlugPageProps) => {

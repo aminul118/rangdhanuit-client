@@ -21,7 +21,7 @@ const PublicLayout = ({ children }: IChildrenProps) => {
     image: `${metaConfig.baseUrl}${metaConfig.baseImage}`,
     "@id": metaConfig.baseUrl,
     url: metaConfig.baseUrl,
-    telephone: "+88017 105 104 77", // Updated to match Footer
+    telephone: "+88017 105 104 77",
     address: {
       "@type": "PostalAddress",
       streetAddress: "278, 1W Monipur, Mirpur",
@@ -32,7 +32,7 @@ const PublicLayout = ({ children }: IChildrenProps) => {
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 23.8103, // Replace with real coords
+      latitude: 23.8103,
       longitude: 90.4125,
     },
     openingHoursSpecification: {
@@ -51,7 +51,6 @@ const PublicLayout = ({ children }: IChildrenProps) => {
     },
     sameAs: [
       "https://www.facebook.com/rangdhanuit.dev",
-      "https://twitter.com/rangdhanu_it",
       "https://linkedin.com/company/rangdhanu-it",
     ],
   });

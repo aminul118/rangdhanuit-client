@@ -7,6 +7,7 @@ export const metadata: Metadata = generateMetaTags({
   description:
     "Get in touch with Rangdhanu IT for your next big project. We offer free consultations and expert IT advice.",
   keywords: "contact us, support, inquiry, IT consultation",
+  websitePath: "contact",
 });
 
 const ContactPage = () => {

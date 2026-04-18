@@ -18,8 +18,9 @@ export const getBlogs = async (
 export const getBlogBySlug = async (
   slug: string,
 ): Promise<ApiResponse<IBlog>> => {
-  return await serverFetch.get(`/blogs/slug/admin/${slug}`, {
+  return await serverFetch.get(`/blogs/${slug}`, {
     next: { tags: ["blogs", slug] },
+    skipAuth: true,
   });
 };
 
@@ -32,6 +33,7 @@ export const updateBlogBySlug = catchAsyncAction(
       body: payload,
     });
     await revalidate(["blogs", slug]);
+    await revalidate("/", "path");
     return res;
   },
 );
@@ -42,6 +44,7 @@ export const createBlog = catchAsyncAction(
       body: payload,
     });
     await revalidate("blogs");
+    await revalidate("/", "path");
     return res;
   },
 );
@@ -50,6 +53,7 @@ export const deleteBlog = catchAsyncAction(
   async (slug: string): Promise<ApiResponse<IBlog>> => {
     const res = await serverFetch.delete(`/blogs/slug/${slug}`);
     await revalidate(["blogs", slug]);
+    await revalidate("/", "path");
     return res;
   },
 );

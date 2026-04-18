@@ -6,6 +6,9 @@ import metaConfig from "@/config/meta.config";
 import { generateJsonLd } from "@/Seo/generateJsonLd";
 import { extractPlainText } from "@/helpers/extractPlainText";
 import { BlogViewCounter } from "./BlogViewCounter";
+import { Suspense } from "react";
+import { SidebarSkeleton } from "./SidebarSkeleton";
+
 
 interface BlogDetailsViewProps {
   blog: IBlog;
@@ -83,7 +86,9 @@ export const BlogDetailsView = ({ blog }: BlogDetailsViewProps) => {
           <BlogDetailsMainContent content={blog.content} tags={blog.tags} />
 
           {/* Sidebar Section (Recent Blogs & CTA) */}
-          <BlogDetailsSidebar />
+          <Suspense fallback={<SidebarSkeleton />}>
+            <BlogDetailsSidebar />
+          </Suspense>
         </div>
       </div>
     </main>

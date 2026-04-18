@@ -4,6 +4,10 @@ export interface MetaProps {
   keywords: string;
   image?: string;
   websitePath?: string;
+  type?: "website" | "article";
+  publishedTime?: string;
+  authors?: string[];
+  tags?: string[];
 }
 
 export interface MetaConfig {

@@ -1,10 +1,11 @@
-import { getBlogBySlug } from "@/services/Blog/blogs";
+import { getBlogBySlug, getBlogs } from "@/services/Blog/blogs";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ISlugPageProps } from "@/types";
 import { BlogDetailsView } from "@/components/modules/public/blog/blog-details/BlogDetailsView";
 import metaConfig from "@/config/meta.config";
 import { extractPlainText } from "@/helpers/extractPlainText";
+import generateMetaTags from "@/Seo/generateMetaTags";
 
 export const generateMetadata = async ({
   params,
@@ -26,32 +27,35 @@ export const generateMetadata = async ({
     const { title, content, featuredImage, tags, createdAt, author } = res.data;
     const description = extractPlainText(content || "").slice(0, 160);
 
-    return {
+    return generateMetaTags({
       title,
       description,
       keywords: tags.join(", "),
-      openGraph: {
-        title,
-        description,
-        images: [featuredImage],
-        type: "article",
-        publishedTime: createdAt,
-        authors: [author?.name || metaConfig.siteName || "Rangdhanu IT"],
-        section: "Technology",
-        tags: tags,
-      },
-      twitter: {
-        card: "summary_large_image",
-        title,
-        description,
-        images: [featuredImage],
-      },
-    };
-  } catch {
+      image: featuredImage,
+      websitePath: `blog/${slug}`,
+      type: "article",
+      publishedTime: createdAt,
+      authors: [author?.name || metaConfig.siteName],
+      tags,
+    });
+  } catch (error) {
+    console.error("Error generating blog metadata:", error);
     return {
-      title: "Blog Article",
+      title: "Blog Details",
     };
   }
+};
+
+export const generateStaticParams = async () => {
+  const res = await getBlogs({ limit: "100", status: "PUBLISHED" });
+
+  if (!res.success || !res.data) {
+    return [];
+  }
+
+  return res.data.map((blog) => ({
+    slug: blog.slug,
+  }));
 };
 
 const BlogDetailsPage = async ({ params }: ISlugPageProps) => {

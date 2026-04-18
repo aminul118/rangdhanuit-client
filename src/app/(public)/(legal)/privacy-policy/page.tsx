@@ -8,6 +8,7 @@ export const metadata: Metadata = generateMetaTags({
     "Learn about how Rangdhanu IT collects, uses, and protects your personal data. We are committed to your privacy and data security.",
   keywords:
     "privacy policy, data protection, privacy, data security, Rangdhanu IT policies",
+  websitePath: "privacy-policy",
 });
 
 export default function PrivacyPolicyPage() {

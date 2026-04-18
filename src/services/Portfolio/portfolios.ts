@@ -11,6 +11,7 @@ export const createPortfolio = catchAsyncAction(
       body: payload,
     });
     await revalidate("portfolios");
+    await revalidate("/", "path");
     return res;
   },
 );
@@ -30,6 +31,7 @@ export const getPortfolioBySlug = async (
 ): Promise<ApiResponse<IPortfolio>> => {
   return await serverFetch.get(`/portfolios/${slug}`, {
     next: { tags: ["portfolios", slug] },
+    skipAuth: true,
   });
 };
 
@@ -39,6 +41,7 @@ export const updatePortfolioBySlug = catchAsyncAction(
       body: payload,
     });
     await revalidate(["portfolios", slug]);
+    await revalidate("/", "path");
     return res;
   },
 );
@@ -47,6 +50,7 @@ export const deletePortfolioBySlug = catchAsyncAction(
   async (slug: string): Promise<ApiResponse<IPortfolio>> => {
     const res = await serverFetch.delete(`/portfolios/${slug}`);
     await revalidate(["portfolios", slug]);
+    await revalidate("/", "path");
     return res;
   },
 );

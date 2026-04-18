@@ -3,19 +3,16 @@ import { Suspense } from "react";
 import FAQHero from "@/components/modules/public/faq/FAQHero";
 import FAQContent from "@/components/modules/public/faq/FAQContent";
 import { Container } from "@/components/ui/Container";
+import generateMetaTags from "@/Seo/generateMetaTags";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generateMetaTags({
   title: "Frequently Asked Questions | Rangdhanu IT",
   description:
     "Find answers to common questions about our IT services, technology stack, project management, and post-launch support.",
-  keywords: [
-    "FAQ",
-    "IT Support",
-    "Web Development",
-    "App Development",
-    "Rangdhanu IT Solutions",
-  ],
-};
+  keywords:
+    "FAQ, IT Support, Web Development, App Development, Rangdhanu IT Solutions",
+  websitePath: "faq",
+});
 
 interface FAQPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;

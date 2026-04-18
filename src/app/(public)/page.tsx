@@ -32,31 +32,54 @@ export const metadata: Metadata = generateMetaTags({
     "IT solutions, web development, app development, digital marketing, graphics design, SEO services",
 });
 
-const Home = async () => {
-  const [servicesRes, portfoliosRes, partnersRes, blogsRes] = await Promise.all(
-    [
-      getServices({ limit: "6" }),
-      getPortfolios({ isFeatured: "true" }),
-      getPartners(),
-      getBlogs({ limit: "3", sort: "-createdAt" }),
-    ],
-  );
+import { Suspense } from "react";
 
-  const services = servicesRes?.data || [];
-  const portfolios = portfoliosRes?.data || [];
+const PartnersSection = async () => {
+  const partnersRes = await getPartners();
   const partners = partnersRes?.data || [];
-  const blogs = blogsRes?.data || [];
+  return <Partners partners={partners} />;
+};
 
+const ServicesSection = async () => {
+  const servicesRes = await getServices({ limit: "6" });
+  const services = servicesRes?.data || [];
+  return <Services services={services} />;
+};
+
+const PortfolioSection = async () => {
+  const portfoliosRes = await getPortfolios({ isFeatured: "true" });
+  const portfolios = portfoliosRes?.data || [];
+  return <PortfolioSlider portfolios={portfolios} />;
+};
+
+const BlogsSection = async () => {
+  const blogsRes = await getBlogs({ limit: "3", sort: "-createdAt" });
+  const blogs = blogsRes?.data || [];
+  return <LatestBlogs blogs={blogs} />;
+};
+
+const SectionSkeleton = () => (
+  <div className="w-full py-20 animate-pulse bg-muted/20" />
+);
+
+const Home = () => {
   return (
     <div className="flex flex-col">
       <Hero />
-      <Partners partners={partners} />
-      <Services services={services} />
+      <Suspense fallback={<SectionSkeleton />}>
+        <PartnersSection />
+      </Suspense>
+      <Suspense fallback={<SectionSkeleton />}>
+        <ServicesSection />
+      </Suspense>
       <Stats />
-      <PortfolioSlider portfolios={portfolios} />
+      <Suspense fallback={<SectionSkeleton />}>
+        <PortfolioSection />
+      </Suspense>
       <Process />
-      {/* <Testimonials /> */}
-      <LatestBlogs blogs={blogs} />
+      <Suspense fallback={<SectionSkeleton />}>
+        <BlogsSection />
+      </Suspense>
       <CTA />
     </div>
   );

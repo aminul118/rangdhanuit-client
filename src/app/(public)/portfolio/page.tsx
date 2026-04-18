@@ -8,6 +8,7 @@ export const metadata: Metadata = generateMetaTags({
   description:
     "Explore our diverse portfolio of high-end web development and mobile applications. See how we deliver excellence to our global clients.",
   keywords: "portfolio, recent projects, case studies, success stories",
+  websitePath: "portfolio",
 });
 
 import { getPortfolios } from "@/services/Portfolio/portfolios";

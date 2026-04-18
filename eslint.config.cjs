@@ -4,18 +4,23 @@ const reactPlugin = require('eslint-plugin-react');
 const hooksPlugin = require('eslint-plugin-react-hooks');
 const typescriptPlugin = require('@typescript-eslint/eslint-plugin');
 const typescriptParser = require('@typescript-eslint/parser');
+const globals = require('globals');
 
 module.exports = [
   js.configs.recommended,
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     plugins: {
-      next: nextPlugin,
+      '@next/next': nextPlugin,
       react: reactPlugin,
       'react-hooks': hooksPlugin,
       '@typescript-eslint': typescriptPlugin,
     },
     languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
       parser: typescriptParser,
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -28,12 +33,19 @@ module.exports = [
     },
     rules: {
       ...reactPlugin.configs.recommended.rules,
+      ...typescriptPlugin.configs.recommended.rules,
       ...hooksPlugin.configs.recommended.rules,
       ...nextPlugin.configs.recommended.rules,
       ...nextPlugin.configs['core-web-vitals'].rules,
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
       '@next/next/no-img-element': 'error',
+    },
+  },
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    rules: {
+      'no-undef': 'off',
     },
   },
   {

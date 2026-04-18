@@ -1,10 +1,12 @@
-import { getServiceBySlug } from "@/services/Service/services";
+import { getServiceBySlug, getServices } from "@/services/Service/services";
 import { IService } from "@/types/Service/service.types";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ISlugPageProps } from "@/types";
 import { ServiceDetailsView } from "@/components/modules/public/services/service-details/ServiceDetailsView";
 import { extractPlainText } from "@/helpers/extractPlainText";
+import metaConfig from "@/config/meta.config";
+import generateMetaTags from "@/Seo/generateMetaTags";
 
 export async function generateMetadata({
   params,
@@ -25,33 +27,29 @@ export async function generateMetadata({
       160,
     );
 
-    return {
+    return generateMetaTags({
       title,
       description,
-      openGraph: {
-        title,
-        description,
-        images: [
-          {
-            url: image,
-            width: 1200,
-            height: 630,
-            alt: title,
-          },
-        ],
-        type: "website",
-      },
-      twitter: {
-        card: "summary_large_image",
-        title,
-        description,
-        images: [image],
-      },
-    };
+      keywords: metaConfig.keywords, // Or specific keywords if available
+      image,
+      websitePath: `services/${slug}`,
+    });
   } catch {
     return { title: "Our Services" };
   }
 }
+
+export const generateStaticParams = async () => {
+  const res = await getServices({ limit: "100" });
+
+  if (!res.success || !res.data) {
+    return [];
+  }
+
+  return res.data.map((service) => ({
+    slug: service.slug,
+  }));
+};
 
 export default async function ServiceDetailsPage({ params }: ISlugPageProps) {
   const resolvedParams = await (params instanceof Promise
