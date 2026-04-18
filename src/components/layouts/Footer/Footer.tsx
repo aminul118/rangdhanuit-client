@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
+import { FaFacebook } from "react-icons/fa";
 import Logo from "@/assets/Logo";
 import { getServices } from "@/services/Service/services";
 import { IService } from "@/types/Service/service.types";
@@ -23,6 +24,7 @@ const Footer = async () => {
     address: "278, 1W Monipur, Mirpur, Dhaka-1230, Bangladesh",
     phone: "+88017 105 104 77",
     email: "info@rangdhanuit.com",
+    facebook: "https://www.facebook.com/rangdhanuit.dev",
     mapLink:
       "https://maps.apple.com/?address=278,%201W%20Monipur,%20Mirpur,%20Dhaka%201230,%20Bangladesh",
   };
@@ -61,6 +63,15 @@ const Footer = async () => {
                 aria-label="Call Us"
               >
                 <Phone className="w-5 h-5 text-primary group-hover:text-white" />
+              </Link>
+              <Link
+                href={contactData.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 bg-white/5 border border-white/10 rounded-2xl hover:bg-primary transition-all hover:-translate-y-1 group"
+                aria-label="Follow us on Facebook"
+              >
+                <FaFacebook className="w-5 h-5 text-primary group-hover:text-white" />
               </Link>
               <Link
                 href={contactData.mapLink}

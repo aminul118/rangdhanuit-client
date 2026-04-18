@@ -10,7 +10,7 @@ const PublicLayout = ({ children }: IChildrenProps) => {
     url: metaConfig.baseUrl,
     logo: `${metaConfig.baseUrl}${metaConfig.bookmarks}`,
     sameAs: [
-      "https://facebook.com/rangdhanuit",
+      "https://www.facebook.com/rangdhanuit.dev",
       "https://twitter.com/rangdhanu_it",
       "https://linkedin.com/company/rangdhanu-it",
     ],
@@ -21,13 +21,13 @@ const PublicLayout = ({ children }: IChildrenProps) => {
     image: `${metaConfig.baseUrl}${metaConfig.baseImage}`,
     "@id": metaConfig.baseUrl,
     url: metaConfig.baseUrl,
-    telephone: "+8801234567890", // Replace with real phone
+    telephone: "+88017 105 104 77", // Updated to match Footer
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Your Street Address",
-      addressLocality: "City",
-      addressRegion: "Region",
-      postalCode: "1234",
+      streetAddress: "278, 1W Monipur, Mirpur",
+      addressLocality: "Dhaka",
+      addressRegion: "Dhaka",
+      postalCode: "1230",
       addressCountry: "BD",
     },
     geo: {
@@ -50,7 +50,7 @@ const PublicLayout = ({ children }: IChildrenProps) => {
       closes: "19:00",
     },
     sameAs: [
-      "https://facebook.com/rangdhanuit",
+      "https://www.facebook.com/rangdhanuit.dev",
       "https://twitter.com/rangdhanu_it",
       "https://linkedin.com/company/rangdhanu-it",
     ],
