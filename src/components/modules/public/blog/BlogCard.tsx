@@ -27,15 +27,14 @@ const BlogCard = ({ blog, priority = false }: BlogCardProps) => {
           src={blog.featuredImage || metaConfig.baseImage}
           alt={blog.title}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover group-hover:scale-110 transition-transform duration-700"
           priority={priority}
-        />
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+           />
         <div className="absolute top-4 left-4 bg-indigo-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-xl shadow-indigo-600/30">
           {blog.category}
         </div>
       </Link>
-
       <div className="p-6 md:p-8 flex flex-col grow">
         <div className="flex flex-wrap items-center gap-4 text-[10px] text-slate-950 dark:text-slate-300 mb-6 font-black uppercase tracking-[0.2em]">
           <div className="flex items-center gap-1.5 group-hover:text-indigo-500 transition-colors">
@@ -65,7 +64,6 @@ const BlogCard = ({ blog, priority = false }: BlogCardProps) => {
           </Link>
         </div>
       </div>
-
       {/* Subtle Glow */}
       <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-indigo-500/5 blur-[80px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
     </motion.div>

@@ -16,7 +16,6 @@ export const AboutStory = () => {
     <section className="py-24 relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-[40%] h-full bg-indigo-500/5 blur-[120px] rounded-full pointer-events-none" />
-
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Text Content */}
@@ -84,11 +83,11 @@ export const AboutStory = () => {
                 src="/images/about-story.png"
                 alt="Innovation Hub"
                 fill
-                sizes="(max-width: 768px) 90vw, 500px"
                 quality={60}
                 priority
                 className="object-cover transition-transform duration-1000 group-hover:scale-110"
-              />
+                sizes="(max-width: 768px) 90vw, 500px"
+                 />
               <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
             </div>
 

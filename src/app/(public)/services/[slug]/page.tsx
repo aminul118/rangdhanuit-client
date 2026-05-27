@@ -8,9 +8,10 @@ import { extractPlainText } from "@/helpers/extractPlainText";
 import metaConfig from "@/config/meta.config";
 import generateMetaTags from "@/Seo/generateMetaTags";
 
-export async function generateMetadata({
-  params,
-}: ISlugPageProps): Promise<Metadata> {
+export async function generateMetadata(
+  props: ISlugPageProps,
+): Promise<Metadata> {
+  const params = await props.params;
   const resolvedParams = await (params instanceof Promise
     ? params
     : Promise.resolve(params));
@@ -51,7 +52,8 @@ export const generateStaticParams = async () => {
   }));
 };
 
-export default async function ServiceDetailsPage({ params }: ISlugPageProps) {
+export default async function ServiceDetailsPage(props: ISlugPageProps) {
+  const params = await props.params;
   const resolvedParams = await (params instanceof Promise
     ? params
     : Promise.resolve(params));

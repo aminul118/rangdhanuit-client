@@ -34,13 +34,12 @@ export const PortfolioCard = ({
           src={project.thumbnail || metaConfig.baseImage}
           alt={project.title}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-[1.5s] group-hover:scale-110"
           priority={priority}
-        />
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+           />
         <div className="absolute inset-0 bg-linear-to-tr from-white/0 via-white/5 to-white/0 -translate-x-full group-hover:animate-shimmer pointer-events-none" />
       </Link>
-
       {/* Content Section */}
       <div className="p-8 flex flex-col grow space-y-6">
         {/* Tags */}

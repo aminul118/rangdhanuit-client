@@ -24,7 +24,6 @@ const LatestBlogs = ({ blogs }: LatestBlogsProps) => {
       {/* Background Decorative Elements */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -z-10 translate-x-1/2 -translate-y-1/2" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-500/5 rounded-full blur-[100px] -z-10 -translate-x-1/2 translate-y-1/2" />
-
       <Container>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div className="max-w-2xl">
@@ -88,7 +87,7 @@ const LatestBlogs = ({ blogs }: LatestBlogsProps) => {
                       fill
                       priority={index < 2}
                       className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
+                       />
                     <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     
                     {blog.isFeatured && (

@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import type { NextRequest } from "next/server";
+import { NextRequest } from "next/server";
 
 export interface DecodedToken {
   userId: string;

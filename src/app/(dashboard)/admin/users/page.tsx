@@ -7,11 +7,10 @@ export const metadata: Metadata = {
   title: "User Management | Rangdhanu IT",
 };
 
-const UsersAdminPage = async ({
-  searchParams,
-}: {
-  searchParams: TSearchParamsPromise;
+const UsersAdminPage = async (props: {
+  searchParams: Promise<TSearchParamsPromise>;
 }) => {
+  const searchParams = await props.searchParams;
   const params = (await searchParams) as Record<string, string>;
 
   return (

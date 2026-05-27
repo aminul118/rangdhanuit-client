@@ -7,24 +7,14 @@ export const metadata: Metadata = {
   title: "Manage Portfolios | Admin",
 };
 
-const PortfoliosAdminPage = async ({
-  searchParams,
-}: {
-  searchParams: TSearchParamsPromise;
+const PortfoliosAdminPage = async (props: {
+  searchParams: Promise<TSearchParamsPromise>;
 }) => {
+  const searchParams = await props.searchParams;
   const params = (await searchParams) as Record<string, string>;
 
   return (
-    <AdminPageWrapper
-      skeletonColumns={[
-        { width: "w-10" }, // SI
-        { width: "w-16", className: "h-8 rounded-md" }, // Thumbnail
-        { width: "w-full" }, // Title
-        { width: "w-20" }, // Featured
-        { width: "w-32" }, // Date
-        { width: "w-10" }, // Actions
-      ]}
-    >
+    <AdminPageWrapper>
       <PortfoliosList searchParams={params} />
     </AdminPageWrapper>
   );

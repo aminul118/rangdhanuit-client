@@ -20,16 +20,7 @@ const AdminPartnersPage = async ({
   const meta = res?.meta;
 
   return (
-    <AdminPageWrapper
-      skeletonColumns={[
-        { width: "w-12" }, // SI
-        { width: "w-24" }, // Logo
-        { width: "w-full" }, // Name
-        { width: "w-48" }, // Link
-        { width: "w-32" }, // Created At
-        { width: "w-10" }, // Actions
-      ]}
-    >
+    <AdminPageWrapper>
       <PartnersList partners={partners} meta={meta} />
     </AdminPageWrapper>
   );

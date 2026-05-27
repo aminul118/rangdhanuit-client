@@ -228,7 +228,6 @@ export default function MultipleImageDrop({
           )}
         </AnimatePresence>
       </motion.div>
-
       {errors.length > 0 && (
         <motion.div
           initial={{ opacity: 0, x: -20 }}

@@ -28,8 +28,12 @@ const Logo = ({
           height={height}
           alt="Logo of Rangdhanu IT"
           priority
-          style={{ height: "auto" }}
           className="relative"
+          style={{
+            height: "auto",
+            maxWidth: "100%",
+            height: "auto",
+          }}
         />
       </div>
       {showText && (

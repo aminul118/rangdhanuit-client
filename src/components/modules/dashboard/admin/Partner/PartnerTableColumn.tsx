@@ -29,8 +29,12 @@ const getPartnerTableColumns = (
               alt={p.name}
               width={60}
               height={32}
-              style={{ height: "auto" }}
               className="max-h-full max-w-full object-contain"
+              style={{
+                height: "auto",
+                maxWidth: "100%",
+                height: "auto",
+              }}
             />
           ) : (
             <div className="text-muted-foreground/50 font-bold text-xs">

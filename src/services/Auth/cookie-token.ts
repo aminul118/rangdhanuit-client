@@ -5,7 +5,7 @@ import baseCookieOption from "@/config/cookie.config";
 import envVars from "@/config/env.config";
 
 const setAccessToken = async (accessToken: string) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   (await cookieStore).set("accessToken", accessToken, {
     ...baseCookieOption,
@@ -14,7 +14,7 @@ const setAccessToken = async (accessToken: string) => {
 };
 
 const setRefreshToken = async (refreshToken: string) => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   (await cookieStore).set("refreshToken", refreshToken, {
     ...baseCookieOption,
@@ -23,7 +23,7 @@ const setRefreshToken = async (refreshToken: string) => {
 };
 
 const removeAccessToken = async () => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   (await cookieStore).delete({
     name: "accessToken",
@@ -33,7 +33,7 @@ const removeAccessToken = async () => {
 };
 
 const removeRefreshToken = async () => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
 
   (await cookieStore).delete({
     name: "refreshToken",

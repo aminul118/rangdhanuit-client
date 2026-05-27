@@ -8,22 +8,14 @@ export const metadata: Metadata = {
   description: "Manage client invoices and billing.",
 };
 
-const AdminInvoicesPage = async ({
-  searchParams,
-}: {
-  searchParams: TSearchParamsPromise;
+const AdminInvoicesPage = async (props: {
+  searchParams: Promise<TSearchParamsPromise>;
 }) => {
+  const searchParams = await props.searchParams;
   const params = (await searchParams) as Record<string, string>;
 
   return (
-    <AdminPageWrapper
-      skeletonColumns={[
-        { width: "w-16" },
-        { width: "w-full" },
-        { width: "w-48" },
-        { width: "w-10" },
-      ]}
-    >
+    <AdminPageWrapper>
       <InvoicesList searchParams={params} />
     </AdminPageWrapper>
   );

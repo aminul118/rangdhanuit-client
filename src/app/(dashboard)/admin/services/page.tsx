@@ -9,22 +9,14 @@ export const metadata: Metadata = {
     "Manage your professional service offerings and technical capabilities.",
 };
 
-const AdminServicesPage = async ({
-  searchParams,
-}: {
-  searchParams: TSearchParamsPromise;
+const AdminServicesPage = async (props: {
+  searchParams: Promise<TSearchParamsPromise>;
 }) => {
+  const searchParams = await props.searchParams;
   const params = (await searchParams) as Record<string, string>;
 
   return (
-    <AdminPageWrapper
-      skeletonColumns={[
-        { width: "w-16" }, // SI
-        { width: "w-full" }, // Service
-        { width: "w-48" }, // Timeline
-        { width: "w-10" }, // Actions
-      ]}
-    >
+    <AdminPageWrapper>
       <ServicesList searchParams={params} />
     </AdminPageWrapper>
   );

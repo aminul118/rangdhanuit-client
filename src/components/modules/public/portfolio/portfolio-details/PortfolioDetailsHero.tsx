@@ -21,9 +21,8 @@ export const PortfolioDetailsHero = ({ project }: PortfolioDetailsHeroProps) => 
         fill
         className="object-cover"
         priority
-      />
+         />
       <div className="absolute inset-0 bg-linear-to-b from-background/90 via-background/60 to-background" />
-
       {/* Hero Content */}
       <div className="container mx-auto px-6 relative z-10 text-center space-y-8">
         <Link
@@ -62,7 +61,6 @@ export const PortfolioDetailsHero = ({ project }: PortfolioDetailsHeroProps) => 
           </div>
         </div>
       </div>
-
       <div className="absolute bottom-0 left-0 w-full h-32 bg-linear-to-t from-background to-transparent" />
     </section>
   );

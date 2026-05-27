@@ -38,15 +38,15 @@ const Partners = ({ partners = [] }: PartnersProps) => {
             >
               {partner.logo && partner.logo !== "" ? (
                 <div className="relative h-12 w-32 px-4">
-                  <Image
-                    src={partner.logo}
-                    alt={partner.name}
-                    fill
-                    className="object-contain"
-                    sizes="128px"
-                    priority={index < 4}
-                  />
-                </div>
+                    <Image
+                      src={partner.logo}
+                      alt={partner.name}
+                      fill
+                      className="object-contain"
+                      priority={index < 4}
+                      sizes="128px"
+                    />
+                  </div>
               ) : (
                 <span className="text-xl font-black tracking-tight text-foreground whitespace-nowrap">
                   {partner.name}

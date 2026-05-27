@@ -8,25 +8,14 @@ export const metadata: Metadata = {
   description: "Manage your articles and blog posts from the admin dashboard.",
 };
 
-const AdminBlogsPage = async ({
-  searchParams,
-}: {
-  searchParams: TSearchParamsPromise;
+const AdminBlogsPage = async (props: {
+  searchParams: Promise<TSearchParamsPromise>;
 }) => {
+  const searchParams = await props.searchParams;
   const params = (await searchParams) as Record<string, string>;
 
   return (
-    <AdminPageWrapper
-      skeletonColumns={[
-        { width: "w-12" }, // SI
-        { width: "w-16" }, // Cover
-        { width: "w-full" }, // Title
-        { width: "w-32" }, // Category
-        { width: "w-24" }, // Status
-        { width: "w-24" }, // Views
-        { width: "w-10" }, // Actions
-      ]}
-    >
+    <AdminPageWrapper>
       <BlogsList searchParams={params} />
     </AdminPageWrapper>
   );

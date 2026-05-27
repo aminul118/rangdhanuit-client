@@ -76,7 +76,6 @@ const Testimonials = () => {
           </motion.p>
         </div>
       </Container>
-
       {/* Infinite Scroll Wrapper */}
       <div className="flex relative overflow-hidden py-10">
         <div className="flex animate-scroll-left whitespace-nowrap gap-8 pr-8">
@@ -105,7 +104,7 @@ const Testimonials = () => {
                       alt={testimonial.name}
                       fill
                       className="rounded-full shadow-2xl grayscale group-hover:grayscale-0 transition-all duration-700 object-cover"
-                    />
+                       />
                   </div>
                   <div>
                     <h4 className="font-black text-lg text-foreground tracking-tight">
@@ -121,7 +120,6 @@ const Testimonials = () => {
           )}
         </div>
       </div>
-
       {/* Fade Gradients for Masking */}
       <div className="absolute top-0 left-0 w-32 h-full bg-linear-to-r from-background to-transparent z-10 pointer-events-none" />
       <div className="absolute top-0 right-0 w-32 h-full bg-linear-to-l from-background to-transparent z-10 pointer-events-none" />

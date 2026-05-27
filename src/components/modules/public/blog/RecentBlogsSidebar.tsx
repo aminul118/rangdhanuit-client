@@ -42,9 +42,9 @@ const RecentBlogsSidebar = async () => {
                   src={blog.featuredImage || metaConfig.baseImage}
                   alt={blog.title}
                   fill
-                  sizes="100px"
                   className="object-cover group-hover:scale-110 transition-transform duration-300"
-                />
+                  sizes="100px"
+                   />
               </div>
               <div className="space-y-2">
                 <h4 className="font-bold text-sm line-clamp-2 leading-tight group-hover:text-indigo-400 transition-colors">
@@ -59,7 +59,6 @@ const RecentBlogsSidebar = async () => {
           ))}
         </div>
       </div>
-
       <div className="p-1 rounded-2xl bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500">
         <div className="p-8 rounded-[15px] bg-background space-y-4">
           <h3 className="text-2xl font-black leading-tight">
