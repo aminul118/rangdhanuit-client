@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { FADE_IN, VIEWPORT_CONFIG } from "@/constants/animations";
 import { IPartner } from "@/types";

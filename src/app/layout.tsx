@@ -5,12 +5,9 @@ import "@/styles/globals.css";
 import { cn } from "@/lib/utils";
 import { Metadata, Viewport } from "next";
 import TopLoadingBar from "@/components/common/loader/TopLoadingBar";
-import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
+import { DeferredAnalytics } from "@/components/common/loader/DeferredAnalytics";
 import Providers from "@/providers/Providers";
-import envVars from "@/config/env.config";
 import { IChildrenProps } from "@/types";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/next";
 
 const MainLayout = ({ children }: IChildrenProps) => {
   return (
@@ -22,10 +19,8 @@ const MainLayout = ({ children }: IChildrenProps) => {
         suppressHydrationWarning
         className={cn(fonts.spaceGrotesk.variable, "antialiased font-sans")}
       >
-        <SpeedInsights />
-        <GoogleAnalytics gaId="G-RKTJLQEYCK" />
+        <DeferredAnalytics />
         <TopLoadingBar />
-        <Analytics />
         <Providers>{children}</Providers>
       </body>
     </html>

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { Zap, ShieldCheck, Heart, Laptop } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import {

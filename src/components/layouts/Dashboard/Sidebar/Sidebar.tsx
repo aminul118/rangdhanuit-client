@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Logo from "@/assets/Logo";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useAuth } from "@/providers/AuthProvider";
 import { useSocket } from "@/providers/SocketProvider";

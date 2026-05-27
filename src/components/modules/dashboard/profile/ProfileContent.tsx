@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence } from "framer-motion";
 import { User, LockKeyhole, Palette, LayoutDashboard } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ProfileInfoForm } from "@/components/modules/dashboard/profile/ProfileInfoForm";

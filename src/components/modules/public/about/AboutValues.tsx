@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { Users, Award, Rocket } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";

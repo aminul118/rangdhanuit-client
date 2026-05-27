@@ -7,7 +7,7 @@ import PlateRichEditor from "@/components/rich-text/core/rich-editor";
 import { Label } from "@/components/ui/label";
 import SingleImageUploader from "@/components/ui/single-image-uploader";
 import { IService } from "@/types";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { Info, Sparkles } from "lucide-react";
 import { CreationSuiteWrapper } from "@/components/common/layouts/CreationSuiteWrapper";
 import { Input } from "@/components/ui/input";

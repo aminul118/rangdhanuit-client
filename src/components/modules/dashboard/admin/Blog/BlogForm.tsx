@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { isValidImageSrc } from "@/lib/utils";

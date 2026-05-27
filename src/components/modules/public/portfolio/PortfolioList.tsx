@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, STAGGER_CHILDREN, VIEWPORT_CONFIG } from "@/constants/animations";
 import { IPortfolio } from "@/types/Portfolio/portfolio.types";

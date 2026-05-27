@@ -6,7 +6,7 @@ import PlateRichEditor from "@/components/rich-text/core/rich-editor";
 import { Label } from "@/components/ui/label";
 import SingleImageUploader from "@/components/ui/single-image-uploader";
 import { IPortfolio } from "@/types";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { FaGithub, FaGlobe } from "react-icons/fa";
 import { Cpu, Wand2 } from "lucide-react";
 import { CreationSuiteWrapper } from "@/components/common/layouts/CreationSuiteWrapper";

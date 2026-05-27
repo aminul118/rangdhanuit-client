@@ -11,7 +11,7 @@ import {
   TableTransitionProvider,
   useTableTransition,
 } from "@/context/TableTransitionContext";
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence } from "framer-motion";
 import { TOP_PROGRESS_BAR, FADE_IN } from "@/constants/animations";
 
 interface TableWrapperProps {

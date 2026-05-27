@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { Save, Sparkles } from "lucide-react";
 import FormSubmitButton from "@/components/common/form/FormSubmitButton";
 import { Button } from "@/components/ui/button";

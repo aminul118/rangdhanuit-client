@@ -33,7 +33,6 @@ const getPartnerTableColumns = (
               style={{
                 height: "auto",
                 maxWidth: "100%",
-                height: "auto",
               }}
             />
           ) : (

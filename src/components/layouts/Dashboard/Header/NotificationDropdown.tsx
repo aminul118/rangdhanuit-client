@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/button";
 import { useSocket } from "@/providers/SocketProvider";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
   fetchNotifications,

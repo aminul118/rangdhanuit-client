@@ -2,7 +2,7 @@
 
 import { Button, ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { LucideIcon, Send, RefreshCw } from "lucide-react";
 
 interface FormSubmitButtonProps extends ButtonProps {

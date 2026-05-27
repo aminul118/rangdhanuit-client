@@ -2,7 +2,7 @@
 
 import { useState, useRef, ChangeEvent } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence } from "framer-motion";
 import { Camera, Trash2, Upload } from "lucide-react";
 import { ImageCropperModal } from "./ImageCropperModal";
 import { toast } from "sonner";

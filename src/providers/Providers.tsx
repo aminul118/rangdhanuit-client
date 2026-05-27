@@ -4,6 +4,7 @@ import { SocketProvider } from "./SocketProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "sonner";
 import { ReactNode } from "react";
+import { LazyMotion, domAnimation } from "framer-motion";
 
 interface IProvider {
   children: ReactNode;
@@ -18,12 +19,14 @@ const Providers = ({ children, initialUser = null }: IProvider) => {
       enableSystem
       disableTransitionOnChange
     >
-      <AuthProvider initialUser={initialUser}>
-        <SocketProvider>
-          <TooltipProvider>{children}</TooltipProvider>
-          <Toaster position="top-right" richColors closeButton />
-        </SocketProvider>
-      </AuthProvider>
+      <LazyMotion features={domAnimation}>
+        <AuthProvider initialUser={initialUser}>
+          <SocketProvider>
+            <TooltipProvider>{children}</TooltipProvider>
+            <Toaster position="top-right" richColors closeButton />
+          </SocketProvider>
+        </AuthProvider>
+      </LazyMotion>
     </ThemeProvider>
   );
 };

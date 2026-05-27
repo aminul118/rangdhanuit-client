@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Search, X } from "lucide-react";
 import { useEffect, useState, useCallback } from "react";
 import { useTableTransition } from "@/context/TableTransitionContext";
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence } from "framer-motion";
 import { POP_IN, POP_IN_TRANSITION } from "@/constants/animations";
 import useSearchParamsValues from "@/hooks/useSearchParamsValues";
 

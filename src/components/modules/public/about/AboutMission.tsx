@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { Target, Rocket } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";

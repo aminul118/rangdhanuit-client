@@ -2,7 +2,7 @@
 
 import { Search } from "lucide-react";
 import { useTransition, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import useSearchParamsValues from "@/hooks/useSearchParamsValues";
 
 const BlogSearch = () => {

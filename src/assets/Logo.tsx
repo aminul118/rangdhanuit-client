@@ -32,7 +32,6 @@ const Logo = ({
           style={{
             height: "auto",
             maxWidth: "100%",
-            height: "auto",
           }}
         />
       </div>

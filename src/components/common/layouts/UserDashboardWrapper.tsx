@@ -9,7 +9,7 @@ import {
   ExternalLink,
   Sparkles,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 

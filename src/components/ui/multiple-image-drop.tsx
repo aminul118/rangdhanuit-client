@@ -11,7 +11,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 interface ImageDropProps {

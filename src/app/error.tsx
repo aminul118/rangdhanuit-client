@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { IGlobalError } from "@/types";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { AlertCircle, Home, RefreshCw } from "lucide-react";
 import Link from "next/link";
 

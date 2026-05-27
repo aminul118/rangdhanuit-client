@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import ServiceCard from "@/components/modules/public/services/ServiceCard";
 import { IService } from "@/types/Service/service.types";
 import { Container } from "@/components/ui/Container";

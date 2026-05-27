@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import BlogCard from "@/components/modules/public/blog/BlogCard";
 import { IBlogSummary } from "@/types";
 import { STAGGER_CHILDREN, VIEWPORT_CONFIG } from "@/constants/animations";

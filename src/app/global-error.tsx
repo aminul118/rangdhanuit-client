@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { AlertOctagon, RefreshCcw } from "lucide-react";
 import { useEffect } from "react";
 

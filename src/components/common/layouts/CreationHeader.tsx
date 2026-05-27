@@ -2,7 +2,7 @@
 
 import { ChevronLeft, Sparkles } from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 
 interface CreationHeaderProps {
   title: string;

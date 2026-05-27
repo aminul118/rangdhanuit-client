@@ -2,7 +2,7 @@
 
 import BackButton from "@/components/common/button/BackButton";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { Home } from "lucide-react";
 import Link from "next/link";
 
