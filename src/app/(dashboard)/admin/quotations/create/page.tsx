@@ -1,4 +1,4 @@
-import AddQuotationForm from "@/components/modules/dashboard/admin/Quotation/AddQuotationForm";
+import AddQuotationForm from "@/app/(dashboard)/admin/quotations/_componnets/AddQuotationForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

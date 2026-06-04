@@ -1,4 +1,4 @@
-import EditPortfolioForm from "@/components/modules/dashboard/admin/Portfolio/EditPortfolioForm";
+import EditPortfolioForm from "@/app/(dashboard)/admin/portfolios/_components/EditPortfolioForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { TSearchParamsPromise } from "@/types";
-import { UsersList } from "@/components/modules/dashboard/admin/Users/UsersList";
+import { UsersList } from "@/app/(dashboard)/admin/users/_components/UsersList";
 import { AdminPageWrapper } from "@/components/common/layouts/AdminPageWrapper";
 
 export const metadata: Metadata = {

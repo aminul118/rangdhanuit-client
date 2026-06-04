@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import generateMetaTags from "@/Seo/generateMetaTags";
-import { PortfolioHero } from "@/components/modules/public/portfolio/PortfolioHero";
-import { PortfolioList } from "@/components/modules/public/portfolio/PortfolioList";
+import { PortfolioHero } from "@/app/(public)/portfolio/_components/PortfolioHero";
+import { PortfolioList } from "@/app/(public)/portfolio/_components/PortfolioList";
 
 export const metadata: Metadata = generateMetaTags({
   title: "Our Portfolio | Rangdhanu IT",

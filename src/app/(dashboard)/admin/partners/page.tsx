@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { TSearchParamsPromise } from "@/types";
-import { PartnersList } from "@/components/modules/dashboard/admin/Partner/PartnersList";
+import { PartnersList } from "@/app/(dashboard)/admin/partners/_components/PartnersList";
 import { AdminPageWrapper } from "@/components/common/layouts/AdminPageWrapper";
 import { getPartners } from "@/services/Partner/partner";
 

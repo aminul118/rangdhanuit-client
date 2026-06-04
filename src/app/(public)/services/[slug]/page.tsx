@@ -3,7 +3,7 @@ import { IService } from "@/types/Service/service.types";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ISlugPageProps } from "@/types";
-import { ServiceDetailsView } from "@/components/modules/public/services/service-details/ServiceDetailsView";
+import { ServiceDetailsView } from "@/app/(public)/services/[slug]/_components/ServiceDetailsView";
 import { extractPlainText } from "@/helpers/extractPlainText";
 import metaConfig from "@/config/meta.config";
 import generateMetaTags from "@/Seo/generateMetaTags";

@@ -1,5 +1,5 @@
 import { getServiceBySlug } from "@/services/Service/services";
-import EditServiceForm from "@/components/modules/dashboard/admin/Service/EditServiceForm";
+import EditServiceForm from "@/app/(dashboard)/admin/services/_components/EditServiceForm";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 

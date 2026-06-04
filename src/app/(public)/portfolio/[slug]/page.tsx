@@ -5,7 +5,7 @@ import {
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ISlugPageProps } from "@/types";
-import { PortfolioDetailsView } from "@/components/modules/public/portfolio/portfolio-details/PortfolioDetailsView";
+import { PortfolioDetailsView } from "@/app/(public)/portfolio/[slug]/_components/PortfolioDetailsView";
 import { extractPlainText } from "@/helpers/extractPlainText";
 import metaConfig from "@/config/meta.config";
 import generateMetaTags from "@/Seo/generateMetaTags";

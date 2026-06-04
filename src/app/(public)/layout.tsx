@@ -1,5 +1,5 @@
-import Navbar from "@/components/layouts/Navbar/Navbar";
-import Footer from "@/components/layouts/Footer/Footer";
+import Navbar from "./_components/Navbar/Navbar";
+import Footer from "./_components/Footer/Footer";
 import { IChildrenProps } from "@/types";
 import { generateJsonLd } from "@/Seo/generateJsonLd";
 import metaConfig from "@/config/meta.config";

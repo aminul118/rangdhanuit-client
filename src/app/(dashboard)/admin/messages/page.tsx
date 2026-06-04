@@ -1,4 +1,4 @@
-import { AdminMessagesContent } from "@/components/modules/dashboard/Messaging/AdminMessagesContent";
+import { AdminMessagesContent } from "@/app/(dashboard)/admin/messages/_components/AdminMessagesContent";
 
 import { Metadata } from "next";
 import { AdminPageWrapper } from "@/components/common/layouts/AdminPageWrapper";

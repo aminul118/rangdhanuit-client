@@ -2,7 +2,7 @@ import { getBlogBySlug, getBlogs } from "@/services/Blog/blogs";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ISlugPageProps } from "@/types";
-import { BlogDetailsView } from "@/components/modules/public/blog/blog-details/BlogDetailsView";
+import { BlogDetailsView } from "./_components/BlogDetailsView";
 import metaConfig from "@/config/meta.config";
 import { extractPlainText } from "@/helpers/extractPlainText";
 import generateMetaTags from "@/Seo/generateMetaTags";

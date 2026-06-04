@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { TParamsPromise } from "@/types";
-import EditBlogForm from "@/components/modules/dashboard/admin/Blog/EditBlogForm";
+import EditBlogForm from "@/app/(dashboard)/admin/blogs/_components/EditBlogForm";
 
 interface EditBlogPageProps {
   params: TParamsPromise<{ slug: string }>;

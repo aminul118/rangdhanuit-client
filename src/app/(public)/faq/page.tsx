@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
-import FAQHero from "@/components/modules/public/faq/FAQHero";
-import FAQContent from "@/components/modules/public/faq/FAQContent";
+import FAQHero from "@/app/(public)/faq/_components/FAQHero";
+import FAQContent from "@/app/(public)/faq/_components/FAQContent";
 import { Container } from "@/components/ui/Container";
 import generateMetaTags from "@/Seo/generateMetaTags";
 

@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import { UserMessagesContent } from "@/components/modules/dashboard/Messaging/UserMessagesContent";
-import { MessagingSkeleton } from "@/components/modules/dashboard/Messaging/MessagingSkeleton";
+import { UserMessagesContent } from "@/app/(dashboard)/admin/messages/_components/UserMessagesContent";
+import { MessagingSkeleton } from "@/app/(dashboard)/admin/messages/_components/MessagingSkeleton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -1,4 +1,4 @@
-import EditInvoiceForm from "@/components/modules/dashboard/admin/Invoice/EditInvoiceForm";
+import EditInvoiceForm from "@/app/(dashboard)/admin/invoices/_components/EditInvoiceForm";
 import { getInvoiceById } from "@/services/Invoice/invoice";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";

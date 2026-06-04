@@ -1,4 +1,4 @@
-import AddInvoiceForm from "@/components/modules/dashboard/admin/Invoice/AddInvoiceForm";
+import AddInvoiceForm from "@/app/(dashboard)/admin/invoices/_components/AddInvoiceForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

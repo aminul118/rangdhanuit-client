@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { AdminPageWrapper } from "@/components/common/layouts/AdminPageWrapper";
-import { InvoicesList } from "@/components/modules/dashboard/admin/Invoice/InvoicesList";
+import { InvoicesList } from "@/app/(dashboard)/admin/invoices/_components/InvoicesList";
 import { TSearchParamsPromise } from "@/types";
 
 export const metadata: Metadata = {

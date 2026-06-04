@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import generateMetaTags from "@/Seo/generateMetaTags";
-import ContactContent from "@/components/modules/public/contact/ContactContent";
+import ContactContent from "@/app/(public)/contact/_components/ContactContent";
 
 export const metadata: Metadata = generateMetaTags({
   title: "Contact Us | Rangdhanu IT",

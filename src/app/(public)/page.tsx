@@ -5,24 +5,18 @@ import { getServices } from "@/services/Service/services";
 import { getPartners } from "@/services/Partner/partner";
 import { getBlogs } from "@/services/Blog/blogs";
 import dynamic from "next/dynamic";
-import Hero from "@/components/modules/public/home/Hero";
-const Partners = dynamic(
-  () => import("@/components/modules/public/home/Partners"),
-);
-const Services = dynamic(
-  () => import("@/components/modules/public/home/Services"),
-);
-const Stats = dynamic(() => import("@/components/modules/public/home/Stats"));
+import Hero from "@/app/(public)/_components/Hero";
+const Partners = dynamic(() => import("@/app/(public)/_components/Partners"));
+const Services = dynamic(() => import("@/app/(public)/_components/Services"));
+const Stats = dynamic(() => import("@/app/(public)/_components/Stats"));
 const PortfolioSlider = dynamic(
-  () => import("@/components/modules/public/home/PortfolioSlider"),
+  () => import("@/app/(public)/_components/PortfolioSlider"),
 );
-const Process = dynamic(
-  () => import("@/components/modules/public/home/Process"),
-);
+const Process = dynamic(() => import("@/app/(public)/_components/Process"));
 const LatestBlogs = dynamic(
-  () => import("@/components/modules/public/home/LatestBlogs"),
+  () => import("@/app/(public)/_components/LatestBlogs"),
 );
-const CTA = dynamic(() => import("@/components/modules/public/home/CTA"));
+const CTA = dynamic(() => import("@/app/(public)/_components/CTA"));
 
 export const metadata: Metadata = generateMetaTags({
   title: "Rangdhanu IT | Best IT Solutions for Your Business",

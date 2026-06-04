@@ -1,34 +1,34 @@
 import dynamic from "next/dynamic";
 import { Metadata } from "next";
 import generateMetaTags from "@/Seo/generateMetaTags";
-import { AboutHero } from "@/components/modules/public/about/AboutHero";
+import { AboutHero } from "@/app/(public)/about/_components/AboutHero";
 const AboutMission = dynamic(() =>
-  import("@/components/modules/public/about/AboutMission").then(
+  import("@/app/(public)/about/_components/AboutMission").then(
     (m) => m.AboutMission,
   ),
 );
 const AboutStats = dynamic(() =>
-  import("@/components/modules/public/about/AboutStats").then(
+  import("@/app/(public)/about/_components/AboutStats").then(
     (m) => m.AboutStats,
   ),
 );
 const AboutValues = dynamic(() =>
-  import("@/components/modules/public/about/AboutValues").then(
+  import("@/app/(public)/about/_components/AboutValues").then(
     (m) => m.AboutValues,
   ),
 );
 const AboutStory = dynamic(() =>
-  import("@/components/modules/public/about/AboutStory").then(
+  import("@/app/(public)/about/_components/AboutStory").then(
     (m) => m.AboutStory,
   ),
 );
 const AboutWhyUs = dynamic(() =>
-  import("@/components/modules/public/about/AboutWhyUs").then(
+  import("@/app/(public)/about/_components/AboutWhyUs").then(
     (m) => m.AboutWhyUs,
   ),
 );
 const AboutProcess = dynamic(() =>
-  import("@/components/modules/public/about/AboutProcess").then(
+  import("@/app/(public)/about/_components/AboutProcess").then(
     (m) => m.AboutProcess,
   ),
 );

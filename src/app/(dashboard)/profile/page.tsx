@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import { ProfileContent } from "@/components/modules/dashboard/profile/ProfileContent";
-import { ProfileSkeleton } from "@/components/modules/dashboard/profile/ProfileSkeleton";
+import { ProfileContent } from "@/app/(dashboard)/profile/_components/ProfileContent";
+import { ProfileSkeleton } from "@/app/(dashboard)/profile/_components/ProfileSkeleton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

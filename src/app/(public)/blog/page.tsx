@@ -2,10 +2,10 @@ import { getBlogs } from "@/services/Blog/blogs";
 import { Metadata } from "next";
 import { TSearchParamsPromise, IBlog } from "@/types";
 import { Container } from "@/components/ui/Container";
-import { BlogHero } from "@/components/modules/public/blog/BlogHero";
+import { BlogHero } from "@/app/(public)/blog/_components/BlogHero";
 import dynamic from "next/dynamic";
 const BlogList = dynamic(() =>
-  import("@/components/modules/public/blog/BlogList").then((m) => m.BlogList),
+  import("@/app/(public)/blog/_components/BlogList").then((m) => m.BlogList),
 );
 import generateMetaTags from "@/Seo/generateMetaTags";
 

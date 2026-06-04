@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { AdminPageWrapper } from "@/components/common/layouts/AdminPageWrapper";
-import { QuotationsList } from "@/components/modules/dashboard/admin/Quotation/QuotationsList";
+import { QuotationsList } from "@/app/(dashboard)/admin/quotations/_componnets/QuotationsList";
 import { TSearchParamsPromise } from "@/types";
 
 export const metadata: Metadata = {

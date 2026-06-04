@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Metadata } from "next";
-import { VerifyOtpForm } from "@/components/modules/Authentication/VerifyOtpForm";
+import { VerifyOtpForm } from "@/app/(authentication)/_components/VerifyOtpForm";
 import { redirect } from "next/navigation";
-import { EmailDisplay } from "@/components/modules/Authentication/EmailDisplay";
+import { EmailDisplay } from "@/app/(authentication)/_components/EmailDisplay";
 import generateMetaTags from "@/Seo/generateMetaTags";
 import { ShieldCheck } from "lucide-react";
 import { Suspense } from "react";

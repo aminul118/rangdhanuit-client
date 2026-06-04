@@ -1,4 +1,4 @@
-import EditQuotationForm from "@/components/modules/dashboard/admin/Quotation/EditQuotationForm";
+import EditQuotationForm from "@/app/(dashboard)/admin/quotations/_componnets/EditQuotationForm";
 import { getQuotationById } from "@/services/Quotation/quotation";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";

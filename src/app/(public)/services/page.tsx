@@ -1,8 +1,8 @@
 import { getServices } from "@/services/Service/services";
 import { IService } from "@/types/Service/service.types";
 import { Metadata } from "next";
-import { ServicesHero } from "@/components/modules/public/services/ServicesHero";
-import { ServicesList } from "@/components/modules/public/services/ServicesList";
+import { ServicesHero } from "@/app/(public)/services/_components/ServicesHero";
+import { ServicesList } from "@/app/(public)/services/_components/ServicesList";
 import generateMetaTags from "@/Seo/generateMetaTags";
 
 export const metadata: Metadata = generateMetaTags({

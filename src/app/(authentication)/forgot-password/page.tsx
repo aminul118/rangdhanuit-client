@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { ForgotPasswordForm } from "@/components/modules/Authentication/ForgotPasswordForm";
+import { ForgotPasswordForm } from "@/app/(authentication)/_components/ForgotPasswordForm";
 import generateMetaTags from "@/Seo/generateMetaTags";
 import { KeyRound } from "lucide-react";
 import { AuthLayoutWrapper } from "@/components/common/layouts/AuthLayoutWrapper";

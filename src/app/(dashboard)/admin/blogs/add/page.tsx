@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import AddBlogForm from "@/components/modules/dashboard/admin/Blog/AddBlogForm";
+import AddBlogForm from "@/app/(dashboard)/admin/blogs/_components/AddBlogForm";
 
 export const metadata: Metadata = {
   title: "Write Article | Admin Dashboard",

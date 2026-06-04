@@ -17,7 +17,7 @@ import {
   FadeInLeft,
   FadeInScale,
   FadeIn,
-} from "@/components/modules/Authentication/AuthAnimations";
+} from "@/app/(authentication)/_components/AuthAnimations";
 import Logo from "@/assets/Logo";
 
 interface AuthLayoutWrapperProps {

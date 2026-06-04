@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import AddServiceForm from "@/components/modules/dashboard/admin/Service/AddServiceForm";
+import AddServiceForm from "@/app/(dashboard)/admin/services/_components/AddServiceForm";
 
 export const metadata: Metadata = {
   title: "Launch Service | Admin Dashboard",
