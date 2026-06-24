@@ -41,15 +41,19 @@ export async function generateMetadata(
 }
 
 export const generateStaticParams = async () => {
-  const res = await getServices({ limit: "1000" });
+  try {
+    const res = await getServices({ limit: "1000" });
 
-  if (!res.success || !res.data) {
+    if (!res.success || !res.data) {
+      return [];
+    }
+
+    return res.data.map((service) => ({
+      slug: service.slug,
+    }));
+  } catch {
     return [];
   }
-
-  return res.data.map((service) => ({
-    slug: service.slug,
-  }));
 };
 
 export default async function ServiceDetailsPage(props: ISlugPageProps) {

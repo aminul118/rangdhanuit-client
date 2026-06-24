@@ -48,15 +48,19 @@ export const generateMetadata = async (
 };
 
 export const generateStaticParams = async () => {
-  const res = await getPortfolios({ limit: "1000" });
+  try {
+    const res = await getPortfolios({ limit: "1000" });
 
-  if (!res.success || !res.data) {
+    if (!res.success || !res.data) {
+      return [];
+    }
+
+    return res.data.map((portfolio) => ({
+      slug: portfolio.slug,
+    }));
+  } catch {
     return [];
   }
-
-  return res.data.map((portfolio) => ({
-    slug: portfolio.slug,
-  }));
 };
 
 const PortfolioDetailsPage = async (props: ISlugPageProps) => {

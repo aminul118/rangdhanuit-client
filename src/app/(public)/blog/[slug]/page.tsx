@@ -50,15 +50,19 @@ export const generateMetadata = async (
 };
 
 export const generateStaticParams = async () => {
-  const res = await getBlogs({ limit: "1000", status: "PUBLISHED" });
+  try {
+    const res = await getBlogs({ limit: "1000", status: "PUBLISHED" });
 
-  if (!res.success || !res.data) {
+    if (!res.success || !res.data) {
+      return [];
+    }
+
+    return res.data.map((blog) => ({
+      slug: blog.slug,
+    }));
+  } catch {
     return [];
   }
-
-  return res.data.map((blog) => ({
-    slug: blog.slug,
-  }));
 };
 
 const BlogDetailsPage = async (props: ISlugPageProps) => {
