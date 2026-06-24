@@ -44,7 +44,6 @@ const PartnerForm = ({
             isValidImageSrc(initialData?.logo) ? initialData?.logo : undefined
           }
           onChange={setImage}
-          variant="compact"
         />
       }
     >
