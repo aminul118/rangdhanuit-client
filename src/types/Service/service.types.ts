@@ -7,6 +7,11 @@ export interface IService {
   image: string;
   icon: string;
   isDeleted: boolean;
+  seo?: {
+    title?: string;
+    description?: string;
+    keywords?: string;
+  };
   createdAt: string;
   updatedAt: string;
 }

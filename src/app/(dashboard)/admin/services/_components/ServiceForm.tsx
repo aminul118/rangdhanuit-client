@@ -42,12 +42,21 @@ const ServiceForm = ({
   const [imageFile, setImageFile] = useState<File | string | null>(null);
   const [iconFile, setIconFile] = useState<File | string | null>(null);
 
+  const [seo, setSeo] = useState({
+    title: initialData?.seo?.title || "",
+    description: initialData?.seo?.description || "",
+    keywords: initialData?.seo?.keywords || "",
+  });
+
   const isEdit = !!initialData;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     form.append("content", content);
+
+    // Append SEO data as a JSON string
+    form.append("seo", JSON.stringify(seo));
 
     if (imageFile instanceof File) {
       form.append("image", imageFile);
@@ -140,6 +149,51 @@ const ServiceForm = ({
                 />
               </div>
             </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* SEO Information */}
+      <Card className="border-border/50 shadow-sm bg-card/50">
+        <CardHeader>
+          <CardTitle>SEO Settings</CardTitle>
+          <CardDescription>
+            Optimize this service page for search engines.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="space-y-3">
+            <Label className="text-sm font-semibold tracking-widest uppercase text-muted-foreground">
+              SEO Title
+            </Label>
+            <Input
+              value={seo.title}
+              onChange={(e) => setSeo({ ...seo, title: e.target.value })}
+              placeholder="e.g. Enterprise Web Development Services | Rangdhanu IT"
+              className="text-base"
+            />
+          </div>
+          <div className="space-y-3">
+            <Label className="text-sm font-semibold tracking-widest uppercase text-muted-foreground">
+              SEO Description
+            </Label>
+            <Textarea
+              value={seo.description}
+              onChange={(e) => setSeo({ ...seo, description: e.target.value })}
+              placeholder="A brief description for search engine results (meta description)..."
+              className="resize-y"
+            />
+          </div>
+          <div className="space-y-3">
+            <Label className="text-sm font-semibold tracking-widest uppercase text-muted-foreground">
+              SEO Keywords
+            </Label>
+            <Input
+              value={seo.keywords}
+              onChange={(e) => setSeo({ ...seo, keywords: e.target.value })}
+              placeholder="e.g. web development, enterprise, software, rangdhanu it"
+              className="text-base"
+            />
           </div>
         </CardContent>
       </Card>

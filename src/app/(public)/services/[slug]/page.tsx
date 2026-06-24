@@ -22,16 +22,29 @@ export async function generateMetadata(
     if (!res.success || !res.data) {
       return { title: "Service Not Found | Rangdhanu IT" };
     }
-    const { title, description: rawDescription, content, image } = res.data;
-    const description = extractPlainText(rawDescription || content || "").slice(
-      0,
-      160,
-    );
+    const {
+      title,
+      description: rawDescription,
+      content,
+      image,
+      seo,
+    } = res.data;
+
+    // Fallback logic: use SEO fields if available, otherwise fallback to title/description
+    const finalTitle = seo?.title || title;
+
+    // Extract plain text for description fallback
+    const extractedDescription = extractPlainText(
+      rawDescription || content || "",
+    ).slice(0, 160);
+    const finalDescription = seo?.description || extractedDescription;
+
+    const finalKeywords = seo?.keywords || metaConfig.keywords;
 
     return generateMetaTags({
-      title,
-      description,
-      keywords: metaConfig.keywords, // Or specific keywords if available
+      title: finalTitle,
+      description: finalDescription,
+      keywords: finalKeywords,
       image,
       websitePath: `services/${slug}`,
     });
