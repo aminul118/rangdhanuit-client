@@ -29,6 +29,18 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "*.r2.cloudflarestorage.com",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "https",
+        hostname: "i.pravatar.cc",
+      },
     ],
   },
   // --- Custom HTTP Headers ---
