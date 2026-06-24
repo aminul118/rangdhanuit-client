@@ -28,13 +28,14 @@ export const generateMetadata = async (
       };
     }
 
-    const { title, content, thumbnail } = res.data;
-    const description = extractPlainText(content || "").slice(0, 160);
+    const { title, content, thumbnail, seo } = res.data;
+    const description =
+      seo?.description || extractPlainText(content || "").slice(0, 160);
 
     return generateMetaTags({
-      title,
+      title: seo?.title || title,
       description,
-      keywords: metaConfig.keywords,
+      keywords: seo?.keywords || metaConfig.keywords,
       image: thumbnail,
       websitePath: `portfolio/${slug}`,
     });
@@ -47,7 +48,7 @@ export const generateMetadata = async (
 };
 
 export const generateStaticParams = async () => {
-  const res = await getPortfolios({ limit: "100" });
+  const res = await getPortfolios({ limit: "1000" });
 
   if (!res.success || !res.data) {
     return [];

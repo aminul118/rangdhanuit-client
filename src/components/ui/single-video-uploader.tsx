@@ -1,31 +1,30 @@
 import { Button } from "@/components/ui/button";
 import { useFileUpload } from "@/hooks/use-file-upload";
-import { AlertCircleIcon, ImageIcon, UploadIcon, XIcon } from "lucide-react";
-import Image from "next/image";
-import { useEffect } from "react";
+import { AlertCircleIcon, UploadIcon, VideoIcon, XIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
-interface ImageDropProps {
-  onChange: (file: File | null) => void;
+interface VideoDropProps {
+  onChange: (file: File | string | null) => void;
   defaultValue?: string;
   recommendation?: string;
 }
 
-const SingleImageUploader = ({
+const SingleVideoUploader = ({
   onChange,
   defaultValue,
   recommendation,
-}: ImageDropProps) => {
-  const maxSizeMB = 2;
+}: VideoDropProps) => {
+  const maxSizeMB = 30;
   const maxSize = maxSizeMB * 1024 * 1024;
 
   const initialFiles = defaultValue
     ? [
         {
-          name: "Thumbnail",
+          name: "Video",
           size: 0,
-          type: "image/jpeg",
+          type: "video/mp4",
           url: defaultValue,
-          id: "initial-thumbnail",
+          id: "initial-video",
         },
       ]
     : [];
@@ -42,13 +41,30 @@ const SingleImageUploader = ({
       getInputProps,
     },
   ] = useFileUpload({
-    accept:
-      "image/svg+xml,image/png,image/jpeg,image/jpg,image/gif,image/webp,image/avif",
+    accept: "video/mp4,video/webm",
     maxSize,
     initialFiles,
   });
 
-  const previewUrl = files[0]?.preview || null;
+  const currentFile = files[0]?.file;
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!currentFile) {
+      setPreviewUrl(null);
+      return;
+    }
+
+    if (files[0]?.preview) {
+      setPreviewUrl(files[0].preview);
+    } else if (currentFile instanceof File) {
+      const objectUrl = URL.createObjectURL(currentFile);
+      setPreviewUrl(objectUrl);
+      return () => URL.revokeObjectURL(objectUrl);
+    } else {
+      setPreviewUrl((currentFile as any).url || null);
+    }
+  }, [currentFile, files]);
 
   // Propagate value to parent (react-hook-form)
   useEffect(() => {
@@ -73,20 +89,18 @@ const SingleImageUploader = ({
           onDragOver={handleDragOver}
           onDrop={handleDrop}
           data-dragging={isDragging || undefined}
-          className="border-muted data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 bg-muted/20 relative flex min-h-60 flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed p-4 transition-colors has-[input:focus]:ring-[3px]"
+          className="border-muted data-[dragging=true]:bg-accent/50 has-[input:focus]:border-ring has-[input:focus]:ring-ring/50 bg-muted/20 relative flex aspect-video w-full flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed p-4 transition-colors has-[input:focus]:ring-[3px]"
         >
           <input
             {...getInputProps()}
             className="sr-only"
-            aria-label="Upload image file"
+            aria-label="Upload video file"
           />
           {previewUrl ? (
             <div className="absolute inset-0 flex items-center justify-center p-4">
-              <Image
+              <video
                 src={previewUrl}
-                width={400}
-                height={400}
-                alt={files[0]?.file?.name || "Uploaded image"}
+                controls
                 className="mx-auto max-h-full rounded object-contain"
               />
             </div>
@@ -96,11 +110,11 @@ const SingleImageUploader = ({
                 className="bg-background mb-2 flex size-11 shrink-0 items-center justify-center rounded-full border"
                 aria-hidden="true"
               >
-                <ImageIcon className="size-4 opacity-60" />
+                <VideoIcon className="size-4 opacity-60" />
               </div>
-              <p className="mb-1.5 text-sm font-medium">Drop your image here</p>
+              <p className="mb-1.5 text-sm font-medium">Drop your video here</p>
               <p className="text-muted-foreground text-xs">
-                SVG, PNG, JPG, AVIF or GIF (max. {maxSizeMB}MB)
+                MP4 or WebM (max. {maxSizeMB}MB)
               </p>
               {recommendation && (
                 <p className="mt-2 rounded-full bg-blue-500/10 px-3 py-1 text-[10px] font-black tracking-wider text-blue-600 uppercase dark:bg-blue-500/20 dark:text-blue-400">
@@ -118,7 +132,7 @@ const SingleImageUploader = ({
                   className="-ms-1 size-4 opacity-60"
                   aria-hidden="true"
                 />
-                Select image
+                Select video
               </Button>
             </div>
           )}
@@ -130,7 +144,7 @@ const SingleImageUploader = ({
               type="button"
               className="focus-visible:border-ring focus-visible:ring-ring/50 z-50 flex size-8 cursor-pointer items-center justify-center rounded-full bg-black/60 text-white transition-[color,box-shadow] outline-none hover:bg-black/80 focus-visible:ring-[3px]"
               onClick={() => removeFile(files[0]?.id)}
-              aria-label="Remove image"
+              aria-label="Remove video"
             >
               <XIcon className="size-4" aria-hidden="true" />
             </button>
@@ -151,4 +165,4 @@ const SingleImageUploader = ({
   );
 };
 
-export default SingleImageUploader;
+export default SingleVideoUploader;

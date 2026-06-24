@@ -41,7 +41,7 @@ export async function generateMetadata(
 }
 
 export const generateStaticParams = async () => {
-  const res = await getServices({ limit: "100" });
+  const res = await getServices({ limit: "1000" });
 
   if (!res.success || !res.data) {
     return [];

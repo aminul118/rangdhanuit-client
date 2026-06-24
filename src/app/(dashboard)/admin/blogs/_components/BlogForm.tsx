@@ -1,12 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { m as motion } from "framer-motion";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { isValidImageSrc } from "@/lib/utils";
 import PlateRichEditor from "@/components/rich-text/core/rich-editor";
+import { Label } from "@/components/ui/label";
 import SingleImageUploader from "@/components/ui/single-image-uploader";
+import { IBlog } from "@/types";
+import {
+  Sparkles,
+  Info,
+  Tag,
+  Save,
+  Plus,
+  FileText,
+  Image as ImageIcon,
+  Wand2,
+} from "lucide-react";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -14,9 +23,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { IBlog } from "@/types";
-import { CreationSuiteWrapper } from "@/components/common/layouts/CreationSuiteWrapper";
-import { Sparkles, Info, Tag } from "lucide-react";
+import { isValidImageSrc } from "@/lib/utils";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import SubmitButton from "@/components/common/form/SubmitButton";
+import SeoFormCard from "@/components/common/form/SeoFormCard";
 
 interface BlogFormProps {
   initialData?: IBlog;
@@ -36,135 +52,183 @@ const BlogForm = ({
     File | string | null
   >(null);
 
+  const isEdit = !!initialData;
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    form.append("content", content);
+    const formData = new FormData(e.currentTarget);
+    formData.append("content", content);
+
+    // Construct SEO object
+    const seo = {
+      title: formData.get("seo.title"),
+      description: formData.get("seo.description"),
+      keywords: formData.get("seo.keywords"),
+    };
+    formData.append("seo", JSON.stringify(seo));
+
+    // Remove individual SEO fields from formData so backend doesn't get confused
+    formData.delete("seo.title");
+    formData.delete("seo.description");
+    formData.delete("seo.keywords");
 
     if (featuredImageFile instanceof File) {
-      form.append("image", featuredImageFile); // Backend expects 'image' field for multer
+      formData.append("image", featuredImageFile); // Backend expects 'image' field for multer
     }
 
-    await onSubmit(form);
+    await onSubmit(formData);
   };
 
   return (
-    <CreationSuiteWrapper
-      onSubmit={handleSubmit}
-      loading={loading}
-      submitLabel={submitLabel}
-      heroLabel="Master Editorial Visual"
-      heroImage={
-        <SingleImageUploader
-          defaultValue={
-            isValidImageSrc(initialData?.featuredImage)
-              ? initialData?.featuredImage
-              : undefined
-          }
-          onChange={setFeaturedImageFile}
-        />
-      }
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="space-y-10"
-      >
-        {/* Title & Underline */}
-        <div className="space-y-4">
-          <Input
-            name="title"
-            defaultValue={initialData?.title}
-            placeholder="Articulate your technical vision..."
-            className="text-4xl md:text-5xl font-black border-none bg-transparent p-0 h-auto focus-visible:ring-0 placeholder:opacity-30 tracking-tighter"
-          />
-          <div className="h-0.5 w-full bg-border/20 relative">
-            <div className="absolute left-0 top-0 h-full w-40 bg-linear-to-r from-primary to-transparent shadow-[0_0_15px_rgba(var(--primary),0.4)]" />
-          </div>
-        </div>
-
-        {/* Discovery Metadata: Category & Tags */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="space-y-4">
-            <Label
-              htmlFor="category"
-              className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/70 ml-1.5 flex items-center gap-2"
-            >
-              <Info size={12} className="text-primary/60" />
-              Strategic Domain
-            </Label>
-            <Select
-              name="category"
-              defaultValue={initialData?.category || "tech"}
-            >
-              <SelectTrigger className="font-bold h-14 rounded-2xl border-white/5 bg-white/5 hover:bg-white/10 transition-all px-6">
-                <SelectValue placeholder="Select Category" />
-              </SelectTrigger>
-              <SelectContent className="bg-background border-border/50 rounded-2xl shadow-2xl backdrop-blur-xl">
-                <SelectItem
-                  value="tech"
-                  className="focus:bg-primary/20 rounded-xl transition-colors"
-                >
-                  Technology
-                </SelectItem>
-                <SelectItem
-                  value="design"
-                  className="focus:bg-primary/20 rounded-xl transition-colors"
-                >
-                  Design
-                </SelectItem>
-                <SelectItem
-                  value="software"
-                  className="focus:bg-primary/20 rounded-xl transition-colors"
-                >
-                  Software
-                </SelectItem>
-                <SelectItem
-                  value="ai"
-                  className="focus:bg-primary/20 rounded-xl transition-colors"
-                >
-                  Artificial Intelligence
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-4">
-            <Label
-              htmlFor="tags"
-              className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/70 ml-1.5 flex items-center gap-2"
-            >
-              <Tag size={12} className="text-primary/60" />
-              Meta Identifiers
+    <form onSubmit={handleSubmit} className="space-y-6 max-w-6xl pb-20">
+      {/* General Information */}
+      <Card className="border-border/50 shadow-sm bg-card/50">
+        <CardHeader>
+          <CardTitle>Article Information</CardTitle>
+          <CardDescription>
+            Basic details and categorization for your article.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="space-y-3">
+            <Label className="text-sm font-semibold tracking-widest uppercase text-muted-foreground">
+              Article Title <span className="text-destructive">*</span>
             </Label>
             <Input
-              name="tags"
-              defaultValue={initialData?.tags?.join(", ")}
-              placeholder="tech, strategy, future..."
-              className="h-14 rounded-2xl border-white/5 bg-white/5 focus-visible:bg-white/10 transition-all px-6 font-medium"
+              name="title"
+              defaultValue={initialData?.title}
+              placeholder="e.g. The Future of Next.js and React"
+              className="text-base h-12 font-medium"
+              required
             />
           </div>
-        </div>
-      </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-3">
+              <Label className="text-sm font-semibold tracking-widest uppercase text-muted-foreground flex items-center gap-2">
+                <Info size={14} /> Strategic Domain{" "}
+                <span className="text-destructive">*</span>
+              </Label>
+              <Select
+                name="category"
+                defaultValue={initialData?.category || "tech"}
+              >
+                <SelectTrigger className="h-11">
+                  <SelectValue placeholder="Select Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="tech">Technology</SelectItem>
+                  <SelectItem value="design">Design</SelectItem>
+                  <SelectItem value="software">Software</SelectItem>
+                  <SelectItem value="ai">Artificial Intelligence</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-3">
+              <Label className="text-sm font-semibold tracking-widest uppercase text-muted-foreground flex items-center gap-2">
+                <Tag size={14} /> Meta Identifiers
+              </Label>
+              <Input
+                name="tags"
+                defaultValue={initialData?.tags?.join(", ")}
+                placeholder="tech, strategy, future (Comma separated)"
+                className="h-11"
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Visuals */}
+      <Card className="border-border/50 shadow-sm bg-card/50">
+        <CardHeader>
+          <CardTitle>Editorial Visuals</CardTitle>
+          <CardDescription>
+            Upload a high-quality featured image for the article.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="max-w-md">
+            <SingleImageUploader
+              defaultValue={
+                isValidImageSrc(initialData?.featuredImage)
+                  ? initialData?.featuredImage
+                  : undefined
+              }
+              onChange={setFeaturedImageFile}
+            />
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Editorial Content */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="group relative pt-12"
-      >
-        <div className="absolute -left-12 top-0 bottom-0 w-px bg-border/20 group-hover:bg-primary/20 transition-colors" />
-        <div className="flex items-center gap-3 mb-6 ml-1.5">
-          <Sparkles size={14} className="text-primary animate-pulse" />
-          <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/80">
+      <Card className="border-border/50 shadow-sm bg-card/50 overflow-hidden">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <FileText size={18} className="text-primary" />
             In-Depth Narrative
-          </Label>
+          </CardTitle>
+          <CardDescription>Comprehensive article content.</CardDescription>
+        </CardHeader>
+        <CardContent className="p-0 sm:p-0 sm:pb-6">
+          <div className="px-6 border-t border-border/50 py-4">
+            <PlateRichEditor
+              value={content}
+              onChange={setContent}
+              height={800}
+            />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* SEO Information */}
+      <SeoFormCard initialData={initialData?.seo} />
+
+      {/* Article Prominence */}
+      <Card className="border-primary/20 shadow-[0_0_15px_rgba(var(--primary),0.1)] bg-primary/5">
+        <CardContent className="p-6">
+          <div className="flex items-center justify-between gap-6">
+            <div className="space-y-1">
+              <Label
+                htmlFor="isFeatured"
+                className="text-base font-bold flex items-center gap-2 text-foreground cursor-pointer"
+              >
+                <Wand2 size={18} className="text-primary" /> Showcase as
+                Featured Article
+              </Label>
+              <p className="text-sm text-muted-foreground">
+                Highlight this article on your main blog landing page to attract
+                more readers.
+              </p>
+            </div>
+            <div className="flex items-center shrink-0">
+              <input
+                type="checkbox"
+                name="isFeatured"
+                id="isFeatured"
+                defaultChecked={initialData?.isFeatured}
+                className="w-6 h-6 rounded-md border-primary text-primary focus:ring-primary cursor-pointer accent-primary"
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Action Bar */}
+      <div className="flex justify-end pt-2">
+        <div className="w-full sm:w-auto">
+          <SubmitButton
+            label={isEdit ? "Update Article" : submitLabel}
+            loadingLabel={isEdit ? "Updating..." : "Publishing..."}
+            isLoading={loading}
+            icon={isEdit ? <Save size={18} /> : <Plus size={18} />}
+            size="lg"
+            className="w-full sm:w-64"
+          />
         </div>
-        <PlateRichEditor value={content} onChange={setContent} height={800} />
-      </motion.div>
-    </CreationSuiteWrapper>
+      </div>
+    </form>
   );
 };
 

@@ -5,6 +5,11 @@ export interface BlogPayload {
   featuredImage?: string;
   tags?: string[];
   status?: "DRAFT" | "PUBLISHED";
+  seo?: {
+    title: string;
+    description: string;
+    keywords: string;
+  };
 }
 
 export interface IBlogAuthor {
@@ -27,6 +32,11 @@ export interface IBlog {
   isFeatured: boolean;
   createdAt: string;
   updatedAt: string;
+  seo: {
+    title: string;
+    description: string;
+    keywords: string;
+  };
 }
 
 export type IBlogDetail = IBlog;

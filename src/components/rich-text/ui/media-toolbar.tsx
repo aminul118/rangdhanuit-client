@@ -41,7 +41,7 @@ import {
   useSelected,
 } from "platejs/react";
 import { toast } from "sonner";
-import { deleteImage } from "../actions/cloudinary";
+import { deleteImage } from "../actions/r2";
 import { CaptionButton } from "./caption";
 
 const inputVariants = cva(

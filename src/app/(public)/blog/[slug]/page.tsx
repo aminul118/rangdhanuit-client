@@ -25,13 +25,15 @@ export const generateMetadata = async (
       };
     }
 
-    const { title, content, featuredImage, tags, createdAt, author } = res.data;
-    const description = extractPlainText(content || "").slice(0, 160);
+    const { title, content, featuredImage, tags, createdAt, author, seo } =
+      res.data;
+    const description =
+      seo?.description || extractPlainText(content || "").slice(0, 160);
 
     return generateMetaTags({
-      title,
+      title: seo?.title || title,
       description,
-      keywords: tags.join(", "),
+      keywords: seo?.keywords || tags.join(", "),
       image: featuredImage,
       websitePath: `blog/${slug}`,
       type: "article",
@@ -48,7 +50,7 @@ export const generateMetadata = async (
 };
 
 export const generateStaticParams = async () => {
-  const res = await getBlogs({ limit: "100", status: "PUBLISHED" });
+  const res = await getBlogs({ limit: "1000", status: "PUBLISHED" });
 
   if (!res.success || !res.data) {
     return [];

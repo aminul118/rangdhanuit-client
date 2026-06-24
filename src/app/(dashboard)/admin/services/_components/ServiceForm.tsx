@@ -1,16 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import { isValidImageSrc } from "@/lib/utils";
-import { FormField } from "@/components/common/form";
 import PlateRichEditor from "@/components/rich-text/core/rich-editor";
 import { Label } from "@/components/ui/label";
 import SingleImageUploader from "@/components/ui/single-image-uploader";
 import { IService } from "@/types";
-import { m as motion } from "framer-motion";
-import { Info, Sparkles } from "lucide-react";
-import { CreationSuiteWrapper } from "@/components/common/layouts/CreationSuiteWrapper";
+import {
+  Save,
+  Plus,
+  FileText,
+  Image as ImageIcon,
+  Briefcase,
+  LayoutTemplate,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { isValidImageSrc } from "@/lib/utils";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import SubmitButton from "@/components/common/form/SubmitButton";
 
 interface ServiceFormProps {
   initialData?: IService;
@@ -29,6 +42,8 @@ const ServiceForm = ({
   const [imageFile, setImageFile] = useState<File | string | null>(null);
   const [iconFile, setIconFile] = useState<File | string | null>(null);
 
+  const isEdit = !!initialData;
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -45,110 +60,126 @@ const ServiceForm = ({
   };
 
   return (
-    <CreationSuiteWrapper
-      onSubmit={handleSubmit}
-      loading={loading}
-      submitLabel={submitLabel}
-      heroLabel="Visual Background / Thumbnail"
-      heroImage={
-        <SingleImageUploader
-          defaultValue={
-            isValidImageSrc(initialData?.image) ? initialData?.image : undefined
-          }
-          onChange={setImageFile}
-        />
-      }
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="space-y-8"
-      >
-        {/* Title & Underline */}
-        <div className="space-y-3">
-          <Input
-            id="title"
-            name="title"
-            defaultValue={initialData?.title || ""}
-            placeholder="Define your technological excellence..."
-            className="text-3xl md:text-4xl font-black border-none bg-transparent p-0 h-auto focus-visible:ring-0 placeholder:opacity-40 tracking-tighter"
-          />
-          <div className="h-0.5 w-full bg-border/20 relative">
-            <div className="absolute left-0 top-0 h-full w-32 bg-linear-to-r from-primary to-transparent" />
-          </div>
-        </div>
-
-        {/* Strategic Metadata: Icon & Teaser */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-          {/* Icon Section (3 cols) */}
-          <div className="md:col-span-4 space-y-4">
-            <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/80 ml-1.5 flex items-center gap-2">
-              <Sparkles size={12} className="text-primary" />
-              Service Icon
+    <form onSubmit={handleSubmit} className="space-y-6 max-w-6xl pb-20">
+      {/* General Information */}
+      <Card className="border-border/50 shadow-sm bg-card/50">
+        <CardHeader>
+          <CardTitle>Service Information</CardTitle>
+          <CardDescription>
+            Basic details defining your technological offering.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="space-y-3">
+            <Label className="text-sm font-semibold tracking-widest uppercase text-muted-foreground">
+              Service Title <span className="text-destructive">*</span>
             </Label>
-            <div className="p-4 rounded-[2rem] bg-background/50 border border-white/5 shadow-inner min-h-[160px] flex items-center justify-center">
-              <SingleImageUploader
-                defaultValue={
-                  isValidImageSrc(initialData?.icon)
-                    ? initialData?.icon
-                    : undefined
-                }
-                onChange={setIconFile}
-              />
-            </div>
-          </div>
-
-          {/* Teaser Section (8 cols) */}
-          <div className="md:col-span-8 space-y-4">
-            <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/80 ml-1.5 flex items-center gap-2">
-              <Info size={12} className="opacity-40" />
-              Concise Teaser
-            </Label>
-            <FormField
-              id="description"
-              name="description"
-              label=""
-              placeholder="Capture strategic attention in a single high-impact sentence..."
-              defaultValue={initialData?.description || ""}
+            <Input
+              name="title"
+              defaultValue={initialData?.title}
+              placeholder="e.g. Enterprise Web Development"
+              className="text-base h-12 font-medium"
               required
             />
-            <div className="grid grid-cols-2 gap-4 mt-6">
-              <div className="p-4 rounded-2xl bg-primary/5 border border-primary/10">
-                <p className="text-[10px] font-bold text-primary uppercase tracking-widest mb-1">
-                  Optimization
-                </p>
-                <p className="text-xs text-muted-foreground/80">
-                  Every asset is auto-compressed for speed.
-                </p>
+          </div>
+
+          <div className="space-y-3">
+            <Label className="text-sm font-semibold tracking-widest uppercase text-muted-foreground flex items-center gap-2">
+              <Briefcase size={14} /> Concise Teaser{" "}
+              <span className="text-destructive">*</span>
+            </Label>
+            <Textarea
+              name="description"
+              defaultValue={initialData?.description}
+              placeholder="Capture strategic attention in a single high-impact sentence..."
+              className="min-h-[80px] resize-y"
+              required
+            />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Visuals */}
+      <Card className="border-border/50 shadow-sm bg-card/50">
+        <CardHeader>
+          <CardTitle>Service Visuals</CardTitle>
+          <CardDescription>
+            Upload an identifying icon and a primary background image.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="space-y-4">
+              <Label className="text-sm font-semibold tracking-widest uppercase text-muted-foreground flex items-center gap-2">
+                <LayoutTemplate size={14} /> Service Icon
+              </Label>
+              <div className="p-4 rounded-xl bg-background/50 border border-border shadow-inner">
+                <SingleImageUploader
+                  defaultValue={
+                    isValidImageSrc(initialData?.icon)
+                      ? initialData?.icon
+                      : undefined
+                  }
+                  onChange={setIconFile}
+                />
               </div>
-              <div className="p-4 rounded-2xl bg-indigo-500/5 border border-indigo-500/10">
-                <p className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-1">
-                  Impact
-                </p>
-                <p className="text-xs text-muted-foreground/80">
-                  Premium icons enhance visual trust.
-                </p>
+            </div>
+
+            <div className="space-y-4">
+              <Label className="text-sm font-semibold tracking-widest uppercase text-muted-foreground flex items-center gap-2">
+                <ImageIcon size={14} /> Background / Thumbnail
+              </Label>
+              <div className="p-4 rounded-xl bg-background/50 border border-border shadow-inner">
+                <SingleImageUploader
+                  defaultValue={
+                    isValidImageSrc(initialData?.image)
+                      ? initialData?.image
+                      : undefined
+                  }
+                  onChange={setImageFile}
+                />
               </div>
             </div>
           </div>
-        </div>
-      </motion.div>
+        </CardContent>
+      </Card>
 
-      {/* Editor Content */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="group relative pt-8"
-      >
-        <div className="absolute -left-12 top-0 bottom-0 w-px bg-border/20 group-hover:bg-primary/20 transition-colors" />
-        <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/80 ml-1.5 mb-4 block">
-          Full Detailed Editorial
-        </Label>
-        <PlateRichEditor value={content} onChange={setContent} height={800} />
-      </motion.div>
-    </CreationSuiteWrapper>
+      {/* Editorial Content */}
+      <Card className="border-border/50 shadow-sm bg-card/50 overflow-hidden">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <FileText size={18} className="text-primary" />
+            Full Detailed Editorial
+          </CardTitle>
+          <CardDescription>
+            Comprehensive description of the service and what it includes.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="p-0 sm:p-0 sm:pb-6">
+          <div className="px-6 border-t border-border/50 py-4">
+            <PlateRichEditor
+              value={content}
+              onChange={setContent}
+              height={800}
+            />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Action Bar */}
+      <div className="flex justify-end pt-2">
+        <div className="w-full sm:w-auto">
+          <SubmitButton
+            label={isEdit ? "Update Service" : submitLabel}
+            loadingLabel={isEdit ? "Updating..." : "Saving..."}
+            isLoading={loading}
+            icon={isEdit ? <Save size={18} /> : <Plus size={18} />}
+            size="lg"
+            className="w-full sm:w-64"
+          />
+        </div>
+      </div>
+    </form>
   );
 };
 

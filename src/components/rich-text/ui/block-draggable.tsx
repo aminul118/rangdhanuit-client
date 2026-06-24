@@ -466,11 +466,23 @@ const calculatePreviewTop = (
     element: TElement;
   },
 ): number => {
-  const child = editor.api.toDOMNode(element)!;
-  const editable = editor.api.toDOMNode(editor)!;
+  const child = editor.api.toDOMNode(element);
+  const editable = editor.api.toDOMNode(editor);
   const firstSelectedChild = blocks[0];
 
-  const firstDomNode = editor.api.toDOMNode(firstSelectedChild)!;
+  const firstDomNode = editor.api.toDOMNode(firstSelectedChild);
+
+  if (
+    !child ||
+    !(child instanceof Element) ||
+    !editable ||
+    !(editable instanceof Element) ||
+    !firstDomNode ||
+    !(firstDomNode instanceof Element)
+  ) {
+    return 0;
+  }
+
   // Get editor's top padding
   const editorPaddingTop = Number(
     window.getComputedStyle(editable).paddingTop.replace("px", ""),
@@ -505,10 +517,14 @@ const calculatePreviewTop = (
 };
 
 const calcDragButtonTop = (editor: PlateEditor, element: TElement): number => {
-  const child = editor.api.toDOMNode(element)!;
+  const child = editor.api.toDOMNode(element);
+
+  if (!child || !(child instanceof Element)) {
+    return 0;
+  }
 
   const currentMarginTopString = window.getComputedStyle(child).marginTop;
   const currentMarginTop = Number(currentMarginTopString.replace("px", ""));
 
-  return currentMarginTop;
+  return currentMarginTop || 0;
 };

@@ -6,10 +6,17 @@ export interface IPortfolio {
   thumbnail: string;
   liveLink?: string;
   github?: string;
+  youtubeUrl?: string;
+  videoUrl?: string;
   technologies: string[];
   isFeatured?: boolean;
   createdAt: string;
   updatedAt: string;
+  seo: {
+    title: string;
+    description: string;
+    keywords: string;
+  };
 }
 
 export interface ICreatePortfolio {
@@ -18,6 +25,13 @@ export interface ICreatePortfolio {
   thumbnail: string;
   liveLink?: string;
   github?: string;
+  youtubeUrl?: string;
+  videoUrl?: string;
   technologies: string[];
   isFeatured?: boolean;
+  seo: {
+    title: string;
+    description: string;
+    keywords: string;
+  };
 }
