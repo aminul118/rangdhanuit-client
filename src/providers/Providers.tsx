@@ -1,10 +1,20 @@
 import { ThemeProvider } from "next-themes";
 import { AuthProvider, IUser } from "./AuthProvider";
-import { SocketProvider } from "./SocketProvider";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { Toaster } from "sonner";
-import { ReactNode } from "react";
 import { LazyMotion, domAnimation } from "framer-motion";
+import dynamic from "next/dynamic";
+import { ReactNode } from "react";
+
+const TooltipProvider = dynamic(
+  () => import("@/components/ui/tooltip").then((mod) => mod.TooltipProvider),
+  { ssr: false },
+);
+const Toaster = dynamic(() => import("sonner").then((mod) => mod.Toaster), {
+  ssr: false,
+});
+const SocketProvider = dynamic(
+  () => import("./SocketProvider").then((mod) => mod.SocketProvider),
+  { ssr: false },
+);
 
 interface IProvider {
   children: ReactNode;
