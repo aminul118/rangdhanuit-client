@@ -9,11 +9,22 @@ export const DeferredAnalytics = () => {
   const [loadAnalytics, setLoadAnalytics] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const handleInteraction = () => {
       setLoadAnalytics(true);
-    }, 2000); // delay analytics by 2 seconds to prioritize main thread tasks
+      ["mousemove", "scroll", "touchstart", "keydown"].forEach((event) => {
+        window.removeEventListener(event, handleInteraction);
+      });
+    };
 
-    return () => clearTimeout(timer);
+    ["mousemove", "scroll", "touchstart", "keydown"].forEach((event) => {
+      window.addEventListener(event, handleInteraction, { once: true });
+    });
+
+    return () => {
+      ["mousemove", "scroll", "touchstart", "keydown"].forEach((event) => {
+        window.removeEventListener(event, handleInteraction);
+      });
+    };
   }, []);
 
   if (!loadAnalytics) return null;

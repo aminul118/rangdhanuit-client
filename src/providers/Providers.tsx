@@ -18,12 +18,13 @@ const Providers = ({ children, initialUser = null }: IProvider) => {
       defaultTheme="system"
       enableSystem
       disableTransitionOnChange
+      scriptProps={{ "data-cfasync": "false" }}
     >
       <LazyMotion features={domAnimation}>
         <AuthProvider initialUser={initialUser}>
           <SocketProvider>
             <TooltipProvider>{children}</TooltipProvider>
-            <Toaster position="top-right" richColors closeButton />
+            <Toaster position="top-right" richColors />
           </SocketProvider>
         </AuthProvider>
       </LazyMotion>
