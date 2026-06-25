@@ -4,7 +4,7 @@ import { updateQuotation } from "@/services/Quotation/quotation";
 import useActionHandler from "@/hooks/useActionHandler";
 import FormLayout from "@/components/common/layouts/FormLayout";
 import QuotationForm from "./QuotationForm";
-import { QuotationFormValues } from "@/zod/quotation.validation";
+import { QuotationFormValues } from "@/services/Quotation/quotation.validation";
 
 interface EditQuotationFormProps {
   id: string;

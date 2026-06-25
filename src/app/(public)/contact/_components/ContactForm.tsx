@@ -6,7 +6,7 @@ import { Send } from "lucide-react";
 import {
   contactSchemaZodValidation,
   ContactFormValues,
-} from "@/zod/contact.validation";
+} from "@/services/Contact/contact.validation";
 import { contactAction } from "@/services/Contact/contact";
 import useActionHandler from "@/hooks/useActionHandler";
 import {

@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { CalendarIcon, Plus, Trash2, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -32,7 +33,7 @@ import { Textarea } from "@/components/ui/textarea";
 import {
   invoiceSchemaZodValidation,
   InvoiceFormValues,
-} from "@/zod/invoice.validation";
+} from "@/services/Invoice/invoice.validation";
 import SubmitButton from "@/components/common/form/SubmitButton";
 import { useEffect, useRef } from "react";
 import { HTMLToPDF } from "@/components/common/PDFGenerator";
@@ -75,6 +76,9 @@ const InvoiceForm = ({
       projectStartTime: initialData?.projectStartTime || undefined,
       projectApproximateFinishTime:
         initialData?.projectApproximateFinishTime || undefined,
+      showBankDetails: initialData?.showBankDetails || false,
+      isFullyPaid: initialData?.isFullyPaid || false,
+      installments: initialData?.installments || [],
     },
   });
 
@@ -104,9 +108,19 @@ const InvoiceForm = ({
     name: "lineItems",
   });
 
+  const {
+    fields: installmentFields,
+    append: appendInstallment,
+    remove: removeInstallment,
+  } = useFieldArray({
+    control: form.control,
+    name: "installments",
+  });
+
   const watchLineItems = form.watch("lineItems") || [];
   const watchTax = form.watch("tax") || 0;
   const watchDiscount = form.watch("discount") || 0;
+  const watchIsFullyPaid = form.watch("isFullyPaid") || false;
   const allValues = form.watch();
 
   // Re-calculate totals instantly for the UI to be highly responsive
@@ -152,9 +166,27 @@ const InvoiceForm = ({
     });
   }, [calculatedSubtotal, calculatedTotal, watchLineItems, form]);
 
+  const handleSubmitWrapper = async (data: InvoiceFormValues) => {
+    if (data.isFullyPaid) {
+      data.installments = [];
+      data.payments = [
+        {
+          amount: data.total,
+          paymentDate: new Date(),
+          paymentType: "Full Payment",
+          notes: "Marked as Fully Paid from Dashboard",
+        },
+      ];
+    }
+    await onSubmit(data);
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        onSubmit={form.handleSubmit(handleSubmitWrapper)}
+        className="space-y-8"
+      >
         <div className="glass-premium p-8 rounded-[2rem] border border-border/50 shadow-2xl">
           <h3 className="text-xl font-bold mb-6 text-indigo-900 flex items-center gap-2">
             <div className="w-2 h-6 bg-indigo-600 rounded-full" />
@@ -661,7 +693,232 @@ const InvoiceForm = ({
           </div>
         </div>
 
-        <div className="glass-premium p-8 rounded-[2rem] border border-border/50 shadow-2xl">
+        <FormField
+          control={form.control}
+          name="isFullyPaid"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center justify-between rounded-[2rem] border p-6 shadow-xl bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 border-emerald-200 dark:border-emerald-800/50 mb-8 transition-colors">
+              <div className="space-y-1">
+                <FormLabel className="text-lg font-bold text-emerald-900 dark:text-emerald-400">
+                  Mark as Fully Paid
+                </FormLabel>
+                <p className="text-sm text-emerald-700 dark:text-emerald-500">
+                  Skip installments and instantly mark this invoice as fully
+                  paid. A PAID seal will appear on the PDF.
+                </p>
+              </div>
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={(checked) => {
+                    field.onChange(checked);
+                    if (checked) {
+                      form.setValue("installments", []);
+                    }
+                  }}
+                  className="w-6 h-6 data-[state=checked]:bg-emerald-600 data-[state=checked]:border-emerald-600 dark:data-[state=checked]:bg-emerald-500 dark:data-[state=checked]:border-emerald-500"
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
+        {!watchIsFullyPaid && (
+          <div className="glass-premium p-8 rounded-[2rem] border border-border/50 shadow-2xl">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-bold text-indigo-900 flex items-center gap-2">
+                <div className="w-2 h-6 bg-indigo-600 rounded-full" />
+                Installment Schedule
+              </h3>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  appendInstallment({
+                    installmentName: `Installment ${installmentFields.length + 1}`,
+                    dueDate: new Date(),
+                    amount: 0,
+                    status: "PENDING",
+                  })
+                }
+                className="rounded-xl border-indigo-200 text-indigo-600 hover:bg-indigo-50"
+              >
+                <Plus className="w-4 h-4 mr-2" /> Add Installment
+              </Button>
+            </div>
+
+            <div className="space-y-4">
+              {installmentFields.map((field, index) => (
+                <div
+                  key={field.id}
+                  className="flex gap-4 items-start p-4 rounded-2xl border group transition-all"
+                >
+                  <div className="flex-1">
+                    <FormField
+                      control={form.control}
+                      name={`installments.${index}.installmentName`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-[10px] font-bold uppercase text-slate-400">
+                            Installment Name
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              placeholder="e.g. 1st Installment"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <FormField
+                      control={form.control}
+                      name={`installments.${index}.dueDate`}
+                      render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                          <FormLabel className="text-[10px] font-bold uppercase text-slate-400 mb-2">
+                            Due Date
+                          </FormLabel>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button
+                                  variant={"outline"}
+                                  className={cn(
+                                    "w-full pl-3 text-left font-normal h-10",
+                                    !field.value && "text-muted-foreground",
+                                  )}
+                                >
+                                  {field.value ? (
+                                    format(field.value, "PPP")
+                                  ) : (
+                                    <span>Pick a date</span>
+                                  )}
+                                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent
+                              className="w-auto p-0"
+                              align="start"
+                            >
+                              <Calendar
+                                mode="single"
+                                selected={field.value}
+                                onSelect={field.onChange}
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="w-32">
+                    <FormField
+                      control={form.control}
+                      name={`installments.${index}.amount`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-[10px] font-bold uppercase text-slate-400">
+                            Amount
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              {...field}
+                              onChange={(e) =>
+                                field.onChange(Number(e.target.value) || 0)
+                              }
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="w-32">
+                    <FormField
+                      control={form.control}
+                      name={`installments.${index}.status`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-[10px] font-bold uppercase text-slate-400">
+                            Status
+                          </FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger className="h-10">
+                                <SelectValue placeholder="Status" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="PENDING">PENDING</SelectItem>
+                              <SelectItem value="PAID">PAID</SelectItem>
+                              <SelectItem value="OVERDUE">OVERDUE</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="pt-8">
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="icon"
+                      onClick={() => removeInstallment(index)}
+                      className="rounded-xl opacity-40 group-hover:opacity-100 transition-opacity"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+              {installmentFields.length === 0 && (
+                <div className="text-center p-6 text-slate-400 italic text-sm border-2 border-dashed rounded-xl">
+                  No installment schedule defined. Add an installment to split
+                  the payment.
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        <div className="glass-premium p-8 rounded-[2rem] border border-border/50 shadow-2xl space-y-6">
+          <FormField
+            control={form.control}
+            name="showBankDetails"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-center justify-between rounded-2xl border p-4 shadow-sm">
+                <div className="space-y-0.5">
+                  <FormLabel className="text-sm font-bold text-indigo-900">
+                    Include Bank Details on PDF
+                  </FormLabel>
+                  <p className="text-xs text-slate-500">
+                    Show payment instructions (Bank Transfer and Bkash) on the
+                    generated PDF invoice.
+                  </p>
+                </div>
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="notes"

@@ -4,7 +4,7 @@ import { createInvoice } from "@/services/Invoice/invoice";
 import useActionHandler from "@/hooks/useActionHandler";
 import FormLayout from "@/components/common/layouts/FormLayout";
 import InvoiceForm from "./InvoiceForm";
-import { InvoiceFormValues } from "@/zod/invoice.validation";
+import { InvoiceFormValues } from "@/services/Invoice/invoice.validation";
 
 const AddInvoiceForm = () => {
   const { executePost, isPending } = useActionHandler();

@@ -31,7 +31,7 @@ const Sidebar = () => {
       initial={false}
       animate={{ width: isCollapsed ? 80 : 280 }}
       className={cn(
-        "relative flex flex-col h-screen border-r border-border/50 bg-background/80 backdrop-blur-xl transition-colors duration-300 z-40",
+        "relative flex flex-col h-full border-r border-border/50 bg-background/80 backdrop-blur-xl transition-colors duration-300 z-40",
         "before:absolute before:inset-0 before:bg-linear-to-b before:from-primary/5 before:to-purple-500/5 before:-z-10",
       )}
     >

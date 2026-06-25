@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { changePasswordSchema } from "@/zod/profile.validation";
+import { changePasswordSchema } from "@/services/User/profile.validation";
 import { changePasswordAction } from "@/services/Auth/change-password";
 import { toast } from "sonner";
 import { useState } from "react";

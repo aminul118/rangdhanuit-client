@@ -14,11 +14,10 @@ import {
   Eye,
   EyeOff,
 } from "lucide-react";
-
-import { registerSchema } from "@/zod/auth.validation";
 import useActionHandler from "@/hooks/useActionHandler";
 import { registerAction } from "@/services/Auth/register";
 import { FormField, SubmitButton } from "@/components/common/form";
+import { registerSchema } from "@/services/Auth/auth.validation";
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 

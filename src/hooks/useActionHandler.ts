@@ -21,6 +21,8 @@ interface ExecuteOptions<T> {
   success?: SuccessConfig<T>;
   errorMessage?: string;
   onError?: (res: ApiResponse<T>) => boolean | void;
+  toast?: boolean;
+  hideLoadingToast?: boolean;
 }
 
 const useActionHandler = () => {
@@ -36,21 +38,28 @@ const useActionHandler = () => {
     success,
     errorMessage = "Operation failed",
     onError,
+    toast: showToast = true,
+    hideLoadingToast = false,
   }: ExecuteOptions<T>): Promise<ApiResponse<T> | null> => {
     if (isPending) return null;
 
     setIsPending(true);
     topLoader.start();
-    const toastId = toast.loading(success?.loadingText || "Processing...");
+
+    let toastId: string | number | undefined;
+    if (showToast && !hideLoadingToast) {
+      toastId = toast.loading(success?.loadingText || "Processing...");
+    }
 
     try {
       const res = await action();
       logger.info("ACTION_RESULT:", res);
 
       if (res?.success) {
-        toast.success(res.message || success?.message || "Success", {
-          id: toastId,
-        });
+        if (showToast) {
+          if (toastId) toast.dismiss(toastId);
+          toast.success(res.message || success?.message || "Success");
+        }
 
         if (success?.onSuccess) success.onSuccess(res.data);
 
@@ -72,16 +81,22 @@ const useActionHandler = () => {
       // Handle custom error logic
       const isHandled = onError?.(res);
       if (isHandled) {
-        toast.dismiss(toastId);
+        if (showToast && toastId) toast.dismiss(toastId);
         return res;
       }
 
-      toast.error(res?.message || errorMessage, { id: toastId });
+      if (showToast) {
+        if (toastId) toast.dismiss(toastId);
+        toast.error(res?.message || errorMessage);
+      }
       return res;
     } catch (error: unknown) {
       logger.error("EXECUTION_EXCEPTION:", error);
       const msg = error instanceof Error ? error.message : errorMessage;
-      toast.error(msg, { id: toastId });
+      if (showToast) {
+        if (toastId) toast.dismiss(toastId);
+        toast.error(msg);
+      }
       return null;
     } finally {
       setIsPending(false);

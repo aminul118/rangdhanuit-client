@@ -15,6 +15,15 @@ export const getInvoices = async (
   });
 };
 
+export const getMyInvoices = async (
+  query?: Record<string, string>,
+): Promise<ApiResponse<IInvoice[]>> => {
+  return await serverFetch.get("/invoices/my-invoices", {
+    query,
+    next: { tags: ["my-invoices"] },
+  });
+};
+
 export const getInvoiceById = async (
   id: string,
 ): Promise<ApiResponse<IInvoice>> => {
@@ -50,6 +59,18 @@ export const deleteInvoice = catchAsyncAction(
   async (id: string): Promise<ApiResponse<IInvoice>> => {
     const res = await serverFetch.delete(`/invoices/${id}`);
     await revalidate(["invoices", id]);
+    return res;
+  },
+);
+
+export const sendInvoiceEmailOrMobile = catchAsyncAction(
+  async (
+    id: string,
+    method: "email" | "mobile",
+  ): Promise<ApiResponse<null>> => {
+    const res = await serverFetch.post(`/invoices/${id}/send`, {
+      body: { method },
+    });
     return res;
   },
 );

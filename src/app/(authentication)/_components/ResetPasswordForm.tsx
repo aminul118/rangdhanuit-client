@@ -5,11 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
-import { resetPasswordSchema } from "@/zod/auth.validation";
 import useActionHandler from "@/hooks/useActionHandler";
 import { FormField, SubmitButton } from "@/components/common/form";
 import { resetPasswordAction } from "@/services/Auth/reset-password";
 import useSearchParamsValues from "@/hooks/useSearchParamsValues";
+import { resetPasswordSchema } from "@/services/Auth/auth.validation";
 
 type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
 

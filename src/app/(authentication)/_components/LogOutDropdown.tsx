@@ -16,6 +16,7 @@ const LogOutDropDown = ({ className }: { className?: string }) => {
   const handleLogout = async () => {
     await executePost({
       action: async () => await logoutAction(),
+      toast: false,
       success: {
         message: "Logged out successfully",
         onSuccess: () => {

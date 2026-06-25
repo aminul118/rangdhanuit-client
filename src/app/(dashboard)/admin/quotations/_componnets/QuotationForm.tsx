@@ -34,7 +34,7 @@ import { Textarea } from "@/components/ui/textarea";
 import {
   quotationSchemaZodValidation,
   QuotationFormValues,
-} from "@/zod/quotation.validation";
+} from "@/services/Quotation/quotation.validation";
 import SubmitButton from "@/components/common/form/SubmitButton";
 import { useRef } from "react";
 import { HTMLToPDF } from "@/components/common/PDFGenerator";

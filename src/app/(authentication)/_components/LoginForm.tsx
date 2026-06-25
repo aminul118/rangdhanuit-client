@@ -8,12 +8,12 @@ import * as z from "zod";
 import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useAuth } from "@/providers/AuthProvider";
-import { loginSchema } from "@/zod/auth.validation";
 import useActionHandler from "@/hooks/useActionHandler";
 import { loginAction } from "@/services/Auth/login";
 import { ApiResponse, ILogin } from "@/types";
 import { FormField, SubmitButton } from "@/components/common/form";
 import { toast } from "sonner";
+import { loginSchema } from "@/services/Auth/auth.validation";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
@@ -36,6 +36,7 @@ export const LoginForm = () => {
   const onSubmit = async (data: LoginFormValues) => {
     await executePost({
       action: () => loginAction(data),
+      toast: false,
       success: {
         message: "Welcome back! Login successful",
         onSuccess: (loginData: ILogin | null | undefined) => {

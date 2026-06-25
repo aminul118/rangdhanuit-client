@@ -34,6 +34,14 @@ const EditInvoicePage = async ({ params }: Props) => {
     projectApproximateFinishTime: invoice.projectApproximateFinishTime
       ? new Date(invoice.projectApproximateFinishTime)
       : undefined,
+    installments: invoice.installments?.map((inst: any) => ({
+      ...inst,
+      dueDate: new Date(inst.dueDate),
+    })),
+    payments: invoice.payments?.map((payment: any) => ({
+      ...payment,
+      paymentDate: new Date(payment.paymentDate),
+    })),
   };
 
   return (

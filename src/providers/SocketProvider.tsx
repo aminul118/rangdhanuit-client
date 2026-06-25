@@ -53,7 +53,8 @@ export const SocketProvider = ({ children }: { children: ReactNode }) => {
       // The server reads the accessToken from the cookie header
       const socketInstance = io(socketUrl, {
         withCredentials: true,
-        transports: ["websocket", "polling"],
+        // Let Socket.IO default to polling -> websocket upgrade for reliable cookie auth
+        transports: ["polling", "websocket"],
       });
 
       socketInstance.on("connect", () => {

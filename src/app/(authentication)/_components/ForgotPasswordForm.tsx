@@ -4,10 +4,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Mail, ArrowRight } from "lucide-react";
-import { forgotPasswordSchema } from "@/zod/auth.validation";
 import useActionHandler from "@/hooks/useActionHandler";
 import { forgotPasswordAction } from "@/services/Auth/forgotPassword";
 import { FormField, SubmitButton } from "@/components/common/form";
+import { forgotPasswordSchema } from "@/services/Auth/auth.validation";
 
 type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 

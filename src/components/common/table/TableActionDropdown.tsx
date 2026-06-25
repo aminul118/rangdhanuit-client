@@ -49,6 +49,7 @@ export const TableActionDropdown = ({
   const handleDelete = async () => {
     const success = await executeDelete({
       action: deleteAction!,
+      hideLoadingToast: true,
       success: {
         message: deleteSuccessMessage,
       },

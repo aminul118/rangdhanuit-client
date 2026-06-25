@@ -4,7 +4,7 @@ import { createQuotation } from "@/services/Quotation/quotation";
 import useActionHandler from "@/hooks/useActionHandler";
 import FormLayout from "@/components/common/layouts/FormLayout";
 import QuotationForm from "./QuotationForm";
-import { QuotationFormValues } from "@/zod/quotation.validation";
+import { QuotationFormValues } from "@/services/Quotation/quotation.validation";
 
 const AddQuotationForm = () => {
   const { executePost, isPending } = useActionHandler();
