@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { Target, Rocket } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
@@ -10,7 +10,7 @@ export const AboutMission = () => {
     <section className="bg-background text-foreground transition-colors duration-500">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <motion.div
+          <m.div
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -27,8 +27,8 @@ export const AboutMission = () => {
               strive for excellence in every line of code and every pixel
               designed.
             </p>
-          </motion.div>
-          <motion.div
+          </m.div>
+          <m.div
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -46,7 +46,7 @@ export const AboutMission = () => {
               where technology seamlessly integrates with business to create
               meaningful impact.
             </p>
-          </motion.div>
+          </m.div>
         </div>
       </Container>
     </section>

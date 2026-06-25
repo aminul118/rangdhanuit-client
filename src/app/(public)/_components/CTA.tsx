@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
@@ -10,7 +10,7 @@ const CTA = () => {
   return (
     <section className="py-24 bg-background transition-colors duration-500">
       <Container>
-        <motion.div
+        <m.div
           variants={SCALE_IN}
           initial="initial"
           whileInView="whileInView"
@@ -28,7 +28,7 @@ const CTA = () => {
           />
 
           {/* Elegant Floating Orbs - Subtle in Light, Vibrant in Dark */}
-          <motion.div
+          <m.div
             animate={{
               x: [0, 30, 0],
               y: [0, -20, 0],
@@ -36,7 +36,7 @@ const CTA = () => {
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
             className="absolute -top-20 -left-20 w-80 h-80 bg-primary/10 dark:bg-primary/20 rounded-full blur-[100px] pointer-events-none"
           />
-          <motion.div
+          <m.div
             animate={{
               x: [0, -30, 0],
               y: [0, 20, 0],
@@ -46,23 +46,23 @@ const CTA = () => {
           />
 
           <div className="relative z-10 max-w-3xl mx-auto">
-            <motion.div
+            <m.div
               variants={FADE_IN_UP}
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/5 dark:bg-white/5 border border-primary/10 dark:border-white/10 text-primary dark:text-white/80 text-[10px] font-black mb-8 backdrop-blur-md tracking-[0.2em] uppercase"
             >
               <Sparkles className="w-3.5 h-3.5 text-primary" />
               <span>Your Success, Our Mission</span>
-            </motion.div>
+            </m.div>
 
-            <motion.h2
+            <m.h2
               variants={FADE_IN_UP}
               className="text-3xl md:text-5xl lg:text-6xl font-black mb-6 text-foreground leading-tight tracking-tighter"
             >
               Let&apos;s Build Your{" "}
               <span className="gradient-text ">Digital Future</span> Together.
-            </motion.h2>
+            </m.h2>
 
-            <motion.p
+            <m.p
               variants={FADE_IN_UP}
               transition={{ delay: 0.1 }}
               className="text-base md:text-lg text-muted-foreground mb-10 max-w-xl mx-auto leading-relaxed font-semibold opacity-80"
@@ -70,9 +70,9 @@ const CTA = () => {
               Transform your business with cutting-edge solutions. Contact us
               for a free consultation and let&apos;s build something
               extraordinary.
-            </motion.p>
+            </m.p>
 
-            <motion.div
+            <m.div
               variants={FADE_IN_UP}
               transition={{ delay: 0.2 }}
               className="flex flex-wrap justify-center items-center gap-6"
@@ -92,9 +92,9 @@ const CTA = () => {
               >
                 Explore Services
               </Link>
-            </motion.div>
+            </m.div>
           </div>
-        </motion.div>
+        </m.div>
       </Container>
     </section>
   );

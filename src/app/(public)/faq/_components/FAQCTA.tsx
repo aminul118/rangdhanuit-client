@@ -1,12 +1,12 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import Link from "next/link";
 import { FADE_IN_UP } from "@/constants/animations";
 
 const FAQCTA = () => {
   return (
-    <motion.div
+    <m.div
       variants={FADE_IN_UP}
       initial="initial"
       whileInView="whileInView"
@@ -33,7 +33,7 @@ const FAQCTA = () => {
           </button>
         </Link>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

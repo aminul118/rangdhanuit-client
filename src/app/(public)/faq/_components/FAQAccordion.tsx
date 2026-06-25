@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion, AnimatePresence } from "framer-motion";
+import { m as m, AnimatePresence } from "framer-motion";
 import {
   Accordion,
   AccordionContent,
@@ -23,7 +23,7 @@ const FAQAccordion = ({
 }: FAQAccordionProps) => {
   if (items.length === 0) {
     return (
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="text-center py-20 bg-card/20 rounded-[3rem] border border-dashed border-border/50"
@@ -32,14 +32,14 @@ const FAQAccordion = ({
           No questions found matching your criteria. Try adjusting your search
           or category filter.
         </p>
-      </motion.div>
+      </m.div>
     );
   }
 
   return (
     <div className="max-w-4xl mx-auto">
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={activeCategory + searchQuery}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -72,7 +72,7 @@ const FAQAccordion = ({
               </AccordionItem>
             ))}
           </Accordion>
-        </motion.div>
+        </m.div>
       </AnimatePresence>
     </div>
   );

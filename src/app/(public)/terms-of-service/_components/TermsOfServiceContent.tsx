@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import {
   Scale,
   Sparkles,
@@ -50,7 +50,7 @@ const TermsOfServiceContent = () => {
       {/* Hero Section */}
       <section className="pt-24 pb-16 text-center bg-linear-to-b from-violet-50/50 to-transparent dark:from-violet-950/20">
         <Container>
-          <motion.div
+          <m.div
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -59,9 +59,9 @@ const TermsOfServiceContent = () => {
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>Usage Guidelines</span>
-          </motion.div>
+          </m.div>
 
-          <motion.h1
+          <m.h1
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -70,9 +70,9 @@ const TermsOfServiceContent = () => {
             className="text-4xl md:text-6xl font-black mb-8 leading-tight tracking-tight text-foreground"
           >
             Terms of <span className="text-violet-600">Service</span>
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -82,7 +82,7 @@ const TermsOfServiceContent = () => {
           >
             Last Updated: March 31, 2026. Please read these terms carefully
             before using our services or starting a project.
-          </motion.p>
+          </m.p>
         </Container>
       </section>
 
@@ -90,7 +90,7 @@ const TermsOfServiceContent = () => {
       <Container>
         <div className="max-w-4xl mx-auto space-y-12">
           {sections.map((section, index) => (
-            <motion.div
+            <m.div
               key={index}
               variants={FADE_IN_UP}
               initial="initial"
@@ -112,11 +112,11 @@ const TermsOfServiceContent = () => {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           ))}
 
           {/* FAQ/Support Link */}
-          <motion.div
+          <m.div
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -134,7 +134,7 @@ const TermsOfServiceContent = () => {
             >
               Get in Touch
             </a>
-          </motion.div>
+          </m.div>
         </div>
       </Container>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import {
   ExternalLink,
   ArrowRight,
@@ -36,7 +36,7 @@ const PortfolioSlider = ({ portfolios }: PortfolioSliderProps) => {
       <Container>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div className="max-w-2xl">
-            <motion.h2
+            <m.h2
               variants={FADE_IN_UP}
               initial="initial"
               whileInView="whileInView"
@@ -45,8 +45,8 @@ const PortfolioSlider = ({ portfolios }: PortfolioSliderProps) => {
             >
               Our Featured <br />{" "}
               <span className="gradient-text italic">Masterpieces.</span>
-            </motion.h2>
-            <motion.p
+            </m.h2>
+            <m.p
               variants={FADE_IN_UP}
               initial="initial"
               whileInView="whileInView"
@@ -56,11 +56,11 @@ const PortfolioSlider = ({ portfolios }: PortfolioSliderProps) => {
             >
               A curated selection of our most impactful work. Each project
               represents our commitment to innovation and digital excellence.
-            </motion.p>
+            </m.p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-4">
-            <motion.div
+            <m.div
               variants={FADE_IN_UP}
               initial="initial"
               whileInView="whileInView"
@@ -79,9 +79,9 @@ const PortfolioSlider = ({ portfolios }: PortfolioSliderProps) => {
               >
                 <ChevronRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
               </button>
-            </motion.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               variants={FADE_IN_UP}
               initial="initial"
               whileInView="whileInView"
@@ -95,11 +95,11 @@ const PortfolioSlider = ({ portfolios }: PortfolioSliderProps) => {
                 View Gallery
                 <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
-            </motion.div>
+            </m.div>
           </div>
         </div>
 
-        <motion.div
+        <m.div
           variants={FADE_IN_UP}
           initial="initial"
           whileInView="whileInView"
@@ -137,7 +137,7 @@ const PortfolioSlider = ({ portfolios }: PortfolioSliderProps) => {
               </SwiperSlide>
             ))}
           </Swiper>
-        </motion.div>
+        </m.div>
       </Container>
     </section>
   );

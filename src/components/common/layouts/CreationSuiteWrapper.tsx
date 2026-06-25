@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import FormSubmitButton from "@/components/common/form/FormSubmitButton";
 
 interface CreationSuiteWrapperProps {
@@ -32,7 +32,7 @@ export const CreationSuiteWrapper = ({
         <main className="space-y-6">
           <div className="mx-auto space-y-10">
             {/* Cover Image Section */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -49,20 +49,20 @@ export const CreationSuiteWrapper = ({
                 <div className="absolute inset-0 bg-linear-to-br from-primary/10 via-transparent to-transparent opacity-0 group-hover/hero:opacity-100 transition-opacity duration-700" />
                 {heroImage}
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Standardized Content Flow */}
             {children}
 
             {/* Bottom Actions */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               className="flex items-center justify-end pt-8 border-t border-border/50"
             >
               <FormSubmitButton loading={loading} submitLabel={submitLabel} />
-            </motion.div>
+            </m.div>
           </div>
         </main>
       </div>

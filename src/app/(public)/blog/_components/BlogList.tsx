@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import BlogCard from "@/app/(public)/blog/_components/BlogCard";
 import { IBlogSummary } from "@/types";
 import { STAGGER_CHILDREN, VIEWPORT_CONFIG } from "@/constants/animations";
@@ -24,7 +24,7 @@ export const BlogList = ({ blogs, search }: BlogListProps) => {
   }
 
   return (
-    <motion.div
+    <m.div
       variants={STAGGER_CHILDREN}
       initial="initial"
       whileInView="whileInView"
@@ -34,6 +34,6 @@ export const BlogList = ({ blogs, search }: BlogListProps) => {
       {blogs.map((blog) => (
         <BlogCard key={blog._id} blog={blog} />
       ))}
-    </motion.div>
+    </m.div>
   );
 };

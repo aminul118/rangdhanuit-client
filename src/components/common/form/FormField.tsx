@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { m as motion, AnimatePresence } from "framer-motion";
+import { m as m, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
@@ -80,7 +80,7 @@ const FormField = ({
 
         <AnimatePresence mode="wait">
           {error && (
-            <motion.p
+            <m.p
               key={`${id}-error`}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
@@ -88,7 +88,7 @@ const FormField = ({
               className="text-xs text-red-400 mt-1.5 ml-1 font-medium"
             >
               {error}
-            </motion.p>
+            </m.p>
           )}
         </AnimatePresence>
       </div>

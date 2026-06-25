@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
@@ -54,7 +54,7 @@ const Testimonials = () => {
     <section className="py-24 relative overflow-hidden bg-muted/10 text-foreground transition-colors duration-500">
       <Container className="mb-16">
         <div className="text-center max-w-3xl mx-auto">
-          <motion.h2
+          <m.h2
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -62,8 +62,8 @@ const Testimonials = () => {
             className="text-3xl md:text-5xl font-black mb-6"
           >
             Voices of Trust
-          </motion.h2>
-          <motion.p
+          </m.h2>
+          <m.p
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -73,7 +73,7 @@ const Testimonials = () => {
           >
             Don&apos;t just take our word for it. Here&apos;s what our clients
             have to say about their experience working with Rangdhanu IT.
-          </motion.p>
+          </m.p>
         </div>
       </Container>
       {/* Infinite Scroll Wrapper */}

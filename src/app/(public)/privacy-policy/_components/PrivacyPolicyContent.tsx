@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { Shield, Sparkles, Lock, Eye, Bell, Globe } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
@@ -44,7 +44,7 @@ const PrivacyPolicyContent = () => {
       {/* Hero Section */}
       <section className="pt-40 pb-16 text-center bg-linear-to-b from-indigo-50/50 to-transparent dark:from-indigo-950/20">
         <Container>
-          <motion.div
+          <m.div
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -53,9 +53,9 @@ const PrivacyPolicyContent = () => {
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>Legal Transparency</span>
-          </motion.div>
+          </m.div>
 
-          <motion.h1
+          <m.h1
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -64,9 +64,9 @@ const PrivacyPolicyContent = () => {
             className="text-4xl md:text-6xl font-black mb-8 leading-tight tracking-tight text-foreground"
           >
             Privacy <span className="text-primary">Policy</span>
-          </motion.h1>
+          </m.h1>
 
-          <motion.p
+          <m.p
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -76,7 +76,7 @@ const PrivacyPolicyContent = () => {
           >
             Last Updated: March 31, 2026. Your privacy is our priority. Learn
             how we manage and protect your data.
-          </motion.p>
+          </m.p>
         </Container>
       </section>
 
@@ -84,7 +84,7 @@ const PrivacyPolicyContent = () => {
       <Container>
         <div className="max-w-4xl mx-auto space-y-12">
           {sections.map((section, index) => (
-            <motion.div
+            <m.div
               key={index}
               variants={FADE_IN_UP}
               initial="initial"
@@ -106,11 +106,11 @@ const PrivacyPolicyContent = () => {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           ))}
 
           {/* Contact Info */}
-          <motion.div
+          <m.div
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -128,7 +128,7 @@ const PrivacyPolicyContent = () => {
             >
               Contact Support
             </a>
-          </motion.div>
+          </m.div>
         </div>
       </Container>
     </div>

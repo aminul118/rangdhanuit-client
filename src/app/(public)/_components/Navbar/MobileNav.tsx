@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "./ModeToggle";
 
@@ -26,7 +26,7 @@ const MobileNav = ({
   PortalButton,
 }: MobileNavProps) => {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, height: 0 }}
       animate={{ opacity: 1, height: "auto" }}
       exit={{ opacity: 0, height: 0 }}
@@ -95,7 +95,7 @@ const MobileNav = ({
           )}
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

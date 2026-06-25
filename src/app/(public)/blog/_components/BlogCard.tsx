@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { ArrowRight, Calendar, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,7 +16,7 @@ interface BlogCardProps {
 
 const BlogCard = ({ blog, priority = false }: BlogCardProps) => {
   return (
-    <motion.div
+    <m.div
       variants={FADE_IN_UP}
       initial="initial"
       {...HOVER_LIFT}
@@ -69,7 +69,7 @@ const BlogCard = ({ blog, priority = false }: BlogCardProps) => {
       </div>
       {/* Subtle Glow */}
       <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-indigo-500/5 blur-[80px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-    </motion.div>
+    </m.div>
   );
 };
 

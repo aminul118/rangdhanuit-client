@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { Fade as Hamburger } from "hamburger-react";
 import {
   AnimatePresence,
-  motion,
+  m,
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
@@ -60,7 +60,7 @@ const Navbar = () => {
   });
 
   return (
-    <motion.header
+    <m.header
       variants={{
         visible: { y: 0 },
         hidden: { y: "-100%" },
@@ -104,7 +104,7 @@ const Navbar = () => {
               >
                 <span className="relative z-10">{link.name}</span>
                 {isActive && (
-                  <motion.div
+                  <m.div
                     layoutId="active-pill"
                     initial={false}
                     className="absolute inset-0 bg-primary/10 border border-primary/20 backdrop-blur-md rounded-full shadow-inner"
@@ -187,7 +187,7 @@ const Navbar = () => {
           />
         )}
       </AnimatePresence>
-    </motion.header>
+    </m.header>
   );
 };
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { Search, PenTool, Code2, Rocket } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import {
@@ -51,7 +51,7 @@ export const AboutProcess = () => {
 
       <Container>
         <div className="text-center space-y-4 mb-20">
-          <motion.p
+          <m.p
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -59,8 +59,8 @@ export const AboutProcess = () => {
             className="text-xs font-black uppercase tracking-[0.4em] text-indigo-500"
           >
             How We Deliver
-          </motion.p>
-          <motion.h2
+          </m.p>
+          <m.h2
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -72,10 +72,10 @@ export const AboutProcess = () => {
             <span className="text-indigo-500 underline decoration-indigo-500/20 underline-offset-8 italic">
               Process
             </span>
-          </motion.h2>
+          </m.h2>
         </div>
 
-        <motion.div
+        <m.div
           variants={STAGGER_CHILDREN}
           initial="initial"
           whileInView="whileInView"
@@ -83,7 +83,7 @@ export const AboutProcess = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 relative"
         >
           {steps.map((step, index) => (
-            <motion.div
+            <m.div
               key={index}
               variants={FADE_IN_UP}
               className="relative group p-10 rounded-sm bg-card border border-border/50 hover:bg-muted/30 transition-all duration-500 shadow-2xl shadow-black/5"
@@ -109,9 +109,9 @@ export const AboutProcess = () => {
               {index < steps.length - 1 && (
                 <div className="hidden lg:block absolute top-1/2 -right-6 w-12 h-[2px] bg-linear-to-r from-border to-transparent z-0 pointer-events-none" />
               )}
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
       </Container>
     </section>
   );

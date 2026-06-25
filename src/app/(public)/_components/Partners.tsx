@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { FADE_IN, VIEWPORT_CONFIG } from "@/constants/animations";
 import { IPartner } from "@/types";
@@ -19,7 +19,7 @@ const Partners = ({ partners = [] }: PartnersProps) => {
   return (
     <section className="py-16 border-y border-border/60 bg-muted/10 overflow-hidden text-foreground">
       <Container className="mb-10 text-center text-foreground">
-        <motion.h2
+        <m.h2
           variants={FADE_IN}
           initial="initial"
           whileInView="whileInView"
@@ -27,7 +27,7 @@ const Partners = ({ partners = [] }: PartnersProps) => {
           className="text-sm font-bold text-muted-foreground uppercase tracking-[0.3em]"
         >
           Partnering with Innovation
-        </motion.h2>
+        </m.h2>
       </Container>
       <div className="flex relative group">
         <div className="flex animate-scroll-left whitespace-nowrap min-w-full items-center py-6">

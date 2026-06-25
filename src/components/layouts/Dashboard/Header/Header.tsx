@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -77,7 +77,7 @@ const AdminHeader = () => {
   return (
     <header className="h-20 border-b border-border/50 bg-background/40 backdrop-blur-xl flex items-center justify-between px-8 sticky top-0 z-50 transition-all duration-300">
       <div className="flex items-center gap-6 flex-1 relative">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           className="relative max-w-md w-full hidden md:block"
@@ -152,7 +152,7 @@ const AdminHeader = () => {
               </CommandGroup>
             </CommandList>
           </CommandDialog>
-        </motion.div>
+        </m.div>
       </div>
 
       <div className="flex items-center gap-4">
@@ -160,7 +160,7 @@ const AdminHeader = () => {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
@@ -188,7 +188,7 @@ const AdminHeader = () => {
                 </div>
                 <ChevronDown size={14} className="text-muted-foreground ml-1" />
               </Button>
-            </motion.div>
+            </m.div>
           </DropdownMenuTrigger>
           <DropdownMenuContent
             align="end"

@@ -1,7 +1,7 @@
 "use client";
 
 import { IService } from "@/types/Service/service.types";
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -40,7 +40,7 @@ const ServiceCard = ({
   const Icon = IconMap[service.icon] || Laptop;
 
   return (
-    <motion.div
+    <m.div
       variants={FADE_IN_UP}
       transition={{ delay: index * 0.1, duration: 0.5 }}
       {...HOVER_LIFT}
@@ -108,7 +108,7 @@ const ServiceCard = ({
           <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-indigo-600/10 blur-[80px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
         </div>
       </Link>
-    </motion.div>
+    </m.div>
   );
 };
 

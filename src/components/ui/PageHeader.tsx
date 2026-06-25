@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP } from "@/constants/animations";
 import { cn } from "@/lib/utils";
@@ -42,7 +42,7 @@ export const PageHeader = ({
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <div className="space-y-6">
             {badge && (
-              <motion.div
+              <m.div
                 variants={FADE_IN_UP}
                 initial={false}
                 animate="animate"
@@ -50,10 +50,10 @@ export const PageHeader = ({
               >
                 {badge.icon && <badge.icon className="w-3.5 h-3.5" />}
                 <span>{badge.text}</span>
-              </motion.div>
+              </m.div>
             )}
 
-            <motion.h1
+            <m.h1
               variants={FADE_IN_UP}
               initial={false}
               animate="animate"
@@ -61,10 +61,10 @@ export const PageHeader = ({
               className="text-3xl md:text-5xl font-black tracking-tighter leading-none text-foreground"
             >
               {title}
-            </motion.h1>
+            </m.h1>
 
             {subtitle && (
-              <motion.p
+              <m.p
                 variants={FADE_IN_UP}
                 initial={false}
                 animate="animate"
@@ -72,19 +72,19 @@ export const PageHeader = ({
                 className="text-lg  text-muted-foreground max-w-2xl mx-auto leading-relaxed font-medium"
               >
                 {subtitle}
-              </motion.p>
+              </m.p>
             )}
           </div>
 
           {children && (
-            <motion.div
+            <m.div
               variants={FADE_IN_UP}
               initial={false}
               animate="animate"
               transition={{ delay: 0.3 }}
             >
               {children}
-            </motion.div>
+            </m.div>
           )}
         </div>
       </Container>

@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { FADE_IN_UP } from "@/constants/animations";
 
@@ -26,7 +26,7 @@ const SectionHeading = ({
         className,
       )}
     >
-      <motion.h2
+      <m.h2
         variants={FADE_IN_UP}
         initial="initial"
         whileInView="whileInView"
@@ -34,9 +34,9 @@ const SectionHeading = ({
         className="text-4xl md:text-5xl font-black tracking-tighter text-foreground"
       >
         {heading}
-      </motion.h2>
+      </m.h2>
       {description && (
-        <motion.p
+        <m.p
           variants={FADE_IN_UP}
           initial="initial"
           whileInView="whileInView"
@@ -45,7 +45,7 @@ const SectionHeading = ({
           className="text-lg text-muted-foreground font-medium leading-relaxed"
         >
           {description}
-        </motion.p>
+        </m.p>
       )}
     </div>
   );

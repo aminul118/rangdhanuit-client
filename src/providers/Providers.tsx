@@ -1,3 +1,5 @@
+"use client";
+
 import { ThemeProvider } from "next-themes";
 import { AuthProvider, IUser } from "./AuthProvider";
 import { LazyMotion, domAnimation } from "framer-motion";

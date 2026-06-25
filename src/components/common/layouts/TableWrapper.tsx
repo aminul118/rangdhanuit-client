@@ -11,7 +11,7 @@ import {
   TableTransitionProvider,
   useTableTransition,
 } from "@/context/TableTransitionContext";
-import { m as motion, AnimatePresence } from "framer-motion";
+import { m as m, AnimatePresence } from "framer-motion";
 import { TOP_PROGRESS_BAR, FADE_IN } from "@/constants/animations";
 
 interface TableWrapperProps {
@@ -69,7 +69,7 @@ const TableWrapperContent = ({
         {/* Loading Progress Bar */}
         <AnimatePresence mode="wait">
           {isPending && (
-            <motion.div
+            <m.div
               variants={TOP_PROGRESS_BAR}
               initial="initial"
               animate="animate"
@@ -93,7 +93,7 @@ const TableWrapperContent = ({
         {/* Loading Overlay */}
         <AnimatePresence>
           {isPending && (
-            <motion.div
+            <m.div
               variants={FADE_IN}
               initial="initial"
               animate="animate"
@@ -101,7 +101,7 @@ const TableWrapperContent = ({
               className="absolute inset-0 z-50 flex items-center justify-center bg-background/40 backdrop-blur-xs pointer-events-none"
             >
               <TableLoader text={loadingText} />
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </div>

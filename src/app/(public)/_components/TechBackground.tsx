@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion, useMotionValue, useSpring } from "framer-motion";
+import { m as m, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export const TechBackground = () => {
@@ -77,7 +77,7 @@ export const TechBackground = () => {
       />
 
       {/* Mouse Follower Glow */}
-      <motion.div
+      <m.div
         style={{
           left: smoothX,
           top: smoothY,
@@ -88,7 +88,7 @@ export const TechBackground = () => {
       />
 
       {/* Static Glows */}
-      <motion.div
+      <m.div
         animate={{
           scale: [1, 1.1, 1],
           opacity: [0.3, 0.4, 0.3],
@@ -101,7 +101,7 @@ export const TechBackground = () => {
         className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[150px]"
       />
 
-      <motion.div
+      <m.div
         animate={{
           scale: [1, 1.2, 1],
           opacity: [0.2, 0.3, 0.2],
@@ -118,7 +118,7 @@ export const TechBackground = () => {
       {/* Innovation Particles - Only render on client after hydration */}
       {mounted &&
         particles.map((particle) => (
-          <motion.div
+          <m.div
             key={particle.id}
             initial={{
               opacity: 0,

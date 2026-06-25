@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion, AnimatePresence } from "framer-motion";
+import { m as m, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Container } from "@/components/ui/Container";
@@ -36,7 +36,7 @@ const FAQ = () => {
     <section className="py-24 relative bg-background text-foreground transition-colors duration-500">
       <Container>
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <motion.h2
+          <m.h2
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -44,8 +44,8 @@ const FAQ = () => {
             className="text-3xl md:text-5xl font-black mb-6"
           >
             Frequently Asked Questions
-          </motion.h2>
-          <motion.p
+          </m.h2>
+          <m.p
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -55,12 +55,12 @@ const FAQ = () => {
           >
             Got questions? We&apos;ve got answers. If you don&apos;t find what
             you&apos;re looking for, feel free to contact us.
-          </motion.p>
+          </m.p>
         </div>
 
         <div className="max-w-4xl mx-auto space-y-4">
           {faqs.map((faq, index) => (
-            <motion.div
+            <m.div
               key={index}
               variants={FADE_IN_UP}
               initial="initial"
@@ -93,7 +93,7 @@ const FAQ = () => {
               </button>
               <AnimatePresence>
                 {openIndex === index && (
-                  <motion.div
+                  <m.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
@@ -107,10 +107,10 @@ const FAQ = () => {
                         {faq.answer}
                       </div>
                     </div>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </Container>

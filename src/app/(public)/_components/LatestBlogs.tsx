@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { ArrowRight, Calendar, User } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,7 +24,7 @@ const LatestBlogs = ({ blogs }: LatestBlogsProps) => {
       <Container>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div className="max-w-2xl">
-            <motion.div
+            <m.div
               variants={FADE_IN_UP}
               initial="initial"
               whileInView="whileInView"
@@ -33,8 +33,8 @@ const LatestBlogs = ({ blogs }: LatestBlogsProps) => {
             >
               <div className="w-8 h-px bg-primary/30" />
               <span>Latest Insights</span>
-            </motion.div>
-            <motion.h2
+            </m.div>
+            <m.h2
               variants={FADE_IN_UP}
               initial="initial"
               whileInView="whileInView"
@@ -44,9 +44,9 @@ const LatestBlogs = ({ blogs }: LatestBlogsProps) => {
             >
               Stories from the <br />
               <span className="text-muted-foreground">Frontier of Tech.</span>
-            </motion.h2>
+            </m.h2>
           </div>
-          <motion.div
+          <m.div
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -60,12 +60,12 @@ const LatestBlogs = ({ blogs }: LatestBlogsProps) => {
               Explore Our Blog
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
-          </motion.div>
+          </m.div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogs.map((blog, index) => (
-            <motion.div
+            <m.div
               key={blog._id}
               variants={FADE_IN_UP}
               initial="initial"
@@ -122,7 +122,7 @@ const LatestBlogs = ({ blogs }: LatestBlogsProps) => {
                   </div>
                 </article>
               </Link>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </Container>

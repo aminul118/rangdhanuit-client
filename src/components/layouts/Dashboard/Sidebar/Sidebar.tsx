@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import Logo from "@/assets/Logo";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import dynamic from "next/dynamic";
 import { useAuth } from "@/providers/AuthProvider";
 import { useSocket } from "@/providers/SocketProvider";
@@ -27,7 +27,7 @@ const Sidebar = () => {
   const isAdmin = role === "ADMIN" || role === "SUPER_ADMIN";
 
   return (
-    <motion.div
+    <m.div
       initial={false}
       animate={{ width: isCollapsed ? 80 : 280 }}
       className={cn(
@@ -37,7 +37,7 @@ const Sidebar = () => {
     >
       <div className="flex items-center justify-between p-4 h-20 border-b border-border/50 shrink-0">
         {!isCollapsed ? (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-2.5"
@@ -53,9 +53,9 @@ const Sidebar = () => {
                 {isAdmin ? "Admin Panel" : "User Portal"}
               </span>
             </Link>
-          </motion.div>
+          </m.div>
         ) : (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             className="mx-auto"
@@ -63,7 +63,7 @@ const Sidebar = () => {
             <Link href="/">
               <Logo className="w-8 h-8" />
             </Link>
-          </motion.div>
+          </m.div>
         )}
         <Button
           variant="ghost"
@@ -97,7 +97,7 @@ const Sidebar = () => {
           />
         )}
       </nav>
-    </motion.div>
+    </m.div>
   );
 };
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { Zap, ShieldCheck, Heart, Laptop } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import {
@@ -45,7 +45,7 @@ export const AboutWhyUs = () => {
     <section className="py-24 bg-muted/20">
       <Container>
         <div className="text-center space-y-4 mb-20">
-          <motion.div
+          <m.div
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -53,8 +53,8 @@ export const AboutWhyUs = () => {
             className="text-xs font-black uppercase tracking-[0.4em] text-indigo-500"
           >
             Competitive Edge
-          </motion.div>
-          <motion.h2
+          </m.div>
+          <m.h2
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -66,8 +66,8 @@ export const AboutWhyUs = () => {
             <span className="text-indigo-500 underline decoration-indigo-500/20 underline-offset-8">
               Rangdhanu IT
             </span>
-          </motion.h2>
-          <motion.p
+          </m.h2>
+          <m.p
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -77,10 +77,10 @@ export const AboutWhyUs = () => {
           >
             We merge technical excellence with business strategy to create
             exceptional digital experiences.
-          </motion.p>
+          </m.p>
         </div>
 
-        <motion.div
+        <m.div
           variants={STAGGER_CHILDREN}
           initial="initial"
           whileInView="whileInView"
@@ -88,7 +88,7 @@ export const AboutWhyUs = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
         >
           {benefits.map((benefit, index) => (
-            <motion.div
+            <m.div
               key={index}
               variants={FADE_IN_UP}
               className="group p-8 rounded-sm bg-card border border-border/50 hover:border-indigo-500/30 shadow-2xl shadow-black/5 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden"
@@ -109,9 +109,9 @@ export const AboutWhyUs = () => {
               <p className="text-sm text-muted-foreground leading-relaxed font-bold">
                 {benefit.description}
               </p>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
       </Container>
     </section>
   );

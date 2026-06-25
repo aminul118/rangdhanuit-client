@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { Users, Briefcase, Award, Clock } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
@@ -39,7 +39,7 @@ const Stats = () => {
         <h2 className="sr-only">Our Performance Statistics</h2>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
-            <motion.div
+            <m.div
               key={stat.label}
               variants={FADE_IN_UP}
               initial="initial"
@@ -59,7 +59,7 @@ const Stats = () => {
               <p className="text-muted-foreground font-bold uppercase tracking-wider text-xs">
                 {stat.label}
               </p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </Container>

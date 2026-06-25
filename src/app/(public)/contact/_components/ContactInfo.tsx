@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion, Variants } from "framer-motion";
+import { m as m, Variants } from "framer-motion";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 const contactDetails = [
@@ -56,7 +56,7 @@ const itemVariants: Variants = {
 
 const ContactInfo = () => {
   return (
-    <motion.div
+    <m.div
       variants={containerVariants}
       initial={false}
       whileInView="visible"
@@ -65,7 +65,7 @@ const ContactInfo = () => {
     >
       <div className="space-y-8">
         <div className="space-y-4">
-          <motion.h2
+          <m.h2
             initial={false}
             variants={itemVariants}
             className="text-3xl md:text-4xl font-black text-foreground tracking-tighter"
@@ -74,8 +74,8 @@ const ContactInfo = () => {
             <span className="bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent decoration-indigo-500/20">
               amazing together.
             </span>
-          </motion.h2>
-          <motion.p
+          </m.h2>
+          <m.p
             initial={false}
             variants={itemVariants}
             className="text-muted-foreground text-lg font-medium leading-relaxed"
@@ -83,12 +83,12 @@ const ContactInfo = () => {
             Have a project that needs a creative touch? We&apos;d love to hear
             about it. Our team is ready to turn your vision into a digital
             reality.
-          </motion.p>
+          </m.p>
         </div>
 
         <div className="space-y-4 mt-8">
           {contactDetails.map((item, index) => (
-            <motion.div
+            <m.div
               key={index}
               variants={itemVariants}
               className="group flex items-center gap-6 p-5 rounded-3xl border border-border/50 bg-card/40 backdrop-blur-xl transition-all hover:border-primary/20 hover:bg-card/60 shadow-sm"
@@ -115,11 +115,11 @@ const ContactInfo = () => {
                   </span>
                 )}
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

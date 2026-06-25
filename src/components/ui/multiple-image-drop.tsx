@@ -11,7 +11,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { useEffect } from "react";
-import { m as motion, AnimatePresence } from "framer-motion";
+import { m as m, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 interface ImageDropProps {
@@ -67,7 +67,7 @@ export default function MultipleImageDrop({
 
   return (
     <div className="flex flex-col gap-6 w-full group/uploader">
-      <motion.div
+      <m.div
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
@@ -119,12 +119,12 @@ export default function MultipleImageDrop({
               </div>
 
               {/* Bento Grid */}
-              <motion.div
+              <m.div
                 layout
                 className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8"
               >
                 {files.map((file, idx) => (
-                  <motion.div
+                  <m.div
                     key={file.id}
                     layout
                     initial={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -164,12 +164,12 @@ export default function MultipleImageDrop({
                         <Sparkles className="size-3" />
                       </div>
                     )}
-                  </motion.div>
+                  </m.div>
                 ))}
 
                 {/* Add More Slot */}
                 {files.length < maxFiles && (
-                  <motion.button
+                  <m.button
                     layout
                     whileHover={{
                       scale: 0.97,
@@ -185,12 +185,12 @@ export default function MultipleImageDrop({
                     <span className="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-600 group-hover/add:text-primary">
                       Add Asset
                     </span>
-                  </motion.button>
+                  </m.button>
                 )}
-              </motion.div>
+              </m.div>
             </div>
           ) : (
-            <motion.div
+            <m.div
               key="empty-gallery"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -224,12 +224,12 @@ export default function MultipleImageDrop({
                 <UploadIcon className="mr-3 size-4" />
                 Launch Assets
               </Button>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
-      </motion.div>
+      </m.div>
       {errors.length > 0 && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="bg-destructive/10 text-destructive border border-destructive/20 p-5 rounded-[24px] flex items-center gap-4 backdrop-blur-md shadow-2xl"
@@ -243,7 +243,7 @@ export default function MultipleImageDrop({
             </span>
             <span className="text-sm font-bold opacity-80">{errors[0]}</span>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </div>
   );

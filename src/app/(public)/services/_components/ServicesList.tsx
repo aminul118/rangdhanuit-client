@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import ServiceCard from "@/app/(public)/services/_components/ServiceCard";
 import { IService } from "@/types/Service/service.types";
 import { Container } from "@/components/ui/Container";
@@ -13,7 +13,7 @@ interface ServicesListProps {
 export const ServicesList = ({ services }: ServicesListProps) => {
   return (
     <Container>
-      <motion.div
+      <m.div
         variants={STAGGER_CHILDREN}
         initial="initial"
         whileInView="whileInView"
@@ -23,7 +23,7 @@ export const ServicesList = ({ services }: ServicesListProps) => {
         {services.map((service: IService, index: number) => (
           <ServiceCard key={service._id} service={service} index={index} />
         ))}
-      </motion.div>
+      </m.div>
     </Container>
   );
 };

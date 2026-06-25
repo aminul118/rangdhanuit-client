@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/button";
 import { useSocket } from "@/providers/SocketProvider";
 import { cn } from "@/lib/utils";
 import { formatDistanceToNow } from "date-fns";
-import { m as motion, AnimatePresence } from "framer-motion";
+import { m as m, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
   fetchNotifications,
@@ -97,7 +97,7 @@ export const NotificationDropdown = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
@@ -120,7 +120,7 @@ export const NotificationDropdown = () => {
               <span className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full border-2 border-background animate-pulse" />
             )}
           </Button>
-        </motion.div>
+        </m.div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
@@ -168,7 +168,7 @@ export const NotificationDropdown = () => {
             <div className="divide-y divide-white/5">
               <AnimatePresence mode="popLayout" initial={false}>
                 {notifications.map((n) => (
-                  <motion.div
+                  <m.div
                     key={n._id}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -226,7 +226,7 @@ export const NotificationDropdown = () => {
                         <X size={12} />
                       </Button>
                     </DropdownMenuItem>
-                  </motion.div>
+                  </m.div>
                 ))}
               </AnimatePresence>
             </div>

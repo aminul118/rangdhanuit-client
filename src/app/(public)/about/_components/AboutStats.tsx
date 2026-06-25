@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
@@ -8,7 +8,7 @@ export const AboutStats = () => {
   return (
     <section className="bg-muted/10 border-y border-border/50 py-16 backdrop-blur-sm font-bold text-foreground transition-colors duration-500">
       <Container className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center uppercase tracking-wider">
-        <motion.div
+        <m.div
           variants={FADE_IN_UP}
           initial="initial"
           whileInView="whileInView"
@@ -18,8 +18,8 @@ export const AboutStats = () => {
           <div className="text-xs text-muted-foreground uppercase tracking-widest font-black">
             Projects Completed
           </div>
-        </motion.div>
-        <motion.div
+        </m.div>
+        <m.div
           variants={FADE_IN_UP}
           initial="initial"
           whileInView="whileInView"
@@ -30,8 +30,8 @@ export const AboutStats = () => {
           <div className="text-xs text-muted-foreground uppercase tracking-widest font-black">
             Happy Clients
           </div>
-        </motion.div>
-        <motion.div
+        </m.div>
+        <m.div
           variants={FADE_IN_UP}
           initial="initial"
           whileInView="whileInView"
@@ -42,8 +42,8 @@ export const AboutStats = () => {
           <div className="text-xs text-muted-foreground uppercase tracking-widest font-black">
             Years Experience
           </div>
-        </motion.div>
-        <motion.div
+        </m.div>
+        <m.div
           variants={FADE_IN_UP}
           initial="initial"
           whileInView="whileInView"
@@ -54,7 +54,7 @@ export const AboutStats = () => {
           <div className="text-xs text-muted-foreground uppercase tracking-widest font-black">
             Support
           </div>
-        </motion.div>
+        </m.div>
       </Container>
     </section>
   );

@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { IGlobalError } from "@/types";
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { AlertCircle, Home, RefreshCw } from "lucide-react";
 import Link from "next/link";
 
@@ -17,15 +17,15 @@ const Error = ({ error, reset }: IGlobalError) => {
       <div className="pointer-events-none absolute top-[-10%] left-[-10%] z-0 h-64 w-64 rounded-full bg-rose-500/10 blur-[80px] sm:h-[400px] sm:w-[400px] md:blur-[100px] lg:h-[500px] lg:w-[500px]" />
       <div className="pointer-events-none absolute right-[-10%] bottom-[-10%] z-0 h-64 w-64 rounded-full bg-orange-500/10 blur-[80px] sm:h-[400px] sm:w-[400px] md:blur-[100px] lg:h-[500px] lg:w-[500px]" />
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative z-10 w-full max-w-3xl px-4 text-center"
       >
         <div className="relative mx-auto mb-6 flex items-center justify-center sm:mb-8">
-          <motion.div className="relative">
-            <motion.h1
+          <m.div className="relative">
+            <m.h1
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               transition={{
@@ -44,14 +44,14 @@ const Error = ({ error, reset }: IGlobalError) => {
               </span>
               <span className="relative inline-block text-zinc-800">
                 o
-                <motion.div
+                <m.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.8 }}
                   className="absolute top-1/2 left-1/2 -z-10 -translate-x-1/2 -translate-y-1/2"
                 >
                   <AlertCircle className="h-20 w-20 text-zinc-900/50 sm:h-32 sm:w-32" />
-                </motion.div>
+                </m.div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                   <AlertCircle className="hidden h-full w-full stroke-1 text-zinc-800/20 sm:block" />
                 </div>
@@ -63,20 +63,20 @@ const Error = ({ error, reset }: IGlobalError) => {
                 s
               </span>
               <span className="relative inline-block text-zinc-800">!</span>
-            </motion.h1>
-          </motion.div>
+            </m.h1>
+          </m.div>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
             className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-zinc-900/80 px-3 py-1 text-xs font-medium text-rose-400 shadow-sm backdrop-blur-md sm:bottom-4 sm:px-4 sm:py-1.5 sm:text-sm"
           >
             Runtime Error
-          </motion.div>
+          </m.div>
         </div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -114,8 +114,8 @@ const Error = ({ error, reset }: IGlobalError) => {
               Try Again
             </Button>
           </div>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </div>
   );
 };

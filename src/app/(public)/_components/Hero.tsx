@@ -1,6 +1,6 @@
 "use client";
 
-import { LazyMotion, domAnimation, m as motion } from "framer-motion";
+import { LazyMotion, domAnimation, m as m } from "framer-motion";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -41,14 +41,14 @@ const Hero = () => {
         <Container className="relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
-            <motion.div
+            <m.div
               variants={STAGGER_CHILDREN}
               initial={false}
               animate="animate"
               className="flex flex-col items-start text-left"
             >
               {/* Minimal High-Tech Badge */}
-              <motion.div
+              <m.div
                 variants={FADE_IN_UP}
                 className="group cursor-default inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 hover:bg-primary/20 transition-all duration-300 mb-8"
               >
@@ -57,10 +57,10 @@ const Hero = () => {
                   Innovation Software Agency
                 </span>
                 <ChevronRight className="w-3 h-3 text-primary/40 group-hover:translate-x-0.5 transition-transform" />
-              </motion.div>
+              </m.div>
 
               {/* High-Impact Typography */}
-              <motion.div
+              <m.div
                 variants={FADE_IN_UP}
                 className="relative mb-8 text-foreground"
               >
@@ -73,19 +73,19 @@ const Hero = () => {
                     HORIZONS
                   </span>
                 </h1>
-              </motion.div>
+              </m.div>
 
               {/* Clean Tech Description */}
-              <motion.p
+              <m.p
                 variants={FADE_IN_UP}
                 className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed mb-8 md:mb-12"
               >
                 Rangdhanu IT architecting the future of software. We bridge the
                 gap between complex engineering and seamless user experiences.
-              </motion.p>
+              </m.p>
 
               {/* Next.js Styled CTAs */}
-              <motion.div
+              <m.div
                 variants={FADE_IN_UP}
                 className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 w-full"
               >
@@ -102,10 +102,10 @@ const Hero = () => {
                 >
                   Explore Works
                 </Link>
-              </motion.div>
+              </m.div>
 
               {/* Mobile-Only Metrics Grid */}
-              <motion.div
+              <m.div
                 variants={FADE_IN_UP}
                 className="mt-12 grid grid-cols-2 gap-4 w-full lg:hidden"
               >
@@ -125,11 +125,11 @@ const Hero = () => {
                     Satisfaction
                   </div>
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
 
             {/* Right Content - Visual Elements */}
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.5 }}
@@ -138,7 +138,7 @@ const Hero = () => {
               <CodeWindow />
 
               {/* Decorative Floating Elements (Metrics) */}
-              <motion.div
+              <m.div
                 animate={{ y: [0, -20, 0] }}
                 transition={{
                   duration: 4,
@@ -153,9 +153,9 @@ const Hero = () => {
                 <div className="text-[8px] font-bold uppercase tracking-widest text-violet-400 opacity-80">
                   Projects Done
                 </div>
-              </motion.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 animate={{ y: [0, 20, 0] }}
                 transition={{
                   duration: 6,
@@ -171,8 +171,8 @@ const Hero = () => {
                 <div className="text-[8px] font-bold uppercase tracking-widest text-blue-400 opacity-80">
                   Client Satisfaction
                 </div>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
         </Container>
       </section>

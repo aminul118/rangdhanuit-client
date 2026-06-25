@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { Save, Sparkles } from "lucide-react";
 import FormSubmitButton from "@/components/common/form/FormSubmitButton";
 import { Button } from "@/components/ui/button";
@@ -17,7 +17,7 @@ const FloatingCreationBar = ({
   onSaveDraft,
 }: FloatingCreationBarProps) => {
   return (
-    <motion.div
+    <m.div
       initial={{ y: 100, x: "-50%", opacity: 0 }}
       animate={{ y: 0, x: "-50%", opacity: 1 }}
       transition={{ type: "spring", damping: 20, stiffness: 100, delay: 0.5 }}
@@ -56,7 +56,7 @@ const FloatingCreationBar = ({
           />
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

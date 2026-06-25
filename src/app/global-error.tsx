@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { AlertOctagon, RefreshCcw } from "lucide-react";
 import { useEffect } from "react";
 
@@ -27,14 +27,14 @@ const GlobalError = ({ error, reset }: GlobalErrorProps) => {
           <div className="pointer-events-none absolute top-[-10%] left-[-10%] z-0 h-64 w-64 rounded-full bg-red-500/10 blur-[80px] sm:h-[400px] sm:w-[400px] md:blur-[100px] lg:h-[500px] lg:w-[500px]" />
           <div className="pointer-events-none absolute right-[-10%] bottom-[-10%] z-0 h-64 w-64 rounded-full bg-orange-500/10 blur-[80px] sm:h-[400px] sm:w-[400px] md:blur-[100px] lg:h-[500px] lg:w-[500px]" />
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="relative z-10 w-full max-w-3xl px-4 text-center"
           >
             <div className="relative mx-auto mb-6 flex items-center justify-center sm:mb-8">
-              <motion.div
+              <m.div
                 initial={{ scale: 0.8, rotate: -10 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{
@@ -63,7 +63,7 @@ const GlobalError = ({ error, reset }: GlobalErrorProps) => {
                   </span>
                 </h1>
 
-                <motion.div
+                <m.div
                   animate={{ rotate: [0, 10, -10, 0] }}
                   transition={{
                     duration: 5,
@@ -73,20 +73,20 @@ const GlobalError = ({ error, reset }: GlobalErrorProps) => {
                   className="absolute -top-4 -right-4 sm:-top-8 sm:-right-8"
                 >
                   <AlertOctagon className="h-12 w-12 text-red-500/50 sm:h-20 sm:w-20" />
-                </motion.div>
-              </motion.div>
+                </m.div>
+              </m.div>
 
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
                 className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-zinc-900/80 px-3 py-1 text-xs font-medium text-red-400 shadow-sm backdrop-blur-md sm:bottom-4 sm:px-4 sm:py-1.5 sm:text-sm"
               >
                 System Failure
-              </motion.div>
+              </m.div>
             </div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
@@ -112,8 +112,8 @@ const GlobalError = ({ error, reset }: GlobalErrorProps) => {
                   Try Again
                 </Button>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         </div>
       </body>
     </html>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 
 const codeSnippet = `const Innovation = () => {
   const [vision, setVision] = useState("Clear");
@@ -147,7 +147,7 @@ const CodeWindow = () => {
       <div className="p-6 md:p-8 min-h-[380px] max-h-[400px] scrollbar-hide overflow-y-hidden">
         {highlightCode(displayText)}
         {isTyping && (
-          <motion.span
+          <m.span
             animate={{ opacity: [1, 0] }}
             transition={{ duration: 0.8, repeat: Infinity }}
             className="inline-block w-1.5 h-4 md:w-2 md:h-5 bg-primary ml-1 translate-y-0.5"

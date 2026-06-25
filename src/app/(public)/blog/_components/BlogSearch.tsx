@@ -2,7 +2,7 @@
 
 import { Search } from "lucide-react";
 import { useTransition, useEffect, useState } from "react";
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import useSearchParamsValues from "@/hooks/useSearchParamsValues";
 
 const BlogSearch = () => {
@@ -21,7 +21,7 @@ const BlogSearch = () => {
   }, [searchValue, setParams]);
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1 }}
@@ -39,7 +39,7 @@ const BlogSearch = () => {
         onChange={(e) => setSearchValue(e.target.value)}
         className="w-full pl-16 pr-8 py-5 rounded-2xl bg-muted/10 border border-border/50 focus:border-indigo-500/50 outline-none focus:ring-4 focus:ring-indigo-500/10 transition-all text-lg font-medium"
       />
-    </motion.div>
+    </m.div>
   );
 };
 

@@ -2,7 +2,7 @@
 
 import { ChevronLeft, Sparkles } from "lucide-react";
 import Link from "next/link";
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 
 interface CreationHeaderProps {
   title: string;
@@ -20,7 +20,7 @@ const CreationHeader = ({
   return (
     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-12 ">
       <div className="space-y-3">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
@@ -34,9 +34,9 @@ const CreationHeader = ({
             </div>
             <span>Back to Management</span>
           </Link>
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6, ease: "circOut" }}
@@ -58,7 +58,7 @@ const CreationHeader = ({
           <p className="text-zinc-500 font-medium text-base max-w-xl leading-relaxed">
             {subtitle}
           </p>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import Link from "next/link";
 import {
   Users,
@@ -38,7 +38,7 @@ const StatCard = ({
   color,
   delay,
 }: StatCardProps) => (
-  <motion.div
+  <m.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay, duration: 0.5 }}
@@ -74,7 +74,7 @@ const StatCard = ({
         </div>
       </CardContent>
     </Card>
-  </motion.div>
+  </m.div>
 );
 
 interface AdminDashboardHomeProps {
@@ -170,7 +170,7 @@ const AdminDashboardHome = ({ stats }: AdminDashboardHomeProps) => {
           </p>
         </div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
@@ -189,7 +189,7 @@ const AdminDashboardHome = ({ stats }: AdminDashboardHomeProps) => {
               className="opacity-50 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"
             />
           </Link>
-        </motion.div>
+        </m.div>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -200,7 +200,7 @@ const AdminDashboardHome = ({ stats }: AdminDashboardHomeProps) => {
 
       <div className="grid gap-8 lg:grid-cols-2">
         {/* User Distribution Card */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.6 }}
@@ -257,10 +257,10 @@ const AdminDashboardHome = ({ stats }: AdminDashboardHomeProps) => {
               </div>
             </div>
           </Card>
-        </motion.div>
+        </m.div>
 
         {/* System Pulse Health Widget */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.7 }}
@@ -295,7 +295,7 @@ const AdminDashboardHome = ({ stats }: AdminDashboardHomeProps) => {
               </div>
             </div>
           </Card>
-        </motion.div>
+        </m.div>
       </div>
     </div>
   );

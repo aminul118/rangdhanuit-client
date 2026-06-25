@@ -2,7 +2,7 @@
 
 import BackButton from "@/components/common/button/BackButton";
 import { Button } from "@/components/ui/button";
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { Home } from "lucide-react";
 import Link from "next/link";
 
@@ -17,14 +17,14 @@ const NotFound = () => {
       <div className="pointer-events-none absolute top-[-10%] left-[-10%] z-0 h-64 w-64 rounded-full bg-blue-500/10 blur-[80px] sm:h-[400px] sm:w-[400px] md:blur-[100px] lg:h-[500px] lg:w-[500px]" />
       <div className="pointer-events-none absolute right-[-10%] bottom-[-10%] z-0 h-64 w-64 rounded-full bg-purple-500/10 blur-[80px] sm:h-[400px] sm:w-[400px] md:blur-[100px] lg:h-[500px] lg:w-[500px]" />
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative z-10 w-full max-w-3xl px-4 text-center"
       >
         <div className="relative mx-auto mb-6 flex items-center justify-center sm:mb-8">
-          <motion.h1
+          <m.h1
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             transition={{
@@ -43,7 +43,7 @@ const NotFound = () => {
             </span>
             <span className="relative inline-block text-zinc-800">
               0
-              <motion.div
+              <m.div
                 initial={{ rotate: 0 }}
                 animate={{ rotate: 360 }}
                 transition={{
@@ -57,19 +57,19 @@ const NotFound = () => {
             <span className="bg-linear-to-b from-purple-600 to-blue-600 bg-clip-text">
               4
             </span>
-          </motion.h1>
+          </m.h1>
 
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
             className="absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-zinc-900/80 px-3 py-1 text-xs font-medium text-blue-400 shadow-sm backdrop-blur-md sm:bottom-4 sm:px-4 sm:py-1.5 sm:text-sm"
           >
             Error Code: 404
-          </motion.div>
+          </m.div>
         </div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
@@ -102,8 +102,8 @@ const NotFound = () => {
               </Link>
             </Button>
           </div>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </div>
   );
 };

@@ -2,7 +2,7 @@
 
 import { useState, useRef, ChangeEvent } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { m as motion, AnimatePresence } from "framer-motion";
+import { m as m, AnimatePresence } from "framer-motion";
 import { Camera, Trash2, Upload } from "lucide-react";
 import { ImageCropperModal } from "./ImageCropperModal";
 import { toast } from "sonner";
@@ -74,14 +74,14 @@ export const ProfileAvatarUploader = ({
             onClick={() => fileInputRef.current?.click()}
             className="absolute inset-0 bg-black/60 opacity-0 group-hover/avatar:opacity-100 transition-all duration-300 flex flex-col items-center justify-center cursor-pointer backdrop-blur-[2px]"
           >
-            <motion.div
+            <m.div
               initial={{ scale: 0.8, opacity: 0 }}
               whileHover={{ scale: 1.1 }}
               animate={{ scale: 1, opacity: 1 }}
               className="p-3 bg-white/10 rounded-full border border-white/20 mb-2"
             >
               <Camera className="w-6 h-6 text-white" />
-            </motion.div>
+            </m.div>
             <span className="text-[10px] uppercase font-bold text-white tracking-widest translate-y-2 group-hover/avatar:translate-y-0 transition-all">
               Change Photo
             </span>

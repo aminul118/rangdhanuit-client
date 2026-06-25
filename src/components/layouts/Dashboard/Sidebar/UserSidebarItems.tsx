@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { userMenu } from "./userMenu";
 
 interface SidebarItemsProps {
@@ -33,7 +33,7 @@ const UserSidebarItems = ({
               )}
             >
               {isActive && (
-                <motion.div
+                <m.div
                   layoutId="active-pill"
                   className="absolute left-0 w-1 h-6 bg-primary rounded-r-full"
                 />

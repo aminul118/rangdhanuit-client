@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion, AnimatePresence } from "framer-motion";
+import { m as m, AnimatePresence } from "framer-motion";
 import { User, LockKeyhole, Palette, LayoutDashboard } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ProfileInfoForm } from "@/app/(dashboard)/profile/_components/ProfileInfoForm";
@@ -83,7 +83,7 @@ export const ProfileContent = () => {
               </span>
 
               {isActive && (
-                <motion.div
+                <m.div
                   layoutId="activeTab"
                   className="absolute -left-1 w-1 h-6 bg-primary-foreground rounded-full"
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -97,7 +97,7 @@ export const ProfileContent = () => {
       {/* Content Area */}
       <div className="flex-1 bg-card border rounded-[2.5rem] p-8 md:p-12 shadow-sm relative animate-in fade-in slide-in-from-bottom-5 duration-500">
         <AnimatePresence mode="wait">
-          <motion.div
+          <m.div
             key={activeTab}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -131,7 +131,7 @@ export const ProfileContent = () => {
               {activeTab === "security" && <SecuritySettingsForm />}
               {activeTab === "theme" && <ThemeSettings />}
             </div>
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
     </div>

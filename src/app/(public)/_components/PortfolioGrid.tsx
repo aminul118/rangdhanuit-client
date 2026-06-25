@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -39,7 +39,7 @@ const PortfolioGrid = () => {
       <Container>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div className="max-w-2xl">
-            <motion.h2
+            <m.h2
               variants={FADE_IN_UP}
               initial="initial"
               whileInView="whileInView"
@@ -48,8 +48,8 @@ const PortfolioGrid = () => {
             >
               Our Latest <br />{" "}
               <span className="text-muted-foreground">Masterpieces.</span>
-            </motion.h2>
-            <motion.p
+            </m.h2>
+            <m.p
               variants={FADE_IN_UP}
               initial="initial"
               whileInView="whileInView"
@@ -59,9 +59,9 @@ const PortfolioGrid = () => {
             >
               We take pride in our work. Each project is a reflection of our
               dedication to quality, innovation, and user experience.
-            </motion.p>
+            </m.p>
           </div>
-          <motion.div
+          <m.div
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -74,11 +74,11 @@ const PortfolioGrid = () => {
               Explore All Projects
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
-          </motion.div>
+          </m.div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <motion.div
+            <m.div
               key={project.title}
               variants={FADE_IN_UP}
               initial="initial"
@@ -106,7 +106,7 @@ const PortfolioGrid = () => {
                   <ExternalLink className="w-5 h-5" />
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </Container>

@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import {
   FADE_IN_UP,
@@ -26,7 +26,7 @@ export const PortfolioList = ({ projects }: PortfolioListProps) => {
   return (
     <section className="bg-background text-foreground">
       <Container>
-        <motion.div
+        <m.div
           variants={STAGGER_CHILDREN}
           initial="initial"
           whileInView="whileInView"
@@ -34,11 +34,11 @@ export const PortfolioList = ({ projects }: PortfolioListProps) => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {projects.map((project, index) => (
-            <motion.div key={project._id} variants={FADE_IN_UP}>
+            <m.div key={project._id} variants={FADE_IN_UP}>
               <PortfolioCard project={project} priority={index < 2} />
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
       </Container>
     </section>
   );

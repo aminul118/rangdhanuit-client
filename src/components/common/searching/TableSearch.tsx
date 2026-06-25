@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Search, X } from "lucide-react";
 import { useEffect, useState, useCallback } from "react";
 import { useTableTransition } from "@/context/TableTransitionContext";
-import { m as motion, AnimatePresence } from "framer-motion";
+import { m as m, AnimatePresence } from "framer-motion";
 import { POP_IN, POP_IN_TRANSITION } from "@/constants/animations";
 import useSearchParamsValues from "@/hooks/useSearchParamsValues";
 
@@ -61,7 +61,7 @@ const TableSearch = ({
       />
       <AnimatePresence>
         {query && (
-          <motion.button
+          <m.button
             variants={POP_IN}
             initial="initial"
             animate="animate"
@@ -73,7 +73,7 @@ const TableSearch = ({
             <div className="p-1 rounded-full hover:bg-black/5 dark:hover:bg-white/10">
               <X size={16} strokeWidth={3} />
             </div>
-          </motion.button>
+          </m.button>
         )}
       </AnimatePresence>
     </div>

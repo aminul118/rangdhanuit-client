@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { ChevronRight, Zap } from "lucide-react";
 import Link from "next/link";
 import { IService } from "@/types/Service/service.types";
@@ -26,7 +26,7 @@ const Services = ({ services }: ServicesProps) => {
       <Container>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
           <div className="max-w-2xl">
-            <motion.div
+            <m.div
               variants={FADE_IN_LEFT}
               initial="initial"
               whileInView="whileInView"
@@ -35,8 +35,8 @@ const Services = ({ services }: ServicesProps) => {
             >
               <Zap className="w-4 h-4" />
               <span>Our Capabilities</span>
-            </motion.div>
-            <motion.h2
+            </m.div>
+            <m.h2
               variants={FADE_IN_UP}
               initial="initial"
               whileInView="whileInView"
@@ -45,9 +45,9 @@ const Services = ({ services }: ServicesProps) => {
             >
               Solutions Engineered <br />
               <span className="text-muted-foreground">for Excellence.</span>
-            </motion.h2>
+            </m.h2>
           </div>
-          <motion.p
+          <m.p
             variants={FADE_IN_UP}
             initial="initial"
             whileInView="whileInView"
@@ -56,14 +56,14 @@ const Services = ({ services }: ServicesProps) => {
           >
             We don&apos;t just build software; we engineer digital ecosystems
             that empower your business to reach its full potential.
-          </motion.p>
+          </m.p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => {
             const Icon = getIcon(service.icon);
             return (
-              <motion.div
+              <m.div
                 key={service._id}
                 variants={FADE_IN_UP}
                 initial="initial"
@@ -104,12 +104,12 @@ const Services = ({ services }: ServicesProps) => {
                     <ChevronRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
                   </Link>
                 </div>
-              </motion.div>
+              </m.div>
             );
           })}
         </div>
 
-        <motion.div
+        <m.div
           variants={FADE_IN_UP}
           initial="initial"
           whileInView="whileInView"
@@ -126,7 +126,7 @@ const Services = ({ services }: ServicesProps) => {
               <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer" />
             </button>
           </Link>
-        </motion.div>
+        </m.div>
       </Container>
     </section>
   );

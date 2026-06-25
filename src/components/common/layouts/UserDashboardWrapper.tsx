@@ -9,7 +9,7 @@ import {
   ExternalLink,
   Sparkles,
 } from "lucide-react";
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -25,7 +25,7 @@ const UserDashboardWrapper = () => {
       <div className="container mx-auto py-12 px-8 relative">
         <div className="max-w-4xl mx-auto space-y-10">
           {/* Welcome Header */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-col md:flex-row md:items-center justify-between gap-6"
@@ -48,11 +48,11 @@ const UserDashboardWrapper = () => {
                 can we help you today?
               </p>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* Quick Actions Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 }}
@@ -79,9 +79,9 @@ const UserDashboardWrapper = () => {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
 
-            <motion.div
+            <m.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
@@ -111,11 +111,11 @@ const UserDashboardWrapper = () => {
                   </Button>
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           </div>
 
           {/* Activity Placeholder */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -147,7 +147,7 @@ const UserDashboardWrapper = () => {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </div>

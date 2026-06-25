@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import {
@@ -19,7 +19,7 @@ export const AboutStory = () => {
       <Container>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Text Content */}
-          <motion.div
+          <m.div
             variants={FADE_IN_LEFT}
             initial="initial"
             whileInView="whileInView"
@@ -70,11 +70,11 @@ export const AboutStory = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* ... (rest of the grid content) */}
           {/* Visual Content */}
-          <motion.div
+          <m.div
             variants={FADE_IN_RIGHT}
             initial="initial"
             whileInView="whileInView"
@@ -101,7 +101,7 @@ export const AboutStory = () => {
                 &quot;Engineering the future, one pixel at a time.&quot;
               </p>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       </Container>
     </section>

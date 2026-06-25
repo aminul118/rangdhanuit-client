@@ -1,6 +1,6 @@
 "use client";
 
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { Users, Award, Rocket } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
@@ -31,7 +31,7 @@ export const AboutValues = () => {
   return (
     <section className="bg-background text-foreground transition-colors duration-500">
       <Container>
-        <motion.h2
+        <m.h2
           variants={FADE_IN_UP}
           initial="initial"
           whileInView="whileInView"
@@ -39,10 +39,10 @@ export const AboutValues = () => {
           className="text-3xl font-black mb-12 text-center"
         >
           Our Core Values
-        </motion.h2>
+        </m.h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {values.map((value, index) => (
-            <motion.div
+            <m.div
               key={value.title}
               variants={FADE_IN_UP}
               initial="initial"
@@ -63,7 +63,7 @@ export const AboutValues = () => {
               <p className="text-muted-foreground leading-relaxed font-black">
                 {value.desc}
               </p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </Container>

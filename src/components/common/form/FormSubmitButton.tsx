@@ -2,7 +2,7 @@
 
 import { Button, ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { m as motion } from "framer-motion";
+import { m as m } from "framer-motion";
 import { LucideIcon, Send, RefreshCw } from "lucide-react";
 
 interface FormSubmitButtonProps extends ButtonProps {
@@ -30,7 +30,7 @@ const FormSubmitButton = ({
       {...props}
     >
       {loading ? (
-        <motion.div
+        <m.div
           animate={{ rotate: 360 }}
           transition={{
             duration: 1,
@@ -40,7 +40,7 @@ const FormSubmitButton = ({
           className="flex items-center justify-center"
         >
           <RefreshCw size={20} />
-        </motion.div>
+        </m.div>
       ) : (
         <>
           <Icon size={20} />
