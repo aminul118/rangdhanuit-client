@@ -74,8 +74,8 @@ const Navbar = () => {
           : "bg-transparent py-4",
       )}
     >
-      <nav className="container mx-auto px-6 flex items-center justify-between">
-        <div className="flex-1 flex justify-start relative z-[80]">
+      <nav className="container mx-auto px-6 grid grid-cols-2 md:grid-cols-[1fr_auto_1fr] items-center gap-4">
+        <div className="flex justify-start relative z-[80]">
           <Link
             href="/"
             className="flex items-center gap-1.5 sm:gap-2.5 group whitespace-nowrap"
@@ -86,7 +86,7 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Nav - Middle */}
-        <div className="hidden md:flex items-center bg-background/40 backdrop-blur-xl border border-border/40 p-1.5 rounded-full shadow-lg shadow-black/5 mx-4">
+        <div className="hidden md:flex items-center bg-background/40 backdrop-blur-xl border border-border/40 p-1.5 rounded-full shadow-lg shadow-black/5">
           {navLinks.map((link) => {
             const isActive =
               pathname === link.href ||
@@ -106,6 +106,7 @@ const Navbar = () => {
                 {isActive && (
                   <motion.div
                     layoutId="active-pill"
+                    initial={false}
                     className="absolute inset-0 bg-primary/10 border border-primary/20 backdrop-blur-md rounded-full shadow-inner"
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
@@ -116,7 +117,7 @@ const Navbar = () => {
         </div>
 
         {/* Actions - Right */}
-        <div className="flex-1 flex justify-end items-center gap-3">
+        <div className="flex justify-end items-center gap-3">
           <div className="hidden md:flex items-center gap-3">
             {user && <NotificationDropdown />}
             <ModeToggle />
