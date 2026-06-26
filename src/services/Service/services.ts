@@ -4,6 +4,7 @@ import serverFetch from "@/lib/server-fetch";
 import { catchAsyncAction } from "@/helpers/catchAsyncAction";
 import { ApiResponse, IService } from "@/types";
 import { revalidate } from "@/helpers/revalidate";
+import { revalidatePath } from "next/cache";
 
 export const getServices = async (
   query?: Record<string, string>,
@@ -30,7 +31,7 @@ export const createService = catchAsyncAction(
       body: formData,
     });
     await revalidate("services");
-    await revalidate("/", "path");
+    revalidatePath("/");
     return res;
   },
 );
@@ -41,7 +42,7 @@ export const updateServiceBySlug = catchAsyncAction(
       body: formData,
     });
     await revalidate(["services", slug]);
-    await revalidate("/", "path");
+    revalidatePath("/");
     return res;
   },
 );
@@ -50,7 +51,7 @@ export const deleteService = catchAsyncAction(
   async (slug: string): Promise<ApiResponse<IService>> => {
     const res = await serverFetch.delete(`/services/slug/${slug}`);
     await revalidate(["services", slug]);
-    await revalidate("/", "path");
+    revalidatePath("/");
     return res;
   },
 );

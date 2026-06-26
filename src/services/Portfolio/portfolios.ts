@@ -4,14 +4,15 @@ import serverFetch from "@/lib/server-fetch";
 import { catchAsyncAction } from "@/helpers/catchAsyncAction";
 import { ApiResponse, IPortfolio } from "@/types";
 import { revalidate } from "@/helpers/revalidate";
+import { revalidatePath } from "next/cache";
 
 export const createPortfolio = catchAsyncAction(
   async (payload: FormData): Promise<ApiResponse<IPortfolio>> => {
-    const res = await serverFetch.post("/portfolios/create-portfolio", {
+    const res = await serverFetch.post("/portfolios", {
       body: payload,
     });
     await revalidate("portfolios");
-    await revalidate("/", "path");
+    revalidatePath("/");
     return res;
   },
 );
@@ -41,7 +42,7 @@ export const updatePortfolioBySlug = catchAsyncAction(
       body: payload,
     });
     await revalidate(["portfolios", slug]);
-    await revalidate("/", "path");
+    revalidatePath("/");
     return res;
   },
 );
@@ -50,7 +51,7 @@ export const deletePortfolioBySlug = catchAsyncAction(
   async (slug: string): Promise<ApiResponse<IPortfolio>> => {
     const res = await serverFetch.delete(`/portfolios/${slug}`);
     await revalidate(["portfolios", slug]);
-    await revalidate("/", "path");
+    revalidatePath("/");
     return res;
   },
 );

@@ -4,6 +4,7 @@ import { catchAsyncAction } from "@/helpers/catchAsyncAction";
 import { ApiResponse, BlogPayload, IBlog } from "@/types";
 import serverFetch from "@/lib/server-fetch";
 import { revalidate } from "@/helpers/revalidate";
+import { revalidatePath } from "next/cache";
 
 export const getBlogs = async (
   query?: Record<string, string>,
@@ -33,7 +34,7 @@ export const updateBlogBySlug = catchAsyncAction(
       body: payload,
     });
     await revalidate(["blogs", slug]);
-    await revalidate("/", "path");
+    revalidatePath("/");
     return res;
   },
 );
@@ -44,7 +45,7 @@ export const createBlog = catchAsyncAction(
       body: payload,
     });
     await revalidate("blogs");
-    await revalidate("/", "path");
+    revalidatePath("/");
     return res;
   },
 );
@@ -53,7 +54,7 @@ export const deleteBlog = catchAsyncAction(
   async (slug: string): Promise<ApiResponse<IBlog>> => {
     const res = await serverFetch.delete(`/blogs/slug/${slug}`);
     await revalidate(["blogs", slug]);
-    await revalidate("/", "path");
+    revalidatePath("/");
     return res;
   },
 );
