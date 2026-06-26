@@ -1,4 +1,4 @@
-import EditInvoiceForm from "@/app/(dashboard)/admin/invoices/_components/EditInvoiceForm";
+import InvoiceFormWrapper from "@/app/(dashboard)/admin/invoices/_components/InvoiceFormWrapper";
 import { getInvoiceById } from "@/services/Invoice/invoice";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -46,7 +46,7 @@ const EditInvoicePage = async ({ params }: Props) => {
 
   return (
     <div className="p-4 md:p-8">
-      <EditInvoiceForm id={id} initialData={initialData as any} />
+      <InvoiceFormWrapper id={id} initialData={initialData as any} />
     </div>
   );
 };

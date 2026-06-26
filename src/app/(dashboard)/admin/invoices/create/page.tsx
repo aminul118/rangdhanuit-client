@@ -1,4 +1,4 @@
-import AddInvoiceForm from "@/app/(dashboard)/admin/invoices/_components/AddInvoiceForm";
+import InvoiceFormWrapper from "@/app/(dashboard)/admin/invoices/_components/InvoiceFormWrapper";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const CreateInvoicePage = () => {
   return (
     <div className="p-4 md:p-8">
-      <AddInvoiceForm />
+      <InvoiceFormWrapper />
     </div>
   );
 };

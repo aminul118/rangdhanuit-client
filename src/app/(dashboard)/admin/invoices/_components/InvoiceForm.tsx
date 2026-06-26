@@ -62,7 +62,6 @@ const InvoiceForm = ({
       clientEmail: initialData?.clientEmail || "",
       clientPhone: initialData?.clientPhone || "",
       clientAddress: initialData?.clientAddress || "",
-      invoiceNumber: initialData?.invoiceNumber || "",
       issueDate: initialData?.issueDate || new Date(),
       dueDate: initialData?.dueDate || new Date(),
       lineItems: initialData?.lineItems || [
@@ -85,10 +84,6 @@ const InvoiceForm = ({
   // Handle client-side only initialization for new invoices
   useEffect(() => {
     if (!initialData) {
-      if (!form.getValues("invoiceNumber")) {
-        form.setValue("invoiceNumber", `INV-${Date.now()}`);
-      }
-
       // Default due date (15 days from now)
       const currentDueDate = form.getValues("dueDate");
       // Check if it's just the 'now' date we set in defaultValues
@@ -194,22 +189,6 @@ const InvoiceForm = ({
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <FormField
-              control={form.control}
-              name="invoiceNumber"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-xs font-black uppercase tracking-widest text-slate-500">
-                    Invoice Number
-                  </FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
             <FormField
               control={form.control}
               name="clientName"

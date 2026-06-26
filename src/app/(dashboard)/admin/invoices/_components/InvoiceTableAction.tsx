@@ -31,8 +31,17 @@ const InvoiceTableAction = ({ row }: InvoiceTableActionProps) => {
   const handleSend = async (method: "email" | "mobile") => {
     const toastId = toast.loading(`Sending invoice via ${method}...`);
     try {
-      await sendInvoiceEmailOrMobile(row._id, method);
-      toast.success(`Invoice sent successfully via ${method}`, { id: toastId });
+      const res = await sendInvoiceEmailOrMobile(row._id, method);
+      if (res.success) {
+        toast.success(
+          res.message || `Invoice sent successfully via ${method}`,
+          { id: toastId },
+        );
+      } else {
+        toast.error(res.message || `Failed to send invoice via ${method}`, {
+          id: toastId,
+        });
+      }
     } catch (error) {
       toast.error(`Failed to send invoice via ${method}`, { id: toastId });
     }

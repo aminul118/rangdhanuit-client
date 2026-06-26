@@ -24,6 +24,16 @@ export const InvoiceTableColumns = (): Column<IInvoice>[] => [
     sortKey: "total",
   },
   {
+    header: "Received",
+    accessor: (row) => `BDT ${(row.amountPaid || 0).toLocaleString()}`,
+    sortKey: "amountPaid",
+  },
+  {
+    header: "Balance Due",
+    accessor: (row) => `BDT ${(row.balanceDue || 0).toLocaleString()}`,
+    sortKey: "balanceDue",
+  },
+  {
     header: "Status",
     accessor: (row) => {
       const getStatusColor = (status: string) => {

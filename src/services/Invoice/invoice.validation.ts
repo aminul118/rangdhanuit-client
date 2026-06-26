@@ -38,7 +38,7 @@ export const invoiceSchemaZodValidation = z.object({
   clientAddress: z.string().optional().or(z.literal("")),
   projectStartTime: z.date().optional().nullable(),
   projectApproximateFinishTime: z.date().optional().nullable(),
-  invoiceNumber: z.string().min(1, "Invoice Number is required"),
+  invoiceNumber: z.string().optional(),
   issueDate: z.date({ message: "Issue Date is required" }),
   dueDate: z.date({ message: "Due Date is required" }),
   showBankDetails: z.boolean().default(false).optional(),

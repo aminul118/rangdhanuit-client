@@ -26,6 +26,13 @@ export interface InvoiceData {
   total: number;
   notes?: string;
   status?: string; // PAID, PENDING, OVERDUE, etc.
+  isFullyPaid?: boolean;
+  installments?: Array<{
+    installmentName: string;
+    dueDate: Date;
+    amount: number;
+    status: string;
+  }>;
 }
 
 interface Props {
@@ -48,6 +55,14 @@ export const InvoiceTemplate = ({ data, templateRef }: Props) => {
       : status === "PENDING"
         ? "#F0B429"
         : "#D64545";
+
+  const paidAmount = data.isFullyPaid
+    ? data.total
+    : (data.installments || [])
+        .filter((inst) => inst.status === "PAID")
+        .reduce((sum, inst) => sum + (Number(inst.amount) || 0), 0);
+
+  const dueAmount = Math.max(0, data.total - paidAmount);
 
   return (
     <div className="fixed top-0 left-0 pointer-events-none z-[-100]">
@@ -256,40 +271,126 @@ export const InvoiceTemplate = ({ data, templateRef }: Props) => {
                       {data.subtotal.toLocaleString()} tk
                     </span>
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-500 font-bold uppercase tracking-widest text-[10px]">
-                      Tax ({data.tax}%)
-                    </span>
-                    <span className="font-black text-slate-800">
-                      {Math.max(
-                        0,
-                        (data.subtotal - data.discount) * (data.tax / 100),
-                      ).toLocaleString()}{" "}
-                      tk
-                    </span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-500 font-bold uppercase tracking-widest text-[10px]">
-                      Discount
-                    </span>
-                    <span className="font-black text-emerald-600">
-                      -{data.discount.toLocaleString()} tk
-                    </span>
-                  </div>
+                  {data.tax > 0 && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-500 font-bold uppercase tracking-widest text-[10px]">
+                        Tax ({data.tax}%)
+                      </span>
+                      <span className="font-black text-slate-800">
+                        {Math.max(
+                          0,
+                          (data.subtotal - data.discount) * (data.tax / 100),
+                        ).toLocaleString()}{" "}
+                        tk
+                      </span>
+                    </div>
+                  )}
+                  {data.discount > 0 && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-500 font-bold uppercase tracking-widest text-[10px]">
+                        Discount
+                      </span>
+                      <span className="font-black text-emerald-600">
+                        -{data.discount.toLocaleString()} tk
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div
                   style={{ backgroundColor: DARK_BLUE }}
-                  className="px-6 py-5 flex justify-between items-center text-white"
+                  className="px-6 py-5 space-y-3 text-white"
                 >
-                  <span className="text-xs font-black uppercase tracking-widest">
-                    Grand Total
-                  </span>
-                  <span className="text-2xl font-black">
-                    {data.total.toLocaleString()} tk
-                  </span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs font-black uppercase tracking-widest opacity-80">
+                      Grand Total
+                    </span>
+                    <span className="text-xl font-black">
+                      {data.total.toLocaleString()} tk
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] font-bold uppercase tracking-widest opacity-80">
+                      Paid Amount
+                    </span>
+                    <span className="text-lg font-bold text-[#7DBA6D]">
+                      {paidAmount.toLocaleString()} tk
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center border-t border-white/20 pt-3">
+                    <span className="text-xs font-black uppercase tracking-widest">
+                      Due Amount
+                    </span>
+                    <span className="text-2xl font-black text-red-300">
+                      {dueAmount.toLocaleString()} tk
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
+
+            {/* Installments Table (2nd Table) */}
+            {!data.isFullyPaid &&
+              data.installments &&
+              data.installments.length > 0 && (
+                <div className="mt-12 overflow-hidden rounded-xl">
+                  <h3
+                    style={{ color: DARK_BLUE }}
+                    className="text-xs font-black uppercase tracking-[0.2em] mb-4 pl-2"
+                  >
+                    Installment Schedule
+                  </h3>
+                  <table className="w-full text-sm text-left border-collapse">
+                    <thead
+                      style={{ backgroundColor: DARK_BLUE }}
+                      className="text-white uppercase text-[10px] font-black tracking-widest"
+                    >
+                      <tr>
+                        <th className="px-6 py-4">Installment Name</th>
+                        <th className="px-6 py-4 text-center">Due Date</th>
+                        <th className="px-6 py-4 text-center">Status</th>
+                        <th className="px-6 py-4 text-right">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.installments.map((inst, index) => (
+                        <tr
+                          key={index}
+                          style={{
+                            backgroundColor:
+                              index % 2 === 0 ? LIGHT_BLUE : ROW_BLUE,
+                          }}
+                          className="transition-colors border-b border-white/20"
+                        >
+                          <td className="px-6 py-4 font-bold text-slate-800">
+                            {inst.installmentName}
+                          </td>
+                          <td className="px-6 py-4 text-center font-medium text-slate-600">
+                            {inst.dueDate
+                              ? format(new Date(inst.dueDate), "dd MMM, yyyy")
+                              : "N/A"}
+                          </td>
+                          <td className="px-6 py-4 text-center">
+                            <span
+                              className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider ${
+                                inst.status === "PAID"
+                                  ? "bg-emerald-100 text-emerald-700"
+                                  : inst.status === "OVERDUE"
+                                    ? "bg-red-100 text-red-700"
+                                    : "bg-amber-100 text-amber-700"
+                              }`}
+                            >
+                              {inst.status}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 text-right font-black text-slate-900">
+                            {Number(inst.amount).toLocaleString()} tk
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
 
             {/* Payment Information */}
             <div

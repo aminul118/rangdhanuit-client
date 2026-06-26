@@ -36,7 +36,12 @@ const Providers = ({ children, initialUser = null }: IProvider) => {
         <AuthProvider initialUser={initialUser}>
           <SocketProvider>
             <TooltipProvider>{children}</TooltipProvider>
-            <Toaster position="top-right" richColors />
+            <Toaster
+              theme="system"
+              position="bottom-right"
+              duration={2000}
+              richColors
+            />
           </SocketProvider>
         </AuthProvider>
       </LazyMotion>

@@ -68,9 +68,13 @@ export const sendInvoiceEmailOrMobile = catchAsyncAction(
     id: string,
     method: "email" | "mobile",
   ): Promise<ApiResponse<null>> => {
-    const res = await serverFetch.post(`/invoices/${id}/send`, {
-      body: { method },
-    });
+    console.log("SERVER ACTION SEND INVOICE: ", id, method);
+    const res = await serverFetch.post(
+      `/invoices/${id}/send?method=${method}`,
+      {
+        body: { method },
+      },
+    );
     return res;
   },
 );
