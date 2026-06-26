@@ -2,9 +2,12 @@
 
 import { ThemeProvider } from "next-themes";
 import { AuthProvider, IUser } from "./AuthProvider";
-import { LazyMotion, domAnimation } from "framer-motion";
+import { LazyMotion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { ReactNode } from "react";
+
+const loadFeatures = () =>
+  import("framer-motion").then((res) => res.domAnimation);
 
 const TooltipProvider = dynamic(
   () => import("@/components/ui/tooltip").then((mod) => mod.TooltipProvider),
@@ -32,7 +35,7 @@ const Providers = ({ children, initialUser = null }: IProvider) => {
       disableTransitionOnChange
       scriptProps={{ "data-cfasync": "false" }}
     >
-      <LazyMotion features={domAnimation}>
+      <LazyMotion features={loadFeatures} strict>
         <AuthProvider initialUser={initialUser}>
           <SocketProvider>
             <TooltipProvider>{children}</TooltipProvider>
