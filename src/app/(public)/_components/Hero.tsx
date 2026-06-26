@@ -1,11 +1,13 @@
 "use client";
 
-import { LazyMotion, domAnimation, m as m } from "framer-motion";
+import { LazyMotion, m } from "framer-motion";
+
+const loadFeatures = () =>
+  import("framer-motion").then((res) => res.domAnimation);
 import { ArrowRight, ChevronRight } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { FADE_IN_UP, STAGGER_CHILDREN } from "@/constants/animations";
 
 const TechBackground = dynamic(
   () => import("./TechBackground").then((mod) => mod.TechBackground),
@@ -34,25 +36,57 @@ const CodeWindow = dynamic(() => import("./CodeWindow"), {
 
 const Hero = () => {
   return (
-    <LazyMotion features={domAnimation}>
+    <LazyMotion features={loadFeatures}>
       <section className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden text-foreground selection:bg-primary/20 transition-colors duration-500">
         <TechBackground />
 
         <Container className="relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
-            <div className="flex flex-col items-start text-left">
+            <m.div
+              className="flex flex-col items-start text-left"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: 0.15,
+                  },
+                },
+              }}
+            >
               {/* Minimal High-Tech Badge */}
-              <div className="group cursor-default inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 hover:bg-primary/20 transition-all duration-300 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700 fill-mode-both">
+              <m.div
+                variants={{
+                  hidden: { opacity: 0, y: 16 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.7, ease: "easeOut" },
+                  },
+                }}
+                className="group cursor-default inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 hover:bg-primary/20 transition-all duration-300 mb-8"
+              >
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_hsl(var(--primary))]" />
                 <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
                   Innovation Software Agency
                 </span>
                 <ChevronRight className="w-3 h-3 text-primary/40 group-hover:translate-x-0.5 transition-transform" />
-              </div>
+              </m.div>
 
               {/* High-Impact Typography */}
-              <div className="relative mb-8 text-foreground animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150 fill-mode-both">
+              <m.div
+                variants={{
+                  hidden: { opacity: 0, y: 16 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.7, ease: "easeOut" },
+                  },
+                }}
+                className="relative mb-8 text-foreground"
+              >
                 <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[7rem] font-sans font-black tracking-[-0.04em] leading-[0.9] italic">
                   <span className="block">REDEFINING</span>
                   <span className="block bg-linear-to-r from-primary via-blue-500 to-violet-500 bg-clip-text text-transparent">
@@ -62,16 +96,36 @@ const Hero = () => {
                     HORIZONS
                   </span>
                 </h1>
-              </div>
+              </m.div>
 
               {/* Clean Tech Description */}
-              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed mb-8 md:mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300 fill-mode-both">
+              <m.p
+                variants={{
+                  hidden: { opacity: 0, y: 16 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.7, ease: "easeOut" },
+                  },
+                }}
+                className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed mb-8 md:mb-12"
+              >
                 Rangdhanu IT architecting the future of software. We bridge the
                 gap between complex engineering and seamless user experiences.
-              </p>
+              </m.p>
 
               {/* Next.js Styled CTAs */}
-              <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 w-full animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500 fill-mode-both">
+              <m.div
+                variants={{
+                  hidden: { opacity: 0, y: 16 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.7, ease: "easeOut" },
+                  },
+                }}
+                className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 w-full"
+              >
                 <Link
                   href="/contact"
                   className="group relative w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 bg-primary text-primary-foreground rounded-xl font-bold text-base md:text-lg transition-all duration-300 flex items-center justify-center gap-3 shadow-[0_20px_50px_-20px_hsl(var(--primary)/0.5)] hover:scale-105 active:scale-95"
@@ -85,10 +139,20 @@ const Hero = () => {
                 >
                   Explore Works
                 </Link>
-              </div>
+              </m.div>
 
               {/* Mobile-Only Metrics Grid */}
-              <div className="mt-12 grid grid-cols-2 gap-4 w-full lg:hidden animate-in fade-in slide-in-from-bottom-4 duration-700 delay-700 fill-mode-both">
+              <m.div
+                variants={{
+                  hidden: { opacity: 0, y: 16 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.7, ease: "easeOut" },
+                  },
+                }}
+                className="mt-12 grid grid-cols-2 gap-4 w-full lg:hidden"
+              >
                 <div className="p-4 rounded-2xl bg-violet-500/10 border border-violet-500/20 backdrop-blur-xl">
                   <div className="text-xl font-black italic text-violet-600 dark:text-violet-400">
                     100+
@@ -105,8 +169,8 @@ const Hero = () => {
                     Satisfaction
                   </div>
                 </div>
-              </div>
-            </div>
+              </m.div>
+            </m.div>
 
             {/* Right Content - Visual Elements */}
             <m.div
