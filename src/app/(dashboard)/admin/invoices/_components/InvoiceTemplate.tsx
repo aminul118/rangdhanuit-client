@@ -171,6 +171,7 @@ export const InvoiceTemplate = ({ data, templateRef }: Props) => {
                   className="text-white uppercase text-[10px] font-black tracking-widest"
                 >
                   <tr>
+                    <th className="px-6 py-5 text-center w-16">No</th>
                     <th className="px-6 py-5">Item Description</th>
                     <th className="px-6 py-5 text-center">Quantity</th>
                     <th className="px-6 py-5 text-center">Price</th>
@@ -188,6 +189,9 @@ export const InvoiceTemplate = ({ data, templateRef }: Props) => {
                         }}
                         className="transition-colors border-b border-white/20"
                       >
+                        <td className="px-6 py-4 text-center font-bold text-slate-500">
+                          {index + 1}
+                        </td>
                         <td className="px-6 py-4 font-bold text-slate-800">
                           {item.description}
                         </td>
@@ -205,7 +209,7 @@ export const InvoiceTemplate = ({ data, templateRef }: Props) => {
                   ) : (
                     <tr style={{ backgroundColor: LIGHT_BLUE }}>
                       <td
-                        colSpan={4}
+                        colSpan={5}
                         className="px-6 py-10 text-center text-slate-400 italic"
                       >
                         No line items provided

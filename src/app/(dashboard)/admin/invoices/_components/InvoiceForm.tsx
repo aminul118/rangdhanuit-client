@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { CalendarIcon, Plus, Trash2, Zap } from "lucide-react";
+import { CalendarIcon, Plus, Trash2, Zap, GripVertical } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -35,7 +35,7 @@ import {
   InvoiceFormValues,
 } from "@/services/Invoice/invoice.validation";
 import SubmitButton from "@/components/common/form/SubmitButton";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HTMLToPDF } from "@/components/common/PDFGenerator";
 import { InvoiceTemplate } from "./InvoiceTemplate";
 import { Download } from "lucide-react";
@@ -54,6 +54,8 @@ const InvoiceForm = ({
   submitLabel = "Save Invoice",
 }: InvoiceFormProps) => {
   const templateRef = useRef<HTMLDivElement>(null);
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+
   // Generate stable default values for hydration safety
   const form = useForm<InvoiceFormValues>({
     resolver: zodResolver(invoiceSchemaZodValidation),
@@ -98,7 +100,7 @@ const InvoiceForm = ({
     }
   }, [initialData, form]);
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, move } = useFieldArray({
     control: form.control,
     name: "lineItems",
   });
@@ -498,8 +500,36 @@ const InvoiceForm = ({
             {fields.map((field, index) => (
               <div
                 key={field.id}
-                className="flex gap-4 items-start  p-4 rounded-2xl border  group transition-all"
+                draggable
+                onDragStart={(e) => {
+                  // Important: prevents some bugs with inputs being dragged
+                  if (
+                    (e.target as HTMLElement).tagName !== "DIV" &&
+                    (e.target as HTMLElement).closest(".drag-handle") === null
+                  ) {
+                    e.preventDefault();
+                    return;
+                  }
+                  setDraggedIndex(index);
+                }}
+                onDragEnter={() => {
+                  if (draggedIndex !== null && draggedIndex !== index) {
+                    move(draggedIndex, index);
+                    setDraggedIndex(index);
+                  }
+                }}
+                onDragEnd={() => setDraggedIndex(null)}
+                onDragOver={(e) => e.preventDefault()}
+                className={cn(
+                  "flex gap-4 items-start p-4 rounded-2xl border group transition-all relative bg-card",
+                  draggedIndex === index
+                    ? "opacity-50 border-indigo-500 border-dashed"
+                    : "border-border",
+                )}
               >
+                <div className="pt-8 cursor-grab active:cursor-grabbing text-slate-300 hover:text-indigo-500 transition-colors drag-handle">
+                  <GripVertical className="w-5 h-5 pointer-events-none" />
+                </div>
                 <div className="flex-1">
                   <FormField
                     control={form.control}
