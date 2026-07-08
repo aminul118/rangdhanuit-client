@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Metadata } from "next";
-import { VerifyOtpForm } from "@/app/(authentication)/_components/VerifyOtpForm";
+import { VerifyOtpForm } from "@/app/(authentication)/verify-otp/_components/VerifyOtpForm";
 import { redirect } from "next/navigation";
 import { EmailDisplay } from "@/app/(authentication)/_components/EmailDisplay";
 import generateMetaTags from "@/Seo/generateMetaTags";

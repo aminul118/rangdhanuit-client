@@ -13,7 +13,7 @@ import { loginAction } from "@/services/Auth/login";
 import { ApiResponse, ILogin } from "@/types";
 import { FormField, SubmitButton } from "@/components/common/form";
 import { loginSchema } from "@/services/Auth/auth.validation";
-import AlertPopUp from "./AlertPopUp";
+import AlertPopUp from "@/app/(authentication)/_components/AlertPopUp";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 

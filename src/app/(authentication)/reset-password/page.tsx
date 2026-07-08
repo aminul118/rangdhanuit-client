@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { ResetPasswordForm } from "@/app/(authentication)/_components/ResetPasswordForm";
+import { ResetPasswordForm } from "@/app/(authentication)/reset-password/_components/ResetPasswordForm";
 import { redirect } from "next/navigation";
 import { EmailDisplay } from "@/app/(authentication)/_components/EmailDisplay";
 import generateMetaTags from "@/Seo/generateMetaTags";

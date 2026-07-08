@@ -1,4 +1,4 @@
-import { LoginForm } from "@/app/(authentication)/_components/LoginForm";
+import { LoginForm } from "./_components/LoginForm";
 import generateMetaTags from "@/Seo/generateMetaTags";
 import { AuthLayoutWrapper } from "@/components/common/layouts/AuthLayoutWrapper";
 import { Metadata } from "next";
