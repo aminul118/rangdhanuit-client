@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
 
   // --- Image Optimization ---
   images: {
+    unoptimized: true,
     // Prefer modern image formats if the browser supports them
     formats: ["image/avif", "image/webp"],
     qualities: [50, 60, 75, 100],
@@ -24,22 +25,6 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "cdn.rangdhanuit.com",
-      },
-      {
-        protocol: "https",
-        hostname: "*.r2.cloudflarestorage.com",
-      },
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-      },
-      {
-        protocol: "https",
-        hostname: "res.cloudinary.com",
-      },
-      {
-        protocol: "https",
-        hostname: "i.pravatar.cc",
       },
     ],
   },
