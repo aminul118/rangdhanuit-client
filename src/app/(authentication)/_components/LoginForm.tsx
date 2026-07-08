@@ -12,8 +12,8 @@ import useActionHandler from "@/hooks/useActionHandler";
 import { loginAction } from "@/services/Auth/login";
 import { ApiResponse, ILogin } from "@/types";
 import { FormField, SubmitButton } from "@/components/common/form";
-import { toast } from "sonner";
 import { loginSchema } from "@/services/Auth/auth.validation";
+import AlertPopUp from "./AlertPopUp";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
@@ -25,6 +25,12 @@ export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { executePost, isPending } = useActionHandler();
 
+  const [alert, setAlert] = useState<{
+    type: "success" | "error" | "info";
+    title: string;
+    description: string;
+  } | null>(null);
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -34,6 +40,7 @@ export const LoginForm = () => {
   });
 
   const onSubmit = async (data: LoginFormValues) => {
+    setAlert(null);
     await executePost({
       action: () => loginAction(data),
       toast: false,
@@ -46,24 +53,41 @@ export const LoginForm = () => {
       },
       onError: (errorResponse: ApiResponse<ILogin | null>) => {
         if (errorResponse?.message === "USER_NOT_VERIFIED") {
-          toast.warning(
-            "Your account is not verified. An OTP has been sent to your email.",
-          );
+          setAlert({
+            type: "info",
+            title: "Verification Required",
+            description:
+              "Your account is not verified. An OTP has been sent to your email.",
+          });
           const verifyPath = `/verify-otp?email=${encodeURIComponent(data.email)}${
             searchParams.get("redirect")
               ? `&redirect=${encodeURIComponent(searchParams.get("redirect")!)}`
               : ""
           }`;
-          router.push(verifyPath);
-          return true; // Mark as handled to prevent default error toast if desired
+          setTimeout(() => router.push(verifyPath), 2000);
+          return true;
         }
-        return false;
+
+        setAlert({
+          type: "error",
+          title: "Login failed",
+          description: errorResponse?.message || "Invalid credentials.",
+        });
+        return true;
       },
     });
   };
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      {alert && (
+        <AlertPopUp
+          type={alert.type}
+          title={alert.title}
+          description={alert.description}
+          onClose={() => setAlert(null)}
+        />
+      )}
       <FormField
         id="email"
         label="Email Address"

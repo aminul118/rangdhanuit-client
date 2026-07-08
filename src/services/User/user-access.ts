@@ -60,7 +60,20 @@ const isValidRedirectForRole = (path: string, role: string): boolean => {
   const owner = getRouteOwner(path);
   if (owner === null || owner === "COMMON") return true;
   const upperRole = role.toUpperCase();
+
+  // Prevent any admin (ADMIN or SUPER_ADMIN) from accessing USER routes
+  if (owner === "USER" && upperRole !== "USER") {
+    return false;
+  }
+
+  // Prevent users from accessing any admin routes
+  if ((owner === "ADMIN" || owner === "SUPER_ADMIN") && upperRole === "USER") {
+    return false;
+  }
+
+  // SUPER_ADMIN has access to all other protected routes (like ADMIN)
   if (upperRole === "SUPER_ADMIN") return true;
+
   return owner === upperRole;
 };
 
