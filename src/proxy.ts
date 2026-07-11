@@ -87,6 +87,14 @@ export default async function proxy(req: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.well-known).*)",
+    "/login",
+    "/register",
+    "/forgot-password",
+    "/reset-password",
+    "/verify-otp",
+    "/my-profile",
+    "/settings",
+    "/admin/:path*",
+    "/dashboard/:path*",
   ],
 };

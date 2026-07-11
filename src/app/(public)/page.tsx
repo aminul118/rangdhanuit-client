@@ -5,14 +5,20 @@ import { getServices } from "@/services/Service/services";
 import { getPartners } from "@/services/Partner/partner";
 import { getBlogs } from "@/services/Blog/blogs";
 import dynamic from "next/dynamic";
-import Hero from "@/app/(public)/_components/Hero";
+const Hero = dynamic(() => import("@/app/(public)/_components/Hero"), {
+  loading: () => <div className="min-h-screen" />,
+});
 const Partners = dynamic(() => import("@/app/(public)/_components/Partners"));
 const Services = dynamic(() => import("@/app/(public)/_components/Services"));
-const Stats = dynamic(() => import("@/app/(public)/_components/Stats"));
+const Stats = dynamic(() => import("@/app/(public)/_components/Stats"), {
+  loading: () => <div className="h-64" />,
+});
 const PortfolioSlider = dynamic(
   () => import("@/app/(public)/_components/PortfolioSlider"),
 );
-const Process = dynamic(() => import("@/app/(public)/_components/Process"));
+const Process = dynamic(() => import("@/app/(public)/_components/Process"), {
+  loading: () => <div className="h-96" />,
+});
 const LatestBlogs = dynamic(
   () => import("@/app/(public)/_components/LatestBlogs"),
 );

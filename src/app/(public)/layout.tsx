@@ -1,8 +1,10 @@
-import Navbar from "./_components/Navbar/Navbar";
+import dynamic from "next/dynamic";
 import Footer from "./_components/Footer/Footer";
 import { IChildrenProps } from "@/types";
 import { generateJsonLd } from "@/Seo/generateJsonLd";
 import metaConfig from "@/config/meta.config";
+
+const Navbar = dynamic(() => import("./_components/Navbar/Navbar"));
 
 const PublicLayout = ({ children }: IChildrenProps) => {
   const organizationJsonLd = generateJsonLd("Organization", {

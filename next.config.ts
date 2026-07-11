@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+let nextConfig: NextConfig = {
   reactCompiler: false,
   compiler: {
     removeConsole:
@@ -8,7 +8,14 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     authInterrupts: true,
-    optimizePackageImports: ["lucide-react"],
+    optimizePackageImports: [
+      "lucide-react",
+      "framer-motion",
+      "@radix-ui/react-popover",
+      "@radix-ui/react-slider",
+      "react-icons",
+      "date-fns",
+    ],
     serverActions: {
       bodySizeLimit: "10mb",
     },
@@ -17,10 +24,8 @@ const nextConfig: NextConfig = {
   // --- Image Optimization ---
   images: {
     unoptimized: true,
-    // Prefer modern image formats if the browser supports them
     formats: ["image/avif", "image/webp"],
     qualities: [50, 60, 75, 100],
-    // Allow external images to be optimized and served from our specific CDN
     remotePatterns: [
       {
         protocol: "https",
@@ -32,7 +37,6 @@ const nextConfig: NextConfig = {
   headers: async () => {
     return [
       {
-        // Apply aggressive caching headers to static media assets for performance optimization
         source: "/:all*(svg|jpg|jpeg|png|webp|avif|gif|ico|woff|woff2|ttf|otf)",
         headers: [
           {
@@ -44,5 +48,14 @@ const nextConfig: NextConfig = {
     ];
   },
 };
+
+const analyze = process.env.ANALYZE === "true";
+if (analyze) {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const withBundleAnalyzer = require("@next/bundle-analyzer")({
+    enabled: true,
+  });
+  nextConfig = withBundleAnalyzer(nextConfig);
+}
 
 export default nextConfig;

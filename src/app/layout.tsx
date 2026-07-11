@@ -12,9 +12,6 @@ import { IChildrenProps } from "@/types";
 const MainLayout = ({ children }: IChildrenProps) => {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://static.cloudflareinsights.com" />
-      </head>
       <body
         suppressHydrationWarning
         className={cn(fonts.spaceGrotesk.variable, "antialiased font-sans")}

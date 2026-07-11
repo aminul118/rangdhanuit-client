@@ -1,7 +1,7 @@
 "use client";
 
 import { ThemeProvider } from "next-themes";
-import { AuthProvider, IUser } from "./AuthProvider";
+import { AuthProvider, useAuth, IUser } from "./AuthProvider";
 import { LazyMotion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { ReactNode } from "react";
@@ -16,7 +16,7 @@ const TooltipProvider = dynamic(
 const Toaster = dynamic(() => import("sonner").then((mod) => mod.Toaster), {
   ssr: false,
 });
-const SocketProvider = dynamic(
+const LazySocketProvider = dynamic(
   () => import("./SocketProvider").then((mod) => mod.SocketProvider),
   { ssr: false },
 );
@@ -25,6 +25,12 @@ interface IProvider {
   children: ReactNode;
   initialUser?: IUser | null;
 }
+
+const MaybeSocketProvider = ({ children }: { children: ReactNode }) => {
+  const { user } = useAuth();
+  if (!user) return <>{children}</>;
+  return <LazySocketProvider>{children}</LazySocketProvider>;
+};
 
 const Providers = ({ children, initialUser = null }: IProvider) => {
   return (
@@ -37,15 +43,15 @@ const Providers = ({ children, initialUser = null }: IProvider) => {
     >
       <LazyMotion features={loadFeatures} strict>
         <AuthProvider initialUser={initialUser}>
-          <SocketProvider>
+          <MaybeSocketProvider>
             <TooltipProvider>{children}</TooltipProvider>
-            <Toaster
-              theme="system"
-              position="bottom-right"
-              duration={2000}
-              richColors
-            />
-          </SocketProvider>
+          </MaybeSocketProvider>
+          <Toaster
+            theme="system"
+            position="bottom-right"
+            duration={2000}
+            richColors
+          />
         </AuthProvider>
       </LazyMotion>
     </ThemeProvider>
