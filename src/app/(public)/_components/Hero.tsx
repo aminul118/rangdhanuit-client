@@ -45,13 +45,13 @@ const Hero = () => {
             {/* Left Content */}
             <m.div
               className="flex flex-col items-start text-left"
-              initial="hidden"
+              initial={false}
               animate="visible"
               variants={{
                 hidden: {},
                 visible: {
                   transition: {
-                    staggerChildren: 0.15,
+                    staggerChildren: 0.1,
                   },
                 },
               }}
@@ -59,11 +59,10 @@ const Hero = () => {
               {/* Minimal High-Tech Badge */}
               <m.div
                 variants={{
-                  hidden: { opacity: 0, y: 16 },
+                  hidden: { y: 12 },
                   visible: {
-                    opacity: 1,
                     y: 0,
-                    transition: { duration: 0.7, ease: "easeOut" },
+                    transition: { duration: 0.5, ease: "easeOut" },
                   },
                 }}
                 className="group cursor-default inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 hover:bg-primary/20 transition-all duration-300 mb-8"
@@ -78,11 +77,10 @@ const Hero = () => {
               {/* High-Impact Typography */}
               <m.div
                 variants={{
-                  hidden: { opacity: 0, y: 16 },
+                  hidden: { y: 12 },
                   visible: {
-                    opacity: 1,
                     y: 0,
-                    transition: { duration: 0.7, ease: "easeOut" },
+                    transition: { duration: 0.5, ease: "easeOut" },
                   },
                 }}
                 className="relative mb-8 text-foreground"
@@ -101,11 +99,10 @@ const Hero = () => {
               {/* Clean Tech Description */}
               <m.p
                 variants={{
-                  hidden: { opacity: 0, y: 16 },
+                  hidden: { y: 12 },
                   visible: {
-                    opacity: 1,
                     y: 0,
-                    transition: { duration: 0.7, ease: "easeOut" },
+                    transition: { duration: 0.5, ease: "easeOut" },
                   },
                 }}
                 className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed mb-8 md:mb-12"
@@ -117,11 +114,10 @@ const Hero = () => {
               {/* Next.js Styled CTAs */}
               <m.div
                 variants={{
-                  hidden: { opacity: 0, y: 16 },
+                  hidden: { y: 12 },
                   visible: {
-                    opacity: 1,
                     y: 0,
-                    transition: { duration: 0.7, ease: "easeOut" },
+                    transition: { duration: 0.5, ease: "easeOut" },
                   },
                 }}
                 className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 w-full"
@@ -144,11 +140,10 @@ const Hero = () => {
               {/* Mobile-Only Metrics Grid */}
               <m.div
                 variants={{
-                  hidden: { opacity: 0, y: 16 },
+                  hidden: { y: 12 },
                   visible: {
-                    opacity: 1,
                     y: 0,
-                    transition: { duration: 0.7, ease: "easeOut" },
+                    transition: { duration: 0.5, ease: "easeOut" },
                   },
                 }}
                 className="mt-12 grid grid-cols-2 gap-4 w-full lg:hidden"
