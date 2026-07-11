@@ -1,15 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fade as Hamburger } from "hamburger-react";
-import {
-  AnimatePresence,
-  m,
-  useMotionValueEvent,
-  useScroll,
-} from "framer-motion";
+import { AnimatePresence, m, useMotionValue, useScroll } from "framer-motion";
 import { ModeToggle } from "./ModeToggle";
 import dynamic from "next/dynamic";
 import { useAuth } from "@/providers/AuthProvider";
@@ -44,20 +39,22 @@ const Navbar = () => {
 
   const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
+  const ticking = useRef(false);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() ?? 0;
-    if (latest > previous && latest > 150) {
-      if (!hidden) setHidden(true);
-    } else {
-      if (hidden) setHidden(false);
-    }
-    if (latest > 50) {
-      if (!scrolled) setScrolled(true);
-    } else {
-      if (scrolled) setScrolled(false);
-    }
-  });
+  useEffect(() => {
+    return scrollY.on("change", (latest) => {
+      if (ticking.current) return;
+      ticking.current = true;
+      requestAnimationFrame(() => {
+        const previous = scrollY.getPrevious() ?? 0;
+        const shouldHide = latest > previous && latest > 150;
+        const shouldScroll = latest > 50;
+        if (shouldHide !== hidden) setHidden(shouldHide);
+        if (shouldScroll !== scrolled) setScrolled(shouldScroll);
+        ticking.current = false;
+      });
+    });
+  }, [scrollY, hidden, scrolled]);
 
   return (
     <m.header
