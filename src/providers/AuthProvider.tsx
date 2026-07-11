@@ -25,6 +25,13 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const hasAccessToken = (): boolean => {
+  if (typeof document === "undefined") return false;
+  return document.cookie
+    .split(";")
+    .some((c) => c.trim().startsWith("accessToken="));
+};
+
 export const AuthProvider = ({
   children,
   initialUser = null,
@@ -32,41 +39,39 @@ export const AuthProvider = ({
   children: ReactNode;
   initialUser?: IUser | null;
 }) => {
+  const shouldFetch = !initialUser && hasAccessToken();
   const [user, setUser] = useState<IUser | null>(initialUser);
-  const [loading, setLoading] = useState(!initialUser);
+  const [loading, setLoading] = useState(shouldFetch);
 
-  const fetchUser = async () => {
-    try {
-      setLoading(true);
-      const data = await getMe();
-      if (data) {
-        // If role changed on server, sync session (refresh tokens)
+  useEffect(() => {
+    if (!shouldFetch) return;
+    let cancelled = false;
+    (async () => {
+      try {
+        const data = await getMe();
+        if (cancelled) return;
+        if (!data) {
+          setUser(null);
+          return;
+        }
         if (data.roleChanged) {
           const refreshed = await tryRefreshToken();
-          if (refreshed?.user) {
+          if (!cancelled && refreshed?.user) {
             setUser(refreshed.user);
             return;
           }
         }
         setUser(data);
-      } else {
+      } catch {
         setUser(null);
+      } finally {
+        if (!cancelled) setLoading(false);
       }
-    } catch (error) {
-      console.error("Failed to fetch user:", error);
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (!initialUser) {
-      fetchUser();
-    } else {
-      setLoading(false);
-    }
-  }, [initialUser]);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [shouldFetch]);
 
   const logout = async () => {
     try {
