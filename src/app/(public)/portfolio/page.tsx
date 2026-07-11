@@ -13,6 +13,8 @@ export const metadata: Metadata = generateMetaTags({
 
 import { getPortfolios } from "@/services/Portfolio/portfolios";
 
+export const dynamic = "force-dynamic";
+
 const PortfolioPage = async () => {
   const { data: portfolios } = await getPortfolios();
 

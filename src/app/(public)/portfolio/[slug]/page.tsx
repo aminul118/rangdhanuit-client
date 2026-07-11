@@ -47,21 +47,7 @@ export const generateMetadata = async (
   }
 };
 
-export const generateStaticParams = async () => {
-  try {
-    const res = await getPortfolios({ limit: "1000" });
-
-    if (!res.success || !res.data) {
-      return [];
-    }
-
-    return res.data.map((portfolio) => ({
-      slug: portfolio.slug,
-    }));
-  } catch {
-    return [];
-  }
-};
+export const dynamic = "force-dynamic";
 
 const PortfolioDetailsPage = async (props: ISlugPageProps) => {
   const params = await props.params;

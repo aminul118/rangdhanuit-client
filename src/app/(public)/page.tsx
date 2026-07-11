@@ -28,6 +28,8 @@ export const metadata: Metadata = generateMetaTags({
 
 import { Suspense } from "react";
 
+export const revalidate = 0;
+
 const PartnersSection = async () => {
   const partnersRes = await getPartners();
   const partners = partnersRes?.data || [];

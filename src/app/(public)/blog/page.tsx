@@ -18,6 +18,8 @@ export const metadata: Metadata = generateMetaTags({
   websitePath: "blog",
 });
 
+export const revalidate = 0;
+
 export default async function BlogPage({
   searchParams,
 }: {

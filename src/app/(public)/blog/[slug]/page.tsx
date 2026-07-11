@@ -49,21 +49,7 @@ export const generateMetadata = async (
   }
 };
 
-export const generateStaticParams = async () => {
-  try {
-    const res = await getBlogs({ limit: "1000", status: "PUBLISHED" });
-
-    if (!res.success || !res.data) {
-      return [];
-    }
-
-    return res.data.map((blog) => ({
-      slug: blog.slug,
-    }));
-  } catch {
-    return [];
-  }
-};
+export const dynamic = "force-dynamic";
 
 const BlogDetailsPage = async (props: ISlugPageProps) => {
   const params = await props.params;

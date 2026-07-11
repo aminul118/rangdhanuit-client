@@ -84,7 +84,23 @@ export const AuthProvider = ({
   };
 
   const refreshUser = async () => {
-    await fetchUser();
+    try {
+      const data = await getMe();
+      if (!data) {
+        setUser(null);
+        return;
+      }
+      if (data.roleChanged) {
+        const refreshed = await tryRefreshToken();
+        if (refreshed?.user) {
+          setUser(refreshed.user);
+          return;
+        }
+      }
+      setUser(data);
+    } catch {
+      setUser(null);
+    }
   };
 
   return (

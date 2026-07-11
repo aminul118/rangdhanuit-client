@@ -53,21 +53,7 @@ export async function generateMetadata(
   }
 }
 
-export const generateStaticParams = async () => {
-  try {
-    const res = await getServices({ limit: "1000" });
-
-    if (!res.success || !res.data) {
-      return [];
-    }
-
-    return res.data.map((service) => ({
-      slug: service.slug,
-    }));
-  } catch {
-    return [];
-  }
-};
+export const dynamic = "force-dynamic";
 
 export default async function ServiceDetailsPage(props: ISlugPageProps) {
   const params = await props.params;

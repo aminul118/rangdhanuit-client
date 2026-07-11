@@ -14,6 +14,8 @@ export const metadata: Metadata = generateMetaTags({
   websitePath: "services",
 });
 
+export const dynamic = "force-dynamic";
+
 const ServicesPage = async () => {
   const res = await getServices();
   const services = (res?.data as IService[]) || [];
