@@ -27,49 +27,46 @@ const CodeWindow = () => {
   const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
-    // Component is hidden on screens < 1024px (lg:block in Hero.tsx).
-    // Avoid expensive running intervals on mobile.
-    if (window.innerWidth < 1024) {
-      setDisplayText(codeSnippet);
-      setIsTyping(false);
-      return;
-    }
-
     let index = 0;
     let timer: NodeJS.Timeout;
+    let restartTimer: NodeJS.Timeout;
+    let cancelled = false;
 
-    // Initial delay to prioritize main content loading
     const delayTimer = setTimeout(() => {
       timer = setInterval(() => {
+        if (cancelled) return;
         if (index < codeSnippet.length) {
           setDisplayText(codeSnippet.substring(0, index + 1));
           index++;
         } else {
-          setIsTyping(false);
           clearInterval(timer);
-          // Restart after a longer delay
-          setTimeout(() => {
-            setDisplayText("");
-            setIsTyping(true);
+          setIsTyping(false);
+          restartTimer = setTimeout(() => {
+            if (!cancelled) {
+              setDisplayText("");
+              setIsTyping(true);
+            }
           }, 8000);
         }
       }, 60);
     }, 1000);
 
     return () => {
+      cancelled = true;
       clearTimeout(delayTimer);
       if (timer) clearInterval(timer);
+      if (restartTimer) clearTimeout(restartTimer);
     };
-  }, [isTyping]);
+  }, []);
 
   // Simple syntax highlighter (regex-based for key terms)
   const highlightCode = (text: string) => {
     return text.split("\n").map((line, i) => (
       <div key={i} className="flex gap-4 group/line">
-        <span className="w-5 text-right select-none text-[10px] font-mono text-muted-foreground/30 group-hover/line:text-muted-foreground/60 transition-colors">
+        <span className="w-4 text-right select-none text-[clamp(6px,1.8vw,10px)] font-mono text-muted-foreground/30 group-hover/line:text-muted-foreground/60 transition-colors">
           {i + 1}
         </span>
-        <span className="font-mono text-[11px] md:text-sm whitespace-pre">
+        <span className="font-mono text-[clamp(7px,2.2vw,14px)] whitespace-pre">
           {line
             .split(/(\s+|=|>|<|\(|\)|\{|\}|\[|\]|,|;|"|')/)
             .map((part, j) => {
@@ -144,13 +141,13 @@ const CodeWindow = () => {
       </div>
 
       {/* Editor Content */}
-      <div className="p-6 md:p-8 min-h-[380px] max-h-[400px] scrollbar-hide overflow-y-hidden">
+      <div className="px-2 py-6 md:p-8 min-h-[380px] max-h-[400px] scrollbar-hide md:overflow-y-hidden overflow-x-auto">
         {highlightCode(displayText)}
         {isTyping && (
           <m.span
             animate={{ opacity: [1, 0] }}
             transition={{ duration: 0.8, repeat: Infinity }}
-            className="inline-block w-1.5 h-4 md:w-2 md:h-5 bg-primary ml-1 translate-y-0.5"
+            className="inline-block w-1 h-3 md:w-2 md:h-5 bg-primary ml-1 translate-y-0.5"
           />
         )}
       </div>

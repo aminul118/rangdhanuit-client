@@ -54,7 +54,7 @@
 
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
-  --animate-scroll-left: scroll-left 40s linear infinite;
+  --animate-scroll-left: scroll-left 20s linear infinite;
 
   @keyframes accordion-down {
     from {
@@ -254,6 +254,6 @@
     -webkit-text-stroke: 0.5px hsl(var(--foreground) / 0.3);
   }
   .animate-scroll-left {
-    animation-duration: 20s !important;
+    animation-duration: 3s !important;
   }
 }

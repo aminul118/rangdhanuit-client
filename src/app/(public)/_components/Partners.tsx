@@ -34,10 +34,10 @@ const Partners = ({ partners = [] }: PartnersProps) => {
           {[...repeatedPartners, ...repeatedPartners].map((partner, index) => (
             <div
               key={index}
-              className="mx-12 flex items-center justify-center grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default"
+              className="mx-4 md:mx-8 lg:mx-12 flex items-center justify-center grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-default"
             >
               {partner.logo && partner.logo !== "" ? (
-                <div className="relative h-12 w-32 px-4">
+                <div className="relative h-10 w-24 md:h-12 md:w-32 px-2 md:px-4">
                   <Image
                     src={partner.logo}
                     alt={partner.name}

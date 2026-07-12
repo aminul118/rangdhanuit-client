@@ -42,9 +42,9 @@ const Hero = () => {
 
         <Container className="relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left Content */}
+            {/* Left Content: first on mobile, first on lg */}
             <m.div
-              className="flex flex-col items-start text-left"
+              className="flex flex-col items-start text-left lg:order-1"
               initial={false}
               animate="visible"
               variants={{
@@ -167,12 +167,12 @@ const Hero = () => {
               </m.div>
             </m.div>
 
-            {/* Right Content - Visual Elements */}
+            {/* Right Content - Visual Elements: second on mobile, second on lg */}
             <m.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.5 }}
-              className="relative hidden lg:block"
+              className="relative lg:order-2"
             >
               <CodeWindow />
 
@@ -184,7 +184,7 @@ const Hero = () => {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="absolute -top-12 -right-12 p-6 rounded-2xl bg-violet-500/10 dark:bg-violet-600/20 border border-violet-500/20 dark:border-violet-500/30 backdrop-blur-xl shadow-xl z-20"
+                className="hidden lg:block absolute -top-12 -right-12 p-6 rounded-2xl bg-violet-500/10 dark:bg-violet-600/20 border border-violet-500/20 dark:border-violet-500/30 backdrop-blur-xl shadow-xl z-20"
               >
                 <div className="text-2xl font-black italic text-violet-600 dark:text-violet-400">
                   100+
@@ -202,7 +202,7 @@ const Hero = () => {
                   ease: "easeInOut",
                   delay: 1,
                 }}
-                className="absolute -bottom-8 -left-12 p-6 rounded-2xl bg-blue-500/10 dark:bg-blue-600/20 border border-blue-500/20 dark:border-blue-500/30 backdrop-blur-xl shadow-xl z-20"
+                className="hidden lg:block absolute -bottom-8 -left-12 p-6 rounded-2xl bg-blue-500/10 dark:bg-blue-600/20 border border-blue-500/20 dark:border-blue-500/30 backdrop-blur-xl shadow-xl z-20"
               >
                 <div className="text-2xl font-black italic text-blue-600 dark:text-blue-400">
                   99.9%

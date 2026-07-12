@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { getPartners } from "@/services/Partner/partner";
+import Link from "next/link";
 
 const PartnersSection = async () => {
   const { data: partners = [] } = await getPartners();
@@ -43,7 +44,7 @@ const PartnersSection = async () => {
                   </div>
 
                   {partner.link && (
-                    <a
+                    <Link
                       href={partner.link}
                       target="_blank"
                       rel="noopener noreferrer"
