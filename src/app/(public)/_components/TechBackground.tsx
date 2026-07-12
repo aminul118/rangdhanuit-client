@@ -4,20 +4,23 @@ import { m as m, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export const TechBackground = () => {
+  const [isMobile] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth < 768 : true,
+  );
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const springConfig = { damping: 20, stiffness: 100 };
+  const springConfig = { damping: 30, stiffness: 150 };
   const smoothX = useSpring(mouseX, springConfig);
   const smoothY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
-    if (window.innerWidth < 768) return;
+    if (isMobile) return;
 
     let lastMove = 0;
     const handleMouseMove = (e: MouseEvent) => {
       const now = Date.now();
-      if (now - lastMove < 32) return; // Throttle to ~30fps for mouse follow
+      if (now - lastMove < 32) return;
       lastMove = now;
 
       const { clientX, clientY } = e;
@@ -27,7 +30,8 @@ export const TechBackground = () => {
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [particles, setParticles] = useState<
     { id: number; x: string; y: string; duration: number; delay: number }[]
@@ -76,44 +80,55 @@ export const TechBackground = () => {
         }}
       />
 
-      {/* Mouse Follower Glow */}
-      <m.div
-        style={{
-          left: smoothX,
-          top: smoothY,
-          translateX: "-50%",
-          translateY: "-50%",
-        }}
-        className="absolute w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] mix-blend-screen pointer-events-none"
-      />
+      {/* Mouse Follower Glow — desktop only */}
+      {!isMobile && (
+        <m.div
+          style={{
+            left: smoothX,
+            top: smoothY,
+            translateX: "-50%",
+            translateY: "-50%",
+          }}
+          className="absolute w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] mix-blend-screen pointer-events-none"
+        />
+      )}
 
-      {/* Static Glows */}
-      <m.div
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.3, 0.4, 0.3],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[150px]"
-      />
+      {/* Static Glows — animate only on desktop */}
+      {!isMobile ? (
+        <>
+          <m.div
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.3, 0.4, 0.3],
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[150px]"
+          />
 
-      <m.div
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.2, 0.3, 0.2],
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2,
-        }}
-        className="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-violet-600/10 rounded-full blur-[180px]"
-      />
+          <m.div
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.2, 0.3, 0.2],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+            className="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-violet-600/10 rounded-full blur-[180px]"
+          />
+        </>
+      ) : (
+        <>
+          <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-600/5 rounded-full blur-[100px]" />
+          <div className="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-violet-600/5 rounded-full blur-[120px]" />
+        </>
+      )}
 
       {/* Innovation Particles - Only render on client after hydration */}
       {mounted &&

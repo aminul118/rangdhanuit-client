@@ -4,25 +4,14 @@ import generateMetaTags from "@/Seo/generateMetaTags";
 import { getServices } from "@/services/Service/services";
 import { getPartners } from "@/services/Partner/partner";
 import { getBlogs } from "@/services/Blog/blogs";
-import dynamic from "next/dynamic";
-const Hero = dynamic(() => import("@/app/(public)/_components/Hero"), {
-  loading: () => <div className="min-h-screen" />,
-});
-const Partners = dynamic(() => import("@/app/(public)/_components/Partners"));
-const Services = dynamic(() => import("@/app/(public)/_components/Services"));
-const Stats = dynamic(() => import("@/app/(public)/_components/Stats"), {
-  loading: () => <div className="h-64" />,
-});
-const PortfolioSlider = dynamic(
-  () => import("@/app/(public)/_components/PortfolioSlider"),
-);
-const Process = dynamic(() => import("@/app/(public)/_components/Process"), {
-  loading: () => <div className="h-96" />,
-});
-const LatestBlogs = dynamic(
-  () => import("@/app/(public)/_components/LatestBlogs"),
-);
-const CTA = dynamic(() => import("@/app/(public)/_components/CTA"));
+import Hero from "@/app/(public)/_components/Hero";
+import Partners from "@/app/(public)/_components/Partners";
+import Services from "@/app/(public)/_components/Services";
+import Stats from "@/app/(public)/_components/Stats";
+import PortfolioSlider from "@/app/(public)/_components/PortfolioSlider";
+import Process from "@/app/(public)/_components/Process";
+import LatestBlogs from "@/app/(public)/_components/LatestBlogs";
+import CTA from "@/app/(public)/_components/CTA";
 
 export const metadata: Metadata = generateMetaTags({
   title: "Rangdhanu IT | Best IT Solutions for Your Business",
@@ -34,7 +23,7 @@ export const metadata: Metadata = generateMetaTags({
 
 import { Suspense } from "react";
 
-export const revalidate = 0;
+export const revalidate = 60;
 
 const PartnersSection = async () => {
   const partnersRes = await getPartners();
