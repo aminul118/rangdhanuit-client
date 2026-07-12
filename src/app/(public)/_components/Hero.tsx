@@ -8,7 +8,7 @@ import CodeWindow from "./CodeWindow";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-dvh flex items-center pt-32 pb-20 overflow-hidden text-foreground selection:bg-primary/20 transition-colors duration-500">
+    <section className="relative min-h-screen flex items-center pt-32 pb-20 overflow-hidden bg-background text-foreground selection:bg-primary/20 transition-colors duration-500">
       <TechBackground />
 
       <Container className="relative z-10">

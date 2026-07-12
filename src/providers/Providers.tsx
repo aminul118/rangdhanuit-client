@@ -41,7 +41,7 @@ const Providers = ({ children, initialUser = null }: IProvider) => {
       disableTransitionOnChange
       scriptProps={{ "data-cfasync": "false" }}
     >
-      <LazyMotion features={loadFeatures} strict>
+      <LazyMotion features={loadFeatures}>
         <AuthProvider initialUser={initialUser}>
           <MaybeSocketProvider>
             <TooltipProvider>{children}</TooltipProvider>
