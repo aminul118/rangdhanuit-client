@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { m as m } from "framer-motion";
+import { m } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "./ModeToggle";
 
@@ -60,32 +60,27 @@ const MobileNav = ({
           {!user ? (
             <Link
               href="/login"
-              className="group relative flex w-full max-w-xs items-center justify-center overflow-hidden rounded-full bg-background py-3 font-bold text-foreground shadow-lg active:scale-95 transition-all"
+              className="group relative flex w-full max-w-xs items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 p-[2px] font-bold shadow-lg active:scale-95 transition-all"
               onClick={() => setIsOpen(false)}
             >
-              {/* Rotating Animated Border */}
-              <div className="absolute inset-0 rounded-full border border-white/10 p-px">
-                <div className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#3b82f6_0%,#06b6d4_50%,#3b82f6_100%)]" />
+              <div className="flex items-center justify-center w-full rounded-full bg-background py-3">
+                <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                  Portal / Login
+                </span>
               </div>
-              <div className="absolute inset-px rounded-full bg-background" />
-              <span className="relative z-10 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                Portal / Login
-              </span>
             </Link>
           ) : (
             <div className="flex flex-col w-full items-center gap-4">
               <Link
                 href="/dashboard"
-                className="group relative flex w-full max-w-xs items-center justify-center overflow-hidden rounded-full bg-background py-3 font-bold text-foreground shadow-lg active:scale-95 transition-all"
+                className="group relative flex w-full max-w-xs items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 p-[2px] font-bold shadow-lg active:scale-95 transition-all"
                 onClick={() => setIsOpen(false)}
               >
-                <div className="absolute inset-0 rounded-full border border-white/10 p-px">
-                  <div className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#3b82f6_0%,#06b6d4_50%,#3b82f6_100%)]" />
+                <div className="flex items-center justify-center w-full rounded-full bg-background py-3">
+                  <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                    Dashboard
+                  </span>
                 </div>
-                <div className="absolute inset-px rounded-full bg-background" />
-                <span className="relative z-10 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                  Dashboard
-                </span>
               </Link>
               <div className="flex items-center justify-center gap-6 mt-2">
                 <ModeToggle />

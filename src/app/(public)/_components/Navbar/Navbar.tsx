@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fade as Hamburger } from "hamburger-react";
-import { AnimatePresence, m, useMotionValue, useScroll } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { ModeToggle } from "./ModeToggle";
 import dynamic from "next/dynamic";
 import { useAuth } from "@/providers/AuthProvider";
@@ -36,39 +36,62 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { user } = useAuth();
+  const [isMobile] = useState(
+    () => typeof window !== "undefined" && window.innerWidth < 768,
+  );
 
+  /* Scroll-based hide/show — disabled on mobile to avoid scroll jank */
   const [hidden, setHidden] = useState(false);
-  const { scrollY } = useScroll();
   const ticking = useRef(false);
 
   useEffect(() => {
-    return scrollY.on("change", (latest) => {
+    if (isMobile) return;
+
+    let rafId: number;
+    let prevY = window.scrollY;
+
+    const onScroll = () => {
       if (ticking.current) return;
       ticking.current = true;
-      requestAnimationFrame(() => {
-        const previous = scrollY.getPrevious() ?? 0;
-        const shouldHide = latest > previous && latest > 150;
-        const shouldScroll = latest > 50;
+      rafId = requestAnimationFrame(() => {
+        const currentY = window.scrollY;
+        const shouldHide = currentY > prevY && currentY > 150;
+        const shouldScroll = currentY > 50;
         if (shouldHide !== hidden) setHidden(shouldHide);
         if (shouldScroll !== scrolled) setScrolled(shouldScroll);
+        prevY = currentY;
         ticking.current = false;
       });
-    });
-  }, [scrollY, hidden, scrolled]);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(rafId);
+    };
+  }, [isMobile, hidden, scrolled]);
+
+  /* On mobile, just toggle scrolled state for background blur */
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const onScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isMobile]);
 
   return (
-    <m.header
-      variants={{
-        visible: { y: 0 },
-        hidden: { y: "-100%" },
-      }}
-      animate={hidden ? "hidden" : "visible"}
-      transition={{ duration: 0.35, ease: "easeInOut" }}
+    <header
       className={cn(
         "fixed top-0 left-0 z-50 w-full transition-all duration-300",
         scrolled
           ? "border-b border-white/5 bg-background/80 py-4 shadow-lg backdrop-blur-md"
           : "bg-transparent py-4",
+        !isMobile && hidden ? "-translate-y-full" : "translate-y-0",
       )}
     >
       <nav className="container mx-auto px-6 grid grid-cols-2 md:grid-cols-[1fr_auto_1fr] items-center gap-4">
@@ -184,7 +207,7 @@ const Navbar = () => {
           />
         )}
       </AnimatePresence>
-    </m.header>
+    </header>
   );
 };
 

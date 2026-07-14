@@ -272,6 +272,32 @@
     -webkit-text-stroke: 0.5px hsl(var(--foreground) / 0.3);
   }
   .animate-scroll-left {
-    animation-duration: 3s !important;
+    animation-duration: 30s !important;
+    will-change: transform;
+  }
+}
+
+/* Improve scroll performance: contain paint, avoid layout thrash */
+section,
+main,
+footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
+
+/* Prevent horizontal overflow that causes iOS rubber-band jank */
+html {
+  overflow-x: hidden;
+}
+body {
+  overflow-x: hidden;
+}
+
+/* Reduce motion on mobile via device capability check */
+@media (hover: none) and (pointer: coarse) {
+  .animate-pulse,
+  .animate-shimmer {
+    animation-duration: 0ms !important;
+    animation-iteration-count: 0 !important;
   }
 }

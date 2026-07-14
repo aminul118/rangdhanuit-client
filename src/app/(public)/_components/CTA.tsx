@@ -1,8 +1,9 @@
 "use client";
 
-import { m as m } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 import { Container } from "@/components/ui/Container";
 import { SCALE_IN, FADE_IN_UP, VIEWPORT_CONFIG } from "@/constants/animations";
 
@@ -27,23 +28,8 @@ const CTA = () => {
             }}
           />
 
-          {/* Elegant Floating Orbs - Subtle in Light, Vibrant in Dark */}
-          <m.div
-            animate={{
-              x: [0, 30, 0],
-              y: [0, -20, 0],
-            }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -top-20 -left-20 w-80 h-80 bg-primary/10 dark:bg-primary/20 rounded-full blur-[100px] pointer-events-none"
-          />
-          <m.div
-            animate={{
-              x: [0, -30, 0],
-              y: [0, 20, 0],
-            }}
-            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -bottom-20 -right-20 w-96 h-96 bg-violet-500/10 dark:bg-violet-500/20 rounded-full blur-[110px] pointer-events-none"
-          />
+          {/* Elegant Floating Orbs (desktop-only, mobile gets static positioning) */}
+          <CTAFloatingOrbs />
 
           <div className="relative z-10 max-w-3xl mx-auto">
             <m.div
@@ -101,3 +87,40 @@ const CTA = () => {
 };
 
 export default CTA;
+
+/* Desktop-only floating orbs — never mount motion on mobile */
+const CTAFloatingOrbs = () => {
+  const [isDesktop] = useState(
+    () => typeof window !== "undefined" && window.innerWidth >= 768,
+  );
+
+  if (isDesktop) {
+    return (
+      <>
+        <m.div
+          animate={{
+            x: [0, 30, 0],
+            y: [0, -20, 0],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-20 -left-20 w-80 h-80 bg-primary/10 dark:bg-primary/20 rounded-full blur-[100px] pointer-events-none"
+        />
+        <m.div
+          animate={{
+            x: [0, -30, 0],
+            y: [0, 20, 0],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-20 -right-20 w-96 h-96 bg-violet-500/10 dark:bg-violet-500/20 rounded-full blur-[110px] pointer-events-none"
+        />
+      </>
+    );
+  }
+
+  return (
+    <>
+      <div className="absolute -top-20 -left-20 w-80 h-80 bg-primary/10 dark:bg-primary/20 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-violet-500/10 dark:bg-violet-500/20 rounded-full blur-[110px] pointer-events-none" />
+    </>
+  );
+};

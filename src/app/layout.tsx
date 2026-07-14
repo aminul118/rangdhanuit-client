@@ -12,6 +12,22 @@ import { IChildrenProps } from "@/types";
 const MainLayout = ({ children }: IChildrenProps) => {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Preconnect to external origins for faster resource loading */}
+        <link rel="preconnect" href="https://cdn.rangdhanuit.com" />
+        <link
+          rel="preconnect"
+          href="https://cdn.rangdhanuit.com"
+          crossOrigin="anonymous"
+        />
+        <link rel="dns-prefetch" href="https://cdn.rangdhanuit.com" />
+        {process.env.NEXT_PUBLIC_API_URL && (
+          <>
+            <link rel="preconnect" href={process.env.NEXT_PUBLIC_API_URL} />
+            <link rel="dns-prefetch" href={process.env.NEXT_PUBLIC_API_URL} />
+          </>
+        )}
+      </head>
       <body
         suppressHydrationWarning
         className={cn(fonts.spaceGrotesk.variable, "antialiased font-sans")}

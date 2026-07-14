@@ -1,59 +1,12 @@
 "use client";
 
-import { m as m, useMotionValue, useSpring } from "framer-motion";
+import { m, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export const TechBackground = () => {
-  const [isMobile] = useState(() =>
-    typeof window !== "undefined" ? window.innerWidth < 768 : true,
+  const [showDesktopFx] = useState(
+    () => typeof window !== "undefined" && window.innerWidth >= 768,
   );
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springConfig = { damping: 30, stiffness: 150 };
-  const smoothX = useSpring(mouseX, springConfig);
-  const smoothY = useSpring(mouseY, springConfig);
-
-  useEffect(() => {
-    if (isMobile) return;
-
-    let lastMove = 0;
-    const handleMouseMove = (e: MouseEvent) => {
-      const now = Date.now();
-      if (now - lastMove < 32) return;
-      lastMove = now;
-
-      const { clientX, clientY } = e;
-      mouseX.set(clientX);
-      mouseY.set(clientY);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const [particles, setParticles] = useState<
-    { id: number; x: string; y: string; duration: number; delay: number }[]
-  >([]);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    const frameId = requestAnimationFrame(() => {
-      setMounted(true);
-      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-      const count = isMobile ? 0 : 20;
-      const generatedParticles = [...Array(count)].map((_, i) => ({
-        id: i,
-        x: Math.random() * 100 + "%",
-        y: Math.random() * 100 + "%",
-        duration: Math.random() * 10 + 10,
-        delay: Math.random() * 20,
-      }));
-      setParticles(generatedParticles);
-    });
-    return () => cancelAnimationFrame(frameId);
-  }, []);
 
   return (
     <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none bg-background transition-colors duration-500">
@@ -80,48 +33,10 @@ export const TechBackground = () => {
         }}
       />
 
-      {/* Mouse Follower Glow — desktop only */}
-      {!isMobile && (
-        <m.div
-          style={{
-            left: smoothX,
-            top: smoothY,
-            translateX: "-50%",
-            translateY: "-50%",
-          }}
-          className="absolute w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] mix-blend-screen pointer-events-none"
-        />
-      )}
-
-      {/* Static Glows — animate only on desktop */}
-      {!isMobile ? (
+      {/* Desktop-only effects: mouse follower glow, floating glows, particles */}
+      {showDesktopFx ? (
         <>
-          <m.div
-            animate={{
-              scale: [1, 1.1, 1],
-              opacity: [0.3, 0.4, 0.3],
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[150px]"
-          />
-
-          <m.div
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.2, 0.3, 0.2],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2,
-            }}
-            className="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-violet-600/10 rounded-full blur-[180px]"
-          />
+          <DesktopEffects />
         </>
       ) : (
         <>
@@ -130,7 +45,103 @@ export const TechBackground = () => {
         </>
       )}
 
-      {/* Innovation Particles - Only render on client after hydration */}
+      {/* Bottom Fade to blend with next section */}
+      <div className="absolute inset-x-0 bottom-0 h-64 bg-linear-to-t from-background via-background/80 to-transparent" />
+    </div>
+  );
+};
+
+/* =============================================
+   Desktop-only heavy framer-motion effects
+   Extracted so they never mount on mobile.
+   ============================================= */
+const DesktopEffects = () => {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 30, stiffness: 150 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  useEffect(() => {
+    let lastMove = 0;
+    const handleMouseMove = (e: MouseEvent) => {
+      const now = Date.now();
+      if (now - lastMove < 32) return;
+      lastMove = now;
+
+      const { clientX, clientY } = e;
+      mouseX.set(clientX);
+      mouseY.set(clientY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  const [particles, setParticles] = useState<
+    { id: number; x: string; y: string; duration: number; delay: number }[]
+  >([]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const frameId = requestAnimationFrame(() => {
+      setMounted(true);
+      setParticles(
+        [...Array(20)].map((_, i) => ({
+          id: i,
+          x: Math.random() * 100 + "%",
+          y: Math.random() * 100 + "%",
+          duration: Math.random() * 10 + 10,
+          delay: Math.random() * 20,
+        })),
+      );
+    });
+    return () => cancelAnimationFrame(frameId);
+  }, []);
+
+  return (
+    <>
+      {/* Mouse Follower Glow */}
+      <m.div
+        style={{
+          left: smoothX,
+          top: smoothY,
+          translateX: "-50%",
+          translateY: "-50%",
+        }}
+        className="absolute w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] mix-blend-screen pointer-events-none"
+      />
+
+      {/* Floating Glows */}
+      <m.div
+        animate={{
+          scale: [1, 1.1, 1],
+          opacity: [0.3, 0.4, 0.3],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 rounded-full blur-[150px]"
+      />
+
+      <m.div
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.2, 0.3, 0.2],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
+        className="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-violet-600/10 rounded-full blur-[180px]"
+      />
+
+      {/* Innovation Particles */}
       {mounted &&
         particles.map((particle) => (
           <m.div
@@ -154,9 +165,6 @@ export const TechBackground = () => {
             className="absolute w-1 h-1 bg-primary/40 dark:bg-primary rounded-full blur-[1px]"
           />
         ))}
-
-      {/* Bottom Fade to blend with next section */}
-      <div className="absolute inset-x-0 bottom-0 h-64 bg-linear-to-t from-background via-background/80 to-transparent" />
-    </div>
+    </>
   );
 };

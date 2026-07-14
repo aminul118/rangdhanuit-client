@@ -1,17 +1,7 @@
-import { Metadata } from "next";
-import { getPortfolios } from "@/services/Portfolio/portfolios";
+import type { Metadata } from "next";
 import generateMetaTags from "@/Seo/generateMetaTags";
-import { getServices } from "@/services/Service/services";
-import { getPartners } from "@/services/Partner/partner";
-import { getBlogs } from "@/services/Blog/blogs";
 import Hero from "@/app/(public)/_components/Hero";
-import Partners from "@/app/(public)/_components/Partners";
-import Services from "@/app/(public)/_components/Services";
-import Stats from "@/app/(public)/_components/Stats";
-import PortfolioSlider from "@/app/(public)/_components/PortfolioSlider";
-import Process from "@/app/(public)/_components/Process";
-import LatestBlogs from "@/app/(public)/_components/LatestBlogs";
-import CTA from "@/app/(public)/_components/CTA";
+import { Suspense } from "react";
 
 export const metadata: Metadata = generateMetaTags({
   title: "Rangdhanu IT | Best IT Solutions for Your Business",
@@ -21,36 +11,70 @@ export const metadata: Metadata = generateMetaTags({
     "IT solutions, web development, app development, digital marketing, graphics design, SEO services",
 });
 
-import { Suspense } from "react";
-
 export const revalidate = 60;
 
+/* ---- Data-fetching section wrappers ---- */
+import { getPartners } from "@/services/Partner/partner";
+
 const PartnersSection = async () => {
-  const partnersRes = await getPartners();
-  const partners = partnersRes?.data || [];
-  return <Partners partners={partners} />;
+  const res = await getPartners();
+  return <PartnersDyn partners={res?.data || []} />;
 };
+
+import { getServices } from "@/services/Service/services";
 
 const ServicesSection = async () => {
-  const servicesRes = await getServices({ limit: "6" });
-  const services = servicesRes?.data || [];
-  return <Services services={services} />;
+  const res = await getServices({ limit: "6" });
+  return <ServicesDyn services={res?.data || []} />;
 };
+
+import { getPortfolios } from "@/services/Portfolio/portfolios";
 
 const PortfolioSection = async () => {
-  const portfoliosRes = await getPortfolios({ isFeatured: "true" });
-  const portfolios = portfoliosRes?.data || [];
-  return <PortfolioSlider portfolios={portfolios} />;
+  const res = await getPortfolios({ isFeatured: "true" });
+  return <PortfolioSliderDyn portfolios={res?.data || []} />;
 };
+
+import { getBlogs } from "@/services/Blog/blogs";
 
 const BlogsSection = async () => {
-  const blogsRes = await getBlogs({ limit: "3", sort: "-createdAt" });
-  const blogs = blogsRes?.data || [];
-  return <LatestBlogs blogs={blogs} />;
+  const res = await getBlogs({ limit: "3", sort: "-createdAt" });
+  return <LatestBlogsDyn blogs={res?.data || []} />;
 };
 
+/* ---- Dynamically imported client components (lazy JS) ---- */
+import dynamic from "next/dynamic";
+
+const PartnersDyn = dynamic(
+  () => import("@/app/(public)/_components/Partners"),
+  {
+    loading: () => <SectionSkeleton />,
+  },
+);
+const ServicesDyn = dynamic(
+  () => import("@/app/(public)/_components/Services"),
+  { loading: () => <SectionSkeleton /> },
+);
+const StatsDyn = dynamic(() => import("@/app/(public)/_components/Stats"), {
+  loading: () => <SectionSkeleton />,
+});
+const PortfolioSliderDyn = dynamic(
+  () => import("@/app/(public)/_components/PortfolioSlider"),
+  { loading: () => <SectionSkeleton /> },
+);
+const ProcessDyn = dynamic(() => import("@/app/(public)/_components/Process"), {
+  loading: () => <SectionSkeleton />,
+});
+const LatestBlogsDyn = dynamic(
+  () => import("@/app/(public)/_components/LatestBlogs"),
+  { loading: () => <SectionSkeleton /> },
+);
+const CTADyn = dynamic(() => import("@/app/(public)/_components/CTA"), {
+  loading: () => <SectionSkeleton />,
+});
+
 const SectionSkeleton = () => (
-  <div className="w-full py-20 animate-pulse bg-muted/20" />
+  <div className="h-48 animate-pulse bg-muted/20 rounded-xl mx-6 my-8" />
 );
 
 const Home = () => {
@@ -63,15 +87,21 @@ const Home = () => {
       <Suspense fallback={<SectionSkeleton />}>
         <ServicesSection />
       </Suspense>
-      <Stats />
+      <Suspense fallback={<SectionSkeleton />}>
+        <StatsDyn />
+      </Suspense>
       <Suspense fallback={<SectionSkeleton />}>
         <PortfolioSection />
       </Suspense>
-      <Process />
+      <Suspense fallback={<SectionSkeleton />}>
+        <ProcessDyn />
+      </Suspense>
       <Suspense fallback={<SectionSkeleton />}>
         <BlogsSection />
       </Suspense>
-      <CTA />
+      <Suspense fallback={<SectionSkeleton />}>
+        <CTADyn />
+      </Suspense>
     </div>
   );
 };
