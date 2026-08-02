@@ -19,7 +19,8 @@ ENV HUSKY=0
 
 COPY pnpm-lock.yaml package.json ./
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile && \
+    pnpm rebuild sharp
 
 FROM base AS build
 
@@ -44,6 +45,7 @@ COPY --chown=nodejs:nodejs --from=deps /app/pnpm-lock.yaml ./pnpm-lock.yaml
 
 RUN corepack enable && corepack prepare pnpm@latest --activate && \
     pnpm install --frozen-lockfile --prod && \
+    pnpm rebuild sharp && \
     pnpm store prune
 
 COPY --chown=nodejs:nodejs --from=build /app/.next ./.next
