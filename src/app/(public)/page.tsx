@@ -11,7 +11,7 @@ export const metadata: Metadata = generateMetaTags({
     "IT solutions, web development, app development, digital marketing, graphics design, SEO services",
 });
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 /* ---- Data-fetching section wrappers ---- */
 import { getPartners } from "@/services/Partner/partner";
@@ -43,33 +43,36 @@ const BlogsSection = async () => {
 };
 
 /* ---- Dynamically imported client components (lazy JS) ---- */
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
 
-const PartnersDyn = dynamic(
+const PartnersDyn = nextDynamic(
   () => import("@/app/(public)/_components/Partners"),
   {
     loading: () => <SectionSkeleton />,
   },
 );
-const ServicesDyn = dynamic(
+const ServicesDyn = nextDynamic(
   () => import("@/app/(public)/_components/Services"),
   { loading: () => <SectionSkeleton /> },
 );
-const StatsDyn = dynamic(() => import("@/app/(public)/_components/Stats"), {
+const StatsDyn = nextDynamic(() => import("@/app/(public)/_components/Stats"), {
   loading: () => <SectionSkeleton />,
 });
-const PortfolioSliderDyn = dynamic(
+const PortfolioSliderDyn = nextDynamic(
   () => import("@/app/(public)/_components/PortfolioSlider"),
   { loading: () => <SectionSkeleton /> },
 );
-const ProcessDyn = dynamic(() => import("@/app/(public)/_components/Process"), {
-  loading: () => <SectionSkeleton />,
-});
-const LatestBlogsDyn = dynamic(
+const ProcessDyn = nextDynamic(
+  () => import("@/app/(public)/_components/Process"),
+  {
+    loading: () => <SectionSkeleton />,
+  },
+);
+const LatestBlogsDyn = nextDynamic(
   () => import("@/app/(public)/_components/LatestBlogs"),
   { loading: () => <SectionSkeleton /> },
 );
-const CTADyn = dynamic(() => import("@/app/(public)/_components/CTA"), {
+const CTADyn = nextDynamic(() => import("@/app/(public)/_components/CTA"), {
   loading: () => <SectionSkeleton />,
 });
 

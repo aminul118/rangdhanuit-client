@@ -15,7 +15,6 @@ import { LineHeightKit } from "@/components/rich-text/kits/line-height-kit";
 import { LinkKit } from "@/components/rich-text/kits/link-kit";
 import { ListKit } from "@/components/rich-text/kits/list-kit";
 import { MathKit } from "@/components/rich-text/kits/math-kit";
-import { ListKit } from "@/components/rich-text/kits/list-kit";
 import { MediaKit } from "@/components/rich-text/kits/media-kit";
 import { MentionKit } from "@/components/rich-text/kits/mention-kit";
 import { TableKit } from "@/components/rich-text/kits/table-kit";
