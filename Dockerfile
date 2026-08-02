@@ -33,6 +33,7 @@ COPY . .
 
 ENV HUSKY=0
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 RUN pnpm build
 
