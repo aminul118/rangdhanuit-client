@@ -44,6 +44,7 @@ COPY --chown=nodejs:nodejs --from=deps /app/package.json ./package.json
 COPY --chown=nodejs:nodejs --from=deps /app/pnpm-lock.yaml ./pnpm-lock.yaml
 
 RUN corepack enable && corepack prepare pnpm@latest --activate && \
+    pnpm pkg delete scripts.prepare && \
     pnpm install --frozen-lockfile --prod && \
     pnpm rebuild sharp && \
     pnpm store prune
