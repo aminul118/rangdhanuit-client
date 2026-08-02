@@ -4,8 +4,6 @@ import { ReadOnlyViewerKit } from "@/components/rich-text/kits/read-only-viewer-
 import { Editor } from "@/components/rich-text/ui/editor";
 import { Plate, usePlateEditor } from "platejs/react";
 import { useMemo } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 
 interface IHtml {
   content: string;
@@ -26,7 +24,6 @@ const HtmlContent = ({ content, className }: IHtml) => {
     }
   }, [content]);
 
-  // Use the minimal viewer kit and filter out Highlight if any
   const viewerPlugins = useMemo(() => {
     return ReadOnlyViewerKit.filter((p) => p.key !== "highlight");
   }, []);
@@ -38,13 +35,11 @@ const HtmlContent = ({ content, className }: IHtml) => {
 
   if (isPlate) {
     return (
-      <DndProvider backend={HTML5Backend}>
-        <div className={className}>
-          <Plate editor={editor} readOnly>
-            <Editor variant="none" className="focus:outline-none" />
-          </Plate>
-        </div>
-      </DndProvider>
+      <div className={className}>
+        <Plate editor={editor} readOnly>
+          <Editor variant="none" className="focus:outline-none" />
+        </Plate>
+      </div>
     );
   }
 

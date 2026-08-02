@@ -1,6 +1,5 @@
 "use client";
 
-import { m as m } from "framer-motion";
 import React from "react";
 
 export const FadeIn = ({
@@ -10,15 +9,7 @@ export const FadeIn = ({
   children: React.ReactNode;
   delay?: number;
 }) => {
-  return (
-    <m.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay, duration: 0.6 }}
-    >
-      {children}
-    </m.div>
-  );
+  return <div>{children}</div>;
 };
 
 export const FadeInLeft = ({
@@ -30,16 +21,7 @@ export const FadeInLeft = ({
   delay?: number;
   className?: string;
 }) => {
-  return (
-    <m.div
-      initial={{ opacity: 0, x: -30 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut", delay }}
-      className={className}
-    >
-      {children}
-    </m.div>
-  );
+  return <div className={className}>{children}</div>;
 };
 
 export const FadeInUp = ({
@@ -51,16 +33,7 @@ export const FadeInUp = ({
   delay?: number;
   className?: string;
 }) => {
-  return (
-    <m.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay }}
-      className={className}
-    >
-      {children}
-    </m.div>
-  );
+  return <div className={className}>{children}</div>;
 };
 
 export const FadeInScale = ({
@@ -72,26 +45,12 @@ export const FadeInScale = ({
   delay?: number;
   className?: string;
 }) => {
-  return (
-    <m.div
-      initial={{ opacity: 0, scale: 0.98 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.6, delay }}
-      className={className}
-    >
-      {children}
-    </m.div>
-  );
+  return <div className={className}>{children}</div>;
 };
 
 export const AnimatedGradientBg = () => {
   return (
-    <m.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: [0.1, 0.2, 0.1] }}
-      transition={{ duration: 10, repeat: Infinity }}
-      className="absolute inset-0 bg-linear-to-tr from-indigo-500/10 via-transparent to-purple-500/10"
-    />
+    <div className="absolute inset-0 bg-linear-to-tr from-indigo-500/10 via-transparent to-purple-500/10" />
   );
 };
 
@@ -102,9 +61,5 @@ export const HoverScaleLogo = ({
   children: React.ReactNode;
   className?: string;
 }) => {
-  return (
-    <m.div whileHover={{ rotate: 10, scale: 1.1 }} className={className}>
-      {children}
-    </m.div>
-  );
+  return <div className={className}>{children}</div>;
 };

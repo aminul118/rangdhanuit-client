@@ -2,7 +2,7 @@
 
 import { ThemeProvider } from "next-themes";
 import { AuthProvider, useAuth, IUser } from "./AuthProvider";
-import { LazyMotion } from "framer-motion";
+import { LazyMotion, MotionConfig } from "framer-motion";
 import dynamic from "next/dynamic";
 import { ReactNode } from "react";
 
@@ -32,6 +32,10 @@ const MaybeSocketProvider = ({ children }: { children: ReactNode }) => {
   return <LazySocketProvider>{children}</LazySocketProvider>;
 };
 
+const motionConfig = {
+  reducedMotion: "user" as const,
+};
+
 const Providers = ({ children, initialUser = null }: IProvider) => {
   return (
     <ThemeProvider
@@ -42,17 +46,19 @@ const Providers = ({ children, initialUser = null }: IProvider) => {
       scriptProps={{ "data-cfasync": "false" }}
     >
       <LazyMotion features={loadFeatures}>
-        <AuthProvider initialUser={initialUser}>
-          <MaybeSocketProvider>
-            <TooltipProvider>{children}</TooltipProvider>
-          </MaybeSocketProvider>
-          <Toaster
-            theme="system"
-            position="bottom-right"
-            duration={2000}
-            richColors
-          />
-        </AuthProvider>
+        <MotionConfig {...motionConfig}>
+          <AuthProvider initialUser={initialUser}>
+            <MaybeSocketProvider>
+              <TooltipProvider>{children}</TooltipProvider>
+            </MaybeSocketProvider>
+            <Toaster
+              theme="system"
+              position="bottom-right"
+              duration={2000}
+              richColors
+            />
+          </AuthProvider>
+        </MotionConfig>
       </LazyMotion>
     </ThemeProvider>
   );

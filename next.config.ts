@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 let nextConfig: NextConfig = {
   reactCompiler: false,
+  productionBrowserSourceMaps: false,
+  poweredByHeader: false,
   compiler: {
     removeConsole:
       process.env.NODE_ENV === "production" ? { exclude: ["error"] } : false,
@@ -13,8 +15,12 @@ let nextConfig: NextConfig = {
       "framer-motion",
       "@radix-ui/react-popover",
       "@radix-ui/react-slider",
+      "@radix-ui/react-slot",
       "react-icons",
       "date-fns",
+      "sonner",
+      "clsx",
+      "tailwind-merge",
     ],
     serverActions: {
       bodySizeLimit: "10mb",
@@ -23,15 +29,20 @@ let nextConfig: NextConfig = {
 
   // --- Image Optimization ---
   images: {
-    unoptimized: true,
     formats: ["image/avif", "image/webp"],
     qualities: [50, 60, 75, 100],
+    deviceSizes: [640, 768, 1024, 1280, 1536],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 86400,
     remotePatterns: [
       {
         protocol: "https",
         hostname: "cdn.rangdhanuit.com",
       },
     ],
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   // --- Custom HTTP Headers ---
   headers: async () => {

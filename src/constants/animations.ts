@@ -51,7 +51,8 @@ export const STAGGER_CHILDREN: Variants = {
 
 export const VIEWPORT_CONFIG = {
   once: true,
-};
+  margin: "-50px",
+} as const;
 
 export const HOVER_LIFT = {
   whileHover: { y: -10 },
