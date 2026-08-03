@@ -39,6 +39,10 @@ let nextConfig: NextConfig = {
         protocol: "https",
         hostname: "cdn.rangdhanuit.com",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
     ],
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",

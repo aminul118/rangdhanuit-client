@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Edit Quotation | Rangdhanu IT",
-  description: "Refine strategic proposal and regenerate professional PDF.",
+  description: "Update quotation details and regenerate professional PDF.",
 };
 
 interface Props {
@@ -23,11 +23,18 @@ const EditQuotationPage = async ({ params }: Props) => {
 
   const quotation = res.data;
 
-  // Convert string dates to Date objects for react-hook-form
   const initialData = {
     ...quotation,
-    startDate: quotation.startDate ? new Date(quotation.startDate) : undefined,
-    endDate: quotation.endDate ? new Date(quotation.endDate) : undefined,
+    issueDate: new Date(quotation.issueDate),
+    validUntil: quotation.validUntil
+      ? new Date(quotation.validUntil)
+      : undefined,
+    projectStartTime: quotation.projectStartTime
+      ? new Date(quotation.projectStartTime)
+      : undefined,
+    projectApproximateFinishTime: quotation.projectApproximateFinishTime
+      ? new Date(quotation.projectApproximateFinishTime)
+      : undefined,
   };
 
   return (

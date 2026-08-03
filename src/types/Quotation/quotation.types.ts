@@ -1,22 +1,29 @@
+export interface IQuotationLineItem {
+  description: string;
+  quantity: number;
+  unitPrice: number;
+  total: number;
+}
+
 export interface IQuotation {
   _id: string;
   clientName: string;
-  clientAddress: string;
   clientEmail?: string;
   clientPhone: string;
-  projectName: string;
-  description: string;
-  deliverables: string;
-  startDate?: string | Date;
-  endDate?: string | Date;
-  totalCost: number;
-  advancePercentage: number;
-  midwayPercentage: number;
-  completionPercentage: number;
-  paymentMethod: string;
-  revisions: number;
-  supportDays: number;
+  clientAddress?: string;
+  projectStartTime?: string | Date;
+  projectApproximateFinishTime?: string | Date;
+  quotationNumber: string;
+  issueDate: string | Date;
+  validUntil?: string | Date;
+  lineItems: IQuotationLineItem[];
+  subtotal: number;
+  tax: number;
+  discount: number;
+  total: number;
   status: string;
+  notes?: string;
+  pdfUrl?: string;
   isDeleted: boolean;
   createdAt?: string;
   updatedAt?: string;

@@ -4,8 +4,10 @@ const baseCookieOption = {
   httpOnly: true,
   secure: envVars.nodeEnv === "production",
   sameSite: "lax" as const,
-  // Adjust domain based on your deployment
-  domain: envVars.nodeEnv === "production" ? ".rangdhanuit.com" : "localhost",
+  domain:
+    envVars.nodeEnv === "production"
+      ? process.env.NEXT_PUBLIC_COOKIE_DOMAIN || ".rangdhanuit.com"
+      : "localhost",
   path: "/",
 } as const;
 

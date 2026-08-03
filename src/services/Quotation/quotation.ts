@@ -15,6 +15,15 @@ export const getQuotations = async (
   });
 };
 
+export const getMyQuotations = async (
+  query?: Record<string, string>,
+): Promise<ApiResponse<IQuotation[]>> => {
+  return await serverFetch.get("/quotations/my-quotations", {
+    query,
+    next: { tags: ["my-quotations"] },
+  });
+};
+
 export const getQuotationById = async (
   id: string,
 ): Promise<ApiResponse<IQuotation>> => {
@@ -50,6 +59,21 @@ export const deleteQuotation = catchAsyncAction(
   async (id: string): Promise<ApiResponse<IQuotation>> => {
     const res = await serverFetch.delete(`/quotations/${id}`);
     await revalidate(["quotations", id]);
+    return res;
+  },
+);
+
+export const sendQuotationEmailOrMobile = catchAsyncAction(
+  async (
+    id: string,
+    method: "email" | "mobile",
+  ): Promise<ApiResponse<null>> => {
+    const res = await serverFetch.post(
+      `/quotations/${id}/send?method=${method}`,
+      {
+        body: { method },
+      },
+    );
     return res;
   },
 );

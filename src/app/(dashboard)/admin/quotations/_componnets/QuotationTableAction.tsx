@@ -1,13 +1,12 @@
 "use client";
 
-import { useRef } from "react";
 import { IQuotation } from "@/types/Quotation/quotation.types";
 import { TableActionDropdown } from "@/components/common/table/TableActionDropdown";
-import { deleteQuotation } from "@/services/Quotation/quotation";
-import { QuotationTemplate } from "./QuotationTemplate";
-import { DownloadCloud } from "lucide-react";
-import html2canvas from "html2canvas-pro";
-import { PDFDocument } from "pdf-lib";
+import {
+  deleteQuotation,
+  sendQuotationEmailOrMobile,
+} from "@/services/Quotation/quotation";
+import { Download, Mail, Smartphone } from "lucide-react";
 import { toast } from "sonner";
 
 interface QuotationTableActionProps {
@@ -15,64 +14,33 @@ interface QuotationTableActionProps {
 }
 
 const QuotationTableAction = ({ row }: QuotationTableActionProps) => {
-  const templateRef = useRef<HTMLDivElement>(null);
-
   const generatePDF = async () => {
-    if (!templateRef.current) {
-      toast.error("Template not ready. Please try again.");
-      return;
+    if (row.pdfUrl) {
+      window.open(row.pdfUrl, "_blank");
+      toast.success("PDF opened successfully!");
+    } else {
+      toast.error(
+        "PDF is not available yet. Please wait or update the quotation.",
+      );
     }
+  };
 
-    const toastId = toast.loading("Generating Strategic Proposal PDF...");
-
+  const handleSend = async (method: "email" | "mobile") => {
+    const toastId = toast.loading(`Sending quotation via ${method}...`);
     try {
-      // 1. Take snapshot using html2canvas
-      const canvas = await html2canvas(templateRef.current, {
-        scale: 2,
-        useCORS: true,
-        logging: false,
-      });
-
-      const imgData = canvas.toDataURL("image/png");
-
-      // 2. Create PDF with pdf-lib
-      const pdfDoc = await PDFDocument.create();
-      const pngImage = await pdfDoc.embedPng(imgData);
-      const imgDims = pngImage.scaleToFit(595.28, 841.89); // A4 Size
-
-      const page = pdfDoc.addPage([595.28, 841.89]);
-      const x = page.getWidth() / 2 - imgDims.width / 2;
-      const y = page.getHeight() - imgDims.height;
-
-      page.drawImage(pngImage, {
-        x,
-        y: y > 0 ? y : 0,
-        width: imgDims.width,
-        height: imgDims.height,
-      });
-
-      // 3. Open the PDF
-      const pdfBytes = await pdfDoc.save();
-      const blob = new Blob([pdfBytes as unknown as BlobPart], {
-        type: "application/pdf",
-      });
-      const url = URL.createObjectURL(blob);
-
-      const newWindow = window.open(url, "_blank");
-      if (!newWindow) {
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `${row.projectName || "Proposal"}.pdf`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+      const res = await sendQuotationEmailOrMobile(row._id, method);
+      if (res.success) {
+        toast.success(
+          res.message || `Quotation sent successfully via ${method}`,
+          { id: toastId },
+        );
+      } else {
+        toast.error(res.message || `Failed to send quotation via ${method}`, {
+          id: toastId,
+        });
       }
-
-      setTimeout(() => URL.revokeObjectURL(url), 10000);
-      toast.success("Proposal PDF generated successfully!", { id: toastId });
-    } catch (error) {
-      console.error("Failed to generate Proposal PDF:", error);
-      toast.error("Failed to generate Proposal PDF", { id: toastId });
+    } catch (_error) {
+      toast.error(`Failed to send quotation via ${method}`, { id: toastId });
     }
   };
 
@@ -81,21 +49,29 @@ const QuotationTableAction = ({ row }: QuotationTableActionProps) => {
       <TableActionDropdown
         editLink={`/admin/quotations/edit/${row._id}`}
         deleteAction={async () => deleteQuotation(row._id)}
-        deleteConfirmMessage="Are you sure you want to delete this strategic proposal?"
-        deleteSuccessMessage="Proposal successfully removed."
+        deleteConfirmMessage="Are you sure you want to delete this quotation?"
+        deleteSuccessMessage="Quotation successfully removed."
         customItems={[
           {
+            label: "Send via Email",
+            icon: Mail,
+            onClick: () => handleSend("email"),
+            className: "focus:text-blue-500 focus:bg-blue-500/10",
+          },
+          {
+            label: "Send via Mobile",
+            icon: Smartphone,
+            onClick: () => handleSend("mobile"),
+            className: "focus:text-green-500 focus:bg-green-500/10",
+          },
+          {
             label: "Download PDF",
-            icon: DownloadCloud,
+            icon: Download,
             onClick: generatePDF,
             className: "focus:text-indigo-500 focus:bg-indigo-500/10",
           },
         ]}
       />
-      {/* Hidden template specifically for this row's data */}
-      <div className="fixed top-0 left-0 pointer-events-none z-[-100]">
-        <QuotationTemplate data={row as any} templateRef={templateRef} />
-      </div>
     </>
   );
 };

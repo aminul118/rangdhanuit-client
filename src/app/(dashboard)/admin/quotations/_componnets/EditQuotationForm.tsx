@@ -8,36 +8,46 @@ import { QuotationFormValues } from "@/services/Quotation/quotation.validation";
 
 interface EditQuotationFormProps {
   id: string;
-  initialData: QuotationFormValues;
+  initialData?: QuotationFormValues;
 }
 
 const EditQuotationForm = ({ id, initialData }: EditQuotationFormProps) => {
   const { executePost, isPending } = useActionHandler();
 
+  const isEditing = !!id;
+
   const handleUpdate = async (data: QuotationFormValues) => {
     await executePost({
       action: () => updateQuotation(id, data as any),
+      hideLoadingToast: true,
       success: {
-        message: "Strategic proposal updated successfully!",
+        message: "Quotation updated successfully!",
         redirectPath: "/admin/quotations",
-        isRefresh: true,
       },
-      errorMessage: "Failed to update project records.",
+      errorMessage: "Failed to update quotation.",
     });
   };
 
   return (
     <FormLayout
-      title={`Refining Proposal: ${initialData.projectName}`}
-      subtitle="Update strategic scope, financial models, or deliverables and regenerate the professional proposal."
+      title={
+        isEditing
+          ? `Update Quotation ${initialData?.quotationNumber}`
+          : "Create Quotation"
+      }
+      subtitle={
+        isEditing
+          ? "Modify line items or details and regenerate the professional PDF."
+          : "Create a professional quotation with automated calculations."
+      }
       backLink="/admin/quotations"
     >
-      <div className="max-w-6xl mx-auto pb-20">
+      <div className="max-w-5xl mx-auto pb-20">
         <QuotationForm
           initialData={initialData}
           onSubmit={handleUpdate}
           loading={isPending}
-          submitLabel="Refine Strategic Proposal"
+          submitLabel="Update Quotation"
         />
       </div>
     </FormLayout>

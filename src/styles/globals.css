@@ -278,9 +278,10 @@
 }
 
 /* Improve scroll performance: contain paint, avoid layout thrash */
-section,
-main,
-footer {
+/* Scoped to pages with class .optimize-render to prevent blank-screen flash on auth/initial load */
+.optimize-render section,
+.optimize-render main,
+.optimize-render footer {
   content-visibility: auto;
   contain-intrinsic-size: 1px 500px;
 }

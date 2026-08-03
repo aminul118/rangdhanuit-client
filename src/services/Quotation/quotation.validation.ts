@@ -1,26 +1,35 @@
 import { z } from "zod";
 
+export const quotationLineItemSchema = z.object({
+  description: z.string().min(1, "Description is required"),
+  quantity: z.number().min(1, "Quantity must be at least 1"),
+  unitPrice: z.number().min(0, "Price cannot be negative"),
+  total: z.number(),
+});
+
 export const quotationSchemaZodValidation = z.object({
   clientName: z.string().min(1, "Client Name is required"),
-  clientAddress: z.string().min(1, "Client Address is required"),
   clientEmail: z
     .string()
     .email("Invalid email address")
     .optional()
     .or(z.literal("")),
   clientPhone: z.string().min(1, "Client Phone is required"),
-  projectName: z.string().min(1, "Project Name is required"),
-  description: z.string().min(10, "Description must be at least 10 characters"),
-  deliverables: z.string().min(1, "Deliverables are required"),
-  startDate: z.date().optional().nullable(),
-  endDate: z.date().optional().nullable(),
-  totalCost: z.number().min(0),
-  advancePercentage: z.number().min(0).max(100),
-  midwayPercentage: z.number().min(0).max(100),
-  completionPercentage: z.number().min(0).max(100),
-  paymentMethod: z.string().min(1, "Payment Method is required"),
-  revisions: z.number().min(0),
-  supportDays: z.number().min(0),
+  clientAddress: z.string().optional().or(z.literal("")),
+  projectStartTime: z.date().optional().nullable(),
+  projectApproximateFinishTime: z.date().optional().nullable(),
+  quotationNumber: z.string().optional(),
+  issueDate: z.date({ message: "Issue Date is required" }),
+  validUntil: z.date().optional().nullable(),
+  status: z.enum(["DRAFT", "SENT", "ACCEPTED", "REJECTED"]).optional(),
+  lineItems: z
+    .array(quotationLineItemSchema)
+    .min(1, "At least one line item is required"),
+  subtotal: z.number().min(0),
+  tax: z.number().min(0),
+  discount: z.number().min(0),
+  total: z.number().min(0),
+  notes: z.string().optional().or(z.literal("")),
 });
 
 export type QuotationFormValues = z.infer<typeof quotationSchemaZodValidation>;

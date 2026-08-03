@@ -12,28 +12,26 @@ const AddQuotationForm = () => {
   const handleCreate = async (data: QuotationFormValues) => {
     await executePost({
       action: () => createQuotation(data as any),
+      hideLoadingToast: true,
       success: {
-        message:
-          "Quotation generated successfully! Your strategic proposal is ready.",
+        message: "Quotation created successfully!",
         redirectPath: "/admin/quotations",
-        isRefresh: true,
       },
-      errorMessage:
-        "Failed to generate quotation. Please review the project details.",
+      errorMessage: "Failed to create quotation. Please check your inputs.",
     });
   };
 
   return (
     <FormLayout
-      title="Strategic Proposal Generation"
-      subtitle="Craft high-impact software development proposals with automated financial modeling."
+      title="Create Quotation"
+      subtitle="Create a professional quotation with automated calculations."
       backLink="/admin/quotations"
     >
-      <div className="max-w-6xl mx-auto pb-20">
+      <div className="max-w-5xl mx-auto pb-20">
         <QuotationForm
           onSubmit={handleCreate}
           loading={isPending}
-          submitLabel="Initialize Proposal"
+          submitLabel="Create & Save Quotation"
         />
       </div>
     </FormLayout>

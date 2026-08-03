@@ -5,10 +5,13 @@ import { getCookie } from "@/lib/jwt";
 import { revalidate } from "./revalidate";
 import { AppError } from "./AppError";
 
+const DEFAULT_TIMEOUT = 15000;
+
 export type FetchOptions = Omit<RequestInit, "body"> & {
   body?: unknown;
   query?: Record<string, string>;
   skipAuth?: boolean;
+  timeout?: number;
 };
 
 const serverFetchHelper = async <T>(
@@ -46,32 +49,48 @@ const serverFetchHelper = async <T>(
       .filter(Boolean)
       .join("; ");
 
-    return fetch(url, {
-      ...rest,
-      next: {
-        revalidate: 3600, // Default stale-while-revalidate period (1 hour)
-        ...(options as any).next,
-      },
-      body: body as BodyInit | null,
-      headers: {
-        ...(isFormData ? {} : { "Content-Type": "application/json" }),
-        ...(cookieHeader ? { Cookie: cookieHeader } : {}),
-        ...(accessToken ? { Authorization: accessToken } : {}),
-        ...headers,
-      },
-    });
+    const timeout = (options as FetchOptions).timeout ?? DEFAULT_TIMEOUT;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+    try {
+      return await fetch(url, {
+        ...rest,
+        signal: controller.signal,
+        next: {
+          revalidate: 3600, // Default stale-while-revalidate period (1 hour)
+          ...(options as any).next,
+        },
+        body: body as BodyInit | null,
+        headers: {
+          ...(isFormData ? {} : { "Content-Type": "application/json" }),
+          ...(cookieHeader ? { Cookie: cookieHeader } : {}),
+          ...(accessToken ? { Authorization: accessToken } : {}),
+          ...headers,
+        },
+      });
+    } finally {
+      clearTimeout(timeoutId);
+    }
   };
 
   const res = await makeRequest();
-  const data = await res.json();
 
   if (!res.ok) {
+    let errorData;
+    try {
+      errorData = await res.json();
+    } catch {
+      errorData = { message: "Something went wrong", statusCode: res.status };
+    }
     throw new AppError(
-      data.message || "Something went wrong",
-      data.statusCode || res.status,
-      data.errorSources,
+      errorData.message || "Something went wrong",
+      errorData.statusCode || res.status,
+      errorData.errorSources,
     );
   }
+
+  const data = await res.json();
 
   // Trigger revalidation for mutations
   if (["POST", "PUT", "PATCH", "DELETE"].includes(rest.method || "")) {

@@ -19,6 +19,7 @@ import {
   FadeIn,
 } from "@/app/(authentication)/_components/AuthAnimations";
 import Logo from "@/assets/Logo";
+import AuthLayoutSkeleton from "@/components/common/loader/AuthLayoutSkeleton";
 
 interface AuthLayoutWrapperProps {
   children: ReactNode;
@@ -158,7 +159,7 @@ const AuthLayoutContent = ({
 
 export const AuthLayoutWrapper = (props: AuthLayoutWrapperProps) => {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<AuthLayoutSkeleton />}>
       <AuthLayoutContent {...props} />
     </Suspense>
   );

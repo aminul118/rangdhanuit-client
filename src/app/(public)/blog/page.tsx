@@ -1,8 +1,10 @@
 import { getBlogs } from "@/services/Blog/blogs";
 import { Metadata } from "next";
+import { Suspense } from "react";
 import { TSearchParamsPromise, IBlog } from "@/types";
 import { Container } from "@/components/ui/Container";
 import { BlogHero } from "@/app/(public)/blog/_components/BlogHero";
+import BlogCardSkeleton from "@/app/(public)/blog/_components/BlogCardSkeleton";
 import dynamic from "next/dynamic";
 const BlogList = dynamic(() =>
   import("@/app/(public)/blog/_components/BlogList").then((m) => m.BlogList),
@@ -20,11 +22,11 @@ export const metadata: Metadata = generateMetaTags({
 
 export const revalidate = 0;
 
-export default async function BlogPage({
+const BlogGrid = async ({
   searchParams,
 }: {
   searchParams: TSearchParamsPromise;
-}) {
+}) => {
   const params = await searchParams;
   const search = params.search as string | undefined;
   const query: Record<string, string> = { status: "PUBLISHED" };
@@ -32,15 +34,33 @@ export default async function BlogPage({
 
   const data = (await getBlogs(query)) as { success: boolean; data: IBlog[] };
   const blogs = data.success ? data.data : [];
+  return <BlogList blogs={blogs} search={search} />;
+};
 
+const BlogSkeletonGrid = () => {
+  return (
+    <div className="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      {Array.from({ length: 6 }).map((_, i) => (
+        <BlogCardSkeleton key={i} />
+      ))}
+    </div>
+  );
+};
+
+export default function BlogPage({
+  searchParams,
+}: {
+  searchParams: TSearchParamsPromise;
+}) {
   return (
     <main className="min-h-screen pb-20 overflow-hidden bg-background transition-colors duration-500">
-      {/* Background decoration */}
       <div className="absolute inset-x-0 top-0 -z-10 h-full w-full bg-linear-to-b from-indigo-500/5 via-background to-background" />
 
       <Container className="relative z-10">
         <BlogHero />
-        <BlogList blogs={blogs} search={search} />
+        <Suspense fallback={<BlogSkeletonGrid />}>
+          <BlogGrid searchParams={searchParams} />
+        </Suspense>
       </Container>
     </main>
   );

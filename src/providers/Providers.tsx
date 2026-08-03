@@ -5,6 +5,7 @@ import { AuthProvider, useAuth, IUser } from "./AuthProvider";
 import { LazyMotion, MotionConfig } from "framer-motion";
 import dynamic from "next/dynamic";
 import { ReactNode } from "react";
+import { Toaster } from "sonner";
 
 const loadFeatures = () =>
   import("framer-motion").then((res) => res.domAnimation);
@@ -13,9 +14,6 @@ const TooltipProvider = dynamic(
   () => import("@/components/ui/tooltip").then((mod) => mod.TooltipProvider),
   { ssr: false },
 );
-const Toaster = dynamic(() => import("sonner").then((mod) => mod.Toaster), {
-  ssr: false,
-});
 const LazySocketProvider = dynamic(
   () => import("./SocketProvider").then((mod) => mod.SocketProvider),
   { ssr: false },
@@ -27,8 +25,8 @@ interface IProvider {
 }
 
 const MaybeSocketProvider = ({ children }: { children: ReactNode }) => {
-  const { user } = useAuth();
-  if (!user) return <>{children}</>;
+  const { user, loading } = useAuth();
+  if (!user && !loading) return <>{children}</>;
   return <LazySocketProvider>{children}</LazySocketProvider>;
 };
 

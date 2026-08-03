@@ -2,8 +2,9 @@ import AddQuotationForm from "@/app/(dashboard)/admin/quotations/_componnets/Add
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Generate Quotation | Rangdhanu IT",
-  description: "Create professional software development proposals.",
+  title: "Create Quotation | Rangdhanu IT",
+  description:
+    "Create professional service quotations with automated calculations.",
 };
 
 const CreateQuotationPage = () => {

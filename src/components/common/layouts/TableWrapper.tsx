@@ -7,10 +7,7 @@ import TablePagination, { IMeta } from "../pagination/TablePagination";
 import TableActions from "../table/TableActions";
 import TableLimit from "../pagination/TableLimit";
 import TableLoader from "../loader/TableLoader";
-import {
-  TableTransitionProvider,
-  useTableTransition,
-} from "@/context/TableTransitionContext";
+import { useTableTransition } from "@/context/TableTransitionContext";
 import { m as m, AnimatePresence } from "framer-motion";
 import { TOP_PROGRESS_BAR, FADE_IN } from "@/constants/animations";
 
@@ -24,7 +21,7 @@ interface TableWrapperProps {
   showSearch?: boolean;
 }
 
-const TableWrapperContent = ({
+const TableWrapper = ({
   title,
   description,
   action,
@@ -113,14 +110,6 @@ const TableWrapperContent = ({
         </div>
       )}
     </section>
-  );
-};
-
-const TableWrapper = (props: TableWrapperProps) => {
-  return (
-    <TableTransitionProvider>
-      <TableWrapperContent {...props} />
-    </TableTransitionProvider>
   );
 };
 

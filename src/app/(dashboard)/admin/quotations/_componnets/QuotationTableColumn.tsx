@@ -8,19 +8,20 @@ import QuotationTableAction from "./QuotationTableAction";
 
 export const QuotationTableColumns = (): Column<IQuotation>[] => [
   {
-    header: "Client Name",
-    accessor: "clientName",
-    sortKey: "clientName",
+    header: "Quotation #",
+    accessor: "quotationNumber",
+    sortKey: "quotationNumber",
     className: "font-medium text-foreground",
   },
   {
-    header: "Project",
-    accessor: "projectName",
+    header: "Client Name",
+    accessor: "clientName",
+    sortKey: "clientName",
   },
   {
-    header: "Total Cost",
-    accessor: (row) => `BDT ${row.totalCost?.toLocaleString()}`,
-    sortKey: "totalCost",
+    header: "Total Amount",
+    accessor: (row) => `BDT ${row.total?.toLocaleString()}`,
+    sortKey: "total",
   },
   {
     header: "Status",
@@ -47,10 +48,10 @@ export const QuotationTableColumns = (): Column<IQuotation>[] => [
     },
   },
   {
-    header: "Created At",
+    header: "Valid Until",
     accessor: (row) =>
-      row.createdAt ? format(new Date(row.createdAt), "dd MMM yyyy") : "N/A",
-    sortKey: "createdAt",
+      row.validUntil ? format(new Date(row.validUntil), "dd MMM yyyy") : "N/A",
+    sortKey: "validUntil",
   },
   {
     header: "Actions",
