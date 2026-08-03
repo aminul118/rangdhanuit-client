@@ -35,7 +35,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const [isMobile] = useState(
     () => typeof window !== "undefined" && window.innerWidth < 768,
   );
@@ -141,7 +141,9 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-3">
             {user && <NotificationDropdown />}
             <ModeToggle />
-            {user ? (
+            {loading ? (
+              <div className="h-9 w-9 animate-pulse rounded-full bg-muted/40" />
+            ) : user ? (
               <NavUser
                 user={
                   user as {
@@ -163,17 +165,21 @@ const Navbar = () => {
               {user && <NotificationDropdown />}
               <ModeToggle />
             </div>
-            {user && (
-              <NavUser
-                user={
-                  user as {
-                    name: string;
-                    email: string;
-                    picture?: string;
-                    role?: string;
+            {loading ? (
+              <div className="h-9 w-9 animate-pulse rounded-full bg-muted/40" />
+            ) : (
+              user && (
+                <NavUser
+                  user={
+                    user as {
+                      name: string;
+                      email: string;
+                      picture?: string;
+                      role?: string;
+                    }
                   }
-                }
-              />
+                />
+              )
             )}
             <div className="z-[80] scale-90 sm:scale-100">
               <Hamburger
