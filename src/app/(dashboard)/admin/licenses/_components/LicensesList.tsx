@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ILicense } from "@/services/License/license.interface";
 import { IMeta } from "@/types";
 import { Plus, BookOpen } from "lucide-react";
+import TablePagination from "@/components/common/pagination/TablePagination";
 import LicenseTable from "./LicenseTable";
 import LicenseFormModal from "./LicenseFormModal";
 import ApproveModal from "./ApproveModal";
@@ -75,10 +76,11 @@ export const LicensesList: React.FC<LicensesListProps> = ({
       {/* License Table */}
       <LicenseTable
         licenses={licenses}
-        meta={meta}
         onEdit={handleEdit}
         onApprove={handleApprove}
       />
+
+      {meta && <TablePagination meta={meta} />}
 
       {/* Form Modal (Add / Edit) */}
       <LicenseFormModal
