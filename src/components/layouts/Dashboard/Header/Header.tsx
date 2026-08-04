@@ -48,6 +48,7 @@ const placeholderMap: Record<string, string> = {
   "/admin/portfolios": "Search portfolios by title...",
   "/admin/quotations": "Search quotations...",
   "/admin/invoices": "Search invoices...",
+  "/admin/licenses": "Search licenses by client name or domain...",
 };
 
 const getPlaceholder = (pathname: string) => {

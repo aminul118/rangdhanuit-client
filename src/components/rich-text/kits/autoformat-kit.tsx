@@ -222,15 +222,13 @@ export const AutoformatKit = [
         ...autoformatArrow,
         ...autoformatMath,
         ...autoformatLists,
-      ].map(
-        (rule): AutoformatRule => ({
-          ...rule,
-          query: (editor) =>
-            !editor.api.some({
-              match: { type: editor.getType(KEYS.codeBlock) },
-            }),
-        }),
-      ),
+      ].map((rule): AutoformatRule => ({
+        ...rule,
+        query: (editor) =>
+          !editor.api.some({
+            match: { type: editor.getType(KEYS.codeBlock) },
+          }),
+      })),
     },
   }),
 ];

@@ -7,6 +7,7 @@ import {
   Sparkles,
   FileSignature,
   Receipt,
+  ShieldCheck,
 } from "lucide-react";
 import { SidebarItem } from "./SidebarMenus";
 
@@ -41,6 +42,11 @@ export const adminMenu: SidebarItem[] = [
     href: "/admin/invoices",
     label: "Invoices",
     icon: Receipt,
+  },
+  {
+    href: "/admin/licenses",
+    label: "Client Licenses",
+    icon: ShieldCheck,
   },
 
   {
