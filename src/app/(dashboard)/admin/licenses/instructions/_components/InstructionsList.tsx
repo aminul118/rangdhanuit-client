@@ -8,7 +8,7 @@ import { instructionTabs } from "./instructionSnippets";
 
 export const InstructionsList: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
-    "env" | "checker" | "modal" | "layout" | "subscription"
+    "env" | "checker" | "modal" | "layout" | "subscription" | "testing"
   >("env");
 
   const activeTabData =

@@ -95,15 +95,63 @@ const getLicenseTableColumns = (
     className: "w-36",
   },
   {
-    header: "Due Date",
-    accessor: (lic) => (
-      <div className="font-medium text-foreground inline-flex items-center gap-1.5 text-xs">
-        <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
-        {new Date(lic.dueDate).toLocaleDateString()}
-      </div>
-    ),
+    header: "Due Date / Time Left",
+    accessor: (lic) => {
+      const now = new Date();
+      const due = new Date(lic.dueDate);
+      const diffTime = due.getTime() - now.getTime();
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      let badge;
+      if (diffDays < 0) {
+        const pastDays = Math.abs(diffDays);
+        badge = (
+          <span className="inline-block px-2 py-0.5 rounded text-[11px] font-semibold text-rose-600 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900">
+            Expired {pastDays}d ago
+          </span>
+        );
+      } else if (diffDays === 0) {
+        badge = (
+          <span className="inline-block px-2 py-0.5 rounded text-[11px] font-semibold text-amber-600 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900">
+            Expires Today
+          </span>
+        );
+      } else if (diffDays <= 30) {
+        badge = (
+          <span className="inline-block px-2 py-0.5 rounded text-[11px] font-semibold text-amber-600 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900">
+            {diffDays} days left
+          </span>
+        );
+      } else {
+        const months = Math.floor(diffDays / 30);
+        const remDays = diffDays % 30;
+        const text =
+          months >= 1
+            ? `${months}mo ${remDays > 0 ? `${remDays}d` : ""} left`
+            : `${diffDays}d left`;
+        badge = (
+          <span className="inline-block px-2 py-0.5 rounded text-[11px] font-semibold text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900">
+            {text}
+          </span>
+        );
+      }
+
+      return (
+        <div className="space-y-1">
+          <div className="font-medium text-foreground inline-flex items-center gap-1.5 text-xs">
+            <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
+            {due.toLocaleDateString(undefined, {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+          </div>
+          <div>{badge}</div>
+        </div>
+      );
+    },
     sortKey: "dueDate",
-    className: "w-32",
+    className: "min-w-[150px]",
   },
   {
     header: "bKash TrxID",

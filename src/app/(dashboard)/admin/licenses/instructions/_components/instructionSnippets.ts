@@ -1,4 +1,11 @@
-import { Terminal, FileCode, Layers, Layout, CreditCard } from "lucide-react";
+import {
+  Terminal,
+  FileCode,
+  Layers,
+  Layout,
+  CreditCard,
+  CheckCircle2,
+} from "lucide-react";
 
 export const envCode = `# 1. Mandatory API License Key (.env / .env.local)
 # SECURITY NOTICE: Do NOT prefix with NEXT_PUBLIC_! Keep server-side only.
@@ -419,6 +426,40 @@ export default async function SubscriptionPage() {
   );
 }`;
 
+export const testingCode = `// STEP-BY-STEP TESTING & VERIFICATION GUIDE FOR DEVELOPERS
+
+/* 
+================================================================================
+1. VERIFY DEVELOPER DEV MODE CONNECTION
+================================================================================
+When running the client website in dev mode (npm run dev), check the server terminal console.
+If RANGDHANU_LICENSE_API_KEY is correctly set in .env, you will see:
+  [DEV MODE] ✅ Rangdhanu IT License API Connected Successfully! (Status: ACTIVE)
+
+================================================================================
+2. HOW TO TEST ACTIVE STATE (NORMAL ACCESS)
+================================================================================
+- Set Status = "ACTIVE" in Rangdhanu IT Admin Panel (/admin/licenses).
+- Access http://clientwebsite.com/admin.
+- Access is granted normally and no subscription modal appears.
+
+================================================================================
+3. HOW TO TEST DUE / SUSPENDED STATE (ACCESS LOCK)
+================================================================================
+- Go to Rangdhanu IT Admin Panel (/admin/licenses).
+- Edit client license and change Status to "DUE" or "SUSPENDED" (or set Due Date in past).
+- Refresh http://clientwebsite.com/admin.
+- The SubscriptionModal will trigger automatically, blocking admin pages, showing the fee & bKash TrxID input box.
+
+================================================================================
+4. HOW TO TEST BKASH PAYMENT SUBMISSION & AUTOMATIC UNLOCK
+================================================================================
+- In the SubscriptionModal popup, enter a test bKash TrxID (e.g. TRX9B7X2K89) and click Submit.
+- Open Rangdhanu IT Admin Panel (/admin/licenses) — you will see the client's submitted TrxID.
+- Click "Approve" in Rangdhanu IT.
+- Refresh the client website admin page — status changes back to "ACTIVE" and features unlock instantly!
+*/`;
+
 export const instructionTabs = [
   {
     id: "env",
@@ -429,14 +470,14 @@ export const instructionTabs = [
   },
   {
     id: "checker",
-    label: "2. checkLicense.ts (Server-Side)",
+    label: "2. checkLicense.ts",
     icon: FileCode,
     code: checkerCode,
     filename: "utils/checkLicense.ts",
   },
   {
     id: "modal",
-    label: "3. Payment Modal (shadcn)",
+    label: "3. Payment Modal",
     icon: Layers,
     code: modalCode,
     filename: "components/SubscriptionModal.tsx",
@@ -454,5 +495,12 @@ export const instructionTabs = [
     icon: CreditCard,
     code: subscriptionPageCode,
     filename: "app/admin/subscription/page.tsx",
+  },
+  {
+    id: "testing",
+    label: "6. Testing Guide",
+    icon: CheckCircle2,
+    code: testingCode,
+    filename: "TESTING_GUIDE.md",
   },
 ];

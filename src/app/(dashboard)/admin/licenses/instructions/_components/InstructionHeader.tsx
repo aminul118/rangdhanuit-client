@@ -8,7 +8,7 @@ import { instructionTabs } from "./instructionSnippets";
 interface InstructionHeaderProps {
   activeTab: string;
   onSelectTab: (
-    tabId: "env" | "checker" | "modal" | "layout" | "subscription",
+    tabId: "env" | "checker" | "modal" | "layout" | "subscription" | "testing",
   ) => void;
 }
 
@@ -44,7 +44,7 @@ export const InstructionHeader: React.FC<InstructionHeaderProps> = ({
       </div>
 
       {/* Step Selector Pills */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 mt-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-6">
         {instructionTabs.map((t, idx) => {
           const isActive = activeTab === t.id;
           return (
