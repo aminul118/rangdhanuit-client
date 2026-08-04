@@ -10,7 +10,7 @@ import {
 export const envCode = `# 1. Mandatory API License Key (.env / .env.local)
 # SECURITY NOTICE: Do NOT prefix with NEXT_PUBLIC_! Keep server-side only.
 RANGDHANU_LICENSE_API_KEY="rdit_paste_client_api_key_here"
-RANGDHANU_CENTRAL_URL="https://api.rangdhanuit.com/api/v1"`;
+RANGDHANU_CENTRAL_URL="https://server.rangdhanuit.com/api/v1"`;
 
 export const checkerCode = `// utils/checkLicense.ts (Next.js Server-Side Verification)
 export interface ILicenseStatus {
@@ -27,7 +27,7 @@ export interface ILicenseStatus {
 }
 
 export async function checkLicenseStatus(domain: string): Promise<ILicenseStatus> {
-  const centralUrl = process.env.RANGDHANU_CENTRAL_URL || 'https://api.rangdhanuit.com/api/v1';
+  const centralUrl = process.env.RANGDHANU_CENTRAL_URL || 'https://server.rangdhanuit.com/api/v1';
   const apiKey = process.env.RANGDHANU_LICENSE_API_KEY;
 
   if (!apiKey || !apiKey.trim()) {
@@ -126,7 +126,7 @@ export const SubscriptionModal: React.FC<SubscriptionModalProps> = ({
     setErrorMsg('');
 
     try {
-      const res = await fetch('https://api.rangdhanuit.com/api/v1/licenses/submit-payment', {
+      const res = await fetch('https://server.rangdhanuit.com/api/v1/licenses/submit-payment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ apiKey, trxId: trxId.trim() }),
