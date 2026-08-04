@@ -4,7 +4,7 @@ ARG NODE_VERSION=22
 
 FROM node:${NODE_VERSION}-alpine AS base
 
-RUN apk add --no-cache wget
+RUN apk add --no-cache wget curl
 
 # 1. Install dependencies only when needed
 FROM base AS deps
