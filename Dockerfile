@@ -6,24 +6,18 @@ FROM node:${NODE_VERSION}-alpine AS base
 
 RUN apk add --no-cache wget
 
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001 -G nodejs
-
+# 1. Install dependencies only when needed
 FROM base AS deps
-
 WORKDIR /app
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-ENV HUSKY=0
-
 COPY pnpm-lock.yaml package.json ./
-
 RUN pnpm install --frozen-lockfile && \
     pnpm rebuild sharp
 
-FROM base AS build
-
+# 2. Rebuild the source code only when needed
+FROM base AS builder
 WORKDIR /app
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
@@ -37,31 +31,29 @@ ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 RUN pnpm build
 
-FROM base AS production
-
+# 3. Production image, copy all the files and run next
+FROM base AS runner
 WORKDIR /app
-
-COPY --chown=nodejs:nodejs --from=deps /app/package.json ./package.json
-COPY --chown=nodejs:nodejs --from=deps /app/pnpm-lock.yaml ./pnpm-lock.yaml
-
-RUN corepack enable && corepack prepare pnpm@latest --activate && \
-    pnpm pkg delete scripts.prepare && \
-    pnpm install --frozen-lockfile --prod && \
-    pnpm rebuild sharp && \
-    pnpm store prune
-
-COPY --chown=nodejs:nodejs --from=build /app/.next ./.next
-COPY --chown=nodejs:nodejs --from=build /app/public ./public
-COPY --chown=nodejs:nodejs --from=build /app/next.config.ts ./next.config.ts
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
-USER nodejs
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nextjs -u 1001
+
+COPY --from=builder /app/public ./public
+
+# Automatically leverage output traces to reduce image size
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
 
 EXPOSE 3000
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
     CMD wget -qO- http://localhost:3000 || exit 1
 
-CMD ["pnpm", "start"]
+CMD ["node", "server.js"]

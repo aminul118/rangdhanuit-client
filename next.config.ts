@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 let nextConfig: NextConfig = {
+  output: "standalone",
   reactCompiler: false,
   productionBrowserSourceMaps: false,
   poweredByHeader: false,
