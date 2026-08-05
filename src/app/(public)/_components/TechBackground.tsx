@@ -4,9 +4,16 @@ import { m, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export const TechBackground = () => {
-  const [showDesktopFx] = useState(
-    () => typeof window !== "undefined" && window.innerWidth >= 768,
-  );
+  const [showDesktopFx, setShowDesktopFx] = useState(false);
+
+  useEffect(() => {
+    const frameId = requestAnimationFrame(() => {
+      if (typeof window !== "undefined" && window.innerWidth >= 768) {
+        setShowDesktopFx(true);
+      }
+    });
+    return () => cancelAnimationFrame(frameId);
+  }, []);
 
   return (
     <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none bg-background transition-colors duration-500">
