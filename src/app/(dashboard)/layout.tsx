@@ -4,6 +4,8 @@ import { DashboardContainer } from "@/components/ui/Container";
 import { IChildrenProps } from "@/types";
 import { TableTransitionProvider } from "@/context/TableTransitionContext";
 
+export const dynamic = "force-dynamic";
+
 const AdminLayout = ({ children }: IChildrenProps) => {
   return (
     <TableTransitionProvider>

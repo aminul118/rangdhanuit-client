@@ -1,11 +1,10 @@
 "use client";
 
 import { Container } from "@/components/ui/Container";
-import dynamic from "next/dynamic";
 import ScrollReveal from "@/components/common/animations/ScrollReveal";
 import { PageHeader } from "@/components/ui/PageHeader";
 import ContactInfo from "./ContactInfo";
-const ContactForm = dynamic(() => import("./ContactForm"));
+import ContactForm from "./ContactForm";
 
 const ContactContent = () => {
   return (

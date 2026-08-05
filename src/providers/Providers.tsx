@@ -3,21 +3,13 @@
 import { ThemeProvider } from "next-themes";
 import { AuthProvider, useAuth, IUser } from "./AuthProvider";
 import { LazyMotion, MotionConfig } from "framer-motion";
-import dynamic from "next/dynamic";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { SocketProvider } from "./SocketProvider";
 
 const loadFeatures = () =>
   import("framer-motion").then((res) => res.domAnimation);
-
-const TooltipProvider = dynamic(
-  () => import("@/components/ui/tooltip").then((mod) => mod.TooltipProvider),
-  { ssr: false },
-);
-const LazySocketProvider = dynamic(
-  () => import("./SocketProvider").then((mod) => mod.SocketProvider),
-  { ssr: false },
-);
 
 interface IProvider {
   children: ReactNode;
@@ -27,7 +19,7 @@ interface IProvider {
 const MaybeSocketProvider = ({ children }: { children: ReactNode }) => {
   const { user, loading } = useAuth();
   if (!user && !loading) return <>{children}</>;
-  return <LazySocketProvider>{children}</LazySocketProvider>;
+  return <SocketProvider>{children}</SocketProvider>;
 };
 
 const motionConfig = {

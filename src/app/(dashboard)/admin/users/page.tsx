@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   title: "User Management | Rangdhanu IT",
 };
 
+export const dynamic = "force-dynamic";
+
 const UsersAdminPage = async (props: {
   searchParams: Promise<TSearchParamsPromise>;
 }) => {

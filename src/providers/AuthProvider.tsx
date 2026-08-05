@@ -8,6 +8,10 @@ import React, {
   ReactNode,
 } from "react";
 import { logoutAction } from "@/services/Auth/logout";
+import {
+  removeAccessToken,
+  removeRefreshToken,
+} from "@/services/Auth/cookie-token";
 import { getMe } from "@/services/User/getMe";
 import { tryRefreshToken } from "@/services/Auth/refreshToken";
 
@@ -51,6 +55,8 @@ export const AuthProvider = ({
         const data = await getMe();
         if (cancelled) return;
         if (!data) {
+          await removeAccessToken();
+          await removeRefreshToken();
           setUser(null);
           return;
         }
@@ -59,10 +65,17 @@ export const AuthProvider = ({
           if (!cancelled && refreshed?.user) {
             setUser(refreshed.user);
             return;
+          } else {
+            await removeAccessToken();
+            await removeRefreshToken();
+            setUser(null);
+            return;
           }
         }
         setUser(data);
       } catch {
+        await removeAccessToken();
+        await removeRefreshToken();
         setUser(null);
       } finally {
         if (!cancelled) setLoading(false);
@@ -87,6 +100,8 @@ export const AuthProvider = ({
     try {
       const data = await getMe();
       if (!data) {
+        await removeAccessToken();
+        await removeRefreshToken();
         setUser(null);
         return;
       }
@@ -95,10 +110,17 @@ export const AuthProvider = ({
         if (refreshed?.user) {
           setUser(refreshed.user);
           return;
+        } else {
+          await removeAccessToken();
+          await removeRefreshToken();
+          setUser(null);
+          return;
         }
       }
       setUser(data);
     } catch {
+      await removeAccessToken();
+      await removeRefreshToken();
       setUser(null);
     }
   };

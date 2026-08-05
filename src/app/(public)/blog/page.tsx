@@ -1,14 +1,10 @@
 import { getBlogs } from "@/services/Blog/blogs";
 import { Metadata } from "next";
-import { Suspense } from "react";
 import { TSearchParamsPromise, IBlog } from "@/types";
 import { Container } from "@/components/ui/Container";
 import { BlogHero } from "@/app/(public)/blog/_components/BlogHero";
-import BlogCardSkeleton from "@/app/(public)/blog/_components/BlogCardSkeleton";
-import dynamic from "next/dynamic";
-const BlogList = dynamic(() =>
-  import("@/app/(public)/blog/_components/BlogList").then((m) => m.BlogList),
-);
+
+import { BlogList } from "@/app/(public)/blog/_components/BlogList";
 import generateMetaTags from "@/Seo/generateMetaTags";
 
 export const metadata: Metadata = generateMetaTags({
@@ -37,16 +33,6 @@ const BlogGrid = async ({
   return <BlogList blogs={blogs} search={search} />;
 };
 
-const BlogSkeletonGrid = () => {
-  return (
-    <div className="grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <BlogCardSkeleton key={i} />
-      ))}
-    </div>
-  );
-};
-
 export default function BlogPage({
   searchParams,
 }: {
@@ -58,9 +44,7 @@ export default function BlogPage({
 
       <Container className="relative z-10">
         <BlogHero />
-        <Suspense fallback={<BlogSkeletonGrid />}>
-          <BlogGrid searchParams={searchParams} />
-        </Suspense>
+        <BlogGrid searchParams={searchParams} />
       </Container>
     </main>
   );
