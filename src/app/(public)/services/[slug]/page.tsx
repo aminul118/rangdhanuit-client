@@ -1,4 +1,4 @@
-import { getServiceBySlug, getServices } from "@/services/Service/services";
+import { getServiceBySlug } from "@/services/Service/services";
 import { IService } from "@/types/Service/service.types";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -53,7 +53,7 @@ export async function generateMetadata(
   }
 }
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export default async function ServiceDetailsPage(props: ISlugPageProps) {
   const params = await props.params;

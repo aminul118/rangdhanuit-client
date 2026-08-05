@@ -17,7 +17,7 @@ export const metadata: Metadata = generateMetaTags({
   websitePath: "services",
 });
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 const ServicesGrid = async () => {
   const res = await getServices();

@@ -1,4 +1,4 @@
-import { getBlogBySlug, getBlogs } from "@/services/Blog/blogs";
+import { getBlogBySlug } from "@/services/Blog/blogs";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ISlugPageProps } from "@/types";
@@ -49,7 +49,7 @@ export const generateMetadata = async (
   }
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 const BlogDetailsPage = async (props: ISlugPageProps) => {
   const params = await props.params;

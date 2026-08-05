@@ -20,7 +20,7 @@ export const metadata: Metadata = generateMetaTags({
   websitePath: "blog",
 });
 
-export const revalidate = 0;
+export const revalidate = 300;
 
 const BlogGrid = async ({
   searchParams,

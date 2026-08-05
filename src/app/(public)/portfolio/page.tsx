@@ -16,7 +16,7 @@ export const metadata: Metadata = generateMetaTags({
   websitePath: "portfolio",
 });
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 const PortfolioGrid = async () => {
   const { data: portfolios } = await getPortfolios();

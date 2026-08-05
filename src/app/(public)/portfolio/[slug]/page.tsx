@@ -1,7 +1,4 @@
-import {
-  getPortfolioBySlug,
-  getPortfolios,
-} from "@/services/Portfolio/portfolios";
+import { getPortfolioBySlug } from "@/services/Portfolio/portfolios";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ISlugPageProps } from "@/types";
@@ -47,7 +44,7 @@ export const generateMetadata = async (
   }
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 const PortfolioDetailsPage = async (props: ISlugPageProps) => {
   const params = await props.params;
