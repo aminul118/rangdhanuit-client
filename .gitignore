@@ -37,6 +37,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# pnpm
+.pnpm-store
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+

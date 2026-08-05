@@ -20,6 +20,9 @@ const handleCopyKey = (key: string) => {
 const getLicenseTableColumns = (
   onEdit: (lic: ILicense) => void,
   onApprove: (lic: ILicense) => void,
+  onExtend: (lic: ILicense) => void,
+  onRecordPayment: (lic: ILicense) => void,
+  onViewHistory: (lic: ILicense) => void,
 ): Column<ILicense>[] => [
   {
     header: "SI",
@@ -146,31 +149,69 @@ const getLicenseTableColumns = (
               day: "numeric",
             })}
           </div>
-          <div>{badge}</div>
+          <div className="flex items-center gap-2">
+            {badge}
+            <button
+              onClick={() => onExtend(lic)}
+              className="text-[11px] font-semibold text-primary hover:underline hover:text-primary/80 transition"
+              title="Extend License Duration"
+            >
+              Extend
+            </button>
+          </div>
         </div>
       );
     },
     sortKey: "dueDate",
-    className: "min-w-[150px]",
+    className: "min-w-[170px]",
   },
   {
-    header: "bKash TrxID",
-    accessor: (lic) =>
-      lic.lastPaymentTrxId ? (
-        <div className="space-y-1">
-          <span className="inline-block px-2.5 py-0.5 rounded bg-pink-100 dark:bg-pink-950/60 text-pink-700 dark:text-pink-300 font-mono font-bold text-xs border border-pink-200 dark:border-pink-800">
-            {lic.lastPaymentTrxId}
-          </span>
-          {lic.lastPaymentSubmittedAt && (
-            <div className="text-[11px] text-muted-foreground">
-              {new Date(lic.lastPaymentSubmittedAt).toLocaleString()}
+    header: "Transaction ID",
+    accessor: (lic) => {
+      const pendingTrx = lic.lastPaymentTrxId;
+      const lastVerifiedTrx =
+        lic.paymentHistory && lic.paymentHistory.length > 0
+          ? lic.paymentHistory[lic.paymentHistory.length - 1]?.trxId
+          : null;
+
+      if (pendingTrx) {
+        return (
+          <div className="space-y-1">
+            <span className="inline-block px-2.5 py-1 rounded bg-pink-100 dark:bg-pink-950/70 text-pink-700 dark:text-pink-300 font-mono font-bold text-xs border border-pink-300 dark:border-pink-800 animate-pulse">
+              {pendingTrx}
+            </span>
+            <div className="text-[10px] text-pink-600 dark:text-pink-400 font-semibold">
+              ⚠️ Pending Approval
             </div>
-          )}
-        </div>
-      ) : (
-        <span className="text-xs text-muted-foreground italic">None</span>
-      ),
-    className: "w-36",
+            {lic.lastPaymentSubmittedAt && (
+              <div className="text-[10px] text-muted-foreground">
+                {new Date(lic.lastPaymentSubmittedAt).toLocaleString()}
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      if (lastVerifiedTrx) {
+        return (
+          <div className="space-y-1">
+            <span className="inline-block px-2.5 py-1 rounded bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-mono font-bold text-xs border border-emerald-300 dark:border-emerald-800">
+              {lastVerifiedTrx}
+            </span>
+            <div className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">
+              ✓ Verified Paid
+            </div>
+          </div>
+        );
+      }
+
+      return (
+        <span className="text-xs text-muted-foreground italic bg-muted px-2 py-0.5 rounded border border-border">
+          No TrxID
+        </span>
+      );
+    },
+    className: "min-w-[160px]",
   },
   {
     header: "Status",
@@ -199,7 +240,14 @@ const getLicenseTableColumns = (
   {
     header: "Actions",
     accessor: (lic) => (
-      <LicenseActions lic={lic} onEdit={onEdit} onApprove={onApprove} />
+      <LicenseActions
+        lic={lic}
+        onEdit={onEdit}
+        onApprove={onApprove}
+        onExtend={onExtend}
+        onRecordPayment={onRecordPayment}
+        onViewHistory={onViewHistory}
+      />
     ),
     className: "w-20 text-center",
   },

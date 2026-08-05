@@ -7,16 +7,34 @@ import {
   updateLicense,
 } from "@/services/License/license";
 import { ILicense } from "@/services/License/license.interface";
-import { Check, Edit, Mail, RefreshCw } from "lucide-react";
+import {
+  Check,
+  Clock,
+  CreditCard,
+  Edit,
+  History,
+  Mail,
+  RefreshCw,
+} from "lucide-react";
 import { toast } from "sonner";
 
 interface LicenseActionsProps {
   lic: ILicense;
   onEdit: (lic: ILicense) => void;
   onApprove: (lic: ILicense) => void;
+  onExtend: (lic: ILicense) => void;
+  onRecordPayment: (lic: ILicense) => void;
+  onViewHistory: (lic: ILicense) => void;
 }
 
-const LicenseActions = ({ lic, onEdit, onApprove }: LicenseActionsProps) => {
+const LicenseActions = ({
+  lic,
+  onEdit,
+  onApprove,
+  onExtend,
+  onRecordPayment,
+  onViewHistory,
+}: LicenseActionsProps) => {
   const handleSendEmail = async () => {
     try {
       const res = await sendLicenseInvoiceEmail(lic._id);
@@ -51,11 +69,29 @@ const LicenseActions = ({ lic, onEdit, onApprove }: LicenseActionsProps) => {
       deleteSuccessMessage="License removed successfully."
       customItems={[
         {
-          label: "Approve & Renew Access",
+          label: "Approve & Extend Access",
           onClick: () => onApprove(lic),
           icon: Check,
           className:
             "focus:text-emerald-500 focus:bg-emerald-500/10 font-semibold",
+        },
+        {
+          label: "Extend License Date",
+          onClick: () => onExtend(lic),
+          icon: Clock,
+          className: "focus:text-primary focus:bg-primary/10 font-semibold",
+        },
+        {
+          label: "Record Bill Payment",
+          onClick: () => onRecordPayment(lic),
+          icon: CreditCard,
+          className: "focus:text-pink-500 focus:bg-pink-500/10 font-semibold",
+        },
+        {
+          label: "Payment History",
+          onClick: () => onViewHistory(lic),
+          icon: History,
+          className: "focus:text-blue-500 focus:bg-blue-500/10",
         },
         {
           label: "Send Email Invoice",

@@ -2,11 +2,18 @@ import { LucideIcon } from "lucide-react";
 import { adminMenu } from "./adminMenu";
 import { userMenu } from "./userMenu";
 
-export interface SidebarItem {
+export interface SidebarSubItem {
   href: string;
+  label: string;
+  icon?: LucideIcon;
+}
+
+export interface SidebarItem {
+  href?: string;
   label: string;
   icon: LucideIcon;
   badgeKey?: string;
+  children?: SidebarSubItem[];
 }
 
 export const getSidebarMenus = (role: string): SidebarItem[] => {

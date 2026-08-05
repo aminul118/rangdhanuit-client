@@ -8,6 +8,9 @@ import {
   ILicense,
   ICreateLicenseInput,
   IUpdateLicenseInput,
+  IRecordPaymentInput,
+  IExtendLicenseInput,
+  IClientBillsSummary,
 } from "./license.interface";
 
 export const getLicenses = async (
@@ -16,6 +19,14 @@ export const getLicenses = async (
   return await serverFetch.get("/licenses", {
     query,
     next: { tags: ["licenses"] },
+  });
+};
+
+export const getClientBillsSummary = async (): Promise<
+  ApiResponse<IClientBillsSummary>
+> => {
+  return await serverFetch.get("/licenses/bills/summary", {
+    next: { tags: ["licenses", "client-bills"] },
   });
 };
 
@@ -54,6 +65,32 @@ export const approveLicensePayment = catchAsyncAction(
   async (id: string, months?: number): Promise<ApiResponse<ILicense>> => {
     const res = await serverFetch.patch(`/licenses/${id}/approve`, {
       body: { months },
+    });
+    await revalidate(["licenses", id]);
+    return res;
+  },
+);
+
+export const recordLicensePayment = catchAsyncAction(
+  async (
+    id: string,
+    data: IRecordPaymentInput,
+  ): Promise<ApiResponse<ILicense>> => {
+    const res = await serverFetch.patch(`/licenses/${id}/record-payment`, {
+      body: data,
+    });
+    await revalidate(["licenses", id]);
+    return res;
+  },
+);
+
+export const extendLicenseDuration = catchAsyncAction(
+  async (
+    id: string,
+    data: IExtendLicenseInput,
+  ): Promise<ApiResponse<ILicense>> => {
+    const res = await serverFetch.patch(`/licenses/${id}/extend`, {
+      body: data,
     });
     await revalidate(["licenses", id]);
     return res;

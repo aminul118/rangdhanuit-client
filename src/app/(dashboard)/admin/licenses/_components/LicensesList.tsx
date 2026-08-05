@@ -4,11 +4,14 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { ILicense } from "@/services/License/license.interface";
 import { IMeta } from "@/types";
-import { Plus, BookOpen } from "lucide-react";
+import { Plus } from "lucide-react";
 import TablePagination from "@/components/common/pagination/TablePagination";
 import LicenseTable from "./LicenseTable";
 import LicenseFormModal from "./LicenseFormModal";
 import ApproveModal from "./ApproveModal";
+import ExtendLicenseModal from "./ExtendLicenseModal";
+import RecordPaymentModal from "./RecordPaymentModal";
+import PaymentHistoryModal from "./PaymentHistoryModal";
 
 interface LicensesListProps {
   licenses: ILicense[];
@@ -24,6 +27,12 @@ export const LicensesList: React.FC<LicensesListProps> = ({
   const [approvingLicense, setApprovingLicense] = useState<ILicense | null>(
     null,
   );
+  const [extendingLicense, setExtendingLicense] = useState<ILicense | null>(
+    null,
+  );
+  const [recordingPaymentLicense, setRecordingPaymentLicense] =
+    useState<ILicense | null>(null);
+  const [historyLicense, setHistoryLicense] = useState<ILicense | null>(null);
 
   const handleEdit = (lic: ILicense) => {
     setSelectedLicense(lic);
@@ -32,6 +41,18 @@ export const LicensesList: React.FC<LicensesListProps> = ({
 
   const handleApprove = (lic: ILicense) => {
     setApprovingLicense(lic);
+  };
+
+  const handleExtend = (lic: ILicense) => {
+    setExtendingLicense(lic);
+  };
+
+  const handleRecordPayment = (lic: ILicense) => {
+    setRecordingPaymentLicense(lic);
+  };
+
+  const handleViewHistory = (lic: ILicense) => {
+    setHistoryLicense(lic);
   };
 
   const handleFormModalChange = (open: boolean) => {
@@ -53,14 +74,6 @@ export const LicensesList: React.FC<LicensesListProps> = ({
           </p>
         </div>
         <div className="flex items-center gap-3 shrink-0">
-          <Link
-            href="/admin/licenses/instructions"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-muted hover:bg-muted/80 text-foreground font-medium rounded-lg transition text-sm border border-border/60 whitespace-nowrap"
-          >
-            <BookOpen className="w-4 h-4 text-primary shrink-0" /> Setup
-            Instructions
-          </Link>
-
           <button
             onClick={() => {
               setSelectedLicense(null);
@@ -78,6 +91,9 @@ export const LicensesList: React.FC<LicensesListProps> = ({
         licenses={licenses}
         onEdit={handleEdit}
         onApprove={handleApprove}
+        onExtend={handleExtend}
+        onRecordPayment={handleRecordPayment}
+        onViewHistory={handleViewHistory}
       />
 
       {meta && <TablePagination meta={meta} />}
@@ -94,6 +110,30 @@ export const LicensesList: React.FC<LicensesListProps> = ({
         lic={approvingLicense}
         onOpenChange={(open) => {
           if (!open) setApprovingLicense(null);
+        }}
+      />
+
+      {/* Extend License Modal */}
+      <ExtendLicenseModal
+        lic={extendingLicense}
+        onOpenChange={(open) => {
+          if (!open) setExtendingLicense(null);
+        }}
+      />
+
+      {/* Record Payment Modal */}
+      <RecordPaymentModal
+        lic={recordingPaymentLicense}
+        onOpenChange={(open) => {
+          if (!open) setRecordingPaymentLicense(null);
+        }}
+      />
+
+      {/* Payment History Modal */}
+      <PaymentHistoryModal
+        lic={historyLicense}
+        onOpenChange={(open) => {
+          if (!open) setHistoryLicense(null);
         }}
       />
     </div>

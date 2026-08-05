@@ -8,10 +8,26 @@ interface LicenseTableProps {
   licenses: ILicense[];
   onEdit: (lic: ILicense) => void;
   onApprove: (lic: ILicense) => void;
+  onExtend: (lic: ILicense) => void;
+  onRecordPayment: (lic: ILicense) => void;
+  onViewHistory: (lic: ILicense) => void;
 }
 
-const LicenseTable = ({ licenses, onEdit, onApprove }: LicenseTableProps) => {
-  const columns = getLicenseTableColumns(onEdit, onApprove);
+const LicenseTable = ({
+  licenses,
+  onEdit,
+  onApprove,
+  onExtend,
+  onRecordPayment,
+  onViewHistory,
+}: LicenseTableProps) => {
+  const columns = getLicenseTableColumns(
+    onEdit,
+    onApprove,
+    onExtend,
+    onRecordPayment,
+    onViewHistory,
+  );
 
   return (
     <TableManageMent

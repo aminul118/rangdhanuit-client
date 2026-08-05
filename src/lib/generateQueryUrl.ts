@@ -1,7 +1,9 @@
 import envVars from "@/config/env.config";
 
 const generateQueryUrl = (endpoint: string, query?: Record<string, string>) => {
-  const url = new URL(`${envVars.apiUrl}${endpoint}`);
+  const baseUrl =
+    typeof window === "undefined" ? envVars.internalApiUrl : envVars.apiUrl;
+  const url = new URL(`${baseUrl}${endpoint}`);
 
   if (query) {
     Object.entries(query).forEach(([key, value]) => {

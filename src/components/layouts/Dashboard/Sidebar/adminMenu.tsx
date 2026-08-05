@@ -8,6 +8,8 @@ import {
   FileSignature,
   Receipt,
   ShieldCheck,
+  CreditCard,
+  BookOpen,
 } from "lucide-react";
 import { SidebarItem } from "./SidebarMenus";
 
@@ -44,9 +46,25 @@ export const adminMenu: SidebarItem[] = [
     icon: Receipt,
   },
   {
-    href: "/admin/licenses",
     label: "Client Licenses",
     icon: ShieldCheck,
+    children: [
+      {
+        href: "/admin/licenses",
+        label: "Client Licenses",
+        icon: ShieldCheck,
+      },
+      {
+        href: "/admin/client-bills",
+        label: "Client Bills",
+        icon: CreditCard,
+      },
+      {
+        href: "/admin/licenses/instructions",
+        label: "Setup Instructions",
+        icon: BookOpen,
+      },
+    ],
   },
 
   {

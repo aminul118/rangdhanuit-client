@@ -50,12 +50,30 @@ export const ApproveModal: React.FC<ApproveModalProps> = ({
           Client: <strong>{lic.clientName}</strong> ({lic.clientDomain})
         </p>
 
-        {lic.lastPaymentTrxId && (
-          <div className="bg-pink-50 border border-pink-200 p-3 rounded-lg text-xs text-pink-800 mb-4">
-            Submitted bKash TrxID:{" "}
-            <strong className="font-mono text-sm">
-              {lic.lastPaymentTrxId}
-            </strong>
+        {lic.lastPaymentTrxId ? (
+          <div className="bg-pink-50 dark:bg-pink-950/40 border border-pink-200 dark:border-pink-900 p-3.5 rounded-xl text-xs text-pink-800 dark:text-pink-300 mb-4 flex items-center justify-between">
+            <div>
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-pink-600 dark:text-pink-400">
+                Submitted bKash TrxID
+              </div>
+              <strong className="font-mono text-base font-bold text-pink-700 dark:text-pink-200">
+                {lic.lastPaymentTrxId}
+              </strong>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                navigator.clipboard.writeText(lic.lastPaymentTrxId!);
+                toast.success("TrxID copied to clipboard!");
+              }}
+              className="px-2.5 py-1 bg-pink-200 dark:bg-pink-900 text-pink-800 dark:text-pink-100 rounded-lg text-xs font-bold hover:opacity-90 transition"
+            >
+              Copy TrxID
+            </button>
+          </div>
+        ) : (
+          <div className="bg-muted p-3.5 rounded-xl text-xs text-muted-foreground mb-4">
+            No pending TrxID submitted. Click confirm to extend access manually.
           </div>
         )}
 
