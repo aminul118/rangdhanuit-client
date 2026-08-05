@@ -13,6 +13,12 @@ export const metadata: Metadata = generateMetaTags({
 
 export const dynamic = "force-dynamic";
 
+/* ---- Import Skeletons ---- */
+import { PartnersSkeleton } from "@/app/(public)/_components/skeletons/PartnersSkeleton";
+import { ServicesSkeleton } from "@/app/(public)/_components/skeletons/ServicesSkeleton";
+import { PortfolioSliderSkeleton } from "@/app/(public)/_components/skeletons/PortfolioSliderSkeleton";
+import { LatestBlogsSkeleton } from "@/app/(public)/_components/skeletons/LatestBlogsSkeleton";
+
 /* ---- Data-fetching section wrappers ---- */
 import { getPartners } from "@/services/Partner/partner";
 
@@ -47,30 +53,26 @@ import nextDynamic from "next/dynamic";
 
 const PartnersDyn = nextDynamic(
   () => import("@/app/(public)/_components/Partners"),
-  {
-    loading: () => <SectionSkeleton />,
-  },
+  { loading: () => <PartnersSkeleton /> },
 );
 const ServicesDyn = nextDynamic(
   () => import("@/app/(public)/_components/Services"),
-  { loading: () => <SectionSkeleton /> },
+  { loading: () => <ServicesSkeleton /> },
 );
 const StatsDyn = nextDynamic(() => import("@/app/(public)/_components/Stats"), {
   loading: () => <SectionSkeleton />,
 });
 const PortfolioSliderDyn = nextDynamic(
   () => import("@/app/(public)/_components/PortfolioSlider"),
-  { loading: () => <SectionSkeleton /> },
+  { loading: () => <PortfolioSliderSkeleton /> },
 );
 const ProcessDyn = nextDynamic(
   () => import("@/app/(public)/_components/Process"),
-  {
-    loading: () => <SectionSkeleton />,
-  },
+  { loading: () => <SectionSkeleton /> },
 );
 const LatestBlogsDyn = nextDynamic(
   () => import("@/app/(public)/_components/LatestBlogs"),
-  { loading: () => <SectionSkeleton /> },
+  { loading: () => <LatestBlogsSkeleton /> },
 );
 const CTADyn = nextDynamic(() => import("@/app/(public)/_components/CTA"), {
   loading: () => <SectionSkeleton />,
@@ -84,22 +86,22 @@ const Home = () => {
   return (
     <div className="flex flex-col">
       <Hero />
-      <Suspense fallback={<SectionSkeleton />}>
+      <Suspense fallback={<PartnersSkeleton />}>
         <PartnersSection />
       </Suspense>
-      <Suspense fallback={<SectionSkeleton />}>
+      <Suspense fallback={<ServicesSkeleton />}>
         <ServicesSection />
       </Suspense>
       <Suspense fallback={<SectionSkeleton />}>
         <StatsDyn />
       </Suspense>
-      <Suspense fallback={<SectionSkeleton />}>
+      <Suspense fallback={<PortfolioSliderSkeleton />}>
         <PortfolioSection />
       </Suspense>
       <Suspense fallback={<SectionSkeleton />}>
         <ProcessDyn />
       </Suspense>
-      <Suspense fallback={<SectionSkeleton />}>
+      <Suspense fallback={<LatestBlogsSkeleton />}>
         <BlogsSection />
       </Suspense>
       <Suspense fallback={<SectionSkeleton />}>
