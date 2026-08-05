@@ -42,9 +42,15 @@ const removeRefreshToken = async () => {
   });
 };
 
+const getAccessToken = async () => {
+  const cookieStore = await cookies();
+  return (await cookieStore).get("accessToken")?.value;
+};
+
 export {
   removeAccessToken,
   removeRefreshToken,
   setAccessToken,
   setRefreshToken,
+  getAccessToken,
 };

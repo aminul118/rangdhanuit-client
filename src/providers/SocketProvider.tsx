@@ -14,6 +14,7 @@ import { usePathname } from "next/navigation";
 import envVars from "@/config/env.config";
 import { toast } from "sonner";
 import { markNotificationRead } from "@/services/Notification/notification.actions";
+import { getAccessToken } from "@/services/Auth/cookie-token";
 
 interface SocketContextType {
   socket: Socket | null;
@@ -42,78 +43,90 @@ export const SocketProvider = ({ children }: { children: ReactNode }) => {
   const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
-    if (user && !socketRef.current) {
-      // Strip /api/v1 — Socket.IO connects at the root path
-      const socketUrl = (envVars.apiUrl || "http://localhost:5000").replace(
-        /\/api\/v1$/,
-        "",
-      );
+    let cancelled = false;
 
-      // httpOnly cookies are sent automatically by the browser via withCredentials
-      // The server reads the accessToken from the cookie header
-      const socketInstance = io(socketUrl, {
-        withCredentials: true,
-        // Let Socket.IO default to polling -> websocket upgrade for reliable cookie auth
-        transports: ["polling", "websocket"],
-      });
+    const connectSocket = async () => {
+      if (user && !socketRef.current) {
+        // Fetch the httpOnly cookie via the secure server action
+        const token = await getAccessToken();
 
-      socketInstance.on("connect", () => {
-        setConnected(true);
-        setSocket(socketInstance);
-        console.log("Socket connected:", socketInstance.id);
-      });
+        if (cancelled) return;
 
-      socketInstance.on("disconnect", () => {
-        setConnected(false);
-        setSocket(null);
-        console.log("Socket disconnected");
-      });
+        // Strip /api/v1 — Socket.IO connects at the root path
+        const socketUrl = (envVars.apiUrl || "http://localhost:5000").replace(
+          /\/api\/v1$/,
+          "",
+        );
 
-      socketInstance.on("connect_error", (err) => {
-        console.error("Socket connection error:", err.message);
-        setConnected(false);
-      });
+        // Pass the token explicitly in the auth object because
+        // cross-origin environments with SameSite=Lax often drop credentials
+        const socketInstance = io(socketUrl, {
+          auth: { token },
+          withCredentials: true,
+          transports: ["polling", "websocket"],
+        });
 
-      socketInstance.on("new_notification", (data) => {
-        const isMessagesRoute = pathnameRef.current?.includes("/messages");
+        socketInstance.on("connect", () => {
+          setConnected(true);
+          setSocket(socketInstance);
+          console.log("Socket connected:", socketInstance.id);
+        });
 
-        // If user is already on the messages route, skip badge increment
-        // and optionally mark as read on server immediately
-        if (isMessagesRoute) {
-          if (data._id) {
-            markNotificationRead(data._id);
+        socketInstance.on("disconnect", () => {
+          setConnected(false);
+          setSocket(null);
+          console.log("Socket disconnected");
+        });
+
+        socketInstance.on("connect_error", (err) => {
+          console.error("Socket connection error:", err.message);
+          setConnected(false);
+        });
+
+        socketInstance.on("new_notification", (data) => {
+          const isMessagesRoute = pathnameRef.current?.includes("/messages");
+
+          // If user is already on the messages route, skip badge increment
+          // and optionally mark as read on server immediately
+          if (isMessagesRoute) {
+            if (data._id) {
+              markNotificationRead(data._id);
+            }
+            // Do not increment unreadCount
+          } else {
+            setUnreadCount((prev) => prev + 1);
           }
-          // Do not increment unreadCount
-        } else {
-          setUnreadCount((prev) => prev + 1);
-        }
 
-        if (data.type === "NEW_MESSAGE" || data.type === "ADMIN_REPLY") {
-          // Only show toast if NOT on messages route to avoid noise
-          if (!isMessagesRoute) {
-            toast.info(data.message || "New message received", {
-              description: data.from ? `From: ${data.from}` : undefined,
-              action: {
-                label: "View",
-                onClick: () => {
-                  window.location.href =
-                    user.role === "USER"
-                      ? "/dashboard/messages"
-                      : "/admin/messages";
+          if (data.type === "NEW_MESSAGE" || data.type === "ADMIN_REPLY") {
+            // Only show toast if NOT on messages route to avoid noise
+            if (!isMessagesRoute) {
+              toast.info(data.message || "New message received", {
+                description: data.from ? `From: ${data.from}` : undefined,
+                action: {
+                  label: "View",
+                  onClick: () => {
+                    window.location.href =
+                      user.role === "USER"
+                        ? "/dashboard/messages"
+                        : "/admin/messages";
+                  },
                 },
-              },
-            });
+              });
+            }
           }
-        }
-      });
+        });
 
-      socketRef.current = socketInstance;
-    } else if (!user && socketRef.current) {
-      socketRef.current.disconnect();
-      socketRef.current = null;
-    }
+        socketRef.current = socketInstance;
+      } else if (!user && socketRef.current) {
+        socketRef.current.disconnect();
+        socketRef.current = null;
+      }
+    };
+
+    connectSocket();
 
     return () => {
+      cancelled = true;
       if (socketRef.current) {
         socketRef.current.disconnect();
         socketRef.current = null;
